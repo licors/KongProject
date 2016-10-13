@@ -1,0 +1,6 @@
+target/
+build.xml
+nbproject/
+.project/
+.classpath/
+.settings/
