@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- 관심티켓 리스트 -->
+	<definition name="basketList" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/basket/basketList.jsp" />
+	</definition>
+
+	<!-- 관심티켓 추가 -->
+	<definition name="addBasket" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/basket/addBasket.jsp" />
+	</definition>
+
+	<!-- 관심티켓 삭제 -->
+	<definition name="deleteBasket" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/basket/deleteBasket.jsp" />
+	</definition>
+
+</tiles-definitions>
+

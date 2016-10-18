@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="main" template="/template/layout.jsp">
+		<put-attribute name="title" value="Kong" />
+		<put-attribute name="top" value="/template/top.jsp" />
+		<put-attribute name="left" value="/template/left.jsp" />
+		<put-attribute name="body" value="/main/main.jsp" />
+		<put-attribute name="bottom" value="/template/bottom.jsp" />
+	</definition>
+
+	<!-- <definition name="mainshowcaselist" extends="main"> <put-attribute 
+		name="body" value="/main/showcaseList" /> </definition> -->
+
+	<!-- <definition name="test" extends="main"> <put-attribute name="body" 
+		value="/main/mainT.jsp" /> </definition> -->
+
+	<definition name="test_d" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/main/showcaseList.jsp" />
+	</definition>
+
+<!--  수호0906 05:00 로그아웃처리시에 메인화면이 자꾸 안떠서 아줌마소스 배껴서 타일즈 main1로 하나 더 만들어봄. 그래도안됨 뭐가 문제일까? -->
+	<definition name="main1" extends="main">
+		<put-attribute name="body" value="/main/main.jsp" />
+	</definition>
+	
+
+	<!-- showcase -->
+	<!-- 전시상품 리스트 -->
+	<!-- <definition name="showcase_list" extends="main"> <put-attribute name="body" 
+		value="/main/showcaseList.jsp" /> </definition> -->
+
+</tiles-definitions>
+

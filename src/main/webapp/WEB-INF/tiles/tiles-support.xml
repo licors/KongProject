@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <!-- 리스트 -->
+    <definition name="support_list" extends="main">
+       	<put-attribute name="left" value="" />
+        <put-attribute name="body" value="/admin/support/supportlist.jsp" />
+    </definition>
+    <!-- 상세보기 -->
+    <definition name="support_view" extends="main">
+        <put-attribute name="left" value="" />
+        <put-attribute name="body" value="/admin/support/supportview.jsp" />
+    </definition>
+    <!-- 폼 -->
+    <definition name="support_form" extends="main">
+        <put-attribute name="left" value="" />
+        <put-attribute name="body" value="/admin/support/supportwrite.jsp" />
+    </definition>
+
+</tiles-definitions>
+

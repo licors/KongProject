@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="orderList" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/order/orderList.jsp" />
+	</definition>
+	<definition name="adminOrderList" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/admin/order/orderList.jsp" />
+	</definition>
+	<definition name="orderForm" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/order/orderForm.jsp" />
+	</definition>
+	<definition name="orderSuccess" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/order/orderSuccess.jsp" />
+	</definition>
+	<definition name="orderView" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/order/orderView.jsp" />
+	</definition>
+	<definition name="orderView" extends="main">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/order/orderView.jsp" />
+	</definition>
+
+</tiles-definitions>
+

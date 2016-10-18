@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+    <!-- 리스트 -->
+    <definition name="notice_list" extends="main">
+        <put-attribute name="left" value="" />
+        <put-attribute name="body" value="/admin/notice/noticelist.jsp" />
+    </definition>
+    <!-- 상세보기 -->
+    <definition name="notice_view" extends="main">
+        <put-attribute name="left" value="" />
+        <put-attribute name="body" value="/admin/notice/noticeview.jsp" />
+    </definition>
+    <!-- 폼 -->
+    <definition name="notice_form" extends="main">
+        <put-attribute name="left" value="" />
+        <put-attribute name="body" value="/admin/notice/noticeawrite.jsp" />
+    </definition>
+
+</tiles-definitions>
+
