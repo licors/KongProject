@@ -21,7 +21,7 @@
 
 	<!-- default를 확장하여 test 라는 URL로 시작되는 호출이 오는 경우 아래 설정에 의해서 페이지를 만들게 됩니다. -->
 	<definition name="loginForm" extends="default">
-		<put-attribute name="body" value="/WEB-INF/views/auth/loginForm.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
 	</definition>
 	
 	
