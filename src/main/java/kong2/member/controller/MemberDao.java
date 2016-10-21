@@ -9,8 +9,6 @@ public interface MemberDao {
 	public MemberModel getMember(String id);
 
 	public Object insertMember(MemberModel mem);
-
-	public MemberModel idFindByName(MemberModel member);
 	
 	public MemberModel pwFindById(MemberModel member);
 
