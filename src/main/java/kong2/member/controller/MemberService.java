@@ -31,12 +31,7 @@ public class MemberService implements MemberDao{
 	public Object insertMember(MemberModel mem) {
 		return sqlSessionTemplate.insert("member.insertMember", mem);
 	}
-	
-	@Override
-	public MemberModel idFindByName(MemberModel member) {
-		return sqlSessionTemplate.selectOne("member.idfind", member);
-    }
-	
+
 	@Override
 	public MemberModel pwFindById(MemberModel member) {
 		return sqlSessionTemplate.selectOne("member.pwfind", member);
