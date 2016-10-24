@@ -13,6 +13,14 @@
 	<annotation-driven />
 	<default-servlet-handler/>
 	
+	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<beans:property name="basenames">
+			<beans:list>
+				<beans:value>messages.memberMessage_ko</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 

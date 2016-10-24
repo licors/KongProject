@@ -14,9 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import kong2.validator.MemberValidator;
 
 @Controller
 @RequestMapping("/member")
@@ -24,8 +21,6 @@ public class MemberController {
 
 	@Resource(name = "memberService")
 	private MemberService memberService;
-
-	ModelAndView mav = new ModelAndView();
 
 	private List<ZipcodeModel> zipcodeList = new ArrayList<ZipcodeModel>();
 
@@ -38,7 +33,6 @@ public class MemberController {
 	public String memberLogin(HttpServletRequest request, MemberModel mem, Model model) {
 
 		MemberModel result = memberService.memberLogin(mem);
-		// ModelAndView mav = new ModelAndView();
 
 		if (result != null) {
 
@@ -49,57 +43,30 @@ public class MemberController {
 			session.setAttribute("session_member_name", result.getName());
 			session.setAttribute("session_member_no", result.getMember_num());
 
-			session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
 			model.addAttribute("mem");
 			return "member/loginSuccess";
-
-//			mav.setViewName("auth/loginSuccess");
-//			return mav;
 		}
-
-//		mav.setViewName("auth/loginError");
-//		return mav;
-		return "auth/loginError";
+		return "member/loginError";
 	}
 
 	@RequestMapping("/logout")
-	public ModelAndView memberLogout(HttpServletRequest request, MemberModel mem) {
+	public String memberLogout(HttpServletRequest request, MemberModel mem) {
 
 		HttpSession session = request.getSession(false);
 
 		if (session != null) {
 			session.invalidate();
 		}
-		MemberModel member = (MemberModel) session.getAttribute("mem");
-
-		mav.addObject("member", new MemberModel());
-		// ModelAndView mav = new ModelAndView();
-		mav.setViewName("member/logout");
-		return mav;
-	}
-
-	@ModelAttribute("member")
-	public MemberModel formBack() {
-		return new MemberModel();
-	}
-
-	@RequestMapping("/member")
-	public ModelAndView memberStep1() {
-
-		ModelAndView mav = new ModelAndView();
-
-		mav.setViewName("member");
-		return mav;
+		return "member/logout";
 	}
 	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
-	public ModelAndView memberPwFindForm() {
-		mav.setViewName("member/pwFind");
-		return mav;
+	public String memberPwFindForm() {
+		return "member/pwFind";
 	}
 
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.POST)
-	public ModelAndView memberPwFind(@ModelAttribute("member") MemberModel member, HttpServletRequest request) {
+	public String memberPwFind(@ModelAttribute("member") MemberModel member, HttpServletRequest request, Model model) {
 
 		int memberFindChk;
 
@@ -107,103 +74,94 @@ public class MemberController {
 
 		if (member == null) {
 			memberFindChk = 0; 
-			mav.addObject("memberFindChk", memberFindChk);
-			mav.setViewName("member/idFindError");
-			return mav;
+			model.addAttribute("memberFindChk", memberFindChk);
+			return "member/idFindError";
 
 		} else {
 
 			if (member.getEmail().equals(member.getEmail())) {
-				memberFindChk = 1; // ȸ�����ԵǾ� ����, �̸��� ��ġ
-				mav.addObject("member", member);
-				mav.addObject("memberFindChk", memberFindChk);
-				mav.setViewName("member/pwFindOk");
-				return mav;
+				memberFindChk = 1;
+				model.addAttribute("member", member);
+				model.addAttribute("memberFindChk", memberFindChk);
+				return "member/pwFindOk";
 			} else {
 				memberFindChk = -1; 
-				mav.addObject("memberFindChk", memberFindChk);
-				mav.setViewName("member/idFindError");
-				return mav;
+				model.addAttribute("memberFindChk", memberFindChk);
+				return "member/idFindError";
 			}
 		}
 	}
 
+	@RequestMapping(value="/memberJoin", method = RequestMethod.GET)
+	public String memberJoin() {
+			return "memberJoinForm";
+	}
+	
+	@RequestMapping(value="/memberJoin", method = RequestMethod.POST)
+	public String memberJoin(@ModelAttribute("member") MemberModel member, BindingResult result, Model model) {
+		try {
+			memberService.insertMember(member);
+			return "main";
+		} catch (DuplicateKeyException e) {
+			result.reject("invalid", null);
+			return "memberJoin";
+		}
+	}
 	@RequestMapping("/memberModify")
-	public ModelAndView memberModify(@ModelAttribute("member") MemberModel member, BindingResult result,
-			HttpSession session) {
+	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 		session.getAttribute("session_member_id");
 
 		if (session.getAttribute("session_member_id") != null) {
 			String id = (String) session.getAttribute("session_member_id");
 			member = memberService.getMember(id);
 
-			mav.addObject("member", member);
-			mav.setViewName("memberModify");
-			return mav;
+			model.addAttribute("member", member);
+			return "memberModify";
 		} else {
-
-			mav.setViewName("loginConfirm");
-			return mav;
+			return "loginConfirm";
 		}
 	}
 
 	@RequestMapping("/memberModifyEnd")
-	public ModelAndView memberModifyEnd(@ModelAttribute("member") MemberModel member, BindingResult result) {
+	public String memberModifyEnd(@ModelAttribute("member") MemberModel member, BindingResult result) {
 		// Validation Binding
 		/* new MemberValidator().validate(member, result); */
 
 		try {
 			memberService.memberModify(member);
-			mav.setViewName("memberModifyEnd");
-			return mav;
+			return "memberModifyEnd";
 		} catch (DuplicateKeyException e) {
 			result.reject("invalid", null);
-			System.out.println("ĳġ����");
-			mav.setViewName("memberModify");
-			return mav;
+			return "memberModify";
 		}
 
 	}
 
 	@RequestMapping(value = "/zipcodeCheckForm")
-	public ModelAndView zipcodeCheckForm(HttpServletRequest req) throws Exception {
-		ModelAndView mv = new ModelAndView();
-
-		mv.setViewName("check/zipcodeCheck");
-		return mv;
+	public String zipcodeCheckForm(HttpServletRequest req) throws Exception {
+		return "check/zipcodeCheck";
 	}
 
 	@RequestMapping(value = "/zipcodeCheck")
-	public ModelAndView zipcodeCheck(@ModelAttribute ZipcodeModel zipcodeModel, HttpServletRequest req)
+	public String zipcodeCheck(@ModelAttribute ZipcodeModel zipcodeModel, Model model)
 			throws Exception {
-
-		ModelAndView mv = new ModelAndView();
-
 		int chk = 100;
 
 		zipcodeList = memberService.zipcodeCheck(zipcodeModel);
-
-		mv.addObject("zipcode", zipcodeList);
+		model.addAttribute("zipcode", zipcodeList);
 
 		if (zipcodeList.size() == 0) {
 			chk = 0;
 		} else {
 			chk = 1;
 		}
-		mv.addObject("chk", chk);
-		mv.setViewName("check/zipcodeCheck");
-		return mv;
-	}
-
-	@RequestMapping("/memberWith")
-	public ModelAndView memberWith() {
-		mav.setViewName("signOut");
-		return mav;
+		model.addAttribute("chk", chk);
+		return "check/zipcodeCheck";
 	}
 
 	@RequestMapping("/memberDelete")
-	public ModelAndView memberDelete(@ModelAttribute("member") MemberModel member, BindingResult result,
-			HttpSession session, HttpServletRequest request) {
+	public String memberDelete(@ModelAttribute("member") MemberModel member, 
+				HttpSession session, HttpServletRequest request, Model model) {
 
 		MemberModel memberModel; 
 
@@ -227,9 +185,8 @@ public class MemberController {
 			deleteCheck = -1; 
 		}
 
-		mav.addObject("deleteCheck", deleteCheck);
-		mav.setViewName("deleteResult");
-		return mav;
+		model.addAttribute("deleteCheck", deleteCheck);
+		return "deleteResult";
 	}
 
 }
