@@ -41,7 +41,7 @@ public class faqController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/list")
+	/*@RequestMapping(value="/list")
 	public String qnaList(Model model) throws UnsupportedEncodingException {
 		
 		
@@ -51,7 +51,7 @@ public class faqController {
 		model.addAttribute("list", list);
 		
 		return "faq_list";
-	}
+	}*/
 	
 	
 	
