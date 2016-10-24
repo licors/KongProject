@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import kong2.basket.controller.basketModel;
+
 
 public class basketService implements basketDAO{
 	@Resource(name="sqlSessionTemplate")

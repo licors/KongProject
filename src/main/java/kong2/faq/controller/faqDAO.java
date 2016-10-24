@@ -20,8 +20,8 @@ public interface faqDAO {
 	int faqDelete(int no);
 	
 	//글수정
-	int faqModify(faqModel QnAmodel);
+	int faqModify(faqModel faqmodel);
 	
 	//글쓰기
-	int faqWrite(faqModel QnAmodel);
+	int faqWrite(faqModel faqmodel);
 }

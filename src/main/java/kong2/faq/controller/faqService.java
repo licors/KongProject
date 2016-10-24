@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kong2.faq.controller.faqDAO;
 
+
 public class faqService implements faqDAO{
 
 	
@@ -17,32 +18,32 @@ public class faqService implements faqDAO{
 
 	@Override
 	public List<faqModel> faqList() {
-	
-		return null;
+		return sqlSessionTemplate.selectList("faq.selectall");
+
 	}
 
 	@Override
 	public faqModel faqView(int no) {
+		return sqlSessionTemplate.selectOne("faq.selectOne",no);
 
-		return null;
 	}
 
 	@Override
 	public int faqDelete(int no) {
+		return sqlSessionTemplate.update("faq.delete",no); 
 
-		return 0;
 	}
 
 	@Override
-	public int faqModify(faqModel QnAmodel) {
+	public int faqModify(faqModel faqmodel) {
+		return sqlSessionTemplate.update("faq.update",faqmodel); 
 
-		return 0;
 	}
 
 	@Override
-	public int faqWrite(faqModel QnAmodel) {
-
-		return 0;
+	public int faqWrite(faqModel faqmodel) {
+		return sqlSessionTemplate.insert("faq.insert", faqmodel);
+	
 	}
 	
 	

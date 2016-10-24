@@ -21,8 +21,15 @@ public class basketModel {
 	private String address2;
 	private int readcount;
 	private int ordercount;
-	private int pay;
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
 	private String showboard_category;
+	private int price;
 	
 	public int getBasket_num() {
 		return basket_num;
@@ -90,12 +97,7 @@ public class basketModel {
 	public void setOrdercount(int ordercount) {
 		this.ordercount = ordercount;
 	}
-	public int getPay() {
-		return pay;
-	}
-	public void setPay(int pay) {
-		this.pay = pay;
-	}
+
 	public String getShowboard_category() {
 		return showboard_category;
 	}

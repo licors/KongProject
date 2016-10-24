@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- where 정의 -->
     <sql id="where-no">
-        WHERE faq_num=#faq_num#
+        WHERE faq_num=#{faq_num}
     </sql>
 
     <!-- select 쿼리문 정의 -->
@@ -39,14 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- insert 쿼리문 정의 -->
     <insert id="insert" parameterType="faq">
         INSERT INTO faq (faq_num, subject, content)
-        VALUES(faq_num_seq.NEXTVAL, #subject#, #content#)
+        VALUES(faq_num_seq.NEXTVAL, #{subject}, #{content})
     </insert>
 
     <!-- update 쿼리문 정의 -->
     <update id="update" parameterType="faq">
         UPDATE faq SET
-        subject=#subject#,
-        content=#content#
+        subject=#{subject},
+        content=#{content}
         <include refid="where-no"/>
     </update>
 
