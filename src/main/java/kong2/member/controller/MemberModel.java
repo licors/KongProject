@@ -1,19 +1,16 @@
 package kong2.member.controller;
 
-import java.util.Date;
-
 public class MemberModel {
 
 	private int member_num;
-    private String email;
+    private String id_email;
     private String password;
     private String name;
+    private String zipcode;
     private String address;
     private String address2;
-    private String zipcode;
     private String company;
-    private int gm;
-    
+    private int admin;
     
 	public int getMember_num() {
 		return member_num;
@@ -21,11 +18,11 @@ public class MemberModel {
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
 	}
-	public String getEmail() {
-		return email;
+	public String getId_email() {
+		return id_email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId_email(String id_email) {
+		this.id_email = id_email;
 	}
 	public String getPassword() {
 		return password;
@@ -63,12 +60,11 @@ public class MemberModel {
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public int getGm() {
-		return gm;
+	public int getAdmin() {
+		return admin;
 	}
-	public void setGm(int gm) {
-		this.gm = gm;
+	public void setAdmin(int gm) {
+		this.admin = gm;
 	}
-
     
 }

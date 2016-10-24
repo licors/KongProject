@@ -3,64 +3,41 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="member">
-
-<resultMap type="memberModel" id="memberRes">
-		<result property="num" column="num" />
-		<result property="id" column="id" />
+<mapper namespace="kong2.member.controller.MemberMapper">
+	<resultMap type="memberModel" id="memberRes">
+		<result property="member_num" column="num" />
+		<result property="id_email" column="id_email" />
 		<result property="password" column="password" />
 		<result property="name" column="name" />
-		<result property="phone" column="phone" />
-		<result property="email" column="email" />
-		<result property="join_date" column="join_date" />
-		<result property="zipcode" column="zipcode" />
-		<result property="addr" column="addr" />
-		<result property="point" column="point" />
+		<result property="zipcode" column="zipcode"/>
+		<result property="address" column="address"/>
+		<result property="address2" column="address2"/>
+		<result property="company" column="company"/>
+		<result property="admin" column="admin"/>
 	</resultMap>
 	
-	<resultMap type="zipcodeModel" id="zipcodeRes">
-		<result property="zipcode" column="zipcode" />
-		<result property="area1" column="area1" />
-		<result property="area2" column="area2" />
-		<result property="area3" column="area3" />
-		<result property="area4" column="area4" />
-	</resultMap>
-	
-	
-	
-	<!-- 공통으로 사용할 select 의 -->
-	<sql id="select-all-m">
+ 	<!-- 공통으로 사용할 select 의 -->
+<!--	<sql id="select-all-m">
 	SELECT * FROM MEMBER 
 	</sql>
 	
 	<select id="memberList" resultMap="memberRes">
 		SELECT * FROM MEMBER ORDER BY num DESC
-	</select>
-
-	<select id="selectAll-m" resultMap="memberRes" parameterType="int">
-		<include refid="select-all-m" />
-
-	</select>
-
-        <!-- 로그인 체크 -->
-<!-- 	<select id="login" parameterType="memberModel" resultMap="memberRes">
-		select
-		* from member where id=#{id} and password=#{password}
 	</select> -->
 	
     <!-- 로그인 -->
-    <select id="login" parameterType="memberModel" resultMap="memberRes">
-        SELECT * FROM MEMBER WHERE EMAIL=#{email}
+    <select id="memberLogin" parameterType="memberModel" resultMap="memberRes">
+        SELECT * FROM MEMBER WHERE ID_EMAIL=#{id_email} and PASSWORD=#{password}
     </select>
 
 
 	<!-- 아이디 찾기 쿼리문 정의 -->
 	<!-- <select id="getMember" parameterType="String" resultMap="memberRes">
 		<include refid="select-all-m" />
-		WHERE id = #{id}
-	</select>
+		WHERE id_email = #{id_email}
+	</select> -->
 
-
+<!-- 
 	회원정보 입력 쿼리문
 	<insert id="insertMember" parameterType="memberModel">
 		insert into member
