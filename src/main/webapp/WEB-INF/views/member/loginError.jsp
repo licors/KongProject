@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 
 <script>
-function Success(){
-	alert("환영합니다!!");
+function Error(){
+	alert("로그인 실패");
 	//window.location.href='/showcase/sclist.action';
-	history.go(-1);
+	history.go(0);
 }
 </script>
 
 <script>
-Success()
+Error()
 </script>

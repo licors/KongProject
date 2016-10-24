@@ -17,8 +17,6 @@ public class MemberValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
-		MemberModel member = (MemberModel) target;
-		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password");
 	}
