@@ -2,13 +2,9 @@ package kong2.faq.controller;
 
 import java.util.List;
 
+public interface faqMapper {
 
-
-
-
-public interface faqDAO {
-
-	
+	//글 리스트
 	List<faqModel> selectall();
 	
 	
