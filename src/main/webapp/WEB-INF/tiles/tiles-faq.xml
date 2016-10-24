@@ -5,12 +5,12 @@
 
 <tiles-definitions>
     <!-- 리스트 -->
-    <definition name="qna_list" extends="main">
+    <definition name="faq_list" extends="main">
         <put-attribute name="left" value="" />
         <put-attribute name="body" value="/admin/qna/qnalist.jsp" />
     </definition>
     <!-- 폼 -->
-    <definition name="qna_form" extends="main">
+    <definition name="faq_form" extends="main">
        	<put-attribute name="left" value="" />
         <put-attribute name="body" value="/admin/qna/qnawrite.jsp" />
     </definition>

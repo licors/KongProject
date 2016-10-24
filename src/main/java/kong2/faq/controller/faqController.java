@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +30,8 @@ public class faqController {
 	private faqService faqService;
 	
 	@RequestMapping(value = "/list")
-	public ModelAndView qnaList(HttpServletRequest request, faqModel faqModel) throws UnsupportedEncodingException {
-		ModelAndView mav = new ModelAndView("qna_list");
+	public ModelAndView faqList(HttpServletRequest request, faqModel faqModel) throws UnsupportedEncodingException {
+		ModelAndView mav = new ModelAndView("faq_list");
 		
 		List<faqModel> list;
 		
@@ -38,5 +39,20 @@ public class faqController {
 		mav.addObject("list", list);
 		
 		return mav;
-}
+	}
+	
+	@RequestMapping(value="/list")
+	public String qnaList(Model model) throws UnsupportedEncodingException {
+		
+		
+		List<faqModel> list;
+		
+		list = faqService.faqList();
+		model.addAttribute("list", list);
+		
+		return "faq_list";
+	}
+	
+	
+	
 }

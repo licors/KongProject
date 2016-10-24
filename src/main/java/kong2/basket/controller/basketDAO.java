@@ -1,5 +1,5 @@
 package kong2.basket.controller;
 
-public class basketDAO {
+public interface basketDAO {
 
 }
