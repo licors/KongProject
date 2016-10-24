@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+
+<resultMap type="orderModel" id="orderRes">
+		<result property="order_num" column="order_num" />		<!-- //column: 우리가가진 테이블 컬럼명, property: order자바빈의 변수 -->
+		<result property="member_num" column="member_num" />
+		<result property="showcase_num" column="showcase_num" />
+		<result property="name" column="name" />
+		<result property="sex" column="sex" />
+		<result property="company" column="company" />
+		<result property="address2" column="address2" /> <!-- 회원 주소 -->
+		<result property="email" column="email" /> <!-- 아이디 역할 -->
+		<result property="barcode" column="barcode" />
+		<result property="order_date" column="order_date" />
+		<result property="tel" column="tel" />
+		<result property="order_status" column="order_status" />
+		<result property="bank_account" column="bank_account"/>
+		<result property="total_price" column="total_price"/>
+		<result property="payment_type" column="payment_type"/>
+		<result property="payment_date" column="payment_date"/>
+		<result property="payment_payer" column="payment_payer" />
+		<result property="show_subject" column="show_subject" />
+		<result property="show_price" column="show_price" />
+		<result property="show_status" column="show_status"/>
+		<result property="file_savname" column="file_savname" />
+		<result property="start_date" column="start_date" />
+		<result property="end_date" column="end_date" />
+		<result property="show_addr" column="show_addr" />	<!-- 전시회 위치 -->
+		<result property="readcount" column="readcount" />
+		<result property="ordercount" column="ordercount" />
+		<result property="datepicker1" column="order_date" /> <!-- 기간검색 시 필요 -->
+		<result property="datepicker2" column="order_date" />
+	</resultMap>	
+	
+	<!-- 공통으로 사용할 select 의 -->
+	<sql id="select-all-order">
+	SELECT od.ORDER_NUM, od.MEMBER_NUM, od.SHOWBOARD_NUM, od.NAME, od.SEX, od.COMPANY,
+	od.ADDRESS, od.EMAIL, od.BARCODE, od.ORDER_DATE, od.TEL, od.ORDER_STATUS, od.BANK_ACCOUNT,
+	od.TOTAL_PRICE, od.PAYMENT_TYPE, od.PAYMENT_DATE, od.PAYMENT_PAYER, sb.SUBJECT, sb.PRICE, sb.SHOW_STATUS,
+	sb.FILE_SAVNAME, sb.START_DATE, sb.END_DATE, sb.ADDRESS2, sb.READCOUNT, sb.ORDERCOUNT
+	FROM "ORDER" od join SHOWBOARD sb
+	on od.SHOWBOARD_NUM=sb.SHOWBOARD_NUM 
+	</sql>
+	
+<!-- select -->
+	
+	<!-- 관리자에서 전 회원 신청 리스트 조회 -->
+	<select id="order_selectAll" resultMap="orderRes">
+		<include refid="select-all-order"/>
+		order by od.ORDER_NUM DESC
+	</select>
+	
+	<!-- 관리자에서 신청 내용 상세보기 -->
+	<select id="order_selectOne" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order"/>
+		and od.ORDER_NUM=#{order_num}
+	</select>
+	
+	<!-- 회원별 신청 리스트 조회 -->
+	<select id="orderList" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order" />
+		and od.MEMBER_NUM=#{member_num}
+		order by od.ORDER_NUM DESC
+	</select>
+	
+	<!-- 회원별 특정 전시 신청 내용 상세보기 -->
+	<select id="orderDetail" resultMap="orderRes" parameterType="orderModel"> <!-- 기존 orderDetail과 다른점? -->
+		<include refid="select-all-order"/>
+		and od.MEMBER_NUM=#{member_num}
+		and sb.SUBJECT=#{show_subject}	
+	</select>
+	
+	<select id="order_date_list" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order"/>
+		and od.ORDER_DATE=#{order_date}
+		order by od.ORDER_NUM DESC
+	</select>
+	
+	<!-- 회원이 신청하고자 하는 해당 전시의 신청내역 조회 (중복신청을 막기 위함) -->
+	<select id="order_check" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order"/>
+		and od.MEMBER_NUM=#{member_num}
+		and od.SHOWBOARD_NUM=#{showboard_num}
+		and od.ORDER_STATUS=#{order_status}
+	</select>
+	
+	<!-- 관리자 리스트에서 'id'와 '신청기간'으로 조건 검색  -->
+	<select id="search_id" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order"/>
+		and od.EMAIL like #{email}
+		and od.ORDER_DATE <![CDATA[>=]]> TO_DATE(#{datepicker1},'YY-MM-DD')
+		and od.ORDER_DATE <![CDATA[<=]]> TO_DATE(#{datepicker2},'YY-MM-DD') + 0.99999 
+		order by od.ORDER_NUM DESC, od.ORDER_DATE DESC
+	</select>
+	
+	<!-- 관리자 리스트에서 '전시명'과 '신청기간'으로 조건 검색  -->
+	<select id="search_subject" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order"/>
+		and od.SUBJECT like #{show_subject}
+		and od.ORDER_DATE <![CDATA[>=]]> TO_DATE(#{datepicker1},'YY-MM-DD')
+		and od.ORDER_DATE <![CDATA[<=]]> TO_DATE(#{datepicker2},'YY-MM-DD') + 0.99999 
+		order by od.ORDER_NUM DESC, od.ORDER_DATE DESC
+	</select>
+	
+	<!-- 관리자 리스트에서 '신청상태'와 '신청기간'으로 조건 검색  -->
+	<select id="search_status" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order"/>
+		and od.ORDER_STATUS like #{order_status}
+		and od.ORDER_DATE <![CDATA[>=]]> TO_DATE(#{datepicker1},'YY-MM-DD')
+		and od.ORDER_DATE <![CDATA[<=]]> TO_DATE(#{datepicker2},'YY-MM-DD') + 0.99999 
+		order by od.ORDER_NUM DESC, od.ORDER_DATE DESC
+	</select>
+	
+	<!-- 관리자 리스트에서 '신청기간'으로 조건 검색  -->
+	<select id="search_date" resultMap="orderRes" parameterType="orderModel">
+		<include refid="select-all-order"/>
+		and od.ORDER_DATE <![CDATA[>=]]> TO_DATE(#{datepicker1},'YY-MM-DD')
+		and od.ORDER_DATE <![CDATA[<=]]> TO_DATE(#{datepicker2},'YY-MM-DD') + 0.99999 
+		order by od.ORDER_NUM DESC, od.ORDER_DATE DESC
+	</select>
+	
+<!-- insert -->
+	<insert id="insert_order" parameterType="orderModel">
+		INSERT INTO
+		"ORDER" (ORDER_NUM, MEMBER_NUM, SHOWBOARD_NUM, NAME, SEX, COMPANY,
+		ADDRESS, EMAIL, BARCODE, ORDER_DATE, TEL, ORDER_STATUS, BANK_ACCOUNT,
+		TOTAL_PRICE, PAYMENT_TYPE, PAYMENT_DATE, PAYMENT_PAYER)
+		VALUES
+		(ORDER_NUM_SEQ.NEXTVAL, #{member_num}, #{showboard_num}, #{name}, #{sex},
+		#{company}, #{address}, #{email}, #{barcode}, #{order_date}, #{tel}, #{order_status},
+		#{bank_account}, #{total_price}, #{payment_type}, {payment_date}, #{payment_payer})
+	</insert>	
+	
+<!-- update -->
+	<!-- 신청취소 : order 데이터 삭제가 아닌 order_status 값 수정 -->
+	<update id="update_order" parameterType="orderModel">
+		UPDATE "ORDER" SET
+		ORDER_STATUS=#{order_status}
+		WHERE ORDER_NUM=#{order_num}
+	</update>
+	
+<!-- delete -->
+	<!-- 관리자용 신청 삭제 -->
+	<delete id="adminOrderDelete" parameterType="orderModel">
+		DELETE FROM "ORDER"
+		WHERE ORDER_NUM=#{order_num}
+	</delete>
+
+</mapper>
