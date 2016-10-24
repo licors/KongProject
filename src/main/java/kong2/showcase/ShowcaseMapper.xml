@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="kong2.showcase.ShowcaseMapper">
+    <resultMap type="ShowcaseModel" id="showRes">
+        <result property="showcase_num" column="showcase_num" />
+        <result property="subject" column="subject"/>
+        <result property="address1" column="address1"/>
+        <result property="address2" column="address2"/>
+        <result property="start_date" column="start_date"/>
+        <result property="end_date" column="end_date"/>
+        <result property="price" column="price"/>
+        <result property="tel" column="tel"/>
+        <result property="tag" column="tag"/>
+        <result property="content" column="content"/>
+        <result property="file_savname" column="file_savname"/>
+        <result property="readcount" column="readcount"/>
+        <result property="ordercount" column="ordercount"/>
+        <result property="map" column="map"/>
+        <result property="show_status" column="show_status"/>
+        <result property="showcase_category" column="showcase_category"/>
+    </resultMap>
+    
+    <!-- select 정의 -->
+    <sql id="select-all">
+        SELECT * FROM showcase
+    </sql>
+    
+    <!-- where 정의 -->
+    <sql id="where-no">
+        WHERE showcase_num = #{showcase_num}
+    </sql>
+	
+    <select id="selectall" resultMap="showRes">
+        <include refid="select-all"/>
+        WHERE show_status = 0
+        ORDER BY showcase_num
+    </select>
+    <select id="selectmain" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
+        <include refid="select-all"/>
+        <![CDATA[
+        WHERE showcase_category = #{showcase_category}
+        AND rownum <= 9
+        AND show_status = 0
+        ORDER BY showboard_num DESC
+        ]]>
+    </select>
+    <select id="selectcategory" resultMap="showRes">
+        <include refid="select-all"/>
+        WHERE showcase_category = #{showcase_category}
+        AND status = 0
+        ORDER BY showboard_num DESC
+    </select>
+    <select id="selectOne" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
+        <include refid="select-all"/>
+        <include refid="where-no"/>
+    </select>
+    <select id="selectLastNo" resultClass="showRes" parameterType="kong2.showcase.ShowcaseModel">
+        <include refid="select-all"/>
+        <![CDATA[
+        WHERE rownum <= 1
+        ORDER BY showboard_num DESC
+        ]]>
+    </select>
+	
+    <insert id="insert" parameterType="kong2.showcase.ShowcaseModel">
+        INSERT INTO showcase
+        VALUES(showcase_num_seq.NEXTVAL, #{subject}, #{address1}, #{address2}, #{start_date}, #{end_date}, #{price}, #{tel}, #{tag}, #{content}, #{file_savname}, #{readcount}, #{ordercount}, #{map}, #{show_status}, #{showcase_category})
+    </insert>
+	
+    <update id="update" parameterType="kong2.showcase.ShowcaseModel">
+        UPDATE showcase SET(subject=#{subject}, address1=#{address1}, address2=#{address2}, start_date=#{start_date}, end_date=#{end_date}, price=#{price}, tel=#{tel}, tag=#{tag}, content=#{content}, map=#{map}, showcase_category=#{showcase_category})
+        WHERE(showcase_category = #{showcase_category})
+    </update>
+    <update id="delete" parameterType="kong2.showcase.ShowcaseModel">
+        UPDATE showcase SET
+        show_status = #{show_status}
+        <include refid="where-no"/>
+    </update>
+    <update id="readcountup" parameterType="kong2.showcase.ShowcaseModel">
+        UPDATE showcase SET readcount = readcount + 1
+        <include refid="where-no"/>
+    </update>
+    <update id="ordercountup" parameterType="kong2.showcase.ShowcaseModel">
+        UPDATE showcase SET ordercount = ordercount + 1
+        <include refid="where-no"/>
+    </update>
+    <update id="ordercountdown" parameterType="kong2.showcase.ShowcaseModel">
+        UPDATE SHOWBOARD SET ordercount = ordercount - 1
+        <include refid="where-no"/>
+    </update>
+	
+    <!--    <delete id="deleteMember" parameterType="java.lang.String">
+        DELETE showcase
+        <include refid="where-no"/>
+    </delete>-->
+</mapper>
