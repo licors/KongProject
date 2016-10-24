@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="file_savname" column="file_savname" />
 		<result property="start_date" column="start_date" />
 		<result property="end_date" column="end_date" />
-		<result property="show_addr" column="show_addr" />	<!-- 전시회 위치 -->
+		<result property="show_addr" column="address2" />	<!-- 전시회 위치 -->
 		<result property="readcount" column="readcount" />
 		<result property="ordercount" column="ordercount" />
 		<result property="datepicker1" column="order_date" /> <!-- 기간검색 시 필요 -->
