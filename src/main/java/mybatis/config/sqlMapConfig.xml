@@ -22,15 +22,20 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 		<!-- member -->
 		<typeAlias type="kong2.member.controller.MemberModel" alias="memberModel" />
 		<typeAlias type="kong2.member.controller.ZipcodeModel" alias="zipcodeModel" />
+		
 		<!-- faq -->
 		<typeAlias type="kong2.faq.controller.faqModel" alias="faqModel" />
+		
+		<!-- basket -->
+		<typeAlias type="kong2.basket.controller.basketModel" alias="basketModel" />
 	</typeAliases>
 	
 	<!-- SQL 정의한 xml문서 Mapping -->
 	<mappers>
 		<!-- 아래와 같이 각자 사용할 '이름SQL.xml' 파일을 만들고 경로를 설정하세요 -->
 	    <mapper resource="mybatis/config/memberSQL.xml" />
-	<!--     <mapper resource="mybatis/config/faqSQL.xml" /> -->
+	     <mapper resource="mybatis/config/faqSQL.xml" />
+	     <mapper resource="mybatis/config/basketSQL.xml" />
 	</mappers>
 
 </configuration>

@@ -14,11 +14,37 @@ public class faqService implements faqDAO{
 	
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
+
+	@Override
+	public List<faqModel> faqList() {
 	
-	public List<kong2.faq.controller.faqModel> faqList() {
-
-		return sqlSessionTemplate.selectList("faq.faqList"); 
-
+		return null;
 	}
+
+	@Override
+	public faqModel faqView(int no) {
+
+		return null;
+	}
+
+	@Override
+	public int faqDelete(int no) {
+
+		return 0;
+	}
+
+	@Override
+	public int faqModify(faqModel QnAmodel) {
+
+		return 0;
+	}
+
+	@Override
+	public int faqWrite(faqModel QnAmodel) {
+
+		return 0;
+	}
+	
+	
 
 }
