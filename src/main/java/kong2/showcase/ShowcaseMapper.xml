@@ -57,7 +57,7 @@
         <include refid="select-all"/>
         <include refid="where-no"/>
     </select>
-    <select id="selectLastNo" resultClass="showRes" parameterType="kong2.showcase.ShowcaseModel">
+    <select id="selectLastNo" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
         <include refid="select-all"/>
         <![CDATA[
         WHERE rownum <= 1
