@@ -2,50 +2,63 @@ package kong2.faq.controller;
 
 import java.util.List;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Service;
 
-import kong2.faq.controller.faqDAO;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kong2.basket.controller.basketMapper;
 
 
 public class faqService implements faqDAO{
 
 	
-	@Resource
-	private SqlSessionTemplate sqlSessionTemplate;
-
-	@Override
-	public List<faqModel> faqList() {
-		return sqlSessionTemplate.selectList("faq.selectall");
-
-	}
-
-	@Override
-	public faqModel faqView(int no) {
-		return sqlSessionTemplate.selectOne("faq.selectOne",no);
-
-	}
-
-	@Override
-	public int faqDelete(int no) {
-		return sqlSessionTemplate.update("faq.delete",no); 
-
-	}
-
-	@Override
-	public int faqModify(faqModel faqmodel) {
-		return sqlSessionTemplate.update("faq.update",faqmodel); 
-
-	}
-
-	@Override
-	public int faqWrite(faqModel faqmodel) {
-		return sqlSessionTemplate.insert("faq.insert", faqmodel);
+	@Autowired
+	private SqlSession sqlSession;
 	
-	}
 	
+	@Override
+	public List<faqModel> selectall() {
+		List<faqModel> list;
+		faqMapper faqMapper = sqlSession.getMapper(faqMapper.class);
+		list=faqMapper.selectall();
+	
+		return list;
+	}
+
+	@Override
+	public faqModel selectOne(int no) {
+		faqMapper faqMapper = sqlSession.getMapper(faqMapper.class);
+		faqModel faqModel = faqMapper.selectOne(no);
+		return faqModel;
+	}
+
+	@Override
+	public void delete(int no) {
+		faqMapper faqMapper = sqlSession.getMapper(faqMapper.class);
+		faqMapper.delete(no);
+		
+	}
+
+	@Override
+	public void update(faqModel faqmodel) {
+		faqMapper faqMapper = sqlSession.getMapper(faqMapper.class);
+		faqMapper.update(faqmodel);
+	}
+
+	@Override
+	public void insert(faqModel faqmodel) {
+		faqMapper faqMapper = sqlSession.getMapper(faqMapper.class);
+		faqMapper.insert(faqmodel);
+		
+	}
+
+
 	
 
 }

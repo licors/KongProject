@@ -2,11 +2,9 @@ package kong2.basket.controller;
 
 import java.util.List;
 
-import kong2.basket.controller.basketModel;
-
-public interface basketDAO {
-
-	  public void basketInsert(basketModel basketModel);
+public interface basketMapper {
+	
+	 public void basketInsert(basketModel basketModel);
 		
 		public List<basketModel> BasketList();
 		
@@ -16,5 +14,3 @@ public interface basketDAO {
 		
 		public basketModel basket_check(basketModel basketModel);
 }
-
-

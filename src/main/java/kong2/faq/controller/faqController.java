@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import kong2.common.PagingAction;
 import kong2.faq.controller.faqModel;
 
 
@@ -26,32 +28,51 @@ import com.mycom.validator.ReviewValidator;*/
 @Controller
 @RequestMapping("/faq")
 public class faqController {
-
+	
+	  private int currentPage = 1; 
+	    private int totalCount;
+	    private int blockCount = 10;
+	    private int blockPage = 3;
+	    private String pagingHtml;
+	    private PagingAction page;
+	    private int num = 0;
+	
+	
+	
+	@Resource(name="faqService")
 	private faqService faqService;
 	
-	@RequestMapping(value = "/list")
-	public ModelAndView faqList(HttpServletRequest request, faqModel faqModel) throws UnsupportedEncodingException {
-		ModelAndView mav = new ModelAndView("faq_list");
+	private List<faqModel> list;
+	
+
+	@RequestMapping("/list")
+	public String faqList(Model model) throws Exception{
 		
-		List<faqModel> list;
 		
-		list = faqService.faqList();
-		mav.addObject("list", list);
 		
-		return mav;
+		
+		
+		
+		//페이징
+		totalCount = list.size();
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "faq_list");
+        pagingHtml = page.getPagingHtml().toString();
+        int lastCount = totalCount;
+		
+        if (page.getEndCount() < totalCount) {
+            lastCount = page.getEndCount() + 1;
+        }
+        
+        list = list.subList(page.getStartCount(), lastCount);
+        
+        model.addAttribute("pagingHtml",pagingHtml);
+        model.addAttribute("list",list);
+        
+        //보여줄 tiles
+		return "faq_list";
+		
 	}
 	
-	/*@RequestMapping(value="/list")
-	public String qnaList(Model model) throws UnsupportedEncodingException {
-		
-		
-		List<faqModel> list;
-		
-		list = faqService.faqList();
-		model.addAttribute("list", list);
-		
-		return "faq_list";
-	}*/
 	
 	
 	
