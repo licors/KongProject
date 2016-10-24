@@ -1,9 +1,11 @@
-CREATE TABLE showboard(
-	SHOWBOARD_NUM NUMBER PRIMARY KEY,
+CREATE TABLE SHOWCASE
+(
+	SHOWCASE_NUM NUMBER PRIMARY KEY,
 	SUBJECT VARCHAR2(100) NOT NULL,
 	ADDRESS1 VARCHAR2(30) NOT NULL,
     ADDRESS2 VARCHAR2(200) NOT NULL,
-	"DATE" DATE NOT NULL,
+	START_DATE DATE NOT NULL,
+	END_DATE DATE NOT NULL,
 	PAY NUMBER(7) NOT NULL,
 	TEL VARCHAR2(13) NOT NULL,
 	TAG VARCHAR2(100),
@@ -14,7 +16,7 @@ CREATE TABLE showboard(
 	ORDERCOUNT NUMBER(10),
 	MAP VARCHAR2(200),
 	STATUS NUMBER DEFAULT 0,
-	SHOWBOARD_CATEGORY VARCHAR2(25) NOT NULL
+	SHOWCASE_CATEGORY VARCHAR2(25) NOT NULL
 )
 
 
@@ -37,9 +39,9 @@ CREATE TABLE "ORDER"
 	MEMBER_NUM NUMBER,
 	CONSTRAINT fk_order_member_num FOREIGN KEY(MEMBER_NUM) 
 	references MEMBER(MEMBER_NUM) on delete cascade, 
-	SHOWBOARD_NUM number,
-	CONSTRAINT fk_order_showboard_num FOREIGN KEY(SHOWBOARD_NUM) 
-	references SHOWBOARD(SHOWBOARD_NUM) on delete cascade,
+	SHOWCASE_NUM number,
+	CONSTRAINT fk_order_showcase_num FOREIGN KEY(SHOWCASE_NUM) 
+	references SHOWCASE(SHOWCASE_NUM) on delete cascade,
 	NAME VARCHAR2(20) NOT NULL,
 	SEX VARCHAR2(5),
 	COMPANY VARCHAR2(25),
@@ -48,31 +50,39 @@ CREATE TABLE "ORDER"
 	BARCODE VARCHAR2(25),
 	ORDER_DATE DATE NOT NULL,
 	TEL VARCHAR2(13)NOT NULL,
-	STATUS VARCHAR2(15)
+	STATUS VARCHAR2(15),
+	BANK_ACCOUNT VARCHAR2(20),
+	TOTAL_PRICE NUMBER(10),
+	PAYMENT_TYPE VARCHAR2(30),
+	PAYMENT_DATE DATE	
 )
 
 
 CREATE TABLE BASKET
 (
 	BASKET_NUM NUMBER PRIMARY KEY,
+	constraint fk_basket_member_num FOREIGN KEY(MEMBER_NUM) 
+	references MEMBER(MEMBER_NUM) on delete cascade,
 	MEMBER_NUM number NOT NULL,
-	SHOWBOARD_NUM number NOT NULL,
+	SHOWCASE_NUM number NOT NULL,
+	constraint fk_basket_showcase_num FOREIGN KEY(SHOWCASE_NUM) 
+	references SHOWCASE(SHOWCASE_NUM) on delete cascade,
 	BASKET_DATE DATE NOT NULL
 )
 
-alter table BASKET add constraint fk_basket_member_num FOREIGN KEY(MEMBER_NUM) 
-	references MEMBER(MEMBER_NUM) on delete cascade;
+-- alter table BASKET add constraint fk_basket_member_num FOREIGN KEY(MEMBER_NUM) 
+--	references MEMBER(MEMBER_NUM) on delete cascade;
 	
-alter table BASKET add constraint fk_basket_showboard_num FOREIGN KEY(SHOWBOARD_NUM) 
-	references SHOWBOARD(SHOWBOARD_NUM) on delete cascade;
+-- alter table BASKET add constraint fk_basket_SHOWCASE_num FOREIGN KEY(SHOWCASE_NUM) 
+--	references SHOWCASE(SHOWCASE_NUM) on delete cascade;
 
 CREATE TABLE SHOWCASECOMMENT
 (COMMENT_NUM NUMBER PRIMARY KEY,
-	SHOWBOARD_NUM NUMBER NOT NULL,
-	constraint fk_showboardcomment_showbd_num FOREIGN KEY(SHOWBOARD_NUM) 
-	references SHOWBOARD(SHOWBOARD_NUM) on delete cascade,
+	SHOWCASE_NUM NUMBER NOT NULL,
+	constraint fk_showcasecomment_showcase_num FOREIGN KEY(SHOWCASE_NUM) 
+	references SHOWCASE(SHOWCASE_NUM) on delete cascade,
 	MEMBER_NUM NUMBER NOT NULL,
-	constraint fk_showboardcomment_member_num FOREIGN KEY(MEMBER_NUM) 
+	constraint fk_showcasecomment_member_num FOREIGN KEY(MEMBER_NUM) 
 	references MEMBER(MEMBER_NUM) on delete cascade,
 	CONTENT VARCHAR2(1000)NOT NULL,
 	REG_DATE DATE NOT NULL
@@ -90,6 +100,8 @@ CREATE TABLE NOTICE
 CREATE TABLE SUPPORT
 (SUPPORT_NUM NUMBER PRIMARY KEY,
 	MEMBER_NUM NUMBER NOT NULL,
+	constraint fk_support_member_num FOREIGN KEY(MEMBER_NUM) 
+	references MEMBER(MEMBER_NUM) on delete cascade,
 	"TYPE" VARCHAR2(50)NOT NULL,
 	EMAIL VARCHAR2(25)NOT NULL,
 	CONTENT VARCHAR2(1000)NOT NULL,
@@ -98,29 +110,21 @@ CREATE TABLE SUPPORT
 	RE_STEP NUMBER(10),
 	RE_LEVEL NUMBER(10)
 )
-alter table SUPPORT add constraint fk_support_member_num FOREIGN KEY(MEMBER_NUM) 
-	references MEMBER(MEMBER_NUM) on delete cascade;
+
+-- alter table SUPPORT add constraint fk_support_member_num FOREIGN KEY(MEMBER_NUM) 
+--	references MEMBER(MEMBER_NUM) on delete cascade;
 	
-CREATE TABLE QNA
-(QNA_NUM NUMBER PRIMARY KEY,
+CREATE TABLE FAQ
+(FAQ_NUM NUMBER PRIMARY KEY,
 	SUBJECT VARCHAR2(100)NOT NULL,
 	CONTENT VARCHAR2(1000)NOT NULL
 )
-	
-CREATE TABLE ZIPCODE
-(
-	ZIPCODE VARCHAR2(7) PRIMARY KEY,
-	AREA1 VARCHAR2(20),
-	AREA2 VARCHAR2(40),
-	ZIPCODE VARCHAR2(40),
-	ZIPCODE VARCHAR2(120),
-)
 
-create sequence showboard_num_seq;
+create sequence showcase_num_seq;
 create sequence basket_num_seq;
 create sequence member_num_seq;
 create sequence notice_num_seq;
 create sequence order_num_seq;
-create sequence qna_num_seq;
+create sequence faq_num_seq;
 create sequence comment_num_seq;
 create sequence ref_num_seq;
