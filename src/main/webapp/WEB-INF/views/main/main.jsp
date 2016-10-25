@@ -16,21 +16,15 @@
     </head>
     <body>
         <c:forEach var="aticleList"  items="${aticle}" varStatus="stat">
-            <c:url var="viewURL" value="goodsView.dog" >
-                {aticleList.subject}<br>
-            </c:url>
+                ${aticleList.subject}<br>
         </c:forEach>
         ------<br>
         <c:forEach var="artList"  items="${art}" varStatus="stat">
-            <c:url var="viewURL" value="goodsView.dog" >
-                {artList.subject}<br>
-            </c:url>
+                ${artList.subject}<br>
         </c:forEach>
         ------<br>
         <c:forEach var="eventList"  items="${event}" varStatus="stat">
-            <c:url var="viewURL" value="goodsView.dog" >
-                {eventList.subject}<br>
-            </c:url>
+                ${eventList.subject}<br>
         </c:forEach>
     </body>
 </html>

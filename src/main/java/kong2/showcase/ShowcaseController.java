@@ -35,6 +35,6 @@ public class ShowcaseController {
         model.addAttribute("aticle", aticle);
         model.addAttribute("art", art);
         model.addAttribute("event", event);
-        return "main";
+        return "/main/main";
     }
 }

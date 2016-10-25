@@ -46,7 +46,7 @@
         WHERE showcase_category = #{showcase_category}
         AND rownum <= 9
         AND show_status >= 0
-        ORDER BY showboard_num DESC
+        ORDER BY showcase_num DESC
         ]]>
     </select>
     <select id="selectcategory" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
@@ -54,7 +54,7 @@
         <![CDATA[
         WHERE showcase_category = #{showcase_category}
         AND status >= 0
-        ORDER BY showboard_num DESC
+        ORDER BY showcase_num DESC
         ]]>
     </select>
     <select id="selectone" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
@@ -65,7 +65,7 @@
         <include refid="select-all"/>
         <![CDATA[
         WHERE rownum <= 1
-        ORDER BY showboard_num DESC
+        ORDER BY showcase_num DESC
         ]]>
     </select>
 	
@@ -92,7 +92,7 @@
         <include refid="where-no"/>
     </update>
     <update id="ordercountdown" parameterType="kong2.showcase.ShowcaseModel">
-        UPDATE SHOWBOARD SET ordercount = ordercount - 1
+        UPDATE showcase SET ordercount = ordercount - 1
         <include refid="where-no"/>
     </update>
 	
