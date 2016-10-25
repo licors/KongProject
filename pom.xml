@@ -225,6 +225,12 @@
             <version>4.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.barbecue</groupId>
+            <artifactId>barbecue</artifactId>
+            <version>1.5-beta1</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
