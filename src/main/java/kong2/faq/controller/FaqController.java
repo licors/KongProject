@@ -83,7 +83,7 @@ public class FaqController {
 		//유효성 검증
 		//에러 있으면 폼으로
 		if(result.hasErrors())
-			return "faq_form";
+			return faqWriteForm(model);
        	    
 
 		//에러 없으면 글 등록

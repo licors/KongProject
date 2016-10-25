@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kong2.faq.controller.FaqMapper">
+   
+
+    <resultMap type="faqModel" id="Res">
+        <result property="faq_num" column="faq_num" />
+        <result property="subject" column="subject" />
+        <result property="content" column="content" />
+    </resultMap>
+    
+    <!-- select 정의 -->
+    <sql id="select-all">
+        SELECT * FROM faq
+    </sql>
+    
+    <!-- where 정의 -->
+    <sql id="where-no">
+        WHERE faq_num=#{faq_num}
+    </sql>
+
+    <!-- select 쿼리문 정의 -->
+    <select id="selectall" resultMap="Res">
+        <include refid="select-all"/>
+        ORDER BY faq_num DESC
+    </select>
+<!--    <select id="select" resultMap="supportRes">
+        <include refid="select-all"/>
+        WHERE
+        type=#type#
+    </select>--><!-- 미사용 -->
+    <select id="selectOne" resultMap="Res" parameterType="faqModel">
+        <include refid="select-all"/>
+        <include refid="where-no"/>
+    </select>
+
+    <!-- insert 쿼리문 정의 -->
+    <insert id="insert" parameterType="faqModel">
+        INSERT INTO faq (faq_num, subject, content)
+        VALUES(faq_num_seq.NEXTVAL, #{subject}, #{content})
+    </insert>
+
+    <!-- update 쿼리문 정의 -->
+    <update id="update" parameterType="faqModel">
+        UPDATE faq SET
+        subject=#{subject},
+        content=#{content}
+        <include refid="where-no"/>
+    </update>
+
+    <!-- delete 쿼리문 정의 -->
+    <delete id="delete" parameterType="faqModel">
+        DELETE faq NOTICE
+        <include refid="where-no"/>
+    </delete>
+
+</mapper>
