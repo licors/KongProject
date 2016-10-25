@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kong2.showcase;
 
 import java.util.Date;
 
-/**
- *
- * @author user2
- */
 public class ShowcaseModel {
 
     private int showcase_num;
@@ -27,8 +18,8 @@ public class ShowcaseModel {
     private int readcount;
     private int ordercount;
     private String map;
-    private String show_status; //글 상태여부 기본 0 예정중, 1 계최중, 2 삭제
-    private String showboard_category;
+    private String show_status; //글 상태여부 기본 -1 삭제, 0 예정중, 1 계최중
+    private String showcase_category;
 
     public int getShowcase_num() {
         return showcase_num;
@@ -150,12 +141,12 @@ public class ShowcaseModel {
         this.show_status = show_status;
     }
 
-    public String getShowboard_category() {
-        return showboard_category;
+    public String getShowcase_category() {
+        return showcase_category;
     }
 
-    public void setShowboard_category(String showboard_category) {
-        this.showboard_category = showboard_category;
+    public void setShowcase_category(String showcase_category) {
+        this.showcase_category = showcase_category;
     }
 
 }
