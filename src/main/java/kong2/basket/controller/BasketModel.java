@@ -9,7 +9,7 @@ import java.util.Date;
 	SHOWBOARD_NUM number NOT NULL,
 	BASKET_DATE DATE NOT NULL
 )*/
-public class basketModel {
+public class BasketModel {
 	private int basket_num;
 	private int member_num;
 	private int showboard_num;
