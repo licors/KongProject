@@ -1,4 +1,4 @@
-package kong2.order.controller;
+package kong2.order;
 
 import java.util.Date;
 
