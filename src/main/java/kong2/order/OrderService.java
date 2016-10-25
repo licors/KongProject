@@ -1,11 +1,11 @@
-package kong2.order.controller;
+package kong2.order;
 
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class OrderDAOService implements OrderDAO {
+public class OrderService implements OrderDAO {
 
 	@Autowired
 	private SqlSession sqlSession;

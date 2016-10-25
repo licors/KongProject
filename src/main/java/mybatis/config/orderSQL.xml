@@ -145,7 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 <!-- delete -->
 	<!-- 관리자용 신청 삭제 -->
-	<delete id="adminOrderDelete" parameterType="orderModel">
+	<delete id="admin_order_delete" parameterType="orderModel">
 		DELETE FROM "ORDER"
 		WHERE ORDER_NUM=#{order_num}
 	</delete>

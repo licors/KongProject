@@ -39,7 +39,7 @@ public class MemberController {
 			HttpSession session = request.getSession();
 
 			session.setAttribute("mem", result);
-			session.setAttribute("session_member_id", result.getEmail());
+			session.setAttribute("session_member_id", result.getId_email());
 			session.setAttribute("session_member_name", result.getName());
 			session.setAttribute("session_member_no", result.getMember_num());
 
@@ -79,7 +79,7 @@ public class MemberController {
 
 		} else {
 
-			if (member.getEmail().equals(member.getEmail())) {
+			if (member.getId_email().equals(member.getId_email())) {
 				memberFindChk = 1;
 				model.addAttribute("member", member);
 				model.addAttribute("memberFindChk", memberFindChk);

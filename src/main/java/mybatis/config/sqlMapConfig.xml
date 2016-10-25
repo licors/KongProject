@@ -28,6 +28,10 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 		
 		<!-- basket -->
 		<typeAlias type="kong2.basket.controller.basketModel" alias="basketModel" />
+		
+		<!-- order -->
+    	<typeAlias type="kong2.order.controller.OrderModel" alias="orderModel"/>
+    	
 	</typeAliases>
 	
 	<!-- SQL 정의한 xml문서 Mapping -->
@@ -36,6 +40,7 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 	    <mapper resource="mybatis/config/memberSQL.xml" />
 	     <mapper resource="mybatis/config/faqSQL.xml" />
 	     <mapper resource="mybatis/config/basketSQL.xml" />
+	     <mapper resource="mybatis/config/orderSQL.xml" />
 	</mappers>
 
 </configuration>

@@ -1,6 +1,6 @@
 package kong2.faq.controller;
 
-public class faqModel {
+public class FaqModel {
 
     private int faq_num;
     private String subject, content;
