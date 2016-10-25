@@ -5,7 +5,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import kong2.faq.controller.FaqModel;
-import kong2.member.controller.MemberModel;
+import kong2.member.MemberModel;
 
 public class FaqValidator implements Validator{
 

@@ -1,6 +1,6 @@
-package kong2.member.controller;
+package kong2.member;
 
-public class MemberModel {
+public class MemberModel { 
 
 	private int member_num;
     private String id_email;
@@ -10,6 +10,7 @@ public class MemberModel {
     private String address;
     private String address2;
     private String company;
+    private String phone;
     private int admin;
     
 	public int getMember_num() {
@@ -65,6 +66,12 @@ public class MemberModel {
 	}
 	public void setAdmin(int gm) {
 		this.admin = gm;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
     
 }

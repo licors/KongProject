@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kong2.member.MemberMapper">
+	<resultMap type="memberModel" id="memberRes">
+		<result property="member_num" column="member_num" />
+		<result property="id_email" column="id_email" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="zipcode" column="zipcode"/>
+		<result property="address" column="address"/>
+		<result property="address2" column="address2"/>
+		<result property="company" column="company"/>
+		<result property="admin" column="admin"/>
+	</resultMap> 
+	
+ 	<!-- 공통으로 사용할 select 의 -->
+<!--	<sql id="select-all-m">
+	SELECT * FROM MEMBER 
+	</sql>
+	
+	<select id="memberList" resultMap="memberRes">
+		SELECT * FROM MEMBER ORDER BY num DESC
+	</select> -->
+	
+    <!-- 로그인 -->
+    <select id="memberLogin" parameterType="memberModel" resultMap="memberRes">
+        SELECT * FROM MEMBER WHERE ID_EMAIL=#{id_email} and PASSWORD=#{password}
+    </select>
+
+
+	<!-- 아이디 찾기 쿼리문 정의 -->
+	<!-- <select id="getMember" parameterType="String" resultMap="memberRes">
+		<include refid="select-all-m" />
+		WHERE id_email = #{id_email}
+	</select> -->
+
+<!-- 
+	회원정보 입력 쿼리문
+	<insert id="insertMember" parameterType="memberModel">
+		insert into member
+		(num, id, password, name, phone, email,
+		join_date, zipcode, addr, point)
+		values(
+		member_seq.nextval,
+		#{id}, #{password}, #{name}, #{phone}, #{email},
+		sysdate, #{zipcode}, #{addr}, '0' )
+	</insert>
+	
+	 아이디중복 확인
+	<select id="idCheck" parameterType="String" resultMap="memberRes"> 
+		<include refid="select-all-m" />
+		WHERE id = #{id}
+	</select> 
+
+	아이디검색 
+	<select id="selectSearch0-m" parameterType="string" resultMap="memberRes"> 
+		<include refid="select-all-m" /> 
+	WHERE id like #{id} 
+	</select> 
+
+	회원정보 수정
+	<update id="updateMember" parameterType="memberModel"> 
+		UPDATE MEMBER SET 
+		name = #{name}, 		
+		phone = #{phone},
+ 		email = #{email} 
+		where id = #{id} 
+ 	</update> 
+
+	이름으로 비밀번호 와 아이디 찾기 
+    <select id="idfind" parameterType="memberModel" resultMap="memberRes"> 
+		select *
+		from member 
+		where name = #{name} and email = #{email} 
+	</select>
+	
+	<select id="pwfind" parameterType="memberModel" resultMap="memberRes"> 
+		select *
+		from member 
+		where id = #{id} and email = #{email} 
+	</select>
+	
+ 	회원탈퇴 
+ 	<delete id="deleteMember" parameterType="String">
+ 		DELETE FROM MEMBER
+		WHERE
+ 		ID = #{id}
+	</delete>
+	
+	
+	 <select id="zipcodeCheck" parameterType="zipcodeModel" resultMap="zipcodeRes"> 
+		select * from zipcode where AREA3 like #{area3}
+	</select>
+	
+	전체검색
+	<select id="memberSearch0" resultMap="memberRes" parameterType="String">
+		SELECT * FROM member
+			WHERE num like #{search} 
+			or id like #{search}
+			or name like #{search}
+			or phone like #{search}
+			or email like #{search}
+			or zipcode like #{search}
+			or addr like #{search}		
+		ORDER BY num DESC
+	</select>
+	
+	관리자  회원수정
+	<update id="adminupdateMember" parameterType="memberModel"> 
+		UPDATE MEMBER SET 
+			password = #{password}, 
+			name = #{name},			
+			zipcode = #{zipcode},  	
+			addr = #{addr}, 	
+			phone = #{phone},
+	 		email = #{email},
+	 		point = #{point}
+		where id = #{id} 
+ 	</update>  -->
+	
+	
+	
+	
+	
+	
+</mapper>	

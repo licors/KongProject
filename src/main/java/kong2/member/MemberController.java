@@ -1,4 +1,4 @@
-package kong2.member.controller;
+package kong2.member;
 
 import java.util.ArrayList;
 import java.util.List;

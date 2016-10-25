@@ -1,10 +1,9 @@
-package kong2.member.controller;
+package kong2.member;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public interface MemberDao {
-
+public interface MemberMapper {
 	public MemberModel memberLogin(MemberModel member);
 
 //	public MemberModel getMember(String id);
@@ -20,8 +19,4 @@ public interface MemberDao {
 //	public List<ZipcodeModel> zipcodeCheck(ZipcodeModel zipcodeModel) throws Exception;
 //
 //	ArrayList<MemberModel> getMembers();
-	
 }
-
-
-

@@ -4,7 +4,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import kong2.member.controller.MemberModel;
+import kong2.member.MemberModel;
 
 
 public class MemberValidator implements Validator {
