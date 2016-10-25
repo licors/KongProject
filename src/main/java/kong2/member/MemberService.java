@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -64,6 +63,48 @@ public class MemberService implements MemberDao{
 		// TODO Auto-generated method stub
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.memberLogin(member);
+	}
+
+	@Override
+	public ArrayList<MemberModel> memberList(MemberModel member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void MemberAdd(MemberModel member) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MemberModel idCheck(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberModel passwordFind(MemberModel member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void memberModify(MemberModel member) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void memberDelete(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MemberModel getMember(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 //	@Override
