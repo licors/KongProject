@@ -39,7 +39,7 @@ CREATE TABLE "ORDER"
 	MEMBER_NUM NUMBER,
 	CONSTRAINT fk_order_member_num FOREIGN KEY(MEMBER_NUM) 
 	references MEMBER(MEMBER_NUM) on delete cascade, 
-	SHOWCASE_NUM number,
+	SHOWCASE_NUM NUMBER,
 	CONSTRAINT fk_order_showcase_num FOREIGN KEY(SHOWCASE_NUM) 
 	references SHOWCASE(SHOWCASE_NUM) on delete cascade,
 	NAME VARCHAR2(20) NOT NULL,
@@ -49,13 +49,13 @@ CREATE TABLE "ORDER"
 	EMAIL VARCHAR2(25) NOT NULL,
 	BARCODE VARCHAR2(25),
 	ORDER_DATE DATE NOT NULL,
-	TEL VARCHAR2(13)NOT NULL,
+	TEL VARCHAR2(13) NOT NULL,
 	ORDER_STATUS VARCHAR2(15),
 	BANK_ACCOUNT VARCHAR2(20),
 	TOTAL_PRICE NUMBER(10),
 	PAYMENT_TYPE VARCHAR2(30),
 	PAYMENT_DATE DATE,
-	PAYMENT_PAYER VARCHER2(20)
+	PAYMENT_PAYER VARCHAR2(20)
 )
 
 
@@ -80,7 +80,7 @@ CREATE TABLE BASKET
 CREATE TABLE SHOWCASECOMMENT
 (COMMENT_NUM NUMBER PRIMARY KEY,
 	SHOWCASE_NUM NUMBER NOT NULL,
-	constraint fk_showcasecomment_showcase_num FOREIGN KEY(SHOWCASE_NUM) 
+	constraint fk_showcasecomment_showc_num FOREIGN KEY(SHOWCASE_NUM) 
 	references SHOWCASE(SHOWCASE_NUM) on delete cascade,
 	MEMBER_NUM NUMBER NOT NULL,
 	constraint fk_showcasecomment_member_num FOREIGN KEY(MEMBER_NUM) 
@@ -128,4 +128,4 @@ create sequence notice_num_seq;
 create sequence order_num_seq;
 create sequence faq_num_seq;
 create sequence comment_num_seq;
-create sequence ref_num_seq;
+create sequence support_num_seq;
