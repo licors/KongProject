@@ -40,7 +40,7 @@ function open_win_noresizable(url, name) {
 		<tr>
 			<td align="center"></td>
 			<td valign="middle" align="left">
-				<input type="text" name="email" size="30" maxlength="50" placeholder="이메일주소" class="form-control input-lg"></td>
+				<input type="text" name="id_email" size="30" maxlength="50" placeholder="이메일주소" class="form-control input-lg"></td>
 		</tr>
 		
 		<tr>

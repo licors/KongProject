@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kong2.member.controller.MemberMapper">
 	<resultMap type="memberModel" id="memberRes">
-		<result property="member_num" column="num" />
+		<result property="member_num" column="member_num" />
 		<result property="id_email" column="id_email" />
 		<result property="password" column="password" />
 		<result property="name" column="name" />
@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="address2" column="address2"/>
 		<result property="company" column="company"/>
 		<result property="admin" column="admin"/>
-	</resultMap>
+	</resultMap> 
 	
  	<!-- 공통으로 사용할 select 의 -->
 <!--	<sql id="select-all-m">
