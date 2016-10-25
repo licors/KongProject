@@ -7,7 +7,7 @@ public interface OrderMapper {
 	ArrayList<OrderModel> order_selectAll();
 	OrderModel order_selectOne(OrderModel orderModel);
 	ArrayList<OrderModel> orderList(OrderModel orderModel);
-	OrderModel orderDetail(OrderModel orderModel);
+	OrderModel orderView(OrderModel orderModel);
 	ArrayList<OrderModel> order_date_list(OrderModel orderModel);
 	OrderModel order_check(OrderModel orderModel);
 	ArrayList<OrderModel> search_id(OrderModel orderModel);

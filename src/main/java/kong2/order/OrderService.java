@@ -39,10 +39,10 @@ public class OrderService implements OrderDAO {
 	}
 
 	@Override
-	public OrderModel orderDetail(OrderModel orderModel) {
+	public OrderModel orderView(OrderModel orderModel) {
 		OrderModel result = new OrderModel();
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-		result = orderMapper.orderDetail(orderModel);
+		result = orderMapper.orderView(orderModel);
 		
 		return result;
 	}

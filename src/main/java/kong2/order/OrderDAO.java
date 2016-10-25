@@ -7,7 +7,7 @@ public interface OrderDAO {
 	public ArrayList<OrderModel> order_selectAll();
 	public OrderModel order_selectOne(OrderModel orderModel);
 	public ArrayList<OrderModel> orderList(OrderModel orderModel);
-	public OrderModel orderDetail(OrderModel orderModel);
+	public OrderModel orderView(OrderModel orderModel);
 	public ArrayList<OrderModel> order_date_list(OrderModel orderModel);
 	public OrderModel order_check(OrderModel orderModel);
 	public ArrayList<OrderModel> search_id(OrderModel orderModel);

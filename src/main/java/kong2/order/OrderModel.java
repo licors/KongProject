@@ -3,21 +3,22 @@ package kong2.order;
 import java.util.Date;
 
 public class OrderModel {
+	//각 기능 키 값 
 	private int order_num;		
 	private int member_num;
 	private int showcase_num;
 	
 	//회원정보
 	private String name;
+	private String area; //회원 지역
 	private String sex;
 	private String company;
-	private String address2;
-	private String email;
-	private String barcode;
-	private Date order_date;
-	private String tel;
+	private String id_email;
+	private String phone;
 	
 	//결제 및 신청 정보
+	private String barcode;
+	private Date order_date;
 	private String order_status;
 	private String bank_account;
 	private int total_price;
@@ -76,17 +77,11 @@ public class OrderModel {
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public String getAddress2() {
-		return address2;
+	public String getId_email() {
+		return id_email;
 	}
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId_email(String id_email) {
+		this.id_email = id_email;
 	}
 	public String getBarcode() {
 		return barcode;
@@ -100,11 +95,11 @@ public class OrderModel {
 	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
 	}
-	public String getTel() {
-		return tel;
+	public String getPhone() {
+		return phone;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getOrder_status() {
 		return order_status;
@@ -208,6 +203,10 @@ public class OrderModel {
 	public void setDatepicker2(Date datepicker2) {
 		this.datepicker2 = datepicker2;
 	}
-	
-	
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}	
 }
