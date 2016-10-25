@@ -5,14 +5,14 @@
 
 <tiles-definitions>
     <!-- 리스트 -->
-    <definition name="faq_list" extends="main">
+    <definition name="faq_list" extends="default">
         <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/faq/faqlist.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqList.jsp" />
     </definition>
     <!-- 폼 -->
-    <definition name="faq_form" extends="main">
+    <definition name="faq_form" extends="default">
        	<put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/faq/faqwrite.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqWrite.jsp" />
     </definition>
 
 </tiles-definitions>

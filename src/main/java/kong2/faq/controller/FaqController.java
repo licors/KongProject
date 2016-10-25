@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kong2.common.PagingAction;
 import kong2.faq.controller.FaqModel;
+import kong2.validator.FaqValidator;
 
 /*import com.mycom.util.Paging;
 import com.mycom.validator.QnAValidator;
@@ -68,20 +69,64 @@ public class FaqController {
 
 	}
 	
+	
+	
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public String faqWriteForm(Model model)throws Exception{
+		return "faq_form";
+	}
+	
 
-	@RequestMapping("/write")
-	public String faqWrite(Model model, FaqModel faqModel)throws Exception{
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String faqWrite(Model model, FaqModel faqModel, BindingResult result)throws Exception{
+		new FaqValidator().validate(faqModel, result);
+		//유효성 검증
+		//에러 있으면 폼으로
+		if(result.hasErrors())
+			return "faq_form";
+       	    
+
+		//에러 없으면 글 등록
 		faqService.insert(faqModel);
 		
-		return "faq_list";
+		//리스트로이동
+		return faqList(model);
 	}
 	
-	public String faqModify()throws Exception{
-		return "";
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public String faqModifyForm(Model model,HttpServletRequest request)throws Exception{
+		//글 번호 넣어줌 
+		FaqModel faqModel =faqService.selectOne(Integer.parseInt(request.getParameter("faq_num")));
+						
+		//맵에 저장
+		model.addAttribute("faqModel", faqModel);
+		
+		return "faq_form";
 	}
 	
-	public String faqDelete()throws Exception{
-		return "";
+	
+	
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String faqModify(Model model,HttpServletRequest request,FaqModel faqModel,BindingResult result)throws Exception{
+		new FaqValidator().validate(faqModel, result);
+		//유효성 검증
+		//에러 있으면 폼으로
+		
+		if(result.hasErrors())
+			return "faq_form";
+		
+		faqService.update(faqModel);
+		//리스트로
+		return faqList(model);
+	}
+	
+	
+	@RequestMapping(value="/delete")
+	public String faqDelete(Model model,HttpServletRequest request)throws Exception{
+		faqService.delete(Integer.parseInt(request.getParameter("faq_num")));
+		
+		return faqList(model);
 	}
 	
 	

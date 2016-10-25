@@ -2,7 +2,7 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kong2.faq.controller">
+<mapper namespace="kong2.faq.controller.FaqMapper">
    
 
     <resultMap type="faqModel" id="Res">

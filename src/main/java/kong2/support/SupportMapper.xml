@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="kong2.support.SupportMapper">
+    <resultMap type="SupportModel" id="supportRes">
+        <result property="support_num" column="support_num" />
+        <result property="member_num" column="member_num" />
+        <result property="type" column="type" />
+        <result property="email" column="email" />
+        <result property="content" column="content" />
+        <result property="reg_date" column="reg_date" />
+        <result property="ref" column="ref" />
+        <result property="re_step" column="re_step" />
+        <result property="re_level" column="re_level" />
+    </resultMap>
+    
+    <!-- select 정의 -->
+    <sql id="select-all">
+        SELECT * FROM SUPPORT
+    </sql>
+    
+    <!-- where 정의 -->
+    <sql id="where-no">
+        WHERE support_num = #{support_num}
+    </sql>
+
+    <select id="selectall" resultMap="supportRes">
+        <include refid="select-all"/>
+        ORDER BY ref DESC, re_step ASC
+    </select>
+    <select id="selectone" resultMap="supportRes">
+        <include refid="select-all"/>
+        <include refid="where-no"/>
+    </select>
+    <select id="selectmember" resultMap="supportRes">
+        <include refid="select-all"/>
+        WHERE member_num = #{member_num}
+        ORDER BY ref DESC, re_step ASC
+    </select>
+
+    <insert id="insert" parameterType="kong2.support.SupportModel">
+        INSERT INTO SUPPORT (support_num, member_num, type, email, content, reg_date, ref, re_step, re_level)
+        VALUES(support_num_seq.NEXTVAL, #{member_num}, #{type}, #{email}, #{content}, #{reg_date}, support_num_seq.CURRVAL, #{re_step}, #{re_level})
+    </insert>
+    <insert id="insertmail" parameterType="kong2.support.SupportModel">
+        INSERT INTO SUPPORT (support_num, member_num, type, email, content, reg_date, ref, re_step, re_level)
+        VALUES(support_num_seq.NEXTVAL, #{member_num}, #{type}, #{email}, #{content}, #{reg_date}, #{ref}, #{re_step}, #{re_level})
+    </insert>
+
+    <update id="update" parameterType="kong2.support.SupportModel">
+        UPDATE SUPPORT SET
+        type=#{type},
+        email=#{email},
+        content=#{email}
+        <include refid="where-no"/>
+    </update>
+    <update id="readcountup" parameterType="kong2.support.SupportModel">
+        UPDATE SUPPORT SET readcount = readcount + 1
+        <include refid="where-no"/>
+    </update>
+    <update id="updateReplyStep" parameterType="kong2.support.SupportModel">
+        <![CDATA[
+        UPDATE SUPPORT SET re_step = re_step + 1
+        WHERE ref = #{ref} AND re_step > #{re_step}
+        ]]>
+    </update>
+
+    <delete id="delete" parameterType="kong2.support.SupportModel">
+        DELETE SUPPORT
+        <include refid="where-no"/>
+    </delete>
+
+</mapper>

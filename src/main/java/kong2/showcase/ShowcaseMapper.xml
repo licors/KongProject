@@ -33,35 +33,39 @@
         WHERE showcase_num = #{showcase_num}
     </sql>
 	
-    <select id="selectall" resultMap="showRes">
+    <!--    <select id="selectall" resultMap="showRes">
         <include refid="select-all"/>
-        WHERE show_status = 0
+        <![CDATA[
+        WHERE show_status >= 0
         ORDER BY showcase_num
-    </select>
+        ]]>
+    </select>-->
     <select id="selectmain" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
         <include refid="select-all"/>
         <![CDATA[
         WHERE showcase_category = #{showcase_category}
         AND rownum <= 9
-        AND show_status = 0
-        ORDER BY showboard_num DESC
+        AND show_status >= 0
+        ORDER BY showcase_num DESC
         ]]>
     </select>
-    <select id="selectcategory" resultMap="showRes">
+    <select id="selectcategory" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
         <include refid="select-all"/>
+        <![CDATA[
         WHERE showcase_category = #{showcase_category}
-        AND status = 0
-        ORDER BY showboard_num DESC
+        AND status >= 0
+        ORDER BY showcase_num DESC
+        ]]>
     </select>
-    <select id="selectOne" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
+    <select id="selectone" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
         <include refid="select-all"/>
         <include refid="where-no"/>
     </select>
-    <select id="selectLastNo" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
+    <select id="selectLastNo" resultType="int">
         <include refid="select-all"/>
         <![CDATA[
         WHERE rownum <= 1
-        ORDER BY showboard_num DESC
+        ORDER BY showcase_num DESC
         ]]>
     </select>
 	
@@ -72,7 +76,7 @@
 	
     <update id="update" parameterType="kong2.showcase.ShowcaseModel">
         UPDATE showcase SET(subject=#{subject}, address1=#{address1}, address2=#{address2}, start_date=#{start_date}, end_date=#{end_date}, price=#{price}, tel=#{tel}, tag=#{tag}, content=#{content}, map=#{map}, showcase_category=#{showcase_category})
-        WHERE(showcase_category = #{showcase_category})
+        WHERE(showcase_num = #{showcase_num})
     </update>
     <update id="delete" parameterType="kong2.showcase.ShowcaseModel">
         UPDATE showcase SET
@@ -88,7 +92,7 @@
         <include refid="where-no"/>
     </update>
     <update id="ordercountdown" parameterType="kong2.showcase.ShowcaseModel">
-        UPDATE SHOWBOARD SET ordercount = ordercount - 1
+        UPDATE showcase SET ordercount = ordercount - 1
         <include refid="where-no"/>
     </update>
 	
