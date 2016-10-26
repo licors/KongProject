@@ -36,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="BasketList" resultMap="basketRes" parameterType="int">
 		<include refid="select-all"/>
 		and bs.member_num=#{member_num}
+		and sb.show_status >= 0
 		ORDER BY bs.basket_num DESC
 	</select>
 	

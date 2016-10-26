@@ -61,9 +61,21 @@ public class BasketController {
 		if (page.getEndCount() < totalCount) {
 			lastCount = page.getEndCount() + 1;
 		}
+		
 
+		//페이지에 맞게끔 
 		list = list.subList(page.getStartCount(), lastCount);
-
+		
+		
+		//합계 금액
+		int total_price=0;
+		for(int i=0;i<list.size();i++)
+		{
+			total_price+=list.get(i).getPrice();
+		}
+		
+		
+		model.addAttribute("total_price",total_price);
 		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("list", list);
 
