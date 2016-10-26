@@ -102,7 +102,7 @@ public class FaqController {
 		//맵에 저장
 		model.addAttribute("faqModel", faqModel);
 		
-		return "faq_form";
+		return "faq_m_form";
 	}
 	
 	
@@ -112,11 +112,16 @@ public class FaqController {
 		new FaqValidator().validate(faqModel, result);
 		//유효성 검증
 		//에러 있으면 폼으로
+
+		FaqModel faqModel_m = new FaqModel();
+		faqModel_m.setContent(request.getParameter("content"));
+		faqModel_m.setSubject(request.getParameter("subject"));
+		faqModel_m.setfaq_num(Integer.parseInt(request.getParameter("faq_num")));
 		
 		if(result.hasErrors())
-			return "faq_form";
-		
-		faqService.update(faqModel);
+			return "faq_m_form";
+
+		faqService.update(faqModel_m);
 		//리스트로
 		return faqList(model);
 	}

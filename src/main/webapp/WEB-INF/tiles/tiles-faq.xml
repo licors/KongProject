@@ -14,6 +14,12 @@
        	<put-attribute name="left" value="" />
         <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqWrite.jsp" />
     </definition>
+    
+    
+    <definition name="faq_m_form" extends="default">
+       	<put-attribute name="left" value="" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqModify.jsp" />
+    </definition>
 
 </tiles-definitions>
 
