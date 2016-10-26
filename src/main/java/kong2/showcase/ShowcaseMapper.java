@@ -55,7 +55,7 @@ public interface ShowcaseMapper {
      *
      * @param showcaseModel #{subject}, #{address1}, #{address2}, #{start_date},
      * #{end_date}, #{price}, #{tel}, #{tag}, #{content}, #{file_savname},
-     * #{readcount}, #{ordercount}, #{map}, #{show_status}, #{showcase_category}
+     * #{readcount}, #{ordercount}, #{map}, #{showcase_category}
      */
     void insert(ShowcaseModel showcaseModel);
 

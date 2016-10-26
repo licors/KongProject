@@ -107,7 +107,7 @@
         </dependency>
 				
         <!-- AspectJ -->
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>${org.aspectj-version}</version>
@@ -230,6 +230,12 @@
             <artifactId>barbecue</artifactId>
             <version>1.5-beta1</version>
             <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.2</version>
         </dependency>
     </dependencies>
     <build>
