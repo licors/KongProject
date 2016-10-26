@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import kong2.showcase.ShowcaseModel;
+
 public class OrderService implements OrderDAO {
 
 	@Autowired
@@ -106,6 +108,18 @@ public class OrderService implements OrderDAO {
 	public void insert_order(OrderModel orderModel) {
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 		orderMapper.insert_order(orderModel);
+	}
+	
+	@Override
+	public void ordercountPlus(ShowcaseModel showcaseModel) {
+		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+		orderMapper.ordercountPlus(showcaseModel);
+	}
+	
+	@Override
+	public void ordercountMinus(ShowcaseModel showcaseModel) {
+		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+		orderMapper.ordercountMinus(showcaseModel);
 	}
 
 	// update

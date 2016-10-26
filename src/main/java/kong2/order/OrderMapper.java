@@ -2,6 +2,8 @@ package kong2.order;
 
 import java.util.ArrayList;
 
+import kong2.showcase.ShowcaseModel;
+
 public interface OrderMapper {
 	//select
 	ArrayList<OrderModel> order_selectAll();
@@ -20,6 +22,8 @@ public interface OrderMapper {
 	
 	//update
 	void update_order(OrderModel orderModel);
+	void ordercountPlus(ShowcaseModel showcaseModel);
+	void ordercountMinus(ShowcaseModel showcaseModel);
 	
 	//delete
 	void admin_order_delete(OrderModel orderModel);	

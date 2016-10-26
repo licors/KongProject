@@ -143,6 +143,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ORDER_NUM=#{order_num}
 	</update>
 	
+	<!-- 신청 시 신청수증가 -->
+    <update id="ordercountPlus" parameterType="kong2.showcase.ShowcaseModel">
+        UPDATE SHOWBOARD SET ordercount = #{ordercount} + 1
+        WHERE showboard_num = #{showboard_num}
+    </update>
+    
+    <!-- 신청취소 시 신청수 감소 -->
+    <update id="ordercountMinus" parameterType="kong2.showcase.ShowcaseModel">
+        UPDATE SHOWBOARD SET ordercount = #{ordercount} - 1 <!-- 안되면 ordercount 괄호 없애기 -->
+        WHERE showboard_num = #{showboard_num}
+    </update>
+	
 <!-- delete -->
 	<!-- 관리자용 신청 삭제 -->
 	<delete id="admin_order_delete" parameterType="orderModel">

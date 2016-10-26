@@ -2,6 +2,8 @@ package kong2.order;
 
 import java.util.ArrayList;
 
+import kong2.showcase.ShowcaseModel;
+
 public interface OrderDAO {
 	//select
 	public ArrayList<OrderModel> order_selectAll();
@@ -20,6 +22,8 @@ public interface OrderDAO {
 	
 	//update
 	public void update_order(OrderModel orderModel);
+	public void ordercountPlus(ShowcaseModel showcaseModel);
+	public void ordercountMinus(ShowcaseModel showcaseModel);
 	
 	//delete
 	public void admin_order_delete(OrderModel orderModel);	
