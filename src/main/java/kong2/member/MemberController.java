@@ -57,7 +57,7 @@ public class MemberController {
 		if (session != null) {
 			session.invalidate();
 		}
-		return "member/logout";
+		return "main";
 	}
 	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
@@ -93,18 +93,19 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="/memberJoin", method = RequestMethod.GET)
-	public String memberJoin() {
-			return "memberJoinForm";
+	public String memberJoin(Model model) {
+		model.addAttribute("member", new MemberModel());	
+		return "joinForm";
 	}
 	
 	@RequestMapping(value="/memberJoin", method = RequestMethod.POST)
 	public String memberJoin(@ModelAttribute("member") MemberModel member, BindingResult result, Model model) {
 		try {
 			memberService.MemberAdd(member);
-			return "main";
+			return "redirect:"+"/main";
 		} catch (DuplicateKeyException e) {
 			result.reject("invalid", null);
-			return "memberJoin";
+			return "joinForm";
 		}
 	}
 	@RequestMapping("/memberModify")

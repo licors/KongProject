@@ -4,8 +4,7 @@
 <script>
 function Success(){
 	alert("환영합니다!!");
-	//window.location.href='/showcase/sclist.action';
-	history.go(-1);
+	window.location.href='/main';
 }
 </script>
 

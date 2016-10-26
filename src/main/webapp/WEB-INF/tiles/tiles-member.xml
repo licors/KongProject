@@ -1,75 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE tiles-definitions PUBLIC
-		"-//Apache software Foundation//DTD Tiles Configuration 2.1//EN"
-		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
-
+<!DOCTYPE tiles-definitions PUBLIC 
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+        
 <tiles-definitions>
-
-
-	<!-- default : 템플릿에 설정된 페이지의 구성 요소에 대한 실제 파일을 지정합니다. -->
-	<definition name="default"
-		template="/WEB-INF/views/layouts/default_template.jsp">
-		<put-attribute name="header"
-			value="/WEB-INF/views/layouts/default/header.jsp" />
-		<put-attribute name="menu"
-			value="/WEB-INF/views/layouts/default/menu.jsp" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/layouts/default/body.jsp" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/layouts/default/footer.jsp" />
-	</definition>
-
-	<!-- default를 확장하여 test 라는 URL로 시작되는 호출이 오는 경우 아래 설정에 의해서 페이지를 만들게 됩니다. -->
-	<definition name="loginForm" extends="default">
-		<put-attribute name="body" value="/WEB-INF/views/member/memberLoginForm.jsp" />
+	<definition name="memberMain" template="/WEB-INF/views/layouts/member_template.jsp">
+		<put-attribute name="header" value="Kong" />
+		<put-attribute name="top" value="/WEB-INF/views/layouts/member/membertop.jsp" />
+		<put-attribute name="body" value="" />
+        <put-attribute name="bottom" value="/WEB-INF/views/layouts/member/memberbottom.jsp" />
 	</definition>
 	
-	
-	
-    
-    
-    <definition name="test" extends="main">
-    	<put-attribute name="left" value="" />
-        <put-attribute name="body" value="/main/main.jsp" />
-    </definition>
-    
-     <!-- showcase -->
-	 <!-- 전시상품 리스트 -->
-<!-- 	<definition name="showcase_list" extends="main">
-		<put-attribute name="body" value="/main/showcaseList.jsp" />
-	</definition> -->
-
-    <definition name="memberadmin_list" extends="main">
-        <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/member/memberadminlist.jsp" />
+	<!-- 회원 리스트 -->
+    <definition name="memberadmin_list" extends="memberMain">
+        <put-attribute name="body" value="/WEB-INF/views/member/memberadminlist.jsp" />
     </definition>
     
     <!-- 회원가입 폼 -->
-    <definition name="join" extends="main">
-        <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/member/memberJoin.jsp" />
-        <put-attribute name="top" value="/template/membertop.jsp" />
-        <put-attribute name="bottom" value="/template/memberbottom.jsp" />
+    <definition name="joinForm" extends="memberMain">
+        <put-attribute name="body" value="/WEB-INF/views/member/memberJoinForm.jsp" />
     </definition>
-    
+
     <!-- 로그인 폼 -->
-    <definition name="login" extends="main">
-        <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/member/memberLogin.jsp" />
-        <put-attribute name="top" value="/template/membertop.jsp" />
-        <put-attribute name="bottom" value="/template/memberbottom.jsp" />
+    <definition name="loginForm" extends="memberMain">
+        <put-attribute name="body" value="/WEB-INF/views/member/memberLoginForm.jsp" />
     </definition>
     
     <!-- 회원 정보 수정 폼 -->
-    <definition name="modify" extends="main">
-        <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/member/modifyForm.jsp" />
-        <put-attribute name="top" value="/template/top.jsp" />
-        <put-attribute name="bottom" value="/template/bottom.jsp" />
+    <definition name="modify" extends="memberMain">
+        <put-attribute name="body" value="/WEB-INF/views/member/modifyForm.jsp" />
     </definition>
     
-    <definition name="delete" extends="main">
-        <put-attribute name="body" value="/member/deleteForm.jsp" />
+    <definition name="deleteForm" extends="memberMain">
+        <put-attribute name="body" value="/WEB-INF/views/member/deleteForm.jsp" />
+    </definition>
+    
+    <definition name="checkMember" extends="memberMain">
+    	<put-attribute name="body" value="/WEB-INF/views/member/checkMember.jsp"></put-attribute>
     </definition>
 
 </tiles-definitions>

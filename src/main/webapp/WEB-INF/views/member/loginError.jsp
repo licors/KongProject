@@ -5,7 +5,7 @@
 function Error(){
 	alert("로그인 실패");
 	//window.location.href='/showcase/sclist.action';
-	history.go(0);
+	history.go(-1);
 }
 </script>
 
