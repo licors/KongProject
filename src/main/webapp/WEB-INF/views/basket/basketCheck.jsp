@@ -4,18 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>관심티켓 삭제 성공</title>
+<title>중복 장바구니 담기 체크</title>
 <script>
-	function Delete(){
-		alert("해당 티켓이 삭제되었습니다.");
-		window.location.href='/basket/list?currentPage=${currentPage}';
-		//window.location.href='/basket/basketList.action'
-	}
+function check() {
+	alert('이미 관심티켓으로 등록되었습니다.');
+	history.go(-1);
+}
 </script>
 </head>
 <body>
-<script>
-Delete()
-</script>
+<script>check()</script>
 </body>
 </html>

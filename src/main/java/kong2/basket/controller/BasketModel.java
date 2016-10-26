@@ -13,9 +13,23 @@ public class BasketModel {
 	private int basket_num;
 	private int member_num;
 	private int showboard_num;
-	private Date basket_date;
+	private Date start_date;
+	private Date end_date;
+	public Date getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+	public Date getEnd_date() {
+		return end_date;
+	}
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
+	}
+
 	private String subject;
-	private String file_orgname;
+	
 	private String file_savname;
 	private String date;
 	private String address2;
@@ -49,24 +63,15 @@ public class BasketModel {
 	public void setShowboard_num(int showboard_num) {
 		this.showboard_num = showboard_num;
 	}
-	public Date getBasket_date() {
-		return basket_date;
-	}
-	public void setBasket_date(Date basket_date) {
-		this.basket_date = basket_date;
-	}
+
+	
 	public String getSubject() {
 		return subject;
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getFile_orgname() {
-		return file_orgname;
-	}
-	public void setFile_orgname(String file_orgname) {
-		this.file_orgname = file_orgname;
-	}
+
 	public String getFile_savname() {
 		return file_savname;
 	}

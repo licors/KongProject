@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,10 +24,10 @@ public class BasketService implements BasketDAO{
 	}
 
 	@Override
-	public List<BasketModel> BasketList() {
+	public List<BasketModel> BasketList(int member_num) {
 		List<BasketModel> list;
 		BasketMapper basketMapper = sqlSession.getMapper(BasketMapper.class);
-		list=basketMapper.BasketList();
+		list=basketMapper.BasketList(member_num);
 		// TODO Auto-generated method stub
 		return list;
 	}
@@ -38,9 +40,9 @@ public class BasketService implements BasketDAO{
 	}
 
 	@Override
-	public void basketDelete_all(BasketModel basketModel) {
+	public void basketDelete_all(int member_num) {
 		BasketMapper basketMapper = sqlSession.getMapper(BasketMapper.class);
-		basketMapper.basketDelete_all(basketModel);
+		basketMapper.basketDelete_all(member_num);
 		
 	}
 
