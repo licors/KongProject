@@ -15,6 +15,13 @@ public class BasketModel {
 	private int showboard_num;
 	private Date start_date;
 	private Date end_date;
+	private int show_status;
+	public int getShow_status() {
+		return show_status;
+	}
+	public void setShow_status(int show_status) {
+		this.show_status = show_status;
+	}
 	public Date getStart_date() {
 		return start_date;
 	}
