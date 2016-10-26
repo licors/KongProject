@@ -86,7 +86,7 @@ public class MemberService implements MemberDao{
 	}
 
 	@Override
-	public MemberModel passwordFind(MemberModel member) {
+	public String passwordFind(MemberModel member) {
 		// TODO Auto-generated method stub
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.passwordFind(member);

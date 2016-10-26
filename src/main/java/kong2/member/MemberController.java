@@ -62,7 +62,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
 	public String memberPwFindForm() {
-		return "member/pwFind";
+		return "passwordFindForm";
 	}
 
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.POST)
@@ -70,24 +70,20 @@ public class MemberController {
 
 		int memberFindChk;
 
-		member = memberService.passwordFind(member);
+		String findPassword = memberService.passwordFind(member);
 
-		if (member == null) {
+		if (findPassword == null) {
 			memberFindChk = 0; 
 			model.addAttribute("memberFindChk", memberFindChk);
-			return "member/idFindError";
+			return "member/pwFindError";
 
 		} else {
 
-			if (member.getId_email().equals(member.getId_email())) {
-				memberFindChk = 1;
-				model.addAttribute("member", member);
-				model.addAttribute("memberFindChk", memberFindChk);
+			if (findPassword.equals(member.getId_email())) {
+				model.addAttribute("password", findPassword);
 				return "member/pwFindOk";
 			} else {
-				memberFindChk = -1; 
-				model.addAttribute("memberFindChk", memberFindChk);
-				return "member/idFindError";
+				return "member/pwFindError";
 			}
 		}
 	}

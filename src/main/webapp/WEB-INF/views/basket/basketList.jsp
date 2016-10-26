@@ -50,7 +50,7 @@
 						</c:when>
 						<c:otherwise>
 							<input type="button" name="orderB" value="전체 신청"
-								onClick="location.href='/order/checkB'"
+								onClick="location.href='/order/checkB?total_price=${total_price}'"
 								class="btn btn-sm btn-success">
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/showcase/main'"

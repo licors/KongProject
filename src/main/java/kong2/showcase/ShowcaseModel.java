@@ -1,5 +1,6 @@
 package kong2.showcase;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ShowcaseModel {
@@ -147,6 +148,11 @@ public class ShowcaseModel {
 
     public void setShowcase_category(String showcase_category) {
         this.showcase_category = showcase_category;
+    }
+
+    @Override
+    public String toString() {
+        return "ShowcaseModel{" + "showcase_num=" + showcase_num + ", subject=" + subject + ", address1=" + address1 + ", address2=" + address2 + ", start_date=" + new SimpleDateFormat("yyyy-MM-dd").format(start_date) + ", end_date=" + new SimpleDateFormat("yyyy-MM-dd").format(end_date) + ", price=" + price + ", tel=" + tel + ", tag=" + tag + ", content=" + content + ", file_savname=" + file_savname + ", readcount=" + readcount + ", ordercount=" + ordercount + ", map=" + map + ", show_status=" + show_status + ", showcase_category=" + showcase_category + '}';
     }
 
 }

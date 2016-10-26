@@ -62,8 +62,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="passwordFind" parameterType="MemberModel" resultType="MemberModel">
-		select * from MEMBER 
+	<select id="passwordFind" parameterType="MemberModel" resultType="String">
+		select password from MEMBER 
 		where ID_EMAIL = #{id_email} and NAME=#{name}
 	</select>
 	
