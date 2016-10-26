@@ -27,6 +27,7 @@
                                     <td width="50" align="center"><label for="subject"><font color="#FF0000">&nbsp;&nbsp;*</font>Q.</label></td>
                                     <td>
                                             <input class="form-control" type="text" name="subject" value="${faqModel.subject }" size="20" maxlength="50" id="subject"/>
+                                            <font color="red"><form:errors path="subject" /></font>
                                     </td>
                                 </tr>
                                 <tr>
@@ -34,6 +35,7 @@
                                     <td rowspan="2">
 
                                             <textarea name="content" cols="57" rows="10" class="form-control" id="content">${faqModel.content }</textarea> 
+                                            <font color="red"><form:errors path="content" /></font>
  
                                     </td>
                                 </tr>

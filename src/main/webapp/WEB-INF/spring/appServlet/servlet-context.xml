@@ -17,6 +17,7 @@
 		<beans:property name="basenames">
 			<beans:list>
 				<beans:value>messages.memberMessage_ko</beans:value>
+				<beans:value>messages.faqMessage_ko</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>

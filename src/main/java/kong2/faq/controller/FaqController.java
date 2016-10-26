@@ -108,19 +108,22 @@ public class FaqController {
 	
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String faqModify(Model model,HttpServletRequest request,FaqModel faqModel,BindingResult result)throws Exception{
-		new FaqValidator().validate(faqModel, result);
+	public String faqModify(Model model,HttpServletRequest request,FaqModel faqModel_m,BindingResult result)throws Exception{
+		new FaqValidator().validate(faqModel_m, result);
 		//유효성 검증
 		//에러 있으면 폼으로
 
-		FaqModel faqModel_m = new FaqModel();
-		faqModel_m.setContent(request.getParameter("content"));
-		faqModel_m.setSubject(request.getParameter("subject"));
-		faqModel_m.setfaq_num(Integer.parseInt(request.getParameter("faq_num")));
+
 		
 		if(result.hasErrors())
 			return "faq_m_form";
 
+		
+		
+
+		faqModel_m.setContent(request.getParameter("content"));
+		faqModel_m.setSubject(request.getParameter("subject"));
+		faqModel_m.setfaq_num(Integer.parseInt(request.getParameter("faq_num")));
 		faqService.update(faqModel_m);
 		//리스트로
 		return faqList(model);
