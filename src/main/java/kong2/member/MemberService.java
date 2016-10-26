@@ -74,37 +74,43 @@ public class MemberService implements MemberDao{
 	@Override
 	public void MemberAdd(MemberModel member) {
 		// TODO Auto-generated method stub
-		
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.MemberAdd(member);
 	}
 
 	@Override
 	public MemberModel idCheck(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.idCheck(id);
 	}
 
 	@Override
 	public MemberModel passwordFind(MemberModel member) {
 		// TODO Auto-generated method stub
-		return null;
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.passwordFind(member);
 	}
 
 	@Override
 	public void memberModify(MemberModel member) {
 		// TODO Auto-generated method stub
-		
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.memberModify(member);
 	}
 
 	@Override
 	public void memberDelete(String id) {
 		// TODO Auto-generated method stub
-		
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.memberDelete(id);
 	}
 
 	@Override
 	public MemberModel getMember(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getMember(id);
 	}
 	
 //	@Override

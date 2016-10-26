@@ -24,17 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원정보 입력 쿼리문 -->
 	<insert id="MemberAdd" parameterType="MemberModel">
-		insert into MEMBER values(
-							member_seq.nextval,
+		insert into MEMBER(MEMBER_NUM, ID_EMAIL, PASSWORD, NAME) values(
+							MEMBER_NUM_SEQ.NEXTVAL,
 							#{id_email}, 
 							#{password}, 
-							#{name}, 
-							#{zipcode}, 
-							#{address},
-							#{address2},
-							#{phone}, 
-							#{company}, 
-							'0' )
+							#{name}
+							)
 	</insert>
 	
 	<!-- 회원정보 수정 -->

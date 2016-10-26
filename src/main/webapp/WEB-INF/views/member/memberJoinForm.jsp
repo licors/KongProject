@@ -24,7 +24,7 @@
 
 					<tr>
 						<td align="center"></td>
-						<td><form:input path="" type="text" size="30" maxlength="50"
+						<td><form:input path="id_email" type="text" size="30" maxlength="50"
 								placeholder="이메일주소" class="form-control input-lg" /></td>
 					</tr>
 					<tr>

@@ -73,5 +73,11 @@ public class MemberModel {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	@Override
+	public String toString() {
+		return "MemberModel [member_num=" + member_num + ", id_email=" + id_email + ", password=" + password + ", name="
+				+ name + ", zipcode=" + zipcode + ", address=" + address + ", address2=" + address2 + ", company="
+				+ company + ", phone=" + phone + ", admin=" + admin + "]";
+	}
     
 }
