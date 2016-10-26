@@ -11,7 +11,7 @@ public interface MemberMapper {
 	
 	public MemberModel idCheck(String id);
 	
-	public MemberModel passwordFind(MemberModel member);
+	public String passwordFind(MemberModel member);
 
 	public void memberModify(MemberModel member);
 

@@ -35,6 +35,10 @@
         <put-attribute name="body" value="/WEB-INF/views/member/deleteForm.jsp" />
     </definition>
     
+    <definition name="passwordFindForm" extends="memberMain">
+        <put-attribute name="body" value="/WEB-INF/views/member/passwordfindForm.jsp" />
+    </definition>
+    
     <definition name="checkMember" extends="memberMain">
     	<put-attribute name="body" value="/WEB-INF/views/member/checkMember.jsp"></put-attribute>
     </definition>
