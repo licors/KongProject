@@ -54,7 +54,7 @@
         <beans:property name="webBindingInitializer" >
             <beans:bean class="kong2.common.CustomWebBindingInitializer"/>
         </beans:property>
-    </beans:bean>    
+    </beans:bean>
 	
     <context:component-scan base-package="kong2." />
 	
