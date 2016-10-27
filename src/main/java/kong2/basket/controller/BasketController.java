@@ -87,7 +87,7 @@ public class BasketController {
 	@RequestMapping("/add")
 	public String basketAdd(Model model,HttpServletRequest request)throws Exception{
 		HttpSession session = request.getSession();
-		int member_num =(Integer) session.getAttribute("member_num");
+		int member_num =(Integer) session.getAttribute("session_member_num");
 		int showboard_num = (Integer) session.getAttribute("showboard_num");
 		
 		BasketModel basketModel= new BasketModel();
@@ -112,7 +112,7 @@ public class BasketController {
 	public String deleteBasket(Model model,HttpServletRequest request)throws Exception{
 		
 		HttpSession session = request.getSession();
-	/*	int member_num =(int) session.getAttribute("member_num");*/
+	/*	int member_num =(int) session.getAttribute("session_member_num");*/
 		
 		
 		
@@ -132,7 +132,7 @@ public class BasketController {
 	public String deleteAllBasket(Model model,HttpServletRequest request)throws Exception{
 		
 		HttpSession session = request.getSession();
-	/*	int member_num =(int) session.getAttribute("member_num");*/
+	/*	int member_num =(int) session.getAttribute("session_member_num");*/
 		
 		//테스트용으로 관리자 계정을 넣음 멤버 번호 999
 		
