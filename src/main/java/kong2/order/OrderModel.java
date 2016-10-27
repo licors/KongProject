@@ -38,8 +38,8 @@ public class OrderModel {
 	private int ordercount;
 	
 	//신청 기간 검색시 필요
-	private Date datepicker1;
-	private Date datepicker2;
+	private String datepicker1;
+	private String datepicker2;
 	
 	public int getOrder_num() {
 		return order_num;
@@ -191,22 +191,22 @@ public class OrderModel {
 	public void setOrdercount(int ordercount) {
 		this.ordercount = ordercount;
 	}
-	public Date getDatepicker1() {
-		return datepicker1;
-	}
-	public void setDatepicker1(Date datepicker1) {
-		this.datepicker1 = datepicker1;
-	}
-	public Date getDatepicker2() {
-		return datepicker2;
-	}
-	public void setDatepicker2(Date datepicker2) {
-		this.datepicker2 = datepicker2;
-	}
 	public String getArea() {
 		return area;
 	}
 	public void setArea(String area) {
 		this.area = area;
+	}
+	public String getDatepicker1() {
+		return datepicker1;
+	}
+	public void setDatepicker1(String datepicker1) {
+		this.datepicker1 = datepicker1;
+	}
+	public String getDatepicker2() {
+		return datepicker2;
+	}
+	public void setDatepicker2(String datepicker2) {
+		this.datepicker2 = datepicker2;
 	}	
 }
