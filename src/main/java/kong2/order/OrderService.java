@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import kong2.showcase.ShowcaseModel;
 
+@Service
 public class OrderService implements OrderDAO {
 
 	@Autowired

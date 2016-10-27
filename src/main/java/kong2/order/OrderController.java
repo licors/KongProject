@@ -44,7 +44,6 @@ public class OrderController {
 
 	ShowcaseModel showcaseModel = new ShowcaseModel();
 	OrderModel orderParam = new OrderModel();
-	OrderModel orderResult = new OrderModel();
 	MemberModel memberModel = new MemberModel();
 
 	private List<OrderModel> orderList = new ArrayList<OrderModel>();
