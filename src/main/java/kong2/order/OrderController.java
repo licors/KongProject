@@ -24,14 +24,14 @@ import kong2.showcase.ShowcaseModel;
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
 import net.sourceforge.barbecue.BarcodeImageHandler;
-import kong2.showcase.ShowcaseDAOService;
+import kong2.showcase.ShowcaseService;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
 
 	@Resource(name = "showcaseService")
-	private ShowcaseDAOService showcaseService;
+	private ShowcaseService showcaseService;
 
 	@Resource(name = "orderService")
 	private OrderService orderService;
