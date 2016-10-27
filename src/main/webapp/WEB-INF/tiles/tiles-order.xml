@@ -5,9 +5,9 @@
 
 <tiles-definitions>
 
-	<definition name="orderList" extends="main">
+	<definition name="orderList" extends="default">
 		<put-attribute name="left" value="" />
-		<put-attribute name="body" value="/order/orderList.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderList.jsp" />
 	</definition>
 	<definition name="adminOrderList" extends="main">
 		<put-attribute name="left" value="" />

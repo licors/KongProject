@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@ page import="java.util.HashMap"%>
 
 <!DOCTYPE html>
@@ -53,35 +57,36 @@
 </script>
 </head>
 <body>
-	<div
-		style="width: 100%; background-color: #FFF; padding: 0px 20px 20px 20px;">
-		<div id="ContentPanel"></div>
-		<section class="content-wrapper main-content clear-fix">
+	<form:form commandName="orderModel">
+		<div
+			style="width: 100%; background-color: #FFF; padding: 0px 20px 20px 20px;">
+			<div id="ContentPanel"></div>
+			<section class="content-wrapper main-content clear-fix">
 
-			<div class="cgt-latest-wrap clearfix">
-				<div
-					style="margin: 1px auto; padding-top: 48px; clear: both; max-width: 1200px;">
-					<div style="float: left; font-size: 20px; font-weight: bold;">
-						<div style="box-sizing: border-box; font-size: 16px;">
+				<div class="cgt-latest-wrap clearfix">
+					<div
+						style="margin: 1px auto; padding-top: 48px; clear: both; max-width: 1200px;">
+						<div style="float: left; font-size: 20px; font-weight: bold;">
+							<div style="box-sizing: border-box; font-size: 16px;">
 
-							<span style="font-size: 18px; font-weight: normal;">
-							<img src="../template/image/order_basket/myticketLogo.png">
-							</span>
+								<span style="font-size: 18px; font-weight: normal;"> <img
+									src="../template/image/order_basket/myticketLogo.png">
+								</span>
+							</div>
 						</div>
+						<div style="clear: both;"></div>
+						<div style="height: 0px; margin-top: 24px;"></div>
 					</div>
-					<div style="clear: both;"></div>
-					<div style="height: 0px; margin-top: 24px;"></div>
-				</div>
 
-				<div class="clearfix"></div>
+					<div class="clearfix"></div>
 
-				<s:iterator value="orderList" status="stat">
-					<s:url id="viewURL" action="scread">
-						<s:param name="showboard_num">
-							<s:property value="showboard_num" />
-						</s:param>
-					</s:url>
-<%-- 					<div class="cgt-latest cgt-list-ctype-1">
+					<c:forEach items="${orderList}" var="order" varStatus="status">
+						<!-- <s:url id="viewURL" action="scread">
+							<s:param name="showboard_num">
+								<s:property value="showboard_num" />
+							</s:param>
+						</s:url> -->
+						<%-- 					<div class="cgt-latest cgt-list-ctype-1">
 						<div class="cgt_latest_image_area">
 							<a href="/showcase/scread.action?showboard_category=${show_resultClass.showboard_category}&showboard_num=${show_resultClass.showboard_num }">
 								<img
@@ -91,101 +96,145 @@
 						</div>
 						<!-- img -->
 						<div class="cgt_list_mask" style="width: 284px; height: 295px;"></div> --%>
-						            <div class="cgt-latest cgt-list-ctype-1">
-                <div style="position:absolute; width:100%; z-index:100;">
-                    <div style="float:right; width:40px; height:40px; border-radius:20px;  color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;"></div>
-                    <div style="clear:both;"></div>
-                </div>
-                <a href ='/showcase/scread.action?showboard_category=<s:property value="showboard_category"/>&showboard_num=<s:property value="showboard_num"/>'target="_blank">
-                    <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
-                    <img src="../showcaseImg/<s:property value="file_savname.split(',')[0]"/>" class="img-responsive"
-                        onerror="javascript:this.src='/template/image/main/noimg.png'"></></a>
-                <!-- img -->
-
-						<!-- over layer -->
-						<div class="cgt_list_explanation">
-							<!-- title -->
-							<div class="subject">
-								<a
-									href="/order/orderView.action?order_num=${order_num}&currentPage=${currentPage }">
-									${subject } </a>
-							</div>
-
-							<!-- date -->
-							<div class="schedule">
-								<s:property value="date" />
-							</div>
-
-
-							<div class="place_price">
-								<div class="place">
-									<s:property value="address2" />
-								</div>
+						<div class="cgt-latest cgt-list-ctype-1">
+							<div style="position: absolute; width: 100%; z-index: 100;">
 								<div
-									style="width: 30px; height: 2px; background-color: #F470C9; margin: 20px 0px 10px 0px;"></div>
-								<!-- <div class="price">무료</div> -->
-								<div class="price">
-									<s:if test='%{stauts == "티켓 신청" }'>
-									${status } 완료<br>
+									style="float: right; width: 40px; height: 40px; border-radius: 20px; color: #FFF; text-align: center; font-weight: bold; line-height: 40px; margin: 10px 10px 0px 0px;"></div>
+								<div style="clear: both;"></div>
+							</div>
+							<a
+								href='/showcase/scread.action?showboard_category=<s:property value="showboard_category"/>&showboard_num=<s:property value="showboard_num"/>'
+								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
+								<img src="../showcaseImg/${order.file_savname.split(',')[0]}"
+								class="img-responsive"
+								onerror="javascript:this.src='/template/image/main/noimg.png'"></>
+							</a>
+							<!-- img -->
+
+							<!-- over layer -->
+							<div class="cgt_list_explanation">
+								<!-- title -->
+								<div class="subject">
+									<a
+										href="/order/orderView.action?order_num=${order.order_num}&currentPage=${currentPage }">
+										${order.subject } </a>
+								</div>
+
+								<!-- date -->
+								<div class="schedule">
+									<!-- <s:property value="date" /> -->
+									<fmt:formatDate value="${order.start_date }" pattern="YY-MM-dd" />
+									-
+									<fmt:formatDate value="${order.end_date }" pattern="YY-MM-dd" />
+								</div>
+
+
+								<div class="place_price">
+									<div class="place">
+										<!-- <s:property value="address2" /> -->
+										${order.show_addr }
+									</div>
+									<div
+										style="width: 30px; height: 2px; background-color: #F470C9; margin: 20px 0px 10px 0px;"></div>
+									<div class="price"><fmt:formatNumber value="${order.show_price }" type="number"/></div>
+									<div class="price">
+										<%-- <s:if test='%{order.order_status == "티켓 신청" }'>
+									${order.order_status } 완료<br>
 									</s:if>
 									<s:else>
-									${status } 완료<br>
-									</s:else>
-								</div>
-								<div style="width: 30px; margin: 10px 10px 10px 10px">
-									<s:if test='%{status == "티켓 신청" }'>
-										<img src="../barcodeImg/${barcode}.png"
+									${order.order_status } 완료<br>
+									</s:else> --%>
+
+										<c:set var="order_status" value="${order.order_status }" />
+										<c:choose>
+											<c:when test="${order_status eq '티켓 신청' }">
+											${order.order_status } 완료 <br>
+											</c:when>
+											<c:when test="${order_status eq '티켓 만료' }">
+											${order.order_status } <br>
+											</c:when>
+											<c:when test="${order_status eq '티켓 취소' }">
+											${order.order_status } 완료 <br>
+											</c:when>
+										</c:choose>
+
+									</div>
+									<div style="width: 30px; margin: 10px 10px 10px 10px">
+										<%-- <s:if test='%{order.order_status == "티켓 신청" }'>
+										<img src="../barcodeImg/${order.barcode}.png"
 											style="cursor: pointer;"
-											onclick="doImgPop('../barcodeImg/${barcode}.png')"
+											onclick="doImgPop('../barcodeImg/${order.barcode}.png')"
 											width="220" />
 									</s:if>
 									<s:else>
 										<img src="../barcodeImg/default.png" width="220" />
-									</s:else>
-								</div>
-							</div>
+									</s:else> --%>
 
-						</div>
-						<!-- contents-->
-						<!-- social -->
-						<div class="cgt_list_count clearfix"
-							style="font-size: 12px; color: #666;">
-							<div style="float: left;">
-								<s:if test='%{status == "티켓 신청" }'>
-									<input
-								type="button" name="status" value="취소"
-								onclick="return deletecheck(${order_num});"
-								class="btn btn-xs btn-default">
-								</s:if>
+										<c:set var="order_status" value="${order.order_status }" />
+										<c:choose>
+											<c:when test="${order_status eq '티켓 신청' }">
+												<img src="../barcodeImg/${order.barcode}.png"
+													style="cursor: pointer;"
+													onclick="doImgPop('../barcodeImg/${order.barcode}.png')"
+													width="220" />
+											</c:when>
+											<c:otherwise>
+												<img src="../barcodeImg/default.png" width="220" />
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+
 							</div>
-							<div>
+							<!-- contents-->
+							<!-- social -->
+							<div class="cgt_list_count clearfix"
+								style="font-size: 12px; color: #666;">
+								<div style="float: left;">
+									<c:set var="order_status" value="${order.order_status }" />
+									<c:choose>
+										<c:when test="${order_status eq '티켓 신청' }">
+											<input type="button" name="status" value="취소"
+											onclick="return deletecheck(${order.order_num});"
+											class="btn btn-xs btn-default">
+										</c:when>
+									</c:choose>
+									<%-- <s:if test='%{status == "티켓 신청" }'>
+										<input type="button" name="status" value="취소"
+											onclick="return deletecheck(${order_num});"
+											class="btn btn-xs btn-default">
+									</s:if> --%>
+								</div>
 								<div>
-									<img src="/template/image/main/icon_apply.jpg"
-										class="application_icon">
-									<s:property value="ordercount" />
+									<div>
+										<img src="/template/image/main/icon_apply.jpg"
+											class="application_icon">
+										${order.ordercount}
+									</div>
+									<!-- applie -->
+									<div style="margin-right: 10px;">
+										<img src="/template/image/main/icon_eye.jpg" class="view_icon">
+										${order.readcount }
+									</div>
+									<!-- views -->
 								</div>
-								<!-- applie -->
-								<div style="margin-right: 10px;">
-									<img src="/template/image/main/icon_eye.jpg" class="view_icon">
-									<s:property value="readcount" />
-								</div>
-								<!-- views -->
 							</div>
 						</div>
+					</c:forEach>
+					<div
+						style="margin: 1px auto; clear: both; max-width: 1200px; text-align: center;">
+						<div style="font-size: 20px; font-weight: bold;">
+							<div style="box-sizing: border-box; font-size: 16px;">
+								<td colspan="7"><s:property value="pagingHtml"
+										escape="false" /></td>
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+						<div style="height: 0px; margin-top: 24px;"></div>
 					</div>
-				</s:iterator>
-				<div style="margin: 1px auto; clear: both; max-width: 1200px; text-align:center;">
-				<div style="font-size: 20px; font-weight: bold;">
-					<div style="box-sizing: border-box; font-size: 16px;">
-						<td colspan="7"><s:property value="pagingHtml" escape="false"/></td>
-					</div>
-				</div>
-				<div style="clear: both;"></div>
-				<div style="height: 0px; margin-top: 24px;"></div>
-			</div>
-		</section>
-	</div>
-
+			</section>
+		</div>
+	</form:form>
 	<%-- <div class="container">
 		<form name="orderList" method="post">
 
