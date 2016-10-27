@@ -98,7 +98,7 @@ public class OrderController {
 		session = request.getSession();
 
 		showcase_num = showcaseModel.getShowcase_num();
-		int member_num = (int) session.getAttribute("session_member_num");
+		int member_num = (Integer) session.getAttribute("session_member_num");
 		
 		orderModel.setShowcase_num(showcase_num);
 		orderModel.setMember_num(member_num);
@@ -130,7 +130,7 @@ public class OrderController {
 		session = request.getSession();
 
 		showcase_num = showcaseModel.getShowcase_num();
-		member_num = (int) session.getAttribute("session_member_num");
+		member_num = (Integer) session.getAttribute("session_member_num");
 		
 		//바코드 넘버 생성
 		String str1 = Integer.toString(member_num);
@@ -168,7 +168,7 @@ public class OrderController {
 		BasketModel basketModel = new BasketModel();
 		
 		id_email = (String) session.getAttribute("session_member_id");	
-		member_num = (int) session.getAttribute("session_member_num");//둘중 필요없는거 삭제
+		member_num = (Integer) session.getAttribute("session_member_num");//둘중 필요없는거 삭제
 		
 		if(id_email != "") {
 			basketModel.setMember_num(member_num);
@@ -195,7 +195,7 @@ public class OrderController {
 		BasketModel basketModel = new BasketModel();
 
 		id_email = (String) session.getAttribute("session_member_id");
-		member_num = (int) session.getAttribute("session_member_num");
+		member_num = (Integer) session.getAttribute("session_member_num");
 		
 		basketModel.setMember_num(member_num);
 		basketList = basketService.BasketList(member_num);
@@ -272,7 +272,7 @@ public class OrderController {
 		session = request.getSession();
 		OrderModel orderModel = new OrderModel();
 
-		member_num = (int) session.getAttribute("member_num");
+		member_num = (Integer) session.getAttribute("member_num");
 
 		orderModel.setMember_num(member_num);
 

@@ -87,8 +87,8 @@ public class BasketController {
 	@RequestMapping("/add")
 	public String basketAdd(Model model,HttpServletRequest request)throws Exception{
 		HttpSession session = request.getSession();
-		int member_num =(int) session.getAttribute("member_num");
-		int showboard_num = (int) session.getAttribute("showboard_num");
+		int member_num =(Integer) session.getAttribute("member_num");
+		int showboard_num = (Integer) session.getAttribute("showboard_num");
 		
 		BasketModel basketModel= new BasketModel();
 		basketModel.setMember_num(member_num);
