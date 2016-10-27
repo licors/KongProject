@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,18 +16,18 @@
 			<tr>
 				<td width="150" align="center">이메일</td>
 				<td width="150" align="left">
-					<input class="id_email" type="text" name="id_email">
+					<form:input path="id_email" class="id_email" type="text" name="id_email"/>
 				</td>
 			</tr>
 			<tr>
 				<td width="150" align="center">이름</td>
 				<td width="150" align="left">
-					<input class="name" type="text" name="name" style="ime-mode: Disabled;">
+					<form:input path="name" class="name" type="text" name="name" style="ime-mode: Disabled;"/>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" class="btn btn-success" value="확인">
+					<input type="submit" class="btn btn-success" value="확인"/>
 				</td>
 			</tr>
 

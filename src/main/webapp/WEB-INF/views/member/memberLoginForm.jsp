@@ -17,7 +17,7 @@
 				<tr>
 					<td align="center"></td>
 					<td valign="middle" align="left">
-						<input name="id_email" type="text" size="30" maxlength="50" placeholder="이메일주소"
+						<form:input path="id_email" name="id_email" type="text" size="30" maxlength="50" placeholder="이메일주소"
 							class="form-control input-lg"/>
 					</td>
 				</tr>
@@ -25,15 +25,15 @@
 				<tr>
 					<td align="center"></td>
 					<td valign="middle" align="left">
-						<input type="password" name="password" size="30" maxlength="20" placeholder="비밀번호"
-							class="form-control input-lg">
+						<form:input path="password" type="password" name="password" size="30" maxlength="20" placeholder="비밀번호"
+							class="form-control input-lg"/>
 					</td>
 				</tr>
 
 				<tr>
 					<td align="right" colspan="2">
 						<input name="submit" class="btn btn-success btn-lg btn-block" type="submit" value="로그인"
-							class="inputb"><br>
+							class="inputb"/><br>
 					</td>
 				</tr>
 			</table>

@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class ShowcaseController {
 
     @Autowired
-    private ShowcaseDAOService showcaseDAOService;
+    private ShowcaseService showcaseDAOService;
 
     String uploadPath = "classpath:/1";
 

@@ -25,25 +25,24 @@ public class MemberController {
 	private List<ZipcodeModel> zipcodeList = new ArrayList<ZipcodeModel>();
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginForm() {
+	public String loginForm(Model model) {
+		model.addAttribute("member", new MemberModel());	
 		return "loginForm";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String memberLogin(HttpServletRequest request, MemberModel mem, Model model) {
+	public String memberLogin(HttpServletRequest request,@ModelAttribute("member") MemberModel member, Model model) {
 
-		MemberModel result = memberService.memberLogin(mem);
+		MemberModel result = memberService.memberLogin(member);
 
 		if (result != null) {
-
 			HttpSession session = request.getSession();
 
-//			session.setAttribute("mem", result);
 			session.setAttribute("session_member_id", result.getId_email());
 			session.setAttribute("session_member_name", result.getName());
 			session.setAttribute("session_member_num", result.getMember_num());
 
-			model.addAttribute("mem");
+			model.addAttribute("member");
 			return "member/loginSuccess";
 		}
 		return "member/loginError";
@@ -61,7 +60,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
-	public String memberPwFindForm() {
+	public String memberPwFindForm(Model model) {
+		model.addAttribute("member", new MemberModel());
 		return "passwordFindForm";
 	}
 
