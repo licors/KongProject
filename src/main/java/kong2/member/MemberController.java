@@ -56,7 +56,8 @@ public class MemberController {
 		if (session != null) {
 			session.invalidate();
 		}
-		return "main";
+
+		return "redirect:"+"/main";
 	}
 	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)

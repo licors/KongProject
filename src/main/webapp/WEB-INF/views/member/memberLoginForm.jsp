@@ -42,6 +42,8 @@
 					<td align="center">
 						<input type="button" class="btn btn-success" value="회원가입" onClick="javascript:location.href='${contextPath}/member/memberJoin'">
 						<input type="button" class="btn btn-success" value="비밀번호 찾기" onClick="javascript:location.href='${contextPath}/member/memberPwFind'">
+						<!-- 테스트용 -->
+						<input type="button" class="btn btn-success" value="로그아웃" onClick="javascript:location.href='${contextPath}/member/logout'">
 					</td>
 				</tr>
 			</table>
