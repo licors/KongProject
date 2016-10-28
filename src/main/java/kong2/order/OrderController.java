@@ -1,4 +1,4 @@
-/*package kong2.order;
+package kong2.order;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
 import net.sourceforge.barbecue.BarcodeImageHandler;
 import kong2.showcase.ShowcaseService;
+import kong2.common.AdminOrderPagingAction;
 import kong2.common.PagingAction;
 
 @Controller
@@ -95,13 +96,14 @@ public class OrderController {
 		orderParam.setOrder_status("티켓 신청");
 
 		OrderModel orderModel = new OrderModel();
-		orderModel = orderService.order_check(orderModel);
+		orderModel = orderService.order_check(orderParam);
 
 		if (orderModel != null) {
-			return ""; // 팝업띄우고 전화면으로 돌아가는 jsp
+			model.addAttribute("orderModel", orderParam);
+			return "order/orderCheckFail";
 		} else {
-			model.addAttribute(orderModel);
-			return ""; /// order/form으로 이동 (가진 정보 그대로 가지고)
+			model.addAttribute("orderModel", orderParam);
+			return "order/orderCheckSuccess"; /// order/form으로 이동 (가진 정보 그대로 가지고)
 		}
 		// AOP사용해보기, 포워딩
 	}
@@ -109,19 +111,25 @@ public class OrderController {
 	// (1개 전시) 신청 폼 (showcase, main, 장바구니 신청 시 showcase_num이나 showcaseModel
 	// 전달받기)
 	@RequestMapping(value = "/form")
-	public String orderForm(Model model, @RequestParam int showcase_num, Locale locale, HttpServletRequest request,
+	public String orderForm(@RequestParam int showcase_num, Model model, Locale locale, HttpServletRequest request,
 			HttpSession session) throws Exception {
 		logger.info("welcome order form.", locale);
 
 		session = request.getSession();
 
 		id_email = (String) session.getAttribute("session_member_id");
+		member_num = (Integer) session.getAttribute("session_member_num");
 
 		if (id_email != null) {
-			showcaseModel = showcaseService.selectone(showcaseModel); // 전시회 1개
-																		// 불러오기
+			showcaseModel.setShowcase_num(showcase_num);
+			showcaseModel = showcaseService.selectone(showcaseModel); // 전시회 1개 불러오기
 			memberModel = memberService.getMember(id_email);
-
+			
+			OrderModel orderModel = new OrderModel();
+			orderModel.setMember_num(member_num);
+			orderModel.setShowcase_num(showcase_num);
+			
+			model.addAttribute("orderModel", orderModel);
 			model.addAttribute("showcaseModel", showcaseModel);
 			model.addAttribute("memberModel", memberModel);
 
@@ -141,21 +149,14 @@ public class OrderController {
 
 	// (1개 전시) 1차 신청 처리
 	@RequestMapping(value = "/pro")
-	public String orderPro(Model model, ShowcaseModel showcaseModel, OrderModel orderModel, MemberModel memberModel,
+	public String orderPro(Model model, @ModelAttribute OrderModel orderModel,
 			HttpServletRequest request, HttpSession session, Locale locale) {
 		logger.info("welcome order process.", locale);
 
-		session = request.getSession();
-
-		showcase_num = showcaseModel.getShowcase_num();
-		int member_num = (Integer) session.getAttribute("session_member_num");
-
-		orderModel.setShowcase_num(showcase_num);
-		orderModel.setMember_num(member_num);
-
+/*		showcaseModel.setShowcase_num(orderModel.getShowcase_num());
 		showcaseModel = showcaseService.selectone(showcaseModel);
 
-		model.addAttribute("showcaseModel", showcaseModel);
+		model.addAttribute("showcaseModel", showcaseModel);*/
 		model.addAttribute("orderModel", orderModel);
 
 		return "order/orderPro";
@@ -174,7 +175,7 @@ public class OrderController {
 
 	// (1개 전시) 신청 완료 처리
 	@RequestMapping(value = "/orderInsert")
-	public String orderInsert(Model model, OrderModel orderModel, ShowcaseModel showcaseModel, Locale locale,
+	public String orderInsert(Model model, @ModelAttribute OrderModel orderModel, Locale locale,
 			HttpSession session, HttpServletRequest request) {
 		logger.info("welcome order success.", locale);
 
@@ -203,54 +204,61 @@ public class OrderController {
 		orderModel.setOrder_date(today.getTime());
 		orderService.ordercountPlus(showcaseModel);
 
-		orderModel.setTotal_price(showcaseModel.getPrice());
+		//form에서 입력한 값으로
+		//orderModel.setTotal_price(showcaseModel.getPrice());
 
-		orderModel.setPayment_date(today.getTime()); // 수정하기
+		//orderModel.setPayment_date(today.getTime()); // 수정하기
+		//form에서 입력한 값으로
+		
+		//장바구니에 있으면 삭제
+		BasketModel basketModel = new BasketModel();
+		basketModel.setShowboard_num(showcase_num);
+		//basketModel.setBasket_num(0);
+		basketService.basketDelete(basketModel);
 
 		return "order/orderSuccess";
 	}
-
+	
+	//---------------------------------------------------------------------------------
 	// basket(다수) 신청 폼
 	@RequestMapping(value = "/form_B")
-	public String orderForm_B(Model model, Locale locale, HttpServletRequest request, HttpSession session) {
+	public String orderForm_B(@RequestParam int total_price, Model model, Locale locale, HttpServletRequest request, HttpSession session) {
 		logger.info("welcome basket order", locale);
 
 		session = request.getSession();
-		BasketModel basketModel = new BasketModel();
 
 		id_email = (String) session.getAttribute("session_member_id");
-		member_num = (Integer) session.getAttribute("session_member_num");// 둘중
-																			// 필요없는거
-																			// 삭제
+		member_num = (Integer) session.getAttribute("session_member_num");																			
 
 		if (id_email != "") {
-			basketModel.setMember_num(member_num);
-
 			basketList = basketService.BasketList(member_num);
 			memberModel = memberService.getMember(id_email);
+			
+			OrderModel orderModel = new OrderModel();
+			orderModel.setTotal_price(total_price);
 
 			model.addAttribute("basketList", basketList);
 			model.addAttribute("memberModel", memberModel);
+			model.addAttribute("orderModel", orderModel);
 
 			return "order/orderForm";
 		} else {
-			return "order/orderError";
+			return "order/orderError"; //로그인x
 		}
 	}
 
 	// basket(다수) 신청처리
 	@RequestMapping(value = "/pro_B")
 	public String orderPro_B(Model model, Locale locale, HttpServletRequest request, HttpSession session,
-			ShowcaseModel showcaseModel, OrderModel orderModel, MemberModel memberModel) {
+			@ModelAttribute OrderModel orderModel) {
 		logger.info("welcome basket order progress...", locale);
 
 		session = request.getSession();
-		BasketModel basketModel = new BasketModel();
+		
 
 		id_email = (String) session.getAttribute("session_member_id");
 		member_num = (Integer) session.getAttribute("session_member_num");
 
-		basketModel.setMember_num(member_num);
 		basketList = basketService.BasketList(member_num);
 
 		orderModel.setMember_num(member_num);
@@ -265,7 +273,8 @@ public class OrderController {
 
 	// basket(다수) DB insert
 	@RequestMapping(value = "/insert_B")
-	public String orderInsert_B(Locale locale, HttpServletRequest reqeust, OrderModel orderModel) {
+	public String orderInsert_B(Locale locale, HttpServletRequest reqeust, 
+			@ModelAttribute OrderModel orderModel) {
 
 		logger.info("welcome basket order insert...", locale);
 
@@ -273,17 +282,7 @@ public class OrderController {
 		basketModel.setMember_num(orderModel.getMember_num());
 
 		basketList = basketService.BasketList(orderModel.getMember_num());
-
-		// 총 가격 계산 장바구니(
 		
-		 * for (int i = 0; i < basketList.size(); i++) { basketModel =
-		 * basketList.get(i);
-		 * showcaseModel.setShowcase_num(basketModel.getShowboard_num());
-		 * showcaseModel = showcaseService.selectone(showcaseModel);
-		 * 
-		 * totalPrice += showcaseModel.getPrice(); }
-		 
-
 		for (int i = 0; i < basketList.size(); i++) {
 			basketModel = basketList.get(i);
 			showcaseModel.setShowcase_num(basketModel.getShowboard_num());
@@ -291,7 +290,7 @@ public class OrderController {
 
 			// 바코드 넘버 생성
 			String str1 = Integer.toString(orderModel.getMember_num());
-			String str2 = Integer.toString(basketModel.getShowboard_num());
+			String str2 = Integer.toString(showcaseModel.getShowcase_num());
 			Long str3 = Calendar.getInstance().getTimeInMillis();
 
 			String codeStr = str1 + str2 + str3;
@@ -305,12 +304,15 @@ public class OrderController {
 			}
 
 			orderModel.setBarcode(codeStr);
-			orderModel.setShowcase_num(basketModel.getShowboard_num());
+			orderModel.setShowcase_num(showcaseModel.getShowcase_num());
 			orderModel.setOrder_status("티켓 신청");
 			orderModel.setOrder_date(today.getTime());
 			orderService.ordercountPlus(showcaseModel);
 
 			orderModel.setPayment_date(today.getTime()); // 수정하기
+			
+			//basket리스트 삭제
+			basketService.basketDelete_all(orderModel.getMember_num());
 
 		}
 		return "order/orderSuccess";
@@ -447,9 +449,8 @@ public class OrderController {
 
 	// 리스트 검색
 	@RequestMapping(value = "/search")
-	public String search(Model model, HttpSession session, HttpServletRequest request) throws Exception {
+	public String search(OrderSearchModel searchModel, Model model, HttpSession session, HttpServletRequest request) throws Exception {
 		session = request.getSession();
-		OrderModel orderModel = new OrderModel();
 
 		// member_num = (Integer) session.getAttribute("session_member_num");
 
@@ -460,24 +461,25 @@ public class OrderController {
 			orderParam.setDatepicker1(datepicker1);
 			orderParam.setDatepicker2(datepicker2);
 		}
-
+		
 		if (searchKeyword == null) { // 기간검색
 			orderList = orderService.search_date(orderParam);
 		} else if (searchNum == 0) { // 회원 + 기간검색
-			orderParam.setEmail("%" + getSearchKeyword() + "%");
-			orderList = sqlMapper.queryForList("order.search_id", orderParam);
+			orderParam.setId_email("%" + searchKeyword + "%");
+			orderList = orderService.search_id(orderParam);
 		} else if (searchNum == 1) { // 전시 + 기간검색
-			orderParam.setSubject("%" + getSearchKeyword() + "%");
-			orderList = sqlMapper.queryForList("order.search_subject", orderParam);
+			orderParam.setShow_subject("%" + searchKeyword + "%");
+			orderList = orderService.search_subject(orderParam);
 		} else if (searchNum == 2) { // 신청상태 + 기간검색
-			orderParam.setStatus("%" + getSearchKeyword() + "%");
-			orderList = sqlMapper.queryForList("order.search_status", orderParam);
+			orderParam.setOrder_status("%" + searchKeyword + "%");
+			orderList = orderService.search_status(orderParam);
 		}
 
 		totalCount = orderList.size(); // 전체 글 갯수를 구한다.
+		
 		// pagingAction 객체생성
-		adpage = new AdminOrderPagingAction(currentPage, totalCount, blockCount, blockPage, searchNum,
-				getSearchKeyword());
+		AdminOrderPagingAction adpage = new AdminOrderPagingAction(currentPage, totalCount, blockCount, blockPage, searchNum,
+				searchKeyword);
 		pagingHtml = adpage.getPagingHtml().toString(); // 페이지HTML 생성.
 
 		// 현재 페이지에서 보여줄 마지막 글의 번호 설정.
@@ -494,4 +496,3 @@ public class OrderController {
 	}
 
 }
-*/

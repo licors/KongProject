@@ -9,25 +9,37 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderList.jsp" />
 	</definition>
-	<definition name="adminOrderList" extends="main">
+	<definition name="adminOrderList" extends="default">
 		<put-attribute name="left" value="" />
-		<put-attribute name="body" value="/admin/order/orderList.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/adminOrderList.jsp" />
 	</definition>
-	<definition name="orderForm" extends="main">
+	<definition name="orderForm" extends="default">
 		<put-attribute name="left" value="" />
-		<put-attribute name="body" value="/order/orderForm.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderForm.jsp" />
 	</definition>
-	<definition name="orderSuccess" extends="main">
+	<definition name="orderSuccess" extends="default">
 		<put-attribute name="left" value="" />
-		<put-attribute name="body" value="/order/orderSuccess.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderSuccess.jsp" />
 	</definition>
-	<definition name="orderView" extends="main">
+	<definition name="orderView" extends="default">
 		<put-attribute name="left" value="" />
-		<put-attribute name="body" value="/order/orderView.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderView.jsp" />
 	</definition>
-	<definition name="orderView" extends="main">
+	<definition name="orderPro" extends="default">
 		<put-attribute name="left" value="" />
-		<put-attribute name="body" value="/order/orderView.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderPro.jsp" />
+	</definition>
+	<definition name="orderError" extends="default">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderError.jsp" />
+	</definition>
+	<definition name="orderPro" extends="default">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderCheckFail.jsp" />
+	</definition>
+	<definition name="orderPro" extends="default">
+		<put-attribute name="left" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/order/orderCheckSuccess.jsp" />
 	</definition>
 
 </tiles-definitions>
