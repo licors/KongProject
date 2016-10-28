@@ -9,7 +9,7 @@ public interface MemberMapper {
 
 	public void MemberAdd(MemberModel member);
 	
-	public MemberModel idCheck(String id);
+	public String idCheck(String id);
 	
 	public String passwordFind(MemberModel member);
 
