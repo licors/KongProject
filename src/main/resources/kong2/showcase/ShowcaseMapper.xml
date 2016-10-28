@@ -69,9 +69,13 @@
         ]]>
     </select>
 	
-    <insert id="insert" parameterType="kong2.showcase.ShowcaseModel">
-        INSERT INTO showcase
+    <!--    <insert id="insert" parameterType="kong2.showcase.ShowcaseModel">
+        INSERT INTO showcase(SHOWCASE_NUM, subject, address1, address2, start_date, end_date, price, tel, tag, content, file_savname, readcount, ordercount, map, showcase_category)
         VALUES(showcase_num_seq.NEXTVAL, #{subject}, #{address1}, #{address2}, #{start_date}, #{end_date}, #{price}, #{tel}, #{tag}, #{content}, #{file_savname}, #{readcount}, #{ordercount}, #{map}, #{showcase_category})
+    </insert>-->
+    <insert id="insert" parameterType="kong2.showcase.ShowcaseModel">
+        INSERT INTO showcase (showcase_num, subject, address1, address2, start_date, end_date, price, tel, tag, content, file_savname, readcount, ordercount, map, showcase_category)
+        VALUES(showcase_num_seq.NEXTVAL, #{subject}, #{address1}, #{address2}, #{start_date}, #{end_date}, #{price}, #{tel}, #{tag}, #{content}, #{file_savname,jdbcType=VARCHAR}, #{readcount}, #{ordercount}, #{map}, #{showcase_category})
     </insert>
 	
     <update id="update" parameterType="kong2.showcase.ShowcaseModel">

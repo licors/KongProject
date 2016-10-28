@@ -39,7 +39,8 @@
         </script>
     </head>
     <body>
-        <form:form commandName="showcaseModel" name="sc" action="/admin/main/write" method="post" enctype="multipart/form-data" onsubmit="return check()" class="form-control-static">
+        <!--<form name="sc" action="write" method="post" enctype="multipart/form-data" onsubmit="return check()" class="form-control-static">-->
+        <form action="/admin/main/write" method="post" enctype="multipart/form-data">
             <table align="center">
                 <tr>
                     <td align="right" colspan="2">
@@ -102,7 +103,7 @@
                 <tr>
                     <td width="100"><label for="pay"><font color="#FF0000">&nbsp;&nbsp;*</font>입장료</label></td>
                     <td>
-                        <input class="form-control" type="text" name="pay" value="" size="10" maxlength="7"/>
+                        <input class="form-control" type="text" name="price" value="" size="10" maxlength="7"/>
                     </td>
                 </tr>
                 <tr>
@@ -130,27 +131,27 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="100"><label for="upload">&nbsp;&nbsp;&nbsp;사진1</label></td>
+                    <td width="100"><label for="file">&nbsp;&nbsp;&nbsp;사진1</label></td>
                     <td>
-                        <input type="file" name="files" size="30" value=''/>
+                        <input type="file" name="upload_file" size="30" value=''/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100"><label for="upload">&nbsp;&nbsp;&nbsp;사진2</label></td>
                     <td>
-                        <input type="file" name="files" size="30" value=''/>
+                        <input type="file" name="upload_file" size="30" value=''/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100"><label for="upload">&nbsp;&nbsp;&nbsp;사진3</label></td>
                     <td>
-                        <input type="file" name="files" size="30" value=''/>
+                        <input type="file" name="upload_file" size="30" value=''/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100"><label for="upload">&nbsp;&nbsp;&nbsp;사진4</label></td>
                     <td>
-                        <input type="file" name="files" size="30" value=''/>
+                        <input type="file" name="upload_file" size="30" value=''/>
                     </td>
                 </tr>
                 <tr>
@@ -161,6 +162,6 @@
                     </td>
                 </tr>
             </table>
-        </form:form>
+        </form>
     </body>
 </html>
