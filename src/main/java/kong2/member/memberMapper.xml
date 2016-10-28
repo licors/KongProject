@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
  	<!-- 공통으로 사용할 select 의 -->
 	<sql id="select-all-member">
-		select (MEMBER_NUM, ID_EMAIL, PASSWORD, NAME, ZIPCODE, ADDRESS, ADDRESS2, COMPANY, ADMIN, PHONE) from MEMBER 
+		select MEMBER_NUM, ID_EMAIL, PASSWORD, NAME, ZIPCODE, ADDRESS, ADDRESS2, COMPANY, ADMIN, PHONE from MEMBER 
 	</sql>
 	
 	<!-- 회원정보 입력 쿼리문 -->
@@ -35,12 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원정보 수정 -->
 	<update id="memberModify" parameterType="MemberModel"> 
 		update MEMBER set 
-					PASSWORD = #{password}
+					PASSWORD = #{password},
 					NAME = #{name}, 
 					ZIPCODE = #{zipcode},
 					ADDRESS = #{address},
 					ADDRESS2 = #{address2},
-					COMPANY = #{company}		
+					COMPANY = #{company},		
 					PHONE = #{phone}
 		where ID_EMAIL = #{id_email} 
  	</update> 
@@ -48,10 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<!-- 회원탈퇴  -->
  	<delete id="memberDelete" parameterType="String">
  		delete from MEMBER
-		where ID_EMAIL = #{id_email} and NAME=#{name}
+		where ID_EMAIL = #{id_email}
 	</delete>
 	
-	<select id="getMember" parameterType="MemberModel">
+	<select id="getMember" parameterType="MemberModel" resultType="MemberModel">
 		<include refid="select-all-member" />
 		where ID_EMAIL = #{id_email}
 	</select>

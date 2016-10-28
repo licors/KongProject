@@ -29,7 +29,7 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(Model model) {
 		model.addAttribute("member", new MemberModel());	
-		return "loginForm";
+		return "ti_loginForm";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -68,7 +68,7 @@ public class MemberController {
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
 	public String memberPwFindForm(Model model) {
 		model.addAttribute("member", new MemberModel());
-		return "passwordFindForm";
+		return "ti_passwordFindForm";
 	}
 
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.POST)
@@ -93,7 +93,7 @@ public class MemberController {
 	@RequestMapping(value="/memberJoin", method = RequestMethod.GET)
 	public String memberJoin(@ModelAttribute("member") MemberModel member, Model model) {
 		model.addAttribute("member", member);	
-		return "joinForm";
+		return "ti_joinForm";
 	}
 	
 	@RequestMapping(value="/memberJoin", method = RequestMethod.POST)
@@ -110,37 +110,29 @@ public class MemberController {
 
 		} catch (DuplicateKeyException e) {
 			result.reject("invalid", null);
-			return "joinForm";
+			return "ti_joinForm";
 		}
 	}
 	@RequestMapping("/memberModifyForm")
 	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
-		session.getAttribute("session_member_id");
-
 		if (session.getAttribute("session_member_id") != null) {
 			String id = (String) session.getAttribute("session_member_id");
 			member = memberService.getMember(id);
 
 			model.addAttribute("member", member);
-			return "memberModify";
+			return "ti_memberModify";
 		} else {
-			return "loginForm";
+			return "ti_loginForm";
 		}
 	}
 
 	@RequestMapping("/memberModify")
-	public String memberModifyEnd(@ModelAttribute("member") MemberModel member, BindingResult result) {
+	public String memberModify(@ModelAttribute("member") MemberModel member, BindingResult result) {
 		// Validation Binding
 		/* new MemberValidator().validate(member, result); */
-
-		try {
-			memberService.memberModify(member);
-			return "memberModifyEnd";
-		} catch (DuplicateKeyException e) {
-			result.reject("invalid", null);
-			return "memberModifyForm";
-		}
-
+		System.out.println("memberModify : " + member);
+		memberService.memberModify(member);
+		return "redirect:/main";
 	}
 
 	@RequestMapping(value = "/zipcodeCheckForm")
@@ -168,7 +160,7 @@ public class MemberController {
 	@RequestMapping(value="/memberDeleteForm", method=RequestMethod.GET)
 	public String memberDeleteForm(@ModelAttribute("member") MemberModel member, Model model) {
 		model.addAttribute("member", member);
-		return "memberPasswordCheck";
+		return "ti_memberPasswordCheck";
 	}
 	
 	@RequestMapping(value="/memberDelete", method = RequestMethod.POST)
@@ -177,7 +169,7 @@ public class MemberController {
 		String id = session.getAttribute("session_member_id").toString();
 		MemberModel result = (MemberModel) memberService.getMember(id);
 		
-		if(result.getPassword().equals(member.getPassword())) {
+		if(result.getPassword().equals(member.getPassword()) && result.getName().equals(member.getName())) {
 			memberService.memberDelete(id);
 			session.removeAttribute("session_member_id");
 			session.removeAttribute("session_member_name");

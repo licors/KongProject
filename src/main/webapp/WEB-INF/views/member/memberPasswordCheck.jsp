@@ -15,11 +15,19 @@
 				<tr>
 					<td align="center"></td>
 					<td valign="middle" align="left">
+						<form:input path="name" type="password" name="name" size="30" maxlength="20" placeholder="이름"
+							class="form-control input-lg"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td align="center"></td>
+					<td valign="middle" align="left">
 						<form:input path="password" type="password" name="password" size="30" maxlength="20" placeholder="비밀번호"
 							class="form-control input-lg"/>
 					</td>
 				</tr>
-
+				
 				<tr>
 					<td align="right" colspan="2">
 						<input name="submit" class="btn btn-success btn-lg btn-block" type="submit" value="확인" class="inputb"/><br>
