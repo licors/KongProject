@@ -73,6 +73,7 @@ public class FaqController {
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String faqWriteForm(Model model,HttpServletRequest request)throws Exception{
+		
 		HttpSession session =request.getSession();
 		System.out.println(session.getAttribute("session_member_num"));
 		return "faq_form";

@@ -1,4 +1,4 @@
-package kong2.common;
+/*package kong2.common;
 
 import org.aspectj.lang.JoinPoint;
 
@@ -9,7 +9,6 @@ import org.aspectj.lang.annotation.Before;
  
 
 @Aspect
-
 public class LoggingAspect {
 
  
@@ -26,4 +25,4 @@ public class LoggingAspect {
 
     }
 
-}
+}*/
