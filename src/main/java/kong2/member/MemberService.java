@@ -79,7 +79,7 @@ public class MemberService implements MemberDao{
 	}
 
 	@Override
-	public MemberModel idCheck(String id) {
+	public String idCheck(String id) {
 		// TODO Auto-generated method stub
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.idCheck(id);

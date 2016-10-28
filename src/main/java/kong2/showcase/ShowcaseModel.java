@@ -2,6 +2,8 @@ package kong2.showcase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ShowcaseModel {
 
@@ -19,8 +21,9 @@ public class ShowcaseModel {
     private int readcount;
     private int ordercount;
     private String map;
-    private String show_status; //글 상태여부 기본 -1 삭제, 0 예정중, 1 계최중
+    private int show_status; //글 상태여부 기본 -1 삭제, 0 예정중, 1 계최중
     private String showcase_category;
+    private List<MultipartFile> upload_file;
 
     public int getShowcase_num() {
         return showcase_num;
@@ -134,11 +137,11 @@ public class ShowcaseModel {
         this.map = map;
     }
 
-    public String getShow_status() {
+    public int getShow_status() {
         return show_status;
     }
 
-    public void setShow_status(String show_status) {
+    public void setShow_status(int show_status) {
         this.show_status = show_status;
     }
 
@@ -150,9 +153,17 @@ public class ShowcaseModel {
         this.showcase_category = showcase_category;
     }
 
+    public List<MultipartFile> getUpload_file() {
+        return upload_file;
+    }
+
+    public void setUpload_file(List<MultipartFile> upload_file) {
+        this.upload_file = upload_file;
+    }
+
     @Override
     public String toString() {
-        return "ShowcaseModel{" + "showcase_num=" + showcase_num + ", subject=" + subject + ", address1=" + address1 + ", address2=" + address2 + ", start_date=" + new SimpleDateFormat("yyyy-MM-dd").format(start_date) + ", end_date=" + new SimpleDateFormat("yyyy-MM-dd").format(end_date) + ", price=" + price + ", tel=" + tel + ", tag=" + tag + ", content=" + content + ", file_savname=" + file_savname + ", readcount=" + readcount + ", ordercount=" + ordercount + ", map=" + map + ", show_status=" + show_status + ", showcase_category=" + showcase_category + '}';
+        return "ShowcaseModel{" + "showcase_num=" + showcase_num + ", subject=" + subject + ", address1=" + address1 + ", address2=" + address2 + ", start_date=" + new SimpleDateFormat("yyyy-MM-dd").format(start_date) + ", end_date=" + new SimpleDateFormat("yyyy-MM-dd").format(end_date) + ", price=" + price + ", tel=" + tel + ", tag=" + tag + ", content=" + content + ", file_savname=" + file_savname + ", readcount=" + readcount + ", ordercount=" + ordercount + ", map=" + map + ", show_status=" + show_status + ", showcase_category=" + showcase_category + ", upload_file=" + upload_file + '}';
     }
 
 }

@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/member")
@@ -43,6 +45,9 @@ public class MemberController {
 			session.setAttribute("session_member_num", result.getMember_num());
 
 			model.addAttribute("member");
+			if(result.getAdmin() > 0) {
+				return "/admin/adminPage";
+			}
 			return "member/loginSuccess";
 		}
 		return "member/loginError";
@@ -57,9 +62,9 @@ public class MemberController {
 			session.invalidate();
 		}
 
-		return "redirect:"+"/main";
+		return "redirect:/main";
 	}
-	
+  	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
 	public String memberPwFindForm(Model model) {
 		model.addAttribute("member", new MemberModel());
@@ -68,14 +73,10 @@ public class MemberController {
 
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.POST)
 	public String memberPwFind(@ModelAttribute("member") MemberModel member, HttpServletRequest request, Model model) {
-
-		int memberFindChk;
-
+		
 		String findPassword = memberService.passwordFind(member);
 
 		if (findPassword == null) {
-			memberFindChk = 0; 
-			model.addAttribute("memberFindChk", memberFindChk);
 			return "member/pwFindError";
 
 		} else {
@@ -90,22 +91,29 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="/memberJoin", method = RequestMethod.GET)
-	public String memberJoin(Model model) {
-		model.addAttribute("member", new MemberModel());	
+	public String memberJoin(@ModelAttribute("member") MemberModel member, Model model) {
+		model.addAttribute("member", member);	
 		return "joinForm";
 	}
 	
 	@RequestMapping(value="/memberJoin", method = RequestMethod.POST)
 	public String memberJoin(@ModelAttribute("member") MemberModel member, BindingResult result, Model model) {
 		try {
-			memberService.MemberAdd(member);
-			return "redirect:"+"/main";
+	  		String id_email = memberService.idCheck(member.getId_email());
+	  		if(id_email == null) {
+	  			memberService.MemberAdd(member);
+				return "redirect:/main";
+	  		} else {
+	  			//validator error(아이디 중복)
+	  			return "redirect:/member/memberJoin";
+	  		}
+
 		} catch (DuplicateKeyException e) {
 			result.reject("invalid", null);
 			return "joinForm";
 		}
 	}
-	@RequestMapping("/memberModify")
+	@RequestMapping("/memberModifyForm")
 	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 		session.getAttribute("session_member_id");
 
@@ -116,11 +124,11 @@ public class MemberController {
 			model.addAttribute("member", member);
 			return "memberModify";
 		} else {
-			return "loginConfirm";
+			return "loginForm";
 		}
 	}
 
-	@RequestMapping("/memberModifyEnd")
+	@RequestMapping("/memberModify")
 	public String memberModifyEnd(@ModelAttribute("member") MemberModel member, BindingResult result) {
 		// Validation Binding
 		/* new MemberValidator().validate(member, result); */
@@ -130,7 +138,7 @@ public class MemberController {
 			return "memberModifyEnd";
 		} catch (DuplicateKeyException e) {
 			result.reject("invalid", null);
-			return "memberModify";
+			return "memberModifyForm";
 		}
 
 	}
@@ -157,34 +165,27 @@ public class MemberController {
 //		return "check/zipcodeCheck";
 //	}
 
-	@RequestMapping("/memberDelete")
-	public String memberDelete(@ModelAttribute("member") MemberModel member, 
-				HttpSession session, HttpServletRequest request, Model model) {
+	@RequestMapping(value="/memberDeleteForm", method=RequestMethod.GET)
+	public String memberDeleteForm(@ModelAttribute("member") MemberModel member, Model model) {
+		model.addAttribute("member", member);
+		return "memberPasswordCheck";
+	}
+	
+	@RequestMapping(value="/memberDelete", method = RequestMethod.POST)
+	public String memberDelete(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 
-		MemberModel memberModel; 
-
-		String id;
-		String password;
-		password = request.getParameter("password");
-		int deleteCheck;
-
-		id = session.getAttribute("session_member_id").toString();
-		memberModel = (MemberModel) memberService.getMember(id);
-
-		if (memberModel.getPassword().equals(password)) {
-
-			deleteCheck = 1;
-
+		String id = session.getAttribute("session_member_id").toString();
+		MemberModel result = (MemberModel) memberService.getMember(id);
+		
+		if(result.getPassword().equals(member.getPassword())) {
 			memberService.memberDelete(id);
 			session.removeAttribute("session_member_id");
 			session.removeAttribute("session_member_name");
-			/* session.removeAttribute("session_member_no"); */
+			session.removeAttribute("session_member_num");
+			return "/member/memberDeleteSuccess";
 		} else {
-			deleteCheck = -1; 
+			return "/member/memberDeleteError"; //비밀번호 다름
 		}
-
-		model.addAttribute("deleteCheck", deleteCheck);
-		return "deleteResult";
 	}
 
 }
