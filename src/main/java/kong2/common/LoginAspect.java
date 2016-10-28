@@ -8,8 +8,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
-
+@Component("loginAspect")
 @Aspect
 public class LoginAspect {
  
@@ -33,9 +34,9 @@ public class LoginAspect {
          
     private String[] access_url = {
             };*/
-     
-    @Around(value ="adminMethod() || bbsMethod()")
-    public Object trace(ProceedingJoinPoint joinPoint ) throws Throwable{
+    /*adminMethod() || */
+    @Around(value="bbsMethod()")
+    public Object trace(ProceedingJoinPoint joinPoint) throws Throwable{
  
 System.out.println("머냐");     
         HttpServletRequest request = null;
