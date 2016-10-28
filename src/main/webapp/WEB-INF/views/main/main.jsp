@@ -8,6 +8,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %> 
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,15 +18,21 @@
     </head>
     <body>
         <c:forEach var="aticleList"  items="${aticle}" varStatus="stat">
-                ${aticleList.subject}<br>
+                <c:url var="viewURL" value="" >
+                <c:param name="showcase_num"/>
+                <c:param name="currentPage" value="${currentPage}" />
+            </c:url>
+            
+            <a href="/main/view/?showcase_num=${aticleList.showcase_num}&currentPage=${currentPage}">${aticleList.showcase_num} ${aticleList.subject}</a>
+            <br>
         </c:forEach>
         ------<br>
         <c:forEach var="artList"  items="${art}" varStatus="stat">
-                ${artList.subject}<br>
+            ${artList.subject}<br>
         </c:forEach>
         ------<br>
         <c:forEach var="eventList"  items="${event}" varStatus="stat">
-                ${eventList.subject}<br>
+            ${eventList.subject}<br>
         </c:forEach>
     </body>
 </html>

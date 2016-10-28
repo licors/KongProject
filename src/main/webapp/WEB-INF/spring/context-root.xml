@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	
-<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
+    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
 
     <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -45,29 +45,25 @@
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>		
 
-
-
-
     <context:component-scan base-package="kong2" use-default-filters="false">
-    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-<!-- 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy> 
-	<bean id="loginAspect" class="kong2.common.LoginAspect"/>
+    <!-- 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy> 
+        <bean id="loginAspect" class="kong2.common.LoginAspect"/>
 <context:component-scan base-package="kong2">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan> -->
 
-<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="java.lang.Exception">
-					index
-				</prop>
-		</props>
-		</property>
-</bean>
+    <bean
+        class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">
+                    index
+                </prop>
+            </props>
+        </property>
+    </bean>
 
-        
 </beans>
