@@ -33,7 +33,7 @@ public class ShowcaseController {
     @Autowired
     private ShowcaseService showcaseService;
 
-    String uploadPath = path.path().p() + "../../../../../../src/main/webapp/resources/upload";
+    String uploadPath = path.path().p() + "../../../../resources/upload";
     //path:/C:/Users/user2/Documents/khproject/target/Kong2-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/kong2/common/
     //resources
 
