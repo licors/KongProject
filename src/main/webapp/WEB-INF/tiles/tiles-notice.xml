@@ -5,19 +5,19 @@
 
 <tiles-definitions>
     <!-- 리스트 -->
-    <definition name="notice_list" extends="main">
+    <definition name="notice_list" extends="default">
         <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/notice/noticelist.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeList.jsp" />
     </definition>
     <!-- 상세보기 -->
-    <definition name="notice_view" extends="main">
+    <!-- <definition name="notice_view" extends="main">
         <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/notice/noticeview.jsp" />
-    </definition>
+        <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeview.jsp" />
+    </definition> -->
     <!-- 폼 -->
-    <definition name="notice_form" extends="main">
+    <definition name="notice_form" extends="default">
         <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/notice/noticeawrite.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeWrite.jsp" />
     </definition>
 
 </tiles-definitions>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kong2.notice.NoticeMapper">
+
+    <resultMap type="noticeModel" id="noticeRes">
+        <result property="notice_num" column="notice_num" />
+        <result property="subject" column="subject" />
+        <result property="content" column="content" />
+        <result property="reg_date" column="reg_date" />
+        <result property="readcount" column="readcount" />
+    </resultMap>
+    
+    <!-- select 정의 -->
+    <sql id="select-all">
+        SELECT * FROM NOTICE
+    </sql>
+    
+    <!-- where 정의 -->
+    <sql id="where-no">
+        WHERE notice_num=#{notice_num}
+    </sql>
+
+    <!-- select 쿼리문 정의 -->
+    <select id="selectall" resultMap="noticeRes">
+        <include refid="select-all"/>
+        ORDER BY notice_num DESC
+    </select>
+    <select id="select" resultMap="noticeRes">
+        <include refid="select-all"/>
+        WHERE
+        subject=#{subject}
+    </select>
+    <select id="selectOne" resultMap="noticeRes" parameterType="noticeModel">
+        <include refid="select-all"/>
+        <include refid="where-no"/>
+    </select>
+
+    <!-- insert 쿼리문 정의 -->
+    <insert id="insert" parameterType="noticeModel">
+        INSERT INTO NOTICE (notice_num, subject, content, reg_date, readcount)
+        VALUES(notice_num_seq.NEXTVAL, #{subject}, #{content}, #{reg_date}, #{readcount})
+    </insert>
+
+    <!-- update 쿼리문 정의 -->
+    <update id="update" parameterType="noticeModel">
+        UPDATE NOTICE SET
+        subject=#{subject},
+        content=#{content}
+        <include refid="where-no"/>
+    </update>
+    <!-- 조회수증가 -->
+    <update id="readcount" parameterType="noticeModel">
+        UPDATE NOTICE SET readcount = #{readcount + 1}
+        <include refid="where-no"/>
+    </update>
+
+    <!-- delete 쿼리문 정의 -->
+    <delete id="delete" parameterType="noticeModel">
+        DELETE FROM NOTICE
+        <include refid="where-no"/>
+    </delete>
+</mapper>
