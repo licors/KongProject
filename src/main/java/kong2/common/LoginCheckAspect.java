@@ -1,6 +1,7 @@
 package kong2.common;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -20,35 +21,43 @@ public class LoginCheckAspect {
  
     @Around("@annotation(kong2.common.LoginCheckBeforeFunctionStart)")
      public Object loginCheck(ProceedingJoinPoint joinPoint) throws Throwable {
-  	  System.out.println("----------------------Annotation-----------beforeAOP");
-	  
-	  
-  	  ModelAndView mv = new ModelAndView();
-  	  
-  	  
-   	  String classAndMethod  = joinPoint.getSignature().toShortString();
-        //className.methodName으 출력한다
-        System.out.println("사용한 메서드 명:"+classAndMethod);
-  	
-        
-        Object[] args=joinPoint.getArgs();
-        HttpServletRequest request = (HttpServletRequest) args[0];
-        HttpSession session = request.getSession();
-        String loginId = (String) session.getAttribute("session_member_num");
-        
-        if (loginId == null || "".equals(loginId)|| "null".equals(loginId)) {
 
-      	  System.out.println("로그인 여부(X)");
-  		  mv.setViewName("faq_list");
-
-    		return mv;
-        }else{
-      	  System.out.println("로그인 여부(X)");
-      	  mv=(ModelAndView) joinPoint.proceed(args);
-        }
-        
-        System.out.println("----------------------Annotation-----------afterAOP");
-        System.out.println("로그인 여부(X)");
-		return mv;
+	  ModelAndView mv=new ModelAndView();
+	  
+   
+    HttpServletRequest request = null;
+    HttpServletResponse response = null;
+    for ( Object o : joinPoint.getArgs() ){ 
+        if ( o instanceof HttpServletRequest ) {
+            request = (HttpServletRequest)o;
+        } 
+        if ( o instanceof HttpServletResponse ) {
+            response = (HttpServletResponse)o;
+        } 
     }
+    try{
+        HttpSession session = request.getSession();
+
+            String loginId = (String) session.getAttribute("session_member_id");
+/*            String userEnterType = (String) session
+                    .getAttribute("UserEnterType");*/
+
+
+            if (loginId == null || "".equals(loginId)) {
+
+                mv.setViewName("ti_loginForm");
+                System.out.println("null에 걸림");
+                return mv;
+            }           
+    }catch(Exception e){
+        
+    	mv.setViewName("faq_list");
+    	System.out.println("Exception에 걸림");
+        return mv;
+
+    }       
+    Object result = joinPoint.proceed();   
+    return result;
+}
+
 }
