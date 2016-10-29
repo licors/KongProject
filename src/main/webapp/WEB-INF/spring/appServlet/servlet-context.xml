@@ -55,8 +55,8 @@
     
     <aop:aspectj-autoproxy/>
     
-    <beans:bean id="loginAspect" class="kong2.common.LoginAspect"/>
-    
+    <!-- <beans:bean id="loginAspect" class="kong2.common.LoginAspect"/> -->
+    <beans:bean id="LoginCheckAspect" class="kong2.common.LoginCheckAspect"/>
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
         <beans:property name="maxUploadSize" value="30720000" />
     </beans:bean>

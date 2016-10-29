@@ -9,6 +9,8 @@
     <!--    사용하실 AOP 등록하시면 됩니다. -->
     <aop:aspectj-autoproxy/>
     
-    <bean id="loginAspect" class="kong2.common.LoginAspect" />
+    <!-- <bean id="loginAspect" class="kong2.common.LoginAspect" /> -->
+    
+    <bean id="LoginCheckAspect" class="kong2.common.LoginCheckAspect"/>
     
 </beans>

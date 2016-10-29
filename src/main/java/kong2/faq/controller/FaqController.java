@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.PagingAction;
 import kong2.faq.controller.FaqModel;
 import kong2.validator.FaqValidator;
@@ -70,7 +71,7 @@ public class FaqController {
 	}
 	
 	
-	
+	@LoginCheckBeforeFunctionStart
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String faqWriteForm(Model model,HttpServletRequest request)throws Exception{
 		
