@@ -52,7 +52,7 @@
                         </tr>
                         <tr>
                             <td rowspan="5" align="center" width="200">
-                                <img src="${view.file_savname.split(',')[0]}" width="150" height="200" border="0"></td>
+                                <img src="${img}${view.file_savname.split(',')[0]}" width="150" height="200" border="0"></td>
                             </td>
                             <td>주소</td>
                             <td>${view.address1}</td>

@@ -61,11 +61,11 @@
         <beans:property name="maxUploadSize" value="30720000" />
     </beans:bean>
     
-    <beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+<!--    <beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <beans:property name="alwaysUseFullPath" value="true"/>
         <beans:property name="webBindingInitializer" >
             <beans:bean class="kong2.common.CustomWebBindingInitializer"/>
         </beans:property>
-    </beans:bean>
+    </beans:bean>-->
 
 </beans:beans>

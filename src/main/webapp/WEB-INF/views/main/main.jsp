@@ -17,6 +17,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        "${member.member_num}"
         <table>
             <tr>
                 <td>

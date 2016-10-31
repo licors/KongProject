@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import kong2.common.LoginCheckBeforeFunctionStart;
+import kong2.common.memberBeforeFunctionStart;
 import kong2.common.path;
 import kong2.validator.ShowcaseValidator;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class ShowcaseController {
     public String adminmain() {
         return "adminmain";
     }
-
+    @memberBeforeFunctionStart
     @RequestMapping("/main")
     public String main(Model model) {
         logger.info("Welcome main.");
@@ -61,15 +62,18 @@ public class ShowcaseController {
         model.addAttribute("aticle", aticle);
         model.addAttribute("art", art);
         model.addAttribute("event", event);
+        
         return "/main/main";
     }
 
     @RequestMapping("/main/{showcase_category}")
     public String list(Model model, @PathVariable String showcase_category) throws Exception {
         ShowcaseModel category = new ShowcaseModel();
-        category.setShowcase_category(category_chk(showcase_category));
+        String chk_category = category_chk(showcase_category); //영어를 한글로
+        category.setShowcase_category(chk_category);
         List<ShowcaseModel> list = showcaseService.selectcategory(category);
         model.addAttribute("list", list);
+        model.addAttribute("category", chk_category);
         return "/main/list";
     }
 
