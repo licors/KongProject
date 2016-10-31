@@ -8,18 +8,21 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
 import kong2.common.path;
+import kong2.validator.ShowcaseValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -59,9 +62,18 @@ public class ShowcaseController {
         return "/main/main";
     }
 
-    @RequestMapping("/main/view")
-    public String view(Model model, @RequestParam("showcase_num") int showcase_num) {
-        ShowcaseModel view = new ShowcaseModel(); //미술
+    @RequestMapping("/main/{showcase_category}")
+    public String list(Model model, @PathVariable String showcase_category) throws Exception {
+        ShowcaseModel category = new ShowcaseModel();
+        category.setShowcase_category(category_chk(showcase_category));
+        List<ShowcaseModel> list = showcaseService.selectcategory(category);
+        model.addAttribute("list", list);
+        return "/main/list";
+    }
+
+    @RequestMapping("/main/view/{showcase_num}")
+    public String view(Model model, @PathVariable int showcase_num) {
+        ShowcaseModel view = new ShowcaseModel();
         view.setShowcase_num(showcase_num);
         ShowcaseModel aticle = showcaseService.selectone(view);
         model.addAttribute("view", aticle);
@@ -69,12 +81,12 @@ public class ShowcaseController {
     }
 
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.GET)
-    public String writeform() {
+    public String writeform(Model model, HttpServletRequest request) {
         return "/admin/main/form";
     }
 
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.POST)
-    public String insert(/*MultipartHttpServletRequest request,*/ShowcaseModel showcaseModel) throws IOException {
+    public String insert(Model model, /*MultipartHttpServletRequest request,*/ ShowcaseModel showcaseModel, BindingResult result) throws IOException {
         logger.info(showcaseModel.toString());
         Iterator<MultipartFile> file = showcaseModel.getUpload_file().iterator();
         String file_savname = "";
@@ -121,9 +133,28 @@ public class ShowcaseController {
              * 처리된 이름을 객체에 넣는부분
              */
         }
+        new ShowcaseValidator().validate(showcaseModel, result);
+
+        if (result.hasErrors()) {
+            return writeform(model, null);
+        }
+
         showcaseService.insert(showcaseModel);
         logger.info("insert complete");
         return "redirect:/main";
+    }
+
+    protected String category_chk(String showcase_category) {
+        switch (showcase_category) {
+            case "aticle":
+                return "전시";
+            case "art":
+                return "미술";
+            case "event":
+                return "이벤트";
+            default:
+                return "null";
+        }
     }
 
     @InitBinder

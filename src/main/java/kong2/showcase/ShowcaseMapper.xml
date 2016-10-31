@@ -53,7 +53,7 @@
         <include refid="select-all"/>
         <![CDATA[
         WHERE showcase_category = #{showcase_category}
-        AND status >= 0
+        AND show_status >= 0
         ORDER BY showcase_num DESC
         ]]>
     </select>
