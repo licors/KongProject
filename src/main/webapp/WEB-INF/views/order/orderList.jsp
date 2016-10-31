@@ -57,7 +57,7 @@
 </script>
 </head>
 <body>
-	<form:form commandName="orderModel">
+	<form:form commandName="orderModel"> <!-- enctype="multipart/form-data" class="form-control-static" -->
 		<div
 			style="width: 100%; background-color: #FFF; padding: 0px 20px 20px 20px;">
 			<div id="ContentPanel"></div>
@@ -103,7 +103,7 @@
 								<div style="clear: both;"></div>
 							</div>
 							<a
-								href='/showcase/scread.action?showboard_category=<s:property value="showboard_category"/>&showboard_num=<s:property value="showboard_num"/>'
+								href='/showcase/scread.action?showcase_category=${showcaseModel.showcase_category}&showcase_num=<s:property value="showboard_num"/>'
 								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
 								<img src="../showcaseImg/${order.file_savname.split(',')[0]}"
 								class="img-responsive"
@@ -116,16 +116,16 @@
 								<!-- title -->
 								<div class="subject">
 									<a
-										href="/order/orderView.action?order_num=${order.order_num}&currentPage=${currentPage }">
-										${order.subject } </a>
+										href="/order/view/${order.order_num}/${currentPage }">
+										${order.show_subject } </a>
 								</div>
 
 								<!-- date -->
 								<div class="schedule">
 									<!-- <s:property value="date" /> -->
-									<fmt:formatDate value="${order.start_date }" pattern="YY-MM-dd" />
+									<fmt:formatDate value="${order.start_date }" pattern="YY년 MM월 dd일" />
 									-
-									<fmt:formatDate value="${order.end_date }" pattern="YY-MM-dd" />
+									<fmt:formatDate value="${order.end_date }" pattern="YY년 MM월 dd일" />
 								</div>
 
 
@@ -147,13 +147,13 @@
 
 										<c:set var="order_status" value="${order.order_status }" />
 										<c:choose>
-											<c:when test="${order_status eq '티켓 신청' }">
+											<c:when test="${order.order_status eq '티켓 신청' }">
 											${order.order_status } 완료 <br>
 											</c:when>
-											<c:when test="${order_status eq '티켓 만료' }">
+											<c:when test="${order.order_status eq '티켓 만료' }">
 											${order.order_status } <br>
 											</c:when>
-											<c:when test="${order_status eq '티켓 취소' }">
+											<c:when test="${order.order_status eq '티켓 취소' }">
 											${order.order_status } 완료 <br>
 											</c:when>
 										</c:choose>
@@ -172,7 +172,7 @@
 
 										<c:set var="order_status" value="${order.order_status }" />
 										<c:choose>
-											<c:when test="${order_status eq '티켓 신청' }">
+											<c:when test="${order.order_status eq '티켓 신청' }">
 												<img src="../barcodeImg/${order.barcode}.png"
 													style="cursor: pointer;"
 													onclick="doImgPop('../barcodeImg/${order.barcode}.png')"
@@ -194,9 +194,8 @@
 									<c:set var="order_status" value="${order.order_status }" />
 									<c:choose>
 										<c:when test="${order_status eq '티켓 신청' }">
-											<input type="button" name="status" value="취소"
-											onclick="return deletecheck(${order.order_num});"
-											class="btn btn-xs btn-default">
+											<input type="button" name="status" value="취소" onclick="return deletecheck(${order.order_num});"
+											class="btn btn-xs btn-default" />
 										</c:when>
 									</c:choose>
 									<%-- <s:if test='%{status == "티켓 신청" }'>

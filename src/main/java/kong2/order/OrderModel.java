@@ -29,7 +29,7 @@ public class OrderModel {
 	//신청 전시회 정보
 	private String show_subject;
 	private int show_price;
-	private String show_status;
+	private int show_status;
 	private String file_savname;
 	private Date start_date;
 	private Date end_date;
@@ -149,10 +149,10 @@ public class OrderModel {
 	public void setShow_price(int show_price) {
 		this.show_price = show_price;
 	}
-	public String getShow_status() {
+	public int getShow_status() {
 		return show_status;
 	}
-	public void setShow_status(String show_status) {
+	public void setShow_status(int show_status) {
 		this.show_status = show_status;
 	}
 	public String getFile_savname() {

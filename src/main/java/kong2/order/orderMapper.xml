@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		BANK_ACCOUNT, TOTAL_PRICE, PAYMENT_TYPE, PAYMENT_DATE, PAYMENT_PAYER)
 		VALUES
 		(ORDER_NUM_SEQ.NEXTVAL, #{member_num}, #{showcase_num}, #{name}, #{sex},
-		#{company}, #{area}, #{id_email}, #{barcode},AREAr_date}, #{phone}, #{order_status},
+		#{company}, #{area}, #{id_email}, #{barcode}, #{order_date}, #{phone}, #{order_status},
 		#{bank_account}, #{total_price}, #{payment_type}, {payment_date}, #{payment_payer})
 	</insert>	
 	

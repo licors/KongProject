@@ -16,6 +16,15 @@ public class BasketModel {
 	private Date start_date;
 	private Date end_date;
 	private int show_status;
+	private String subject;	
+	private String file_savname;
+	private String date;
+	private String address2;
+	private int readcount;
+	private int ordercount;
+	private String showboard_category;
+	private int price;
+	
 	public int getShow_status() {
 		return show_status;
 	}
@@ -34,23 +43,13 @@ public class BasketModel {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-
-	private String subject;
 	
-	private String file_savname;
-	private String date;
-	private String address2;
-	private int readcount;
-	private int ordercount;
 	public int getPrice() {
 		return price;
 	}
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	private String showboard_category;
-	private int price;
 	
 	public int getBasket_num() {
 		return basket_num;
