@@ -1,8 +1,3 @@
-     mmm  m ,<%-- 
-    Document   : qnalist
-    Created on : 2016. 8. 26, 오후 4:57:51
-    Author     : user2
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

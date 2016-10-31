@@ -3,6 +3,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -49,10 +50,13 @@
 								class="btn btn-sm btn-default">
 						</c:when>
 						<c:otherwise>
-							<input type="button" name="orderB" value="전체 신청"
+							<%-- <input type="button" name="orderB" value="전체 신청"
 								onClick="location.href='/order/checkB?total_price=${total_price}'"
 								class="btn btn-sm btn-success">
-							<%-- <input type="hidden" name="total_price" value="${total_price}" /> --%>
+							<input type="hidden" name="total_price" value="${total_price}" /> --%>
+							<form:form action="/order/form_B" value="전체신청" method="post">
+							<input type="hidden" name="total_price" value="${total_price }"/>
+							</form:form>
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/showcase/main'"
 								class="btn btn-sm btn-default">
@@ -135,7 +139,7 @@
 						style="font-size: 12px; color: #666;">
 						<div style="float: left;">
 							<input type="button" name="order" value="신청"
-								onClick="location.href='/order/check?showboard_num=${list.showboard_num }'"
+								onClick="location.href='/order/form?showboard_num=${list.showboard_num }'"
 								class="btn btn-xs btn-success"> <input type="button"
 								name="deleteB" value="삭제"
 								onClick="location.href='/basket/deleteBasket?basket_num=${list.basket_num}'"
