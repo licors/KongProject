@@ -8,6 +8,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Aspect
@@ -24,32 +26,23 @@ public class LoginCheckAspect {
 	  
    
     HttpServletRequest request = null;
-    HttpServletResponse response = null;
+
     for ( Object o : joinPoint.getArgs() ){ 
         if ( o instanceof HttpServletRequest ) {
             request = (HttpServletRequest)o;
         } 
-        if ( o instanceof HttpServletResponse ) {
-            response = (HttpServletResponse)o;
-        } 
     }
     try{
-        HttpSession session = request.getSession();
+    	HttpServletRequest session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
             String loginId = (String) session.getAttribute("session_member_id");
-/*            String userEnterType = (String) session
-                    .getAttribute("UserEnterType");*/
-
-            
 
             if (loginId == null || "".equals(loginId)) {
 
-            	String uri =request.getRequestURI();
-            	///faq/write
-            	System.out.println(uri);
-            	
-                mv.setViewName("ti_loginForm");
-                System.out.println("null에 걸림");
+
+            	System.out.println(loginId);
+                mv.setViewName("/member/memberLoginForm");                
+                System.out.println("/views/index.jsp");
                 return mv;
             }           
     }catch(Exception e){
