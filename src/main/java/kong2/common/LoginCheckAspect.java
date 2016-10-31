@@ -25,16 +25,9 @@ public class LoginCheckAspect {
 	  ModelAndView mv=new ModelAndView();
 	  
    
-    HttpServletRequest request = null;
-
-    for ( Object o : joinPoint.getArgs() ){ 
-        if ( o instanceof HttpServletRequest ) {
-            request = (HttpServletRequest)o;
-        } 
-    }
+	  HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+	  HttpSession session = request.getSession();
     try{
-    	HttpServletRequest session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-
             String loginId = (String) session.getAttribute("session_member_id");
 
             if (loginId == null || "".equals(loginId)) {
@@ -42,17 +35,17 @@ public class LoginCheckAspect {
 
             	System.out.println(loginId);
                 mv.setViewName("/member/memberLoginForm");                
-                System.out.println("/views/index.jsp");
+                System.out.println("null에 걸림");
+                System.out.println(request.getRequestURI());
+     
                 return mv;
             }           
     }catch(Exception e){
-        
-    	mv.setViewName("faq_list");
     	System.out.println("Exception에 걸림");
-        return mv;
-
-    }       
+    	e.printStackTrace();
+    }
     Object result = joinPoint.proceed();   
+    
     return result;
 }
 

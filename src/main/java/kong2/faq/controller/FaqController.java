@@ -73,7 +73,7 @@ public class FaqController {
 	
 	@LoginCheckBeforeFunctionStart
 	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String faqWriteForm(Model model,HttpServletRequest request)throws Exception{
+	public String faqWriteForm(Model model)throws Exception{
 		
 /*		HttpSession session =request.getSession();
 		System.out.println(session.getAttribute("session_member_num"));*/
@@ -87,7 +87,7 @@ public class FaqController {
 		//유효성 검증
 		//에러 있으면 폼으로
 		if(result.hasErrors())
-			return faqWriteForm(model, null);
+			return faqWriteForm(model);
        	    
 
 		//에러 없으면 글 등록

@@ -66,7 +66,7 @@ public class MemberController {
 
 		return "redirect:/main";
 	}
-
+	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
 	public String memberPwFindForm(Model model) {
 		model.addAttribute("member", new MemberModel());
