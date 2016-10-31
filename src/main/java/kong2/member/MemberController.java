@@ -6,18 +6,19 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
-import org.springframework.dao.DuplicateKeyException;
+import org.apache.commons.logging.impl.Log4JLogger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import kong2.common.LoginCheckBeforeFunctionStart;
+import kong2.validator.MemberValidator;
 
 @Controller
 @RequestMapping("/member")
@@ -38,18 +39,25 @@ public class MemberController {
 	public String memberLogin(HttpServletRequest request,@ModelAttribute("member") MemberModel member, Model model) {
 
 		MemberModel result = memberService.memberLogin(member);
-
+		HttpSession session = request.getSession();
 		if (result != null) {
-			HttpSession session = request.getSession();
 
 			session.setAttribute("session_member_id", result.getId_email());
 			session.setAttribute("session_member_name", result.getName());
 			session.setAttribute("session_member_num", result.getMember_num());
 
-			model.addAttribute("member");
 			if(result.getAdmin() > 0) {
 				return "/admin/adminPage";
 			}
+			
+			String uri = (String) session.getAttribute("uri");
+			if(uri != null) {
+				session.setAttribute("uri", null);
+				System.out.println("login aop uri : " + uri);
+				return "redirect:"+uri;
+			}
+			
+			
 			return "member/loginSuccess";
 		}
 		return "member/loginError";
@@ -99,21 +107,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/memberJoin", method = RequestMethod.POST)
-	public String memberJoin(@ModelAttribute("member") MemberModel member, BindingResult result, Model model) {
-		try {
-	  		String id_email = memberService.idCheck(member.getId_email());
-	  		if(id_email == null) {
-	  			memberService.MemberAdd(member);
-				return "redirect:/main";
-	  		} else {
-	  			//validator error(아이디 중복)
-	  			return "redirect:/member/memberJoin";
-	  		}
-
-		} catch (DuplicateKeyException e) {
-			result.reject("invalid", null);
+	public String memberJoin(@Valid @ModelAttribute("member") MemberModel member, BindingResult result, Model model,
+								BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
 			return "ti_joinForm";
 		}
+
+  		String id_email = memberService.idCheck(member.getId_email());
+  		if(id_email == null) {
+  			memberService.MemberAdd(member);
+			return "redirect:/main";
+  		} else {
+  			//validator error(아이디 중복)
+  			return "redirect:/member/memberJoin";
+  		}
+
 	}
 	@RequestMapping("/memberModifyForm")
 	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
@@ -129,9 +137,12 @@ public class MemberController {
 	}
 
 	@RequestMapping("/memberModify")
-	public String memberModify(@ModelAttribute("member") MemberModel member, BindingResult result) {
+	public String memberModify(@Valid @ModelAttribute("member") MemberModel member, BindingResult bindingResult) {
 		// Validation Binding
 		/* new MemberValidator().validate(member, result); */
+		if(bindingResult.hasErrors()) {
+			return "ti_memberModify";
+		}
 		System.out.println("memberModify : " + member);
 		memberService.memberModify(member);
 		return "redirect:/main";
@@ -180,6 +191,11 @@ public class MemberController {
 		} else {
 			return "/member/memberDeleteError"; //비밀번호 다름
 		}
+	}
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new MemberValidator());
 	}
 
 }

@@ -12,11 +12,11 @@
 	<div align="center">
 		<input type="checkbox" id="agreement" /><label for="agreement"
 			style="cursor: pointer;">서비스 이용약관에 동의 합니다.</label><a
-			href="./agree.jsp" target="_blank">(자세히보기 )</a><br> <input
+			href="/views/member/agree.jsp" target="_blank">(자세히보기 )</a><br> <input
 			type="checkbox" id="agreement2" /><label for="agreement2"
 			style="cursor: pointer;">개인정보취급방침에 동의 합니다.</label><a
-			href="./agree1.jsp" target="_blank">(자세히보기 )</a>
-
+			href="/views/member/agree1.jsp" target="_blank">(자세히보기 )</a>
+		<br><br>
 		<form:form commandName="member"
 			action="${contextPath}/member/memberJoin" method="post">
 			<div align="center">
@@ -26,18 +26,21 @@
 						<td align="center"></td>
 						<td><form:input path="id_email" type="text" size="30" maxlength="50"
 								placeholder="이메일주소" class="form-control input-lg" />
+							<font color="red"><form:errors path="id_email"/></font>
 						</td>
 					</tr>
 					<tr>
 						<td align="center"></td>
 						<td><form:input path="password" type="password" size="30"
 								maxlength="20" placeholder="비밀번호" class="form-control input-lg" />
+							<font color="red"><form:errors path="password"/></font>
 						</td>
 					</tr>
 					<tr>
 						<td align="center"></td>
 						<td><form:input path="name" type="text" size="30"
 								maxlength="20" placeholder="이름" class="form-control input-lg" />
+							<font color="red"><form:errors path="name"/></font>
 						</td>
 					</tr>
 

@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ID_EMAIL = #{id_email}
 	</select>
 	
-		<!--  아이디중복 확인 -->
+	<!--  아이디중복 확인 -->
 	<select id="idCheck" parameterType="String" resultType="String"> 
 		select ID_EMAIL from MEMBER
 		where ID_EMAIL = #{id_email}
