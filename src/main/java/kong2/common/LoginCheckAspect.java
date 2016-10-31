@@ -37,8 +37,9 @@ public class LoginCheckAspect {
             	
                 /*mv.setViewName("/member/memberLoginForm");*/                
                 System.out.println("로그인 여부(X)");
-                request.setAttribute("uri", request.getRequestURI());
-                request.getRequestDispatcher("/member/login").forward(request, response);
+                session.setAttribute("uri", request.getRequestURI());
+               /* System.out.println(request.getRequestURI());*/
+                request.getRequestDispatcher("/common/loginCheck").forward(request, response);
 /*                response.sendRedirect("/member/login");
                 System.out.println(request.getRequestURI());*/
      
