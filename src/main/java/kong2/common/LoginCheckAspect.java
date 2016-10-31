@@ -42,9 +42,14 @@ public class LoginCheckAspect {
 /*            String userEnterType = (String) session
                     .getAttribute("UserEnterType");*/
 
+            
 
             if (loginId == null || "".equals(loginId)) {
 
+            	String uri =request.getRequestURI();
+            	///faq/write
+            	System.out.println(uri);
+            	
                 mv.setViewName("ti_loginForm");
                 System.out.println("null에 걸림");
                 return mv;

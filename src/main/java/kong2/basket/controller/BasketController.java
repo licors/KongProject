@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.PagingAction;
 import kong2.faq.controller.FaqModel;
 import kong2.faq.controller.FaqService;
@@ -38,7 +39,7 @@ public class BasketController {
 	@Resource(name = "basketService")
 	private BasketService basketService;
 	
-	
+	@LoginCheckBeforeFunctionStart
 	@RequestMapping("/list")
 	public String basketList(Model model,HttpServletRequest request) throws Exception {
 
@@ -84,6 +85,8 @@ public class BasketController {
 
 	}
 	
+	
+	@LoginCheckBeforeFunctionStart
 	@RequestMapping("/add")
 	public String basketAdd(Model model,HttpServletRequest request)throws Exception{
 		HttpSession session = request.getSession();
@@ -108,6 +111,7 @@ public class BasketController {
 	}
 	
 	
+	@LoginCheckBeforeFunctionStart
 	@RequestMapping("/deleteBasket")
 	public String deleteBasket(Model model,HttpServletRequest request)throws Exception{
 		
@@ -128,6 +132,8 @@ public class BasketController {
 		
 	}
 	
+	
+	@LoginCheckBeforeFunctionStart
 	@RequestMapping("/deleteAllBasket")
 	public String deleteAllBasket(Model model,HttpServletRequest request)throws Exception{
 		
