@@ -17,22 +17,29 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <table>
+            <tr>
+                <td>
+                    <a href="/main/aticle">전시</a><br>
+                </td>
+                <td>
+                    <a href="/main/art">미술</a><br>
+                </td>
+                <td>
+                    <a href="/main/event">이벤트</a><br>
+                </td>
+            </tr>
+        </table>
         <c:forEach var="aticleList"  items="${aticle}" varStatus="stat">
-                <c:url var="viewURL" value="" >
-                <c:param name="showcase_num"/>
-                <c:param name="currentPage" value="${currentPage}" />
-            </c:url>
-            
-            <a href="/main/view/?showcase_num=${aticleList.showcase_num}&currentPage=${currentPage}">${aticleList.showcase_num}. ${aticleList.subject}</a>
-            <br>
+            <a href="/main/view/${aticleList.showcase_num}">${aticleList.showcase_num}. ${aticleList.subject}</a><br>
         </c:forEach>
         ------<br>
         <c:forEach var="artList"  items="${art}" varStatus="stat">
-            ${artList.subject}<br>
+            <a href="/main/view/${artList.showcase_num}">${artList.showcase_num}. ${artList.subject}</a><br>
         </c:forEach>
         ------<br>
         <c:forEach var="eventList"  items="${event}" varStatus="stat">
-            ${eventList.subject}<br>
+            <a href="/main/view/${eventList.showcase_num}">${eventList.showcase_num}. ${eventList.subject}</a><br>
         </c:forEach>
     </body>
 </html>

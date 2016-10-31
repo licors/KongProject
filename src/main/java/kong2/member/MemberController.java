@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kong2.common.LoginCheckBeforeFunctionStart;
+
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -64,7 +66,7 @@ public class MemberController {
 
 		return "redirect:/main";
 	}
-  	
+
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
 	public String memberPwFindForm(Model model) {
 		model.addAttribute("member", new MemberModel());
