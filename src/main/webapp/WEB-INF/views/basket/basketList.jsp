@@ -49,10 +49,10 @@
 								class="btn btn-sm btn-default">
 						</c:when>
 						<c:otherwise>
+							<input type="hidden" name="total_price" value="${total_price}" />
 							<input type="button" name="orderB" value="전체 신청"
-								onClick="location.href='/order/checkB?total_price=${total_price}'"
-								class="btn btn-sm btn-success">
-							<%-- <input type="hidden" name="total_price" value="${total_price}" /> --%>
+								onClick="location.href='/order/form_B'"
+								class="btn btn-sm btn-success">				
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/showcase/main'"
 								class="btn btn-sm btn-default">
