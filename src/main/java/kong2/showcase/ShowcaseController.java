@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
+import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.path;
 import kong2.validator.ShowcaseValidator;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ public class ShowcaseController {
     private ShowcaseService showcaseService;
 
     private String uploadPath = path.path().p() + "../../../../resources/upload"; //이클립스 기준 업로드
+    private String imgPath = "/resources/upload/";
 
     private static final Logger logger = LoggerFactory.getLogger(ShowcaseController.class);
 
@@ -71,12 +73,14 @@ public class ShowcaseController {
         return "/main/list";
     }
 
+//    @LoginCheckBeforeFunctionStart
     @RequestMapping("/main/view/{showcase_num}")
     public String view(Model model, @PathVariable int showcase_num) {
         ShowcaseModel view = new ShowcaseModel();
         view.setShowcase_num(showcase_num);
         ShowcaseModel aticle = showcaseService.selectone(view);
         model.addAttribute("view", aticle);
+        model.addAttribute("img", imgPath);
         return "/main/view";
     }
 
