@@ -23,7 +23,7 @@
                 <c:param name="currentPage" value="${currentPage}" />
             </c:url>
             
-            <a href="/main/view/?showcase_num=${aticleList.showcase_num}&currentPage=${currentPage}">${aticleList.showcase_num} ${aticleList.subject}</a>
+            <a href="/main/view/?showcase_num=${aticleList.showcase_num}&currentPage=${currentPage}">${aticleList.showcase_num}. ${aticleList.subject}</a>
             <br>
         </c:forEach>
         ------<br>
