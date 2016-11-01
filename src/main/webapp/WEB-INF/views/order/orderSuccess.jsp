@@ -28,14 +28,14 @@
 				<br />
 				<tr>
 					5초후에 메인으로 이동합니다.
-					<meta http-equiv="Refresh" content="5;url=/showcase/sclist.action">
+					<meta http-equiv="Refresh" content="5;url=/main">
 				</tr>
 				<br>
 				<input type="button" value="신청목록"
-					onclick="javascript:location.href='/order/orderList.action?currentPage=1'"
+					onclick="javascript:location.href='/order/list'"
 					class="btn btn-success btn-sm"> &nbsp;&nbsp;&nbsp;
 				<input type="button" value="메인으로"
-					onclick="javascript:location.href='/showcase/sclist.action'"
+					onclick="javascript:location.href='/main'"
 					class="btn btn-default btn-sm">
 				<br>
 			</tbody>

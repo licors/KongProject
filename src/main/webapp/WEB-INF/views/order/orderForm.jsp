@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE>
 <html>
@@ -28,7 +28,7 @@
 			return false;
 		}
 
-		document.orderForm.action = "/order/orderPro";
+		document.orderForm.action = "/order/pro";
 		document.orderForm.submit();
 	}
 	function checkIt2() {
@@ -45,7 +45,7 @@
 			return false;
 		}
 
-		document.orderForm.action = "/order/proB";
+		document.orderForm.action = "/order/pro_B";
 		document.orderForm.submit();
 	}
 </script>
@@ -64,7 +64,7 @@
 			<div class="panel-body">
 				<!-- 본문 -->
 				<!-- 장바구니에서 넘어왔을때 -->
-			 	<%-- <c:set var="bListSize" value="${fn:length(basketList) }" />  --%>
+				<%-- <c:set var="bListSize" value="${fn:length(basketList) }" />  --%>
 				<c:choose>
 					<%-- <c:when test="${bListSize != 0 }"> --%>
 					<c:when test="${fn:length(basketList) ne 0 }">
@@ -73,19 +73,13 @@
 						<form:form commandName="orderModel"
 							action="${contextpath }/order/pro_B" method="post"
 							enctype="multipart/form-data" class="form-control-static">
-							<%-- <form:hidden name="member_num"
-							value="%{memresultClass.getMember_num()}" />
-						<form:hidden name="showboard_num" value="%{resultBas.showboard_num}" />
-						<form:hidden name="subject" value="%{resultBas.subject}" />
-						<form:hidden name="address2" value="%{resultBas.address2}" />
-						<form:hidden name="date" value="%{resultBas.date}" /> --%>
-
-							<!-- //resultBas.basket_goods_name -->
-
+							<form:hidden path="total_price"
+								value="${orderModel.total_price }" />
 							<table align="center" class="table-condensed">
 								<c:forEach items="${basketList}" var="basket" varStatus="status">
 									<tr>
-										<td><%-- <img
+										<td>
+											<%-- <img
 											src="../showcaseImg/<s:property value="file_savname.split(',')[0]"/>"
 											width="50px"
 											onerror="javascript:this.src='/template/image/main/noimg.png'" /> --%>
@@ -99,10 +93,10 @@
 										</h3> -->
 											<h3>
 												${basket.subject } <br> <small>
-													${basket.address2 }<br> 
-													<fmt:formatDate value="${basket.start_date }" pattern="yyyy년  MM월 dd일" />
-													 - <fmt:formatDate value="${basket.end_date }" pattern="yyyy년  MM월 dd일" /><br>
-													${basket.price } 
+													${basket.address2 }<br> <fmt:formatDate
+														value="${basket.start_date }" pattern="yyyy년  MM월 dd일" />
+													- <fmt:formatDate value="${basket.end_date }"
+														pattern="yyyy년  MM월 dd일" /><br> ${basket.price }
 												</small>
 											</h3>
 										</td>
@@ -113,6 +107,10 @@
 										</td>
 									</tr>
 								</c:forEach>
+
+								<tr>
+									<td align="right" colspan="3"><b><h2>총 신청 금액</h2></b>${orderModel.total_price }</td>
+								</tr>
 
 								<tr>
 									<td align="right" colspan="3"><font color="#FF0000">*</font>는
@@ -136,10 +134,10 @@
 
 									<td width="100"><label for="sex">성별</label></td>
 									<td><label class="radio-inline"><form:radiobutton
-												path="sex" id="inlineRadio1" name="sex"
-												value="남성" label="남성" /> </label> <label class="radio-inline"><form:radiobutton
-												path="sex" id="inlineRadio2" name="sex"
-												value="여성" label="여성" /> </label></td>
+												path="sex" id="inlineRadio1" name="sex" value="남성"
+												label="남성" /> </label> <label class="radio-inline"><form:radiobutton
+												path="sex" id="inlineRadio2" name="sex" value="여성"
+												label="여성" /> </label></td>
 								</tr>
 								<tr>
 									<td width="100"><label for="company">회사</label></td>
@@ -148,9 +146,11 @@
 											value="${memberModel.company}" /></td>
 								</tr>
 								<tr>
-									<td width="100"><label for="area">지역</label></td>
-									<td><form:input path="area" class="form-control"
-											type="text" name="area" size="60" maxlength="100" /></td>
+									<td width="100"><label for="area">거주지역</label></td>
+									<td><form:select path="area" class="form-control"
+											name="area">
+											<form:options items="${areaOptions }" />
+										</form:select></td>
 								</tr>
 								<tr>
 									<td width="100"><label for="tel">전화번호<font
@@ -207,15 +207,18 @@
 						<s:hidden name="address2" value="%{show_resultClass.address2}" /> -->
 							<form:hidden path="showcase_num"
 								value="${showcaseModel.showcase_num}" />
-							<form:hidden path="show_subject" value="${showcaseModel.subject}"/>
-							<form:hidden path="show_addr" value="${showcaseModel.address2 }"/>
-							<form:hidden path="start_date" value="${showcaseModel.start_date }"/>
-							<form:hidden path="end_date" value="${showcaseModel.end_date }"/>
-							<form:hidden path="show_price" value="${showcaseModel.price }"/>
+							<form:hidden path="show_subject" value="${showcaseModel.subject}" />
+							<form:hidden path="show_addr" value="${showcaseModel.address2 }" />
+							<%-- <form:hidden path="start_date"
+								value="${showcaseModel.start_date }" />
+							<form:hidden path="end_date" value="${showcaseModel.end_date }" /> --%>
+							<form:hidden path="show_price" value="${showcaseModel.price }" />
+							<form:hidden path="total_price" value="${showcaseModel.price }" />
 
 							<table width="500" align="center" class="table-condensed">
 								<tr>
-									<td><%-- <img
+									<td>
+										<%-- <img
 										src="../showcaseImg/<s:property value="show_resultClass.file_savname.split(',')[0]"/>"
 										width="100px"
 										onerror="javascript:this.src='/template/image/main/noimg.png'" /> --%>
@@ -223,11 +226,13 @@
 									<td>
 										<h3>
 											${showcaseModel.subject } <br> <small>
-												${showcaseModel.address2 }<br> 
-												<fmt:formatDate value="${showcaseModel.start_date }" pattern="yyyy년  MM월 dd일" />
-												- <fmt:formatDate value="${showcaseModel.end_date }" pattern="yyyy년  MM월 dd일" />
-											<br>${shocaseModel.price }
-											</small> 
+												${showcaseModel.address2 }<br> <fmt:formatDate
+													value="${showcaseModel.start_date }"
+													pattern="yyyy년  MM월 dd일" /> - <fmt:formatDate
+													value="${showcaseModel.end_date }" pattern="yyyy년  MM월 dd일"
+													 /> <br>${showcaseModel.price } 원
+
+											</small>
 										</h3>
 									</td>
 								</tr>
@@ -236,6 +241,12 @@
 									<td align="right" colspan="3"><font color="#FF0000">*</font>는
 										필수 입력 사항입니다.</td>
 								</tr>
+
+								<tr>
+									<td align="right" colspan="3"><b><h2>총 신청 금액</h2></b>${showcaseModel.price }
+										원</td>
+								</tr>
+
 								<tr>
 									<td width="100"><label for="email">ID(E-MAIL)</label></td>
 									<td><form:input path="id_email" class="form-control"
@@ -261,17 +272,15 @@
 								<tr>
 									<td width="100"><label for="company">회사</label></td>
 									<td><form:input path="company" class="form-control"
-											type="text" name="company" maxlength="20"
+											type="text" name="company" size="15" maxlength="20"
 											value="${memberModel.company}" /></td>
 								</tr>
 								<tr>
-									<td width="100"><label for="address">거주지역</label></td>
-									<td><form:input path="area" class="form-control"
-											type="text" name="area" maxlength="100" /></td>
-									<!-- 수정 콤보박스 -->
-									<%-- <form:select path="area">
-										<form:options items="${areaOption }"/>
-									</form:select> --%>
+									<td width="100"><label for="area">거주지역</label></td>
+									<td><form:select path="area" class="form-control"
+											name="area">
+											<form:options items="${areaOptions }" />
+										</form:select></td>
 								</tr>
 								<tr>
 									<td width="100"><label for="tel">전화번호<font

@@ -33,11 +33,11 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderError.jsp" />
 	</definition>
-	<definition name="orderPro" extends="default">
+	<definition name="orderCheckFail" extends="default">
 		<put-attribute name="left" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderCheckFail.jsp" />
 	</definition>
-	<definition name="orderPro" extends="default">
+	<definition name="orderCheckSuccess" extends="default">
 		<put-attribute name="left" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderCheckSuccess.jsp" />
 	</definition>

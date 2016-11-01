@@ -1,8 +1,12 @@
 package kong2.order;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -13,8 +17,11 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -127,16 +134,15 @@ public class OrderController {
 		showcaseModel = showcaseService.selectone(showcaseModel); // 전시회 1개 불러오기
 		memberModel = memberService.getMember(id_email);
 
-		/*
-		 * ArrayList academicAbilityOption = new ArrayList();
-		 * academicAbilityOption.add("초졸"); academicAbilityOption.add("중졸");
-		 * academicAbilityOption.add("고졸"); academicAbilityOption.add("대졸");
-		 * model.addAttribute("academicAbilityOption",academicAbilityOption);
-		 */
 		OrderModel orderModel = new OrderModel();
 		orderModel.setMember_num(member_num);
 		orderModel.setShowcase_num(showcase_num);
 
+		// 거주지역 options
+		List<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
+				"경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
+
+		model.addAttribute("areaOptions", areaOptions);
 		model.addAttribute("orderModel", orderModel);
 		model.addAttribute("showcaseModel", showcaseModel);
 		model.addAttribute("memberModel", memberModel);
@@ -158,14 +164,17 @@ public class OrderController {
 	public String orderPro(Model model, @ModelAttribute OrderModel orderModel, HttpServletRequest request,
 			HttpSession session, Locale locale) {
 		logger.info("welcome order process.", locale);
+		System.out.println("model:" + orderModel.toString());
+		// 계좌 options
+		ArrayList<String> bank_account = new ArrayList<String>();
+		bank_account.add("신한 110-1234-4566");
+		bank_account.add("국민 122-2345-5566");
+		bank_account.add("농협 124-1234-5556");
 
-		/*
-		 * showcaseModel.setShowcase_num(orderModel.getShowcase_num());
-		 * showcaseModel = showcaseService.selectone(showcaseModel);
-		 * 
-		 * model.addAttribute("showcaseModel", showcaseModel);
-		 */
+		model.addAttribute("bank_account", bank_account);
 		model.addAttribute("orderModel", orderModel);
+		
+		//request.setAttribute("orderParam", orderModel);
 
 		return "order/orderPro";
 		// 1차 폼에서 입력 처리 가능
@@ -182,19 +191,21 @@ public class OrderController {
 	}
 
 	// (1개 전시) 신청 완료 처리
-	@RequestMapping(value = "/orderInsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String orderInsert(Model model, @ModelAttribute OrderModel orderModel, Locale locale, HttpSession session,
 			HttpServletRequest request) {
 		logger.info("welcome order success.", locale);
-
+		
 		session = request.getSession();
 
-		showcase_num = showcaseModel.getShowcase_num();
 		member_num = (Integer) session.getAttribute("session_member_num");
+		showcase_num = orderModel.getShowcase_num();
+		
+		showcaseModel.setShowcase_num(showcase_num);
 
 		// 바코드 넘버 생성
 		String str1 = Integer.toString(member_num);
-		String str2 = Integer.toString(showcase_num);
+		String str2 = Integer.toString(showcaseModel.getShowcase_num());
 		Long str3 = Calendar.getInstance().getTimeInMillis();
 
 		String codeStr = str1 + str2 + str3;
@@ -207,10 +218,14 @@ public class OrderController {
 			e.printStackTrace();
 		}
 
+		orderModel.setMember_num(member_num);
 		orderModel.setBarcode(codeStr);
 		orderModel.setOrder_status("티켓 신청");
 		orderModel.setOrder_date(today.getTime());
+		orderModel.setPayment_date(today.getTime());
 		orderService.ordercountPlus(showcaseModel);
+		System.out.println("model:" + orderModel.toString());
+		orderService.insert_order(orderModel);
 
 		// form에서 입력한 값으로
 		// orderModel.setTotal_price(showcaseModel.getPrice());
@@ -220,9 +235,11 @@ public class OrderController {
 
 		// 장바구니에 있으면 삭제
 		BasketModel basketModel = new BasketModel();
-		basketModel.setShowboard_num(showcase_num);
-		// basketModel.setBasket_num(0);
-		basketService.basketDelete(basketModel);
+		basketModel.setShowcase_num(showcase_num);;
+		basketModel.setMember_num(member_num);
+		if (basketService.basket_check(basketModel) != null) {
+			basketService.basketDelete(basketModel);
+		}
 
 		return "order/orderSuccess";
 	}
@@ -246,6 +263,10 @@ public class OrderController {
 			// orderModel.setTotal_price(total_price); total_price를 hidden으로 넘겨줌
 			logger.info("total_price 넘겨주는지 확인" + orderModel.getTotal_price(), locale);
 
+			ArrayList<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전",
+					"울산", "세종", "경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
+
+			model.addAttribute("areaOptions", areaOptions);
 			model.addAttribute("basketList", basketList);
 			model.addAttribute("memberModel", memberModel);
 			model.addAttribute("orderModel", orderModel);
@@ -272,6 +293,13 @@ public class OrderController {
 		orderModel.setMember_num(member_num);
 		orderModel.setId_email(id_email);
 
+		// 계좌 options
+		ArrayList<String> bank_account = new ArrayList<String>();
+		bank_account.add("신한 110-1234-4566");
+		bank_account.add("국민 122-2345-5566");
+		bank_account.add("농협 124-1234-5556");
+
+		model.addAttribute("bank_account", bank_account);
 		model.addAttribute("memberModel", memberModel);
 		model.addAttribute("basketList", basketList);
 		model.addAttribute("orderModel", orderModel);
@@ -292,7 +320,7 @@ public class OrderController {
 
 		for (int i = 0; i < basketList.size(); i++) {
 			basketModel = basketList.get(i);
-			showcaseModel.setShowcase_num(basketModel.getShowboard_num());
+			showcaseModel.setShowcase_num(basketModel.getShowcase_num());
 			showcaseModel = showcaseService.selectone(showcaseModel);
 
 			// 바코드 넘버 생성
@@ -317,6 +345,8 @@ public class OrderController {
 			orderService.ordercountPlus(showcaseModel);
 
 			orderModel.setPayment_date(today.getTime()); // 수정하기
+
+			orderService.insert_order(orderModel);
 
 			// basket리스트 삭제
 			basketService.basketDelete_all(orderModel.getMember_num());
@@ -498,6 +528,12 @@ public class OrderController {
 		orderList = orderList.subList(adpage.getStartCount(), lastCount);
 
 		return "/adminList";
+	}
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
 }
