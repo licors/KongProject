@@ -54,8 +54,8 @@
 								onClick="location.href='/order/checkB?total_price=${total_price}'"
 								class="btn btn-sm btn-success">
 							<input type="hidden" name="total_price" value="${total_price}" /> --%>
-							<form:form action="/order/form_B" value="전체신청" method="post">
-							<input type="hidden" name="total_price" value="${total_price }"/>
+							<form:form commandName="orderModel" action="/order/form_B" value="전체신청" method="post">
+								<form:hidden path="total_price" value="${total_price }"/>
 							</form:form>
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/showcase/main'"

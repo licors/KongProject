@@ -208,5 +208,19 @@ public class OrderModel {
 	}
 	public void setDatepicker2(String datepicker2) {
 		this.datepicker2 = datepicker2;
+	}
+	@Override
+	public String toString() {
+		return "OrderModel [order_num=" + order_num + ", member_num=" + member_num + ", showcase_num=" + showcase_num
+				+ ", name=" + name + ", area=" + area + ", sex=" + sex + ", company=" + company + ", id_email="
+				+ id_email + ", phone=" + phone + ", barcode=" + barcode + ", order_date=" + order_date
+				+ ", order_status=" + order_status + ", bank_account=" + bank_account + ", total_price=" + total_price
+				+ ", payment_type=" + payment_type + ", payment_date=" + payment_date + ", payment_payer="
+				+ payment_payer + ", show_subject=" + show_subject + ", show_price=" + show_price + ", show_status="
+				+ show_status + ", file_savname=" + file_savname + ", start_date=" + start_date + ", end_date="
+				+ end_date + ", show_addr=" + show_addr + ", readcount=" + readcount + ", ordercount=" + ordercount
+				+ ", datepicker1=" + datepicker1 + ", datepicker2=" + datepicker2 + "]";
 	}	
+	
+	
 }
