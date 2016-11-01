@@ -80,8 +80,8 @@
 					<form:hidden path="name" value="${orderModel.name }" />
 					<form:hidden path="area" value="${orderModel.area }" />
 					<form:hidden path="sex" value="${orderModel.sex }" />
-					<form:hidden path="company" value="${orderModel.company }" />]
-						<form:hidden path="id_email" value="${orderModel.id_email }" />
+					<form:hidden path="company" value="${orderModel.company }" />
+					<form:hidden path="id_email" value="${orderModel.id_email }" />
 					<form:hidden path="phone" value="${orderModel.phone }" />
 					<form:hidden path="total_price" value="${orderModel.total_price }" />
 				</form:form>
