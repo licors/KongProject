@@ -181,7 +181,7 @@ public class MemberController {
 	public String memberDelete(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 
 		String id = session.getAttribute("session_member_id").toString();
-		MemberModel result = (MemberModel) memberService.getMember(id);
+		MemberModel result = memberService.getMember(id);
 		
 		if(result.getPassword().equals(member.getPassword()) && result.getName().equals(member.getName())) {
 			memberService.memberDelete(id);

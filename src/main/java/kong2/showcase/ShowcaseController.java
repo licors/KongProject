@@ -42,6 +42,7 @@ public class ShowcaseController {
     public String adminmain() {
         return "adminmain";
     }
+    ///main/search
     @memberBeforeFunctionStart
     @RequestMapping("/main")
     public String main(Model model) {
@@ -62,8 +63,9 @@ public class ShowcaseController {
         model.addAttribute("aticle", aticle);
         model.addAttribute("art", art);
         model.addAttribute("event", event);
+        model.addAttribute("img", imgPath);
         
-        return "/main/main";
+        return "main";
     }
 
     @RequestMapping("/main/{showcase_category}")
