@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ID_EMAIL = #{id_email}
 	</delete>
 	
-	<select id="getMember" parameterType="MemberModel" resultType="MemberModel">
+	<select id="getMember" parameterType="String" resultType="MemberModel">
 		<include refid="select-all-member" />
 		where ID_EMAIL = #{id_email}
 	</select>

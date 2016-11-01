@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kong2.comment.CommentMapper">
+
+ <!--    <resultMap type="commentModel" id="commentRes">
+        <result property="comment_num" column="COMMENT_NUM" />
+		<result property="showcase_num" column="SHOWCASE_NUM" />
+		<result property="member_num" column="MEMBER_NUM" />
+		<result property="content" column="CONTENT" />
+		<result property="reg_date" column="REG_DATE" />
+    </resultMap> -->
+    
+    <!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		SELECT * FROM SHOWCASECOMMENT
+	</sql>
+
+	<!-- 공통으로 사용할 where-no 절 정의 -->
+	<sql id="where-num">
+		WHERE COMMENT_NUM = #{comment_num}
+	</sql>
+	
+	<!-- select 쿼리문 정의 -->	
+	<select id="selectAll" resultType="CommentModel" parameterType="int">
+		SELECT cm.COMMENT_NUM, cm.SHOWBOARD_NUM, cm.MEMBER_NUM, cm.CONTENT, cm.REG_DATE, mb."NAME"
+		FROM SHOWCASECOMMENT cm join MEMBER mb
+		on cm.MEMBER_NUM = mb.MEMBER_NUM
+		where cm.SHOWBOARD_NUM = #{showboard_num}
+		ORDER BY cm.COMMENT_NUM DESC
+	</select> 
+
+	<select id="selectOne" resultType="CommentModel" parameterType="int">
+		<include refid="select-all" />
+		<include refid="where-num" />
+	</select>
+
+	<!-- <select id="selectLastNo" resultType="int" parameterType="int">
+		SELECT max(no) as no FROM SHOWCASECOMMENT
+	</select> -->
+	
+	<!-- insert 쿼리문 정의 -->
+	<insert id="insert" parameterType="CommentModel">
+		INSERT INTO SHOWCASECOMMENT(COMMENT_NUM, SHOWBOARD_NUM, MEMBER_NUM, CONTENT, REG_DATE)
+		VALUES (COMMENT_NUM_SEQ.NEXTVAL, #{showboard_num}, #{member_num}, #{content}, #{reg_date})
+	</insert>
+	
+<!-- 	<insert id="insertBoardReply" parameterType="CommentModel">
+		INSERT INTO SHOWCASECOMMENT(COMMENT_NUM, SHOWBOARD_NUM, MEMBER_NUM, CONTENT, REG_DATE)
+		VALUES (COMMENT_NUM_SEQ.NEXTVAL, #showboard_num#, #member_num#, #content#, #reg_date#)
+	</insert> -->
+
+	<!-- update 쿼리문 정의 -->
+	<update id="update" parameterType="CommentModel">
+	UPDATE SHOWCASECOMMENT SET CONTENT = #{content}
+	<include refid = "where-num" />
+	</update>
+
+	<!-- delete 쿼리문 정의 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM SHOWCASECOMMENT
+		<include refid="where-num" />
+	</delete>
+	
+</mapper>

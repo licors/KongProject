@@ -45,7 +45,8 @@ public class MemberController {
 			session.setAttribute("session_member_id", result.getId_email());
 			session.setAttribute("session_member_name", result.getName());
 			session.setAttribute("session_member_num", result.getMember_num());
-
+			session.setAttribute("session_member_admin", result.getAdmin());
+			
 			if(result.getAdmin() > 0) {
 				return "/admin/adminPage";
 			}
