@@ -95,7 +95,7 @@ public class BasketController {
 		
 		BasketModel basketModel= new BasketModel();
 		basketModel.setMember_num(member_num);
-		basketModel.setShowboard_num(showboard_num);
+		basketModel.setShowcase_num(showboard_num);
 		
 		basketModel=basketService.basket_check(basketModel);
 		

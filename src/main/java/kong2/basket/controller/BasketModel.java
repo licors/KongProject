@@ -12,7 +12,7 @@ import java.util.Date;
 public class BasketModel {
 	private int basket_num;
 	private int member_num;
-	private int showboard_num;
+	private int showcase_num;	//showboard_num으로 돼있어서 showcase_num으로 변경했어요 <유진1101>
 	private Date start_date;
 	private Date end_date;
 	private int show_status;
@@ -22,7 +22,7 @@ public class BasketModel {
 	private String address2;
 	private int readcount;
 	private int ordercount;
-	private String showboard_category;
+	private String showcase_category; //여기두<유진1101>
 	private int price;
 	
 	public int getShow_status() {
@@ -63,11 +63,11 @@ public class BasketModel {
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
 	}
-	public int getShowboard_num() {
-		return showboard_num;
+	public int getShowcase_num() {
+		return showcase_num;
 	}
-	public void setShowboard_num(int showboard_num) {
-		this.showboard_num = showboard_num;
+	public void setShowcase_num(int showcase_num) {
+		this.showcase_num = showcase_num;
 	}
 
 	
@@ -109,11 +109,11 @@ public class BasketModel {
 		this.ordercount = ordercount;
 	}
 
-	public String getShowboard_category() {
-		return showboard_category;
+	public String getShowcase_category() {
+		return showcase_category;
 	}
-	public void setShowboard_category(String showboard_category) {
-		this.showboard_category = showboard_category;
+	public void setShowcase_category(String showcase_category) {
+		this.showcase_category = showcase_category;
 	}
 	
 	

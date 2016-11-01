@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="basket_check" resultMap="basketRes" parameterType="basketModel">
 		<include refid="select-all"/>
 		and bs.member_num=#{member_num}
-		and bs.SHOWCASE_num=#{SHOWCASE_num}
+		and bs.showcase_num=#{showcase_num}
 	</select>
 
 	<!-- 장바구니 추가 -->
