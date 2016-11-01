@@ -19,7 +19,7 @@ import kong2.common.PagingAction;
 @RequestMapping("/main/view")
 public class CommentController {
 	
-	private int currentPage = 1;
+//	private int currentPage = 1;
 	private int totalCount;
 	private int blockCount = 10;
 	private int blockPage = 3;
@@ -29,12 +29,12 @@ public class CommentController {
 	@Resource(name = "commentService")
 	private CommentService commentService;
 	
-	@RequestMapping("/{showcase_num}/list/{current_num}")
+	@RequestMapping("/{showcase_num}/commentList/{current_num}")
 	public String commentList(Model model, @PathVariable int showcase_num, @PathVariable int current_num) {
 		
 		List<CommentModel> list = null;
 		list = commentService.selectall(showcase_num);
-		page = new PagingAction(current_num, totalCount, blockCount, blockPage, "commentList");
+		page = new PagingAction(current_num, totalCount, blockCount, blockPage, "{"+showcase_num+"}/commentList");
 		pagingHtml = page.getPagingHtml().toString();
 		int lastCount = totalCount;
 		
@@ -48,18 +48,18 @@ public class CommentController {
 		model.addAttribute("list", list);
 		model.addAttribute("showcase_num", showcase_num);
 		
-		return "commentList";
+		return "ti_commentList";
 	}
+	
+//	@LoginCheckBeforeFunctionStart
+//	@RequestMapping(value="/{showcase_num}/write", method=RequestMethod.GET)
+//	public String commentWriteForm(Model model, @PathVariable int showcase_num)throws Exception{
+//
+//		model.addAttribute("showcase_num", showcase_num);
+//		return "commentWriteform";
+//	}
 	
 	@LoginCheckBeforeFunctionStart
-	@RequestMapping(value="/{showcase_num}/write", method=RequestMethod.GET)
-	public String commentWriteForm(Model model, @PathVariable int showcase_num)throws Exception{
-
-		model.addAttribute("showcase_num", showcase_num);
-		return "commentWriteform";
-	}
-	
-
 	@RequestMapping(value="/{showcase_num}/write", method=RequestMethod.POST)
 	public String commentWrite(Model model, @PathVariable int showcase_num, CommentModel commentModel, BindingResult result)throws Exception{
 
@@ -75,7 +75,7 @@ public class CommentController {
 		CommentModel commentModel =commentService.selectOne(Integer.parseInt(request.getParameter("comment_num")));
 		model.addAttribute("commentModel", commentModel);
 		model.addAttribute("showcase_num", showcase_num);
-		return "comment_m_form";
+		return "ti_commentModifyForm";
 	}
 	
 	
