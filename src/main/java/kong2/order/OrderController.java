@@ -109,10 +109,10 @@ public class OrderController {
 
 		if (orderModel != null) {
 			model.addAttribute("orderModel", orderParam);
-			return "order/orderCheckFail";
+			return "orderCheckFail";
 		} else {
 			model.addAttribute("orderModel", orderParam);
-			return "order/orderCheckSuccess"; /// order/form으로 이동 (가진 정보 그대로
+			return "orderCheckSuccess"; /// order/form으로 이동 (가진 정보 그대로
 												/// 가지고)
 		}
 		// AOP사용해보기, 포워딩
@@ -147,7 +147,7 @@ public class OrderController {
 		model.addAttribute("showcaseModel", showcaseModel);
 		model.addAttribute("memberModel", memberModel);
 
-		return "order/orderForm";
+		return "orderForm";
 
 		// 1차 폼에서 입력 처리 가능
 		// id_email, name, zipcode, company, phone(member에서 불러올수 있는 정보)
@@ -173,10 +173,10 @@ public class OrderController {
 
 		model.addAttribute("bank_account", bank_account);
 		model.addAttribute("orderModel", orderModel);
-		
-		//request.setAttribute("orderParam", orderModel);
 
-		return "order/orderPro";
+		// request.setAttribute("orderParam", orderModel);
+
+		return "orderPro";
 		// 1차 폼에서 입력 처리 가능
 		// id_email, name, zipcode, company, phone(member에서 불러올수 있는 정보)
 		// total price 계산
@@ -195,12 +195,12 @@ public class OrderController {
 	public String orderInsert(Model model, @ModelAttribute OrderModel orderModel, Locale locale, HttpSession session,
 			HttpServletRequest request) {
 		logger.info("welcome order success.", locale);
-		
+
 		session = request.getSession();
 
 		member_num = (Integer) session.getAttribute("session_member_num");
 		showcase_num = orderModel.getShowcase_num();
-		
+
 		showcaseModel.setShowcase_num(showcase_num);
 
 		// 바코드 넘버 생성
@@ -235,13 +235,14 @@ public class OrderController {
 
 		// 장바구니에 있으면 삭제
 		BasketModel basketModel = new BasketModel();
-		basketModel.setShowcase_num(showcase_num);;
+		basketModel.setShowcase_num(showcase_num);
+		;
 		basketModel.setMember_num(member_num);
 		if (basketService.basket_check(basketModel) != null) {
 			basketService.basketDelete(basketModel);
 		}
 
-		return "order/orderSuccess";
+		return "orderSuccess";
 	}
 
 	// ---------------------------------------------------------------------------------
@@ -271,9 +272,9 @@ public class OrderController {
 			model.addAttribute("memberModel", memberModel);
 			model.addAttribute("orderModel", orderModel);
 
-			return "order/orderForm";
+			return "orderForm";
 		} else {
-			return "order/orderError"; // 로그인x
+			return "orderError"; // 로그인x
 		}
 	}
 
@@ -304,7 +305,7 @@ public class OrderController {
 		model.addAttribute("basketList", basketList);
 		model.addAttribute("orderModel", orderModel);
 
-		return "order/orderPro";
+		return "orderPro";
 	}
 
 	// basket(다수) DB insert
@@ -352,7 +353,7 @@ public class OrderController {
 			basketService.basketDelete_all(orderModel.getMember_num());
 
 		}
-		return "order/orderSuccess";
+		return "orderSuccess";
 	}
 
 	// 회원용 신청 리스트
@@ -385,19 +386,18 @@ public class OrderController {
 
 		model.addAttribute("orderList", orderList);
 
-		return "order/orderList";
+		return "orderList";
 
 	}
 
 	// 신청 상세보기
-	@RequestMapping(value = "/view/${order_num}/${currentPage}", method = RequestMethod.GET)
-	public String orderView(@PathVariable int order_num, @PathVariable int currentPage, Model model, Locale locale,
-			HttpServletRequest request, HttpSession session) {
+	@RequestMapping(value = "/view/{order_num}", method = RequestMethod.GET)
+	public String orderView(@PathVariable int order_num, Model model, Locale locale, HttpServletRequest request,
+			HttpSession session) {
 		logger.info("welcome order list.", locale);
 
 		session = request.getSession();
-
-		member_num = (Integer) session.getAttribute("member_num");
+		member_num = (Integer) session.getAttribute("session_member_num");
 
 		OrderModel orderModel = new OrderModel();
 		orderParam.setOrder_num(order_num);
@@ -415,22 +415,28 @@ public class OrderController {
 		model.addAttribute("orderModel", orderModel);
 
 		// 취소버튼 필요한 정보 : order_num, member_num
-		return "order/orderView";
+		return "orderView";
 	}
 
-	// 주문 상품 삭제
-	@RequestMapping(value = "/cancel")
-	public String orderCancel(@ModelAttribute OrderModel orderModel, Locale locale, HttpServletRequest request) {
-		// 원래는 리스트에서 order_num 넘겨줬는데 이제는 number를 넣어서 VO를 넘겨줄것
-		// showcaseModel도 넘겨줄것
-		// 아니면 showcase_num을 orderModel에 넣어서 service로 showcase모델 불러올것
+	// 주문 취소
+	@RequestMapping(value = "/cancel/{order_num}")
+	public String orderCancel(@PathVariable int order_num, Locale locale, HttpServletRequest request,
+			HttpSession session, Model model) {
+		logger.info("welcome order cancel.", locale);
+		
+		session = request.getSession();
+		member_num = (Integer) session.getAttribute("session_member_num");
+
+		orderParam.setOrder_num(order_num);
+		orderParam.setMember_num(member_num);
+		OrderModel orderModel = new OrderModel();
+		orderModel = orderService.orderView(orderParam);
+		
+		System.out.println("model:" + orderModel.toString());
 
 		// 신청수 감소
+		showcaseModel.setShowcase_num(orderModel.getShowcase_num());
 		orderService.ordercountMinus(showcaseModel);
-
-		// 티켓 상태 변경(delete 아닌 update)
-		orderModel.setOrder_status("티켓 취소");
-		orderService.update_order(orderModel);
 
 		// 바코드 이미지 파일 지우기
 		String str = orderModel.getBarcode();
@@ -446,6 +452,8 @@ public class OrderController {
 		orderModel.setBarcode("");
 
 		// order테이블 수정
+		// 티켓 상태 변경(delete 아닌 update)
+		orderModel.setOrder_status("티켓 취소");
 		orderService.update_order(orderModel);
 
 		logger.info("티켓 취소완료", locale);
@@ -454,16 +462,13 @@ public class OrderController {
 	}
 
 	// 관리자용 회원 오더리스트(페이징, 검색)
-	@RequestMapping(value = "/adminList")
-	public String adminOrderList(Model model, HttpSession session, HttpServletRequest request) throws Exception {
-		session = request.getSession();
-		OrderModel orderModel = new OrderModel();
-
-		// id_email = (String) session.getAttribute("session_member_id");
-
+	@RequestMapping(value = "/admin/list")
+	public String adminOrderList(Locale locale, Model model) throws Exception {
+		logger.info("welcome admin order list.", locale);
+		
 		orderList = orderService.order_selectAll();
 
-		// paging
+/*		// paging
 		totalCount = orderList.size();
 
 		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "orderList");
@@ -474,20 +479,27 @@ public class OrderController {
 			lastCount = page.getEndCount() + 1;
 		}
 
-		orderList = orderList.subList(page.getStartCount(), lastCount);
+		orderList = orderList.subList(page.getStartCount(), lastCount);*/
+		
+		OrderSearchModel searchModel = new OrderSearchModel();
 
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("searchModel", searchModel);
 
-		return "/adminList";
+		return "adminOrderList";
 	}
 
 	// 리스트 검색
 	@RequestMapping(value = "/search")
-	public String search(OrderSearchModel searchModel, Model model, HttpSession session, HttpServletRequest request)
+	public String search(@ModelAttribute("searchModel") OrderSearchModel searchModel, Model model, HttpSession session, HttpServletRequest request)
 			throws Exception {
 		session = request.getSession();
 
 		// member_num = (Integer) session.getAttribute("session_member_num");
+		datepicker1 = searchModel.getDatepicker1();
+		datepicker2 = searchModel.getDatepicker2();
+		searchKeyword = searchModel.getSearchKeyword();
+		
 
 		if (datepicker1.isEmpty() || datepicker2.isEmpty() || datepicker1.equals("") || datepicker2.equals("")) {
 			orderParam.setDatepicker1("16-09-01");
@@ -509,10 +521,13 @@ public class OrderController {
 			orderParam.setOrder_status("%" + searchKeyword + "%");
 			orderList = orderService.search_status(orderParam);
 		}
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("searchModel", searchModel);
 
-		totalCount = orderList.size(); // 전체 글 갯수를 구한다.
+		//totalCount = orderList.size(); // 전체 글 갯수를 구한다.
 
-		// pagingAction 객체생성
+		/*// pagingAction 객체생성
 		AdminOrderPagingAction adpage = new AdminOrderPagingAction(currentPage, totalCount, blockCount, blockPage,
 				searchNum, searchKeyword);
 		pagingHtml = adpage.getPagingHtml().toString(); // 페이지HTML 생성.
@@ -525,9 +540,9 @@ public class OrderController {
 			lastCount = adpage.getEndCount() + 1;
 
 		// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
-		orderList = orderList.subList(adpage.getStartCount(), lastCount);
+		orderList = orderList.subList(adpage.getStartCount(), lastCount);*/
 
-		return "/adminList";
+		return "adminOrderList";
 	}
 
 	@InitBinder
