@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
-import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.memberBeforeFunctionStart;
 import kong2.common.path;
 import kong2.validator.ShowcaseValidator;
@@ -42,6 +41,7 @@ public class ShowcaseController {
     public String adminmain() {
         return "adminmain";
     }
+
     ///main/search
     @memberBeforeFunctionStart
     @RequestMapping("/main")
@@ -64,10 +64,10 @@ public class ShowcaseController {
         model.addAttribute("art", art);
         model.addAttribute("event", event);
         model.addAttribute("img", imgPath);
-        
         return "main";
     }
 
+    @memberBeforeFunctionStart
     @RequestMapping("/main/{showcase_category}")
     public String list(Model model, @PathVariable String showcase_category) throws Exception {
         ShowcaseModel category = new ShowcaseModel();
@@ -76,10 +76,19 @@ public class ShowcaseController {
         List<ShowcaseModel> list = showcaseService.selectcategory(category);
         model.addAttribute("list", list);
         model.addAttribute("category", chk_category);
-        return "/main/list";
+        model.addAttribute("img", imgPath);
+        return "mainlist";
+    }
+    
+    @memberBeforeFunctionStart
+    @RequestMapping("/admin/main/list")
+    public String adminlist(Model model) throws Exception {
+        List<ShowcaseModel> list = showcaseService.selectall();
+        model.addAttribute("list", list);
+        return "adminmainlist";
     }
 
-//    @LoginCheckBeforeFunctionStart
+    @memberBeforeFunctionStart
     @RequestMapping("/main/view/{showcase_num}")
     public String view(Model model, @PathVariable int showcase_num) {
         ShowcaseModel view = new ShowcaseModel();
@@ -87,14 +96,16 @@ public class ShowcaseController {
         ShowcaseModel aticle = showcaseService.selectone(view);
         model.addAttribute("view", aticle);
         model.addAttribute("img", imgPath);
-        return "/main/view";
+        return "mainview";
     }
 
+    @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.GET)
     public String writeform(Model model, HttpServletRequest request) {
         return "/admin/main/form";
     }
 
+    @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.POST)
     public String insert(Model model, /*MultipartHttpServletRequest request,*/ ShowcaseModel showcaseModel, BindingResult result) throws IOException {
         logger.info(showcaseModel.toString());
@@ -130,18 +141,13 @@ public class ShowcaseController {
             }
             File destFile = new File(uploadPath + "/" + savimagename);
             next.transferTo(destFile);
-            /**
-             * 업로드된 파일의 이름을 처리하여 db에 넣기위한 부분 ,넣기가 주된 처리
-             */
+
             file_savname += savimagename + ",";
             if (i == 4) {
                 int index = file_savname.lastIndexOf(',');
                 file_savname = file_savname.substring(0, index);
                 showcaseModel.setFile_savname(file_savname);
             }
-            /**
-             * 처리된 이름을 객체에 넣는부분
-             */
         }
         new ShowcaseValidator().validate(showcaseModel, result);
 

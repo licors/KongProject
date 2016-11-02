@@ -33,13 +33,13 @@
         WHERE showcase_num = #{showcase_num}
     </sql>
 	
-    <!--    <select id="selectall" resultMap="showRes">
+    <select id="selectall" resultMap="showRes">
         <include refid="select-all"/>
         <![CDATA[
         WHERE show_status >= 0
-        ORDER BY showcase_num
+        ORDER BY showcase_num DESC
         ]]>
-    </select>-->
+    </select>
     <select id="selectmain" resultMap="showRes" parameterType="kong2.showcase.ShowcaseModel">
         <include refid="select-all"/>
         <![CDATA[
@@ -53,7 +53,7 @@
         <include refid="select-all"/>
         <![CDATA[
         WHERE showcase_category = #{showcase_category}
-        AND status >= 0
+        AND show_status >= 0
         ORDER BY showcase_num DESC
         ]]>
     </select>

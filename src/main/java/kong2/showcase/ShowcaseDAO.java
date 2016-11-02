@@ -9,7 +9,8 @@ public interface ShowcaseDAO {
      *
      * @return show_status 0(예정중), 1(계최중) 글 리턴
      */
-//    ArrayList<ShowcaseModel> selectall();
+    ArrayList<ShowcaseModel> selectall();
+    
     /**
      * 메인에서 활용할 수 있는 각 showcase_category 기준 최신글 9개를 출력
      *

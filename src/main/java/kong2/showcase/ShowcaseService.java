@@ -12,69 +12,76 @@ public class ShowcaseService implements ShowcaseDAO {
     private SqlSession sqlSession;
 
     @Override
+    public ArrayList<ShowcaseModel> selectall() {
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ArrayList<ShowcaseModel> result = ShowcaseMapper.selectall();
+        return result;
+    }
+
+    @Override
     public ArrayList<ShowcaseModel> selectmain(ShowcaseModel showcaseModel) {
         ArrayList<ShowcaseModel> result = new ArrayList<ShowcaseModel>();
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        result = memberMapper.selectmain(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        result = ShowcaseMapper.selectmain(showcaseModel);
         return result;
     }
 
     @Override
     public ArrayList<ShowcaseModel> selectcategory(ShowcaseModel showcaseModel) {
         ArrayList<ShowcaseModel> result = new ArrayList<ShowcaseModel>();
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        result = memberMapper.selectcategory(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        result = ShowcaseMapper.selectcategory(showcaseModel);
         return result;
     }
 
     @Override
     public ShowcaseModel selectone(ShowcaseModel showcaseModel) {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        ShowcaseModel result = memberMapper.selectone(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ShowcaseModel result = ShowcaseMapper.selectone(showcaseModel);
         return result;
     }
 
     @Override
     public int selectLastNo() {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        int result = memberMapper.selectLastNo();
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        int result = ShowcaseMapper.selectLastNo();
         return result;
     }
 
     @Override
     public void insert(ShowcaseModel showcaseModel) {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        memberMapper.insert(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ShowcaseMapper.insert(showcaseModel);
     }
 
     @Override
     public void update(ShowcaseModel showcaseModel) {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        memberMapper.update(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ShowcaseMapper.update(showcaseModel);
     }
 
     @Override
     public void delete(ShowcaseModel showcaseModel) {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        memberMapper.delete(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ShowcaseMapper.delete(showcaseModel);
     }
 
     @Override
     public void readcountup(ShowcaseModel showcaseModel) {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        memberMapper.readcountup(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ShowcaseMapper.readcountup(showcaseModel);
     }
 
     @Override
     public void ordercountup(ShowcaseModel showcaseModel) {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        memberMapper.ordercountup(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ShowcaseMapper.ordercountup(showcaseModel);
     }
 
     @Override
     public void ordercountdown(ShowcaseModel showcaseModel) {
-        ShowcaseMapper memberMapper = sqlSession.getMapper(ShowcaseMapper.class);
-        memberMapper.ordercountdown(showcaseModel);
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        ShowcaseMapper.ordercountdown(showcaseModel);
     }
 
 }

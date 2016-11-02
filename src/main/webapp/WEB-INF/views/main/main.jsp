@@ -4,6 +4,43 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!-- 메인 jQuery등록부분 -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script><!-- 메인 드랍다운용 -->
+<script type="text/javascript">
+    $(window).ready(function mainList() {
+        jQuery(".cgt_list_mask").width(jQuery(".cgt_latest_image_area").width());
+        jQuery(".cgt_list_mask").height(jQuery(".cgt_latest_image_area").height());
+        jQuery(".cgt-latest").hover(function () {
+            jQuery(this).addClass("active");
+            jQuery(this).find(".cgt_list_count").css("color", "#FFF");
+            jQuery(this).find(".application_icon").attr("src", "/resources/image/main/icon_apply_blue.jpg");
+            jQuery(this).find(".view_icon").attr("src", "/resources/image/main/icon_eye_blue.jpg");
+            jQuery(this).find(".cgt_list_mask").stop().fadeTo(150, .7);
+            jQuery(this).find(".btn-detail").stop().animate({
+                left: "38px",
+                opacity: 1
+            }, 150);
+            jQuery(this).find(".btn-application").stop().animate({
+                right: "38px",
+                opacity: 1
+            }, 150)
+        }, function () {
+            jQuery(this).find(".cgt_list_mask").stop().fadeTo(150, 0);
+            jQuery(this).find(".btn-detail").stop().animate({
+                left: "-38px",
+                opacity: 0
+            }, 150, function () {
+                jQuery(this).parent().parent().removeClass("active").find(".application_icon").attr("src", "/resources/image/main/icon_apply.jpg");
+                jQuery(this).parent().parent().find(".view_icon").attr("src", "/resources/image/main/icon_eye.jpg");
+                jQuery(this).parent().parent().find(".cgt_list_count").css("color", "#666")
+            });
+            jQuery(this).find(".btn-application").stop().animate({
+                right: "-38px",
+                opacity: 0
+            }, 150)
+        })
+    });
+</script>
 <div style="width:100%; background-color:#FFF; padding:0px 20px 20px 20px;">
     <div id="ContentPanel"></div>
     <section class="content-wrapper main-content clear-fix">

@@ -20,14 +20,35 @@
         <put-attribute name="bottom" value="/WEB-INF/views/layouts/main/bottom.jsp" />
     </definition>
     
-    <definition name="main" extends="default">
+    <definition name="default_admin" template="/WEB-INF/views/layouts/layout_admin_main.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/layouts/main/body.jsp" />
+    </definition>
+    
+    <definition name="main" extends="default_main">
         <put-attribute name="title" value="캔고루 - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
         <put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
     </definition>
     
-    <definition name="list" extends="default">
+    <definition name="mainlist" extends="default">
         <put-attribute name="title" value="캔고루 - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
         <put-attribute name="body" value="/WEB-INF/views/main/list.jsp" />
+    </definition>
+    
+    <definition name="mainview" extends="default">
+        <put-attribute name="title" value="캔고루 - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
+        <put-attribute name="body" value="/WEB-INF/views/main/view.jsp" />
+    </definition>
+    
+    <!-- 어드민 -->
+    
+   <definition name="adminmain" extends="default_admin">
+        <put-attribute name="tab" value="공지사항" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/main/main.jsp" />
+    </definition>
+    
+    <definition name="adminmainlist" extends="default_admin">
+        <put-attribute name="tab" value="전시글 리스트" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/main/list.jsp" />
     </definition>
 
 </tiles-definitions>

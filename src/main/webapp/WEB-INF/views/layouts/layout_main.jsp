@@ -19,43 +19,7 @@
         <script src="https://www.cangoto.kr/bundles/cangoto?v=WGB7u9RHVNpprNZXum2VrQlDLJTZf5tHOYJdmHKq2s01"></script>
         <script src="https://www.cangoto.kr/bundles/knockout?v=76AIGLyY_agf8nmHAUeHF5fo0HxMeiQhRw6ATlkJEeQ1"></script>
         <script type="text/javascript" src="https://api.cangoto.kr/Scripts/cgtAD.js"></script>
-        <!-- 메인 jQuery등록부분 -->
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script><!-- 메인 드랍다운용 -->
-        <script type="text/javascript">
-            $(window).ready(function mainList() {
-                jQuery(".cgt_list_mask").width(jQuery(".cgt_latest_image_area").width());
-                jQuery(".cgt_list_mask").height(jQuery(".cgt_latest_image_area").height());
-                jQuery(".cgt-latest").hover(function () {
-                    jQuery(this).addClass("active");
-                    jQuery(this).find(".cgt_list_count").css("color", "#FFF");
-                    jQuery(this).find(".application_icon").attr("src", "/resources/image/main/icon_apply_blue.jpg");
-                    jQuery(this).find(".view_icon").attr("src", "/resources/image/main/icon_eye_blue.jpg");
-                    jQuery(this).find(".cgt_list_mask").stop().fadeTo(150, .7);
-                    jQuery(this).find(".btn-detail").stop().animate({
-                        left: "38px",
-                        opacity: 1
-                    }, 150);
-                    jQuery(this).find(".btn-application").stop().animate({
-                        right: "38px",
-                        opacity: 1
-                    }, 150)
-                }, function () {
-                    jQuery(this).find(".cgt_list_mask").stop().fadeTo(150, 0);
-                    jQuery(this).find(".btn-detail").stop().animate({
-                        left: "-38px",
-                        opacity: 0
-                    }, 150, function () {
-                        jQuery(this).parent().parent().removeClass("active").find(".application_icon").attr("src", "/resources/image/main/icon_apply.jpg");
-                        jQuery(this).parent().parent().find(".view_icon").attr("src", "/resources/image/main/icon_eye.jpg");
-                        jQuery(this).parent().parent().find(".cgt_list_count").css("color", "#666")
-                    });
-                    jQuery(this).find(".btn-application").stop().animate({
-                        right: "-38px",
-                        opacity: 0
-                    }, 150)
-                })
-            });
-        </script>
+
         <!-- 다운받은 사본 -->
         <!--        <script type="text/javascript" src="/resources/js/cangoto_bootstrap.js"></script>
                 <script type="text/javascript" src="/resources/js/cangoto.js"></script>
