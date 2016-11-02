@@ -79,7 +79,7 @@ public class ShowcaseController {
         model.addAttribute("img", imgPath);
         return "mainlist";
     }
-    
+
     @memberBeforeFunctionStart
     @RequestMapping("/admin/main/list")
     public String adminlist(Model model) throws Exception {
@@ -100,9 +100,20 @@ public class ShowcaseController {
     }
 
     @memberBeforeFunctionStart
+    @RequestMapping("/admin/main/view/{showcase_num}")
+    public String adminview(Model model, @PathVariable int showcase_num) {
+        ShowcaseModel view = new ShowcaseModel();
+        view.setShowcase_num(showcase_num);
+        ShowcaseModel aticle = showcaseService.selectone(view);
+        model.addAttribute("view", aticle);
+        model.addAttribute("img", imgPath);
+        return "adminmainview";
+    }
+
+    @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.GET)
     public String writeform(Model model, HttpServletRequest request) {
-        return "/admin/main/form";
+        return "adminmainwrite";
     }
 
     @memberBeforeFunctionStart
@@ -157,7 +168,7 @@ public class ShowcaseController {
 
         showcaseService.insert(showcaseModel);
         logger.info("insert complete");
-        return "redirect:/main";
+        return "redirect:/admin/main/list";
     }
 
     protected String category_chk(String showcase_category) {

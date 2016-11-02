@@ -73,6 +73,7 @@
                                 <!-- Sub menu -->
                                 <ul>
                                     <li><a href="/admin/main/list">리스트</a></li>
+                                    <li><a href="/admin/main/write">쓰기</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
