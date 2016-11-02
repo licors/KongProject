@@ -27,13 +27,13 @@ public class OrderModel {
 	private String payment_payer;
 	
 	//신청 전시회 정보
-	private String show_subject;
-	private int show_price;
+	private String show_subject; //subject
+	private int show_price;		//price
 	private int show_status;
 	private String file_savname;
 	private Date start_date;
 	private Date end_date;
-	private String show_addr;
+	private String show_addr; //address2
 	private int readcount;
 	private int ordercount;
 	

@@ -6,39 +6,39 @@
 <tiles-definitions>
 
 	<definition name="orderList" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="신청 내역" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderList.jsp" />
 	</definition>
-	<definition name="adminOrderList" extends="default">
-		<put-attribute name="left" value="" />
-		<put-attribute name="body" value="/WEB-INF/views/order/adminOrderList.jsp" />
+	<definition name="adminOrderList" extends="default_admin">
+		<put-attribute name="tab" value="회원 신청 내역" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/order/adminOrderList.jsp" />
 	</definition>
 	<definition name="orderForm" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="신청 폼" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderForm.jsp" />
 	</definition>
 	<definition name="orderSuccess" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="신청 성공" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderSuccess.jsp" />
 	</definition>
 	<definition name="orderView" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="신청 상세보기" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderView.jsp" />
 	</definition>
 	<definition name="orderPro" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="결제 확인" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderPro.jsp" />
 	</definition>
 	<definition name="orderError" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="신청 실패" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderError.jsp" />
 	</definition>
 	<definition name="orderCheckFail" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="신청 체크 실패" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderCheckFail.jsp" />
 	</definition>
 	<definition name="orderCheckSuccess" extends="default">
-		<put-attribute name="left" value="" />
+		<put-attribute name="title" value="신청 체크 성공" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderCheckSuccess.jsp" />
 	</definition>
 
