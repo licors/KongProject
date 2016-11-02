@@ -64,8 +64,7 @@ public class CommentController {
 	public String commentWrite(Model model, @PathVariable int showcase_num, CommentModel commentModel, BindingResult result)throws Exception{
 
 		commentService.insert(commentModel);
-		model.addAttribute("showcase_num", showcase_num);
-		return commentList(model, showcase_num,1);
+		return "redirect:/"+showcase_num + "/commentList/1";
 	}
 	
 	@LoginCheckBeforeFunctionStart
@@ -84,13 +83,13 @@ public class CommentController {
 	public String commentModify(Model model, @PathVariable int showcase_num, HttpServletRequest request,CommentModel commentModel,BindingResult result)throws Exception{
 	
 		commentService.update(commentModel);
-		return commentList(model, showcase_num,1);
+		return "redirect:/"+showcase_num + "/commentList/1";
 	}
 	
 	@LoginCheckBeforeFunctionStart
 	@RequestMapping(value="/{showcase_num}/delete")
 	public String commentDelete(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
 		commentService.delete(Integer.parseInt(request.getParameter("comment_num")));	
-		return commentList(model, showcase_num,1);
+		return "redirect:/"+showcase_num + "/commentList/1";
 	}
 }
