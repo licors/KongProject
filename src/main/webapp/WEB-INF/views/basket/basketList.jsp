@@ -58,7 +58,7 @@
 								<form:hidden path="total_price" value="${total_price }"/>
 							</form:form>
 							<input type="button" name="list" value="메인으로"
-								onClick="location.href='/showcase/main'"
+								onClick="location.href='/main'"
 								class="btn btn-sm btn-default">
 						</c:otherwise>
 						</c:choose>

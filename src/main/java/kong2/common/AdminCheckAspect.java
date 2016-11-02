@@ -18,11 +18,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class AdminCheckAspect {
  
-     @SuppressWarnings("unused")
-	private static final Logger logger = (Logger) LoggerFactory.getLogger(LoginCheckAspect.class);
+    
+
  
-    @Before("@annotation(kong2.common.LoginCheckBeforeFunctionStart)")
-     public void loginCheck(JoinPoint joinPoint) throws Throwable {
+    @Before("@annotation(kong2.common.AdminCheckBeforeFunctionStart)")
+     public void adminCheck(JoinPoint joinPoint) throws Throwable {
 
     
     	
@@ -31,10 +31,10 @@ public class AdminCheckAspect {
 	   HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
 	   HttpSession session = request.getSession();
   try{
-	  		String loginId = (String) session.getAttribute("session_member_id");
+	  		
             int session_member_admin = (Integer)session.getAttribute("session_member_admin");
-            memberModel = memberService.getMember(loginId);
-            loginId==null||memberModel.getAdmin()==0
+            
+           
             if (session_member_admin==0) {
 
             	
@@ -42,7 +42,7 @@ public class AdminCheckAspect {
               
             	System.out.println("admin==0에 걸림");
                 System.out.println("관리자 여부(X)");
-                request.getRequestDispatcher("/adminCheck").forward(request, response);
+                request.getRequestDispatcher("/common/adminCheck").forward(request, response);
 
             }           
 }catch(Exception e){

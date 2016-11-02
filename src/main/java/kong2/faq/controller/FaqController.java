@@ -44,7 +44,7 @@ public class FaqController {
 
 	
 
-	
+	@AdminCheckBeforeFunctionStart
 	@RequestMapping("/list_admin")
 	public String faqList_admin(Model model) throws Exception {
 

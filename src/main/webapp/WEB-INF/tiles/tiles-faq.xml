@@ -6,23 +6,23 @@
 <tiles-definitions>
     <!-- 리스트 -->
     <definition name="faq_list_admin" extends="default">
-        <put-attribute name="left" value="" />
+        
         <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqList_admin.jsp" />
     </definition>
     
     <definition name="faq_list_user" extends="default">
-        <put-attribute name="left" value="" />
+        
         <put-attribute name="body" value="/WEB-INF/views/faq/faqList_user.jsp" />
     </definition>
     <!-- 폼 -->
     <definition name="faq_form" extends="default">
-       	<put-attribute name="left" value="" />
+       	
         <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqWrite.jsp" />
     </definition>
     
     
     <definition name="faq_m_form" extends="default">
-       	<put-attribute name="left" value="" />
+       	
         <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqModify.jsp" />
     </definition>
 
