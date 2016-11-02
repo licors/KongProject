@@ -33,10 +33,10 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">고객센터 <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="/Help/FAQ">FAQ</a>
+                                        <a href="/fag/list">FAQ</a>
                                     </li>
                                     <li>
-                                        <a href="/Help/Notice/1">공지사항</a>
+                                        <a href="/notice/list">공지사항</a>
                                     </li>
                                 </ul>
                             </li>
