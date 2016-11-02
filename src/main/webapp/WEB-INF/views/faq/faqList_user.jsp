@@ -16,14 +16,7 @@
                         <div class="form-group">
                             <p style="font-size:28px; color:#000000; font-weight:bold; margin:0px 0px 0px 0px; padding:0px;">자주 물어보시는 질문입니다.</p>
                         </div>
-                        <div class="form-group" style="float: right">
-                            <input name="support" type="button" value="1:1 문의"
-                                   onClick="javascript:location.href = '/support/supportlist'" class="btn btn-default">
-                         <%--    <c:if test="memresultClass.admin > 0"> --%>
-                                <input name="support" type="button" value="QnA 추가(임시)"
-                                       onClick="javascript:location.href = '/faq/write'" class="btn btn-default">
-                      <%--       </c:if> --%>
-                        </div>
+
                     </div>
                 </div>
                 <table align="center" class="table table-striped">
@@ -31,12 +24,6 @@
                         <tr>
                             <td colspan="1" width="50" align="center"><strong>Q.</strong></td>
                             <td colspan="2" width="430" align="left">${list.subject }</td>
-                            <%-- <c:if test="memresultClass.admin > 0"> --%>
-                                <td colspan="3" width="120" align="center">
-                                    <input name="support" type="button" value="수정" onClick="javascript:location.href = '/faq/modify?faq_num=${list.faq_num }'" class="btn btn-default btn-xs">
-                                    <input name="support" type="button" value="삭제" onClick="javascript:location.href = '/faq/delete?faq_num=${list.faq_num }'" class="btn btn-default btn-xs">
-                                </td>
-                            <%-- </c:if> --%>
                         </tr>
                         <tr>
                             <td colspan="1" width="50" align="center"><strong>A.</strong></td>

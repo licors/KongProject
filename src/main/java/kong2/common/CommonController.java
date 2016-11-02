@@ -15,4 +15,10 @@ public class CommonController {
 		return "/common/loginCheck";
 	}
 	
+	
+	@RequestMapping("/adminCheck")
+	public String adminCheck(Model model, HttpServletRequest request) throws Exception {
+		return "/common/adminCheck";
+	}
+	
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kong2.common.AdminCheckBeforeFunctionStart;
 import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.PagingAction;
 import kong2.faq.controller.FaqModel;
@@ -43,8 +44,9 @@ public class FaqController {
 
 	
 
-	@RequestMapping("/list")
-	public String faqList(Model model) throws Exception {
+	
+	@RequestMapping("/list_admin")
+	public String faqList_admin(Model model) throws Exception {
 
 		List<FaqModel> list=null;
 		
@@ -66,7 +68,34 @@ public class FaqController {
 		model.addAttribute("list", list);
 
 		// 보여줄 tiles
-		return "faq_list";
+		return "faq_list_admin";
+
+	}
+	
+	@RequestMapping("/list_user")
+	public String faqList_user(Model model) throws Exception {
+
+		List<FaqModel> list=null;
+		
+
+		list = faqService.selectall();
+		// 페이징
+		totalCount = list.size();
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "faq_list");
+		pagingHtml = page.getPagingHtml().toString();
+		int lastCount = totalCount;
+
+		if (page.getEndCount() < totalCount) {
+			lastCount = page.getEndCount() + 1;
+		}
+
+		list = list.subList(page.getStartCount(), lastCount);
+
+		model.addAttribute("pagingHtml", pagingHtml);
+		model.addAttribute("list", list);
+
+		// 보여줄 tiles
+		return "faq_list_user";
 
 	}
 	
@@ -94,7 +123,7 @@ public class FaqController {
 		faqService.insert(faqModel);
 		
 		//리스트로이동
-		return faqList(model);
+		return faqList_admin(model);
 	}
 	
 	
@@ -130,7 +159,7 @@ public class FaqController {
 		faqModel_m.setfaq_num(Integer.parseInt(request.getParameter("faq_num")));
 		faqService.update(faqModel_m);
 		//리스트로
-		return faqList(model);
+		return faqList_admin(model);
 	}
 	
 	
@@ -138,7 +167,7 @@ public class FaqController {
 	public String faqDelete(Model model,HttpServletRequest request)throws Exception{
 		faqService.delete(Integer.parseInt(request.getParameter("faq_num")));
 		
-		return faqList(model);
+		return faqList_admin(model);
 	}
 	
 	

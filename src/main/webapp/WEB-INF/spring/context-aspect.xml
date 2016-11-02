@@ -12,6 +12,7 @@
     <!-- <bean id="loginAspect" class="kong2.common.LoginAspect" /> -->
     
     <bean id="LoginCheckAspect" class="kong2.common.LoginCheckAspect"/>
-    <bean id="MemberAspect" class="kong2.common.memberAspect"/> 
+    <bean id="MemberAspect" class="kong2.common.memberAspect"/>
+  <!--   <bean id="AdminCheckAspect" class="kong2.common.AdminCheckAspect"/> -->
     
 </beans>
