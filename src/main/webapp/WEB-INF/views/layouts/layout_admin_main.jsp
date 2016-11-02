@@ -82,7 +82,7 @@
                                 </a>
                                 <!-- Sub menu -->
                                 <ul>
-                                    <li><a href="login.html">리스트</a></li>
+                                    <li><a href="member/admin/list">리스트</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">

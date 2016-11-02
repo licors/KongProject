@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,10 +19,12 @@
 					<!-- 코멘트 입력 폼 -->
 					<form:form commandName="commentModel" name="commentForm" action="/comment/commentWriteAction.action" method="post" onsubmit="return validation();">
 						<div class="form-group">
-						<form:hidden path="showcase_num" value=${showcase_num }/>
+						<form:hidden path="showcase_num" value=${commentModel.showcase_num }/>
+						<form:hidden path="member_num" value=${commentModel.member_num }/>
+						<%-- <form:hidden path=""/>
 						<s:hidden name="showboard_num" value="%{showboard_num}" />
 						<s:hidden name="member_num" value="%{member_num}" />
-						<s:hidden name="ref" value="0"></s:hidden>
+						<s:hidden name="ref" value="0"></s:hidden> --%>
 				
 						<table width="550" border="0" cellspacing="0" cellpadding="0" class="table-condensed">
 							<tr>
@@ -34,13 +36,14 @@
 							<tr>
 								<td align="right">
 									<input name="submit" type="submit" value="댓글입력" class="btn btn-success">
-									<input name="back" type="button" value="뒤로" class="btn btn-default" onClick="javascript:location.href='/showcase/scread.action?showboard_num=<s:property value="%{showboard_num}"/>'">
+									<input name="back" type="button" value="뒤로" class="btn btn-default" onClick="javascript:location.href='/main/view/${commentModel.showcase_num}'">
 								</td>
 							</tr>
 							<tr>
-								<s:if test="login_member_num == -1">
+								<%--시큐리티 만들고 구현
+								<c:if test="${commentModel.memberNum eq -1}">
 									<td><a href="/member/memberLogin.jsp">로그인</a> 하셔야 이용하실 수 있습니다.</td>
-								</s:if>
+								</c:if> --%>
 							</tr>
 						</table>
 						</div>
@@ -58,40 +61,31 @@
 								<td width="50">삭제</td>
 							</tr>
 					
-							<s:iterator value="list" status="stat">
-								<s:url id="viewURL" action="commentModifyFormAction">
-									<s:param name="comment_num">
-										<s:property value="comment_num" />
-									</s:param>
-									<s:param name="showboard_num">
-										<s:property value="showboard_num" />
-									</s:param>
-								</s:url>
-					
+							<c:forEach items="" var="">
 								<tr>
 									<td width="300" align="left"><s:property value="content" /></td>
 									<td width="70" align="center"><s:property value="name" /></td>
 									<td width="80" align="center"><s:property value="reg_date"/></td>
 									<td width="50" align="center">
-										<s:if test="login_member_num == member_num">
+										<!-- <s:if test="login_member_num == member_num"> -->
 											<a href="javascript:location.href='${viewURL}'">수정</a>
-										</s:if>
+										<!-- </s:if> -->
 									</td>
 									<td width="50" align="center">
-										<s:if test="login_member_num == member_num">
+										<!-- <s:if test="login_member_num == member_num"> -->
 											<a href='javascript:location.href="/comment/commentdeleteAction.action?comment_num=<s:property value='%{comment_num}'/>"'>삭제</a>
-										</s:if>
+										<!-- </s:if> -->
 									</td>
 								</tr>
-							</s:iterator>
+							</c:forEach>
 					
-							<s:if test="list.size() <= 0">
+							<c:if test="list.size() <= 0">
 								<tr>
 									<td colspan="5" align="center">등록된 게시물이 없습니다</td>
 								</tr>
-							</s:if>
+							</c:if>
 							<tr align="center">
-								<td colspan="5"><s:property value="pagingHtml" escape="false" /></td>
+								<td colspan="5">${pagingHtml}</td>
 							</tr>
 						</table>
 					</div>
