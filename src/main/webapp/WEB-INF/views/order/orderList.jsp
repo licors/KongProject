@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -46,9 +46,9 @@
 						+ " onclick='self.close()' style='cursor:pointer;' title ='클릭하시면 창이 닫힙니다.'>");
 		imgWin.document.close();
 	}
-	function deletecheck(num) {
+	function deletecheck(order_num) {
 		if (confirm("신청을 취소하시겠습니까?")) {
-			window.location.href = '/order/orderCancel.action?order_num=' + num;
+			window.location.href = '/order/cancel/'+ order_num;
 		} else {
 			alert("취소되었습니다");
 			return false;
@@ -57,183 +57,147 @@
 </script>
 </head>
 <body>
-	<form:form commandName="orderModel"> <!-- enctype="multipart/form-data" class="form-control-static" -->
-		<div
-			style="width: 100%; background-color: #FFF; padding: 0px 20px 20px 20px;">
-			<div id="ContentPanel"></div>
-			<section class="content-wrapper main-content clear-fix">
+	<!-- enctype="multipart/form-data" class="form-control-static" -->
+	<div
+		style="width: 100%; background-color: #FFF; padding: 0px 20px 20px 20px;">
+		<div id="ContentPanel"></div>
+		<section class="content-wrapper main-content clear-fix">
 
-				<div class="cgt-latest-wrap clearfix">
-					<div
-						style="margin: 1px auto; padding-top: 48px; clear: both; max-width: 1200px;">
-						<div style="float: left; font-size: 20px; font-weight: bold;">
-							<div style="box-sizing: border-box; font-size: 16px;">
+			<div class="cgt-latest-wrap clearfix">
+				<div
+					style="margin: 1px auto; padding-top: 48px; clear: both; max-width: 1200px;">
+					<div style="float: left; font-size: 20px; font-weight: bold;">
+						<div style="box-sizing: border-box; font-size: 16px;">
 
-								<span style="font-size: 18px; font-weight: normal;"> <img
-									src="../template/image/order_basket/myticketLogo.png">
-								</span>
-							</div>
+							<span style="font-size: 18px; font-weight: normal;"> <img
+								src="../template/image/order_basket/myticketLogo.png">
+							</span>
 						</div>
-						<div style="clear: both;"></div>
-						<div style="height: 0px; margin-top: 24px;"></div>
 					</div>
+					<div style="clear: both;"></div>
+					<div style="height: 0px; margin-top: 24px;"></div>
+				</div>
 
-					<div class="clearfix"></div>
+				<div class="clearfix"></div>
 
-					<c:forEach items="${orderList}" var="order" varStatus="status">
-						<!-- <s:url id="viewURL" action="scread">
-							<s:param name="showboard_num">
-								<s:property value="showboard_num" />
-							</s:param>
-						</s:url> -->
-						<%-- 					<div class="cgt-latest cgt-list-ctype-1">
-						<div class="cgt_latest_image_area">
-							<a href="/showcase/scread.action?showboard_category=${show_resultClass.showboard_category}&showboard_num=${show_resultClass.showboard_num }">
-								<img
-								src="../showcaseImg/<s:property value="file_savname.split(',')[0]"/>"
-								class="img-responsive" />
-							</a>
+				<c:forEach items="${orderList}" var="order" varStatus="status">
+					<div class="cgt-latest cgt-list-ctype-1">
+						<div style="position: absolute; width: 100%; z-index: 100;">
+							<div
+								style="float: right; width: 40px; height: 40px; border-radius: 20px; color: #FFF; text-align: center; font-weight: bold; line-height: 40px; margin: 10px 10px 0px 0px;"></div>
+							<div style="clear: both;"></div>
 						</div>
+						<a href='/main/view/${order.showcase_num }' target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
+							<c:set var="file" value="${fn:split(order.file_savname, ',')}" />
+							<img src="${img}${file[0]}" class="img-responsive">
+						</a>
 						<!-- img -->
-						<div class="cgt_list_mask" style="width: 284px; height: 295px;"></div> --%>
-						<div class="cgt-latest cgt-list-ctype-1">
-							<div style="position: absolute; width: 100%; z-index: 100;">
+
+						<!-- over layer -->
+						<div class="cgt_list_explanation">
+							<!-- title -->
+							<div class="subject">
+								<a href="/order/view/${order.order_num}">
+									${order.show_subject } </a>
+							</div>
+
+							<!-- date -->
+							<div class="schedule">
+								<!-- <s:property value="date" /> -->
+								<fmt:formatDate value="${order.start_date }"
+									pattern="YY년 MM월 dd일" />
+								-
+								<fmt:formatDate value="${order.end_date }" pattern="YY년 MM월 dd일" />
+							</div>
+
+
+							<div class="place_price">
+								<div class="place">
+									<!-- <s:property value="address2" /> -->
+									${order.show_addr }
+								</div>
 								<div
-									style="float: right; width: 40px; height: 40px; border-radius: 20px; color: #FFF; text-align: center; font-weight: bold; line-height: 40px; margin: 10px 10px 0px 0px;"></div>
-								<div style="clear: both;"></div>
-							</div>
-							<a
-								href='/showcase/scread.action?showcase_category=${showcaseModel.showcase_category}&showcase_num=<s:property value="showboard_num"/>'
-								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
-								<img src="../showcaseImg/${order.file_savname.split(',')[0]}"
-								class="img-responsive"
-								onerror="javascript:this.src='/template/image/main/noimg.png'"></>
-							</a>
-							<!-- img -->
-
-							<!-- over layer -->
-							<div class="cgt_list_explanation">
-								<!-- title -->
-								<div class="subject">
-									<a
-										href="/order/view/${order.order_num}/${currentPage }">
-										${order.show_subject } </a>
+									style="width: 30px; height: 2px; background-color: #F470C9; margin: 20px 0px 10px 0px;"></div>
+								<div class="price">
+									<fmt:formatNumber value="${order.show_price }" type="number" />
 								</div>
+								<div class="price">
 
-								<!-- date -->
-								<div class="schedule">
-									<!-- <s:property value="date" /> -->
-									<fmt:formatDate value="${order.start_date }" pattern="YY년 MM월 dd일" />
-									-
-									<fmt:formatDate value="${order.end_date }" pattern="YY년 MM월 dd일" />
-								</div>
-
-
-								<div class="place_price">
-									<div class="place">
-										<!-- <s:property value="address2" /> -->
-										${order.show_addr }
-									</div>
-									<div
-										style="width: 30px; height: 2px; background-color: #F470C9; margin: 20px 0px 10px 0px;"></div>
-									<div class="price"><fmt:formatNumber value="${order.show_price }" type="number"/></div>
-									<div class="price">
-										<%-- <s:if test='%{order.order_status == "티켓 신청" }'>
-									${order.order_status } 완료<br>
-									</s:if>
-									<s:else>
-									${order.order_status } 완료<br>
-									</s:else> --%>
-
-										<c:set var="order_status" value="${order.order_status }" />
-										<c:choose>
-											<c:when test="${order.order_status eq '티켓 신청' }">
-											${order.order_status } 완료 <br>
-											</c:when>
-											<c:when test="${order.order_status eq '티켓 만료' }">
-											${order.order_status } <br>
-											</c:when>
-											<c:when test="${order.order_status eq '티켓 취소' }">
-											${order.order_status } 완료 <br>
-											</c:when>
-										</c:choose>
-
-									</div>
-									<div style="width: 30px; margin: 10px 10px 10px 10px">
-										<%-- <s:if test='%{order.order_status == "티켓 신청" }'>
-										<img src="../barcodeImg/${order.barcode}.png"
-											style="cursor: pointer;"
-											onclick="doImgPop('../barcodeImg/${order.barcode}.png')"
-											width="220" />
-									</s:if>
-									<s:else>
-										<img src="../barcodeImg/default.png" width="220" />
-									</s:else> --%>
-
-										<c:set var="order_status" value="${order.order_status }" />
-										<c:choose>
-											<c:when test="${order.order_status eq '티켓 신청' }">
-												<img src="../barcodeImg/${order.barcode}.png"
-													style="cursor: pointer;"
-													onclick="doImgPop('../barcodeImg/${order.barcode}.png')"
-													width="220" />
-											</c:when>
-											<c:otherwise>
-												<img src="../barcodeImg/default.png" width="220" />
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</div>
-
-							</div>
-							<!-- contents-->
-							<!-- social -->
-							<div class="cgt_list_count clearfix"
-								style="font-size: 12px; color: #666;">
-								<div style="float: left;">
 									<c:set var="order_status" value="${order.order_status }" />
 									<c:choose>
-										<c:when test="${order_status eq '티켓 신청' }">
-											<input type="button" name="status" value="취소" onclick="return deletecheck(${order.order_num});"
-											class="btn btn-xs btn-default" />
+										<c:when test="${order.order_status eq '티켓 신청' }">
+											${order.order_status } 완료 <br>
+										</c:when>
+										<c:when test="${order.order_status eq '티켓 만료' }">
+											${order.order_status } <br>
+										</c:when>
+										<c:when test="${order.order_status eq '티켓 취소' }">
+											${order.order_status } 완료 <br>
 										</c:when>
 									</c:choose>
-									<%-- <s:if test='%{status == "티켓 신청" }'>
+
+								</div>
+								<div style="width: 30px; margin: 10px 10px 10px 10px">
+
+									<c:set var="order_status" value="${order.order_status }" />
+									<c:choose>
+										<c:when test="${order.order_status eq '티켓 신청' }">
+											<img src="../barcodeImg/${order.barcode}.png"
+												style="cursor: pointer;"
+												onclick="doImgPop('../barcodeImg/${order.barcode}.png')"
+												width="220" />
+										</c:when>
+										<c:otherwise>
+											<img src="../barcodeImg/default.png" width="220" />
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+
+						</div>
+						<!-- contents-->
+						<!-- social -->
+						<div class="cgt_list_count clearfix"
+							style="font-size: 12px; color: #666;">
+							<div style="float: left;">
+								<c:set var="order_status" value="${order.order_status }" />
+								<c:choose>
+									<c:when test="${order_status eq '티켓 신청' }">
 										<input type="button" name="status" value="취소"
-											onclick="return deletecheck(${order_num});"
-											class="btn btn-xs btn-default">
-									</s:if> --%>
-								</div>
+											onclick="return deletecheck(${order.order_num});"
+											class="btn btn-xs btn-default" />
+									</c:when>
+								</c:choose>
+							</div>
+							<div>
 								<div>
-									<div>
-										<img src="/template/image/main/icon_apply.jpg"
-											class="application_icon">
-										${order.ordercount}
-									</div>
-									<!-- applie -->
-									<div style="margin-right: 10px;">
-										<img src="/template/image/main/icon_eye.jpg" class="view_icon">
-										${order.readcount }
-									</div>
-									<!-- views -->
+									<img src="/template/image/main/icon_apply.jpg"
+										class="application_icon"> ${order.ordercount}
 								</div>
+								<!-- applie -->
+								<div style="margin-right: 10px;">
+									<img src="/template/image/main/icon_eye.jpg" class="view_icon">
+									${order.readcount }
+								</div>
+								<!-- views -->
 							</div>
 						</div>
-					</c:forEach>
-					<div
-						style="margin: 1px auto; clear: both; max-width: 1200px; text-align: center;">
-						<div style="font-size: 20px; font-weight: bold;">
-							<div style="box-sizing: border-box; font-size: 16px;">
-								<td colspan="7"><s:property value="pagingHtml"
-										escape="false" /></td>
-							</div>
-						</div>
-						<div style="clear: both;"></div>
-						<div style="height: 0px; margin-top: 24px;"></div>
 					</div>
-			</section>
-		</div>
-	</form:form>
+				</c:forEach>
+				<div
+					style="margin: 1px auto; clear: both; max-width: 1200px; text-align: center;">
+					<div style="font-size: 20px; font-weight: bold;">
+						<div style="box-sizing: border-box; font-size: 16px;">
+							<td colspan="7"><s:property value="pagingHtml"
+									escape="false" /></td>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+					<div style="height: 0px; margin-top: 24px;"></div>
+				</div>
+		</section>
+	</div>
+
 	<%-- <div class="container">
 		<form name="orderList" method="post">
 

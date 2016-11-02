@@ -5,6 +5,7 @@ public class OrderSearchModel {
 	private String datepicker2;
 	private String searchKeyword;
 	private int searchNum;
+	
 	public String getDatepicker1() {
 		return datepicker1;
 	}

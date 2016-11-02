@@ -23,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="payment_type" column="payment_type"/>
 		<result property="payment_date" column="payment_date"/>
 		<result property="payment_payer" column="payment_payer" />
-		<result property="show_subject" column="show_subject" />
-		<result property="show_price" column="show_price" />
+		<result property="show_subject" column="subject" />
+		<result property="show_price" column="price" />
 		<result property="show_status" column="show_status"/>
 		<result property="file_savname" column="file_savname" />
 		<result property="start_date" column="start_date" />
