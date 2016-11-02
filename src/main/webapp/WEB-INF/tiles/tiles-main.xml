@@ -8,6 +8,13 @@
     <definition name="default" template="/WEB-INF/views/layouts/layout.jsp">
         <put-attribute name="title" value="Main" />
         <put-attribute name="top" value="/WEB-INF/views/layouts/main/top.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/layouts/main/body.jsp" />
+        <put-attribute name="bottom" value="/WEB-INF/views/layouts/main/bottom.jsp" />
+    </definition>
+    
+    <definition name="default_main" template="/WEB-INF/views/layouts/layout_main.jsp">
+        <put-attribute name="title" value="Main" />
+        <put-attribute name="top" value="/WEB-INF/views/layouts/main/top.jsp" />
         <put-attribute name="left" value="/WEB-INF/views/layouts/main/left.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/layouts/main/body.jsp" />
         <put-attribute name="bottom" value="/WEB-INF/views/layouts/main/bottom.jsp" />
@@ -18,9 +25,9 @@
         <put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
     </definition>
     
-    <definition name="main" extends="default">
+    <definition name="list" extends="default">
         <put-attribute name="title" value="캔고루 - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
-        <put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/main/list.jsp" />
     </definition>
 
 </tiles-definitions>
