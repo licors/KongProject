@@ -71,22 +71,15 @@
 					action="/order/orderCancel.action" onsubmit="return deletecheck()"
 					class="form-control-static"> --%>
 				<form:form commandName="orderModel" name="detailForm" method="post"
-					action="${contextpath }/order/cancel"
+					action="${contextpath }/order/cancel/${orderModel.order_num }"
 					onsubmit="return deletecheck()" class="form-control-static">
-					<form:hidden path="order_num" value="${orderModel.order_num }" />
-					<form:hidden path="member_num" value="${orderModel.member_num}" />
-					<form:hidden path="barcode" value="${orderModel.barcode }" />
-					<form:hidden path="showcase_num"
-						value="${orderModel.showcase_num }" />
 
 					<table width="500" align="center" class="table-condensed">
 						<tr>
-							<td><a
-								href="/showcase/scread.action?showboard_category=${show_resultClass.showboard_category}&showboard_num=${show_resultClass.showboard_num }">
-									<img
-									src="../showcaseImg/<s:property value="show_resultClass.file_savname.split(',')[0]"/>"
-									width="100px"
-									onerror="javascript:this.src='/template/image/main/noimg.png'"></>
+							<td><a href='/main/view/${orderModel.showcase_num }'
+								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
+									<c:set var="file" value="${fn:split(order.file_savname, ',')}" />
+									<img src="${img}${file[0]}" class="img-responsive">
 							</a></td>
 							<td>
 								<h3>
@@ -102,7 +95,7 @@
 
 						<tr>
 							<td align="right" colspan="3"><font color="#FF0000"><b>*
-										${orderModel.show_status } 완료 </b></font><br> <fmt:formatDate
+										${orderModel.order_status } 완료 </b></font><br> <fmt:formatDate
 									value="${orderModel.order_date }" pattern="YY년  MM월 dd일" /></td>
 						</tr>
 						<tr>
@@ -150,10 +143,9 @@
 						</tr>
 						<tr>
 							<td width="100"><label for="tel">티켓(바코드)</label></td>
-							<td align="center" colspan="2"><c:if
-									test="${orderModel.status eq '티켓 신청' }">
-									<img
-										src="../barcodeImg/${orderModel.barcode }.png"
+							<td align="center" colspan="2">
+							<c:if test="${orderModel.order_status eq '티켓 신청' }">
+									<img src="../barcodeImg/${orderModel.barcode }.png"
 										style="cursor: pointer;"
 										onclick="doImgPop('../barcodeImg/${orderModel.barcode }.png')"
 										width="100%" />
@@ -164,23 +156,23 @@
 						</tr>
 						<tr>
 							<td align="center" colspan="5"><c:if
-									test="${orderModel.status eq '티켓 신청' }">
+									test="${orderModel.order_status eq '티켓 신청' }">
 									<input type="submit" name="cancelTicket" value="티켓취소"
 										class="btn btn-success btn-sm">
-								</c:if> <!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 -->
-								<c:choose>
-									<c:when test="${orderModel.member_num eq  998 }"> <!-- 관리자일때 관리자 페이지로 이동 -->
+								</c:if> <!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 --> <c:choose>
+									<c:when test="${orderModel.member_num eq 998 }">
+										<!-- 관리자일때 관리자 페이지로 이동 -->
 										<input type="button" name="list" value="목록으로"
-										onClick="location.href='/order/admin/list/${currentPage}'"
-										class="btn btn-default btn-sm">
+											onClick="location.href='/order/admin/list'"
+											class="btn btn-default btn-sm">
 									</c:when>
-									<c:otherwise> <!-- 일반 회원일때 본인 신청 목록으로 -->
+									<c:otherwise>
+										<!-- 일반 회원일때 본인 신청 목록으로 -->
 										<input type="button" name="list" value="목록으로"
-										onClick="location.href='/order/list/${currentPage}'"
-										class="btn btn-default btn-sm">
+											onClick="location.href='/order/list'"
+											class="btn btn-default btn-sm">
 									</c:otherwise>
-								</c:choose>
-								</td>
+								</c:choose></td>
 						</tr>
 					</table>
 				</form:form>
