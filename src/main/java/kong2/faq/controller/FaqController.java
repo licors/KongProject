@@ -89,7 +89,7 @@ public class FaqController {
 			lastCount = page.getEndCount() + 1;
 		}
 
-		list = list.subList(page.getStartCount(), lastCount);
+		/*list = list.subList(page.getStartCount(), lastCount);*/
 
 		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("list", list);
