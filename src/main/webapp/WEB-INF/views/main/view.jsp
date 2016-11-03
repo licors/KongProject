@@ -47,16 +47,20 @@
                 </tr>
                 <tr>
                     <td>일정</td>
-                    <td><fmt:formatDate value="${view.start_date}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${view.end_date}" pattern="yyyy-MM-dd"/></td>
+                    <td>
+                        <fmt:formatDate value="${view.start_date}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${view.end_date}" pattern="yyyy-MM-dd"/>
+                        <fmt:parseNumber value="${view.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start"/>
+                        <fmt:parseNumber value="${view.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end"/> / ${(end - start) + 1}일간
+                    </td>
                 </tr>
                 <tr>
                     <td>입장료</td>
                     <td>
                         <c:choose>
-                            <c:when test="${view.price} == 0">
+                            <c:when test="${view.price eq 0}">
                                 무료
                             </c:when>
-                            <c:when test="${view.price} > 0">
+                            <c:when test="${view.price ne 0}">
                                 ${view.price}
                             </c:when>
                         </c:choose>
@@ -69,7 +73,7 @@
                 <tr>
                     <td>태그</td>
                     <td>
-                        <c:if test="${view.tag} != null">
+                        <c:if test="${!empty view.tag}">
                             <c:set var="tags" value="${fn:split(view.tag, ',')}" />
                             <c:forEach var="silceTags"  items="${tags}" varStatus="stat">
                                 <button type="button" class="btn btn-primary btn-xs">${silceTags}</button>&nbsp;
@@ -94,10 +98,10 @@
                         <pre class="text-left" style="background-color: #FDFEFE !important;	border: none !important; border-radius: none !important">${view.content}</pre>
                         <br><br>
 
-                        <c:if test="${view.file_savname} != null">
+                        <c:if test="${view.file_savname ne null}">
                             <c:set var="img_paths" value="${fn:split(view.file_savname, ',')}" />
                             <c:forEach var="file" items="${img_paths}" varStatus="stat">
-                                <c:if test="${stat.index != 0}">
+                                <c:if test="${stat.index ne 0}">
                                     <img src="${img}${file}" onload="javascript:fitImageSize(this, '${img}${file}', 300, 1000);" style="display:none" >
                                 </c:if>
                             </c:forEach>

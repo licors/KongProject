@@ -10,7 +10,7 @@ public interface ShowcaseDAO {
      * @return show_status 0(예정중), 1(계최중) 글 리턴
      */
     ArrayList<ShowcaseModel> selectall();
-    
+
     /**
      * 메인에서 활용할 수 있는 각 showcase_category 기준 최신글 9개를 출력
      *
@@ -34,6 +34,38 @@ public interface ShowcaseDAO {
      * @return 글 1개 출력
      */
     ShowcaseModel selectone(ShowcaseModel showcaseModel);
+
+    /**
+     * subject 로 검색
+     *
+     * @param showcaseSearchModel #{subject}
+     * @return show_status 0(예정중), 1(계최중) 글 리턴
+     */
+    ArrayList<ShowcaseModel> search_subject(ShowcaseSearchModel showcaseSearchModel);
+
+    /**
+     * subject 와 showcase_category 로 검색
+     *
+     * @param showcaseSearchModel #{subject}, #{showcase_category}
+     * @return
+     */
+    ArrayList<ShowcaseModel> search_subject_category(ShowcaseSearchModel showcaseSearchModel);
+
+    /**
+     * tag 로 검색
+     *
+     * @param showcaseSearchModel #{tag}
+     * @return show_status 0(예정중), 1(계최중) 글 리턴
+     */
+    ArrayList<ShowcaseModel> search_tag(ShowcaseSearchModel showcaseSearchModel);
+
+    /**
+     * tag 와 showcase_category 로 검색
+     *
+     * @param showcaseSearchModel #{tag}, #{showcase_category}
+     * @return show_status 0(예정중), 1(계최중) 글 리턴
+     */
+    ArrayList<ShowcaseModel> search_category_tag(ShowcaseSearchModel showcaseSearchModel);
 
     /**
      * 마지막 글의 번호를 출력

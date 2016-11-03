@@ -68,6 +68,40 @@
         ORDER BY showcase_num DESC
         ]]>
     </select>
+    <select id="search_subject" resultMap="showRes" parameterType="kong2.showcase.ShowcaseSearchModel">
+        <include refid="select-all"/>
+        <![CDATA[
+        WHERE subject like #{subject}
+        AND show_status >= 0
+        ORDER BY showcase_num DESC
+        ]]>
+    </select>
+    <select id="search_subject_category" resultMap="showRes" parameterType="kong2.showcase.ShowcaseSearchModel">
+        <include refid="select-all"/>
+        <![CDATA[
+        WHERE subject like #{subject}
+        AND showcase_category = #{showcase_category}
+        AND show_status >= 0
+        ORDER BY showcase_num DESC
+        ]]>
+    </select>
+    <select id="search_tag" resultMap="showRes" parameterType="kong2.showcase.ShowcaseSearchModel">
+        <include refid="select-all"/>
+        <![CDATA[
+        WHERE tag like #{tag}
+        AND show_status >= 0
+        ORDER BY showcase_num DESC
+        ]]>
+    </select>
+        <select id="search_category_tag" resultMap="showRes" parameterType="kong2.showcase.ShowcaseSearchModel">
+        <include refid="select-all"/>
+        <![CDATA[
+        WHERE tag like #{tag}
+        AND showcase_category = #{showcase_category}
+        AND show_status >= 0
+        ORDER BY showcase_num DESC
+        ]]>
+    </select>
 	
     <!--    <insert id="insert" parameterType="kong2.showcase.ShowcaseModel">
         INSERT INTO showcase(SHOWCASE_NUM, subject, address1, address2, start_date, end_date, price, tel, tag, content, file_savname, readcount, ordercount, map, showcase_category)

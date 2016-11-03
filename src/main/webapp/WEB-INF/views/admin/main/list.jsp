@@ -21,10 +21,10 @@
     </thead>
     <tbody>
         <c:forEach var="list" items="${list}" varStatus="stat">
-            <tr>
+            <tr class="jsearch-row">
                 <td style="text-align: center;vertical-align: middle;">${list.showcase_num}</td>
-                <td style="text-align: left;vertical-align: middle;">&nbsp;<a href="/admin/main/view/${list.showcase_num}">${list.subject}</a></td>
-                <td style="text-align: center;vertical-align: middle;">${list.showcase_category}</td>
+                <td class="jsearch-field" style="text-align: left;vertical-align: middle;">&nbsp;<a href="/admin/main/view/${list.showcase_num}">${list.subject}</a></td>
+                <td class="jsearch-field" style="text-align: center;vertical-align: middle;">${list.showcase_category}</td>
                 <td style="text-align: center;vertical-align: middle;">
                     <jsp:useBean id="now" class="java.util.Date" /><fmt:parseNumber value="${list.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start"/><fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end"/>
                     <c:choose>
