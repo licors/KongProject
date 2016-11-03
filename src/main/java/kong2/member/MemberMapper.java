@@ -3,7 +3,7 @@ package kong2.member;
 import java.util.ArrayList;
 
 public interface MemberMapper {
-	public ArrayList<MemberModel> memberList(MemberModel member);
+	public ArrayList<MemberModel> memberList();
 	
 	public MemberModel memberLogin(MemberModel member);
 

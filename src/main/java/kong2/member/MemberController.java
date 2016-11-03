@@ -152,23 +152,6 @@ public class MemberController {
 		return "check/zipcodeCheck";
 	}
 
-//	@RequestMapping(value = "/zipcodeCheck")
-//	public String zipcodeCheck(@ModelAttribute ZipcodeModel zipcodeModel, Model model)
-//			throws Exception {
-//		int chk = 100;
-//
-//		zipcodeList = memberService.zipcodeCheck(zipcodeModel);
-//		model.addAttribute("zipcode", zipcodeList);
-//
-//		if (zipcodeList.size() == 0) {
-//			chk = 0;
-//		} else {
-//			chk = 1;
-//		}
-//		model.addAttribute("chk", chk);
-//		return "check/zipcodeCheck";
-//	}
-
 	@RequestMapping(value="/memberDeleteForm", method=RequestMethod.GET)
 	public String memberDeleteForm(@ModelAttribute("member") MemberModel member, Model model) {
 		model.addAttribute("member", member);
@@ -190,6 +173,13 @@ public class MemberController {
 		} else {
 			return "/member/memberDeleteError"; //비밀번호 다름
 		}
+	}
+	
+	@RequestMapping("/admin/list")
+	public String memberList(Model model) {
+		ArrayList<MemberModel> list = memberService.memberList();
+		model.addAttribute("memberList", list);
+		return "ti_admin_memberList";
 	}
 	
 	@InitBinder
