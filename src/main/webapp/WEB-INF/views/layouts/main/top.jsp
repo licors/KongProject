@@ -52,13 +52,33 @@
                     <div class="box box2" style="text-align:center;padding-top:5px">
                         <div style="display: inline-block; margin: 0px auto;">
                             <a href="/main"><img src="/resources/image/header/logo.png" alt="CANGOTO" height="40" style="float:left;margin-right:50px"></a>
-                            <div style="float:left;"><input type="text" class="form-control mainSerchBox" placeholder="검색어, #해시태그" id="txtMainSearch"></div>
-                            <a href="/main/search" id="btnSearch">
-                                <div style="float:left; background-color:#12B1DB; width:40px; height:40px; line-height:40px;margin-right:30px">
-                                    <img src="/resources/image/header/icon_search.jpg">
-                                </div>
-                            </a>
-                            <div style="clear:both;"></div>
+                            <div style="float:left;">
+                                <input type="text" class="form-control mainSerchBox" placeholder="검색어, #해시태그" id="txtMainSearch">
+                            </div>
+                            <c:choose>
+                                <c:when test="${category ne null}">
+                                    <c:choose>
+                                        <c:when test="${category eq '전시'}">
+                                            <c:set var="category_en" value="aticle" />
+                                        </c:when>
+                                        <c:when test="${category eq '미술'}">
+                                            <c:set var="category_en" value="art" />
+                                        </c:when>
+                                        <c:when test="${category eq '이벤트'}">
+                                            <c:set var="category_en" value="event" />
+                                        </c:when>
+                                    </c:choose>
+                                    <a href="/main/${category_en}" id="btnSearch">
+                                    </c:when>
+                                    <c:when test="${category eq null}">
+                                        <a href="/main/search" id="btnSearch">
+                                        </c:when>
+                                    </c:choose>
+                                    <div style="float:left; background-color:#12B1DB; width:40px; height:40px; line-height:40px;margin-right:30px">
+                                        <img src="/resources/image/header/icon_search.jpg">
+                                    </div>
+                                </a>
+                                <div style="clear:both;"></div>
                         </div>
                     </div>
                     <div class="box box3" style="text-align:right;">
@@ -81,6 +101,32 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript">
+            jQuery().ready(function () {
+                
+                jQuery('#btnSearch').on('click', function () {
+                    if (jQuery('#txtMainSearch').val().match('#')) {
+                        document.location.href = jQuery('#btnSearch').attr('href') + '/Tag/' + jQuery('#txtMainSearch').val().replace(/^#/gi, '');
+                    } else {
+                        document.location.href = jQuery('#btnSearch').attr('href') + '/' + jQuery('#txtMainSearch').val();
+                    }
+                    return false;
+                });
+
+                jQuery("#txtMainSearch").keydown(function (key) {
+                    if (key.keyCode == 13) {
+                        if (jQuery('#txtMainSearch').val().match('#')) {
+                            document.location.href = jQuery('#btnSearch').attr('href') + '/Tag/' + jQuery('#txtMainSearch').val().replace(/^#/gi, '');
+                        } else {
+                            document.location.href = jQuery('#btnSearch').attr('href') + '/' + jQuery('#txtMainSearch').val();
+                        }
+                    }
+                });
+
+                jQuery('#txtMainSearch').focus();
+            });
+        </script>
         <div style="clear:both;"></div>
     </section>
 </div>

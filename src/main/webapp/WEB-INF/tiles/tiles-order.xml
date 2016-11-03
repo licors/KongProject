@@ -13,6 +13,10 @@
 		<put-attribute name="tab" value="회원 신청 내역" />
 		<put-attribute name="body" value="/WEB-INF/views/admin/order/adminOrderList.jsp" />
 	</definition>
+	<definition name="adminOrderView" extends="default_admin">
+		<put-attribute name="tab" value="회원 신청 상세보기" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/order/adminOrderView.jsp" />
+	</definition>
 	<definition name="orderForm" extends="default">
 		<put-attribute name="title" value="신청 폼" />
 		<put-attribute name="body" value="/WEB-INF/views/order/orderForm.jsp" />

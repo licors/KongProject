@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface MemberDao {
 	
-	public ArrayList<MemberModel> memberList(MemberModel member);
+	public ArrayList<MemberModel> memberList();
 	
 	public MemberModel memberLogin(MemberModel member);
 

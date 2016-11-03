@@ -2,8 +2,10 @@ package kong2.showcase;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +35,7 @@ public class ShowcaseController {
     private ShowcaseService showcaseService;
 
     private String uploadPath = path.path().p() + "../../../../resources/upload"; //이클립스 기준 업로드
-    private String imgPath = "/resources/upload/";
+    public static String imgPath = "/resources/upload/";
 
     private static final Logger logger = LoggerFactory.getLogger(ShowcaseController.class);
 
@@ -42,7 +44,6 @@ public class ShowcaseController {
         return "adminmain";
     }
 
-    ///main/search
     @memberBeforeFunctionStart
     @RequestMapping("/main")
     public String main(Model model) {

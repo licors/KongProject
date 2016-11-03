@@ -78,12 +78,7 @@
 							<table align="center" class="table-condensed">
 								<c:forEach items="${basketList}" var="basket" varStatus="status">
 									<tr>
-										<td>
-											<%-- <img
-											src="../showcaseImg/<s:property value="file_savname.split(',')[0]"/>"
-											width="50px"
-											onerror="javascript:this.src='/template/image/main/noimg.png'" /> --%>
-										</td>
+										<td><img src="${show_img}${basket.file_savname.split(',')[0]}" class="img-responsive"></td>
 										<td>
 											<!-- <h3>
 											<s:property value="subject" />
@@ -109,7 +104,8 @@
 								</c:forEach>
 
 								<tr>
-									<td align="right" colspan="3"><b><h2>총 신청 금액</h2></b>${orderModel.total_price }</td>
+									<td align="right" colspan="3"><h3>총 신청
+											금액:${orderModel.total_price }</h3></td>
 								</tr>
 
 								<tr>
@@ -218,10 +214,7 @@
 							<table width="500" align="center" class="table-condensed">
 								<tr>
 									<td>
-										<%-- <img
-										src="../showcaseImg/<s:property value="show_resultClass.file_savname.split(',')[0]"/>"
-										width="100px"
-										onerror="javascript:this.src='/template/image/main/noimg.png'" /> --%>
+										 <img src="${show_img}${showcaseModel.file_savname.split(',')[0]}" class="img-responsive">
 									</td>
 									<td>
 										<h3>
@@ -229,8 +222,8 @@
 												${showcaseModel.address2 }<br> <fmt:formatDate
 													value="${showcaseModel.start_date }"
 													pattern="yyyy년  MM월 dd일" /> - <fmt:formatDate
-													value="${showcaseModel.end_date }" pattern="yyyy년  MM월 dd일"
-													 /> <br>${showcaseModel.price } 원
+													value="${showcaseModel.end_date }" pattern="yyyy년  MM월 dd일" />
+												<br>${showcaseModel.price } 원
 
 											</small>
 										</h3>

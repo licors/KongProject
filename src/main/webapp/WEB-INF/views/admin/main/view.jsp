@@ -90,7 +90,7 @@
             <pre class="text-left" style="background-color: #FDFEFE !important;	border: none !important; border-radius: none !important">${view.content}</pre>
             <br><br>
 
-            <c:if test="${view.file_savname} != null">
+            <c:if test="${view.file_savname ne null}">
                 <c:set var="img_paths" value="${fn:split(view.file_savname, ',')}" />
                 <c:forEach var="file" items="${img_paths}" varStatus="stat">
                     <c:if test="${stat.index ne 0}">

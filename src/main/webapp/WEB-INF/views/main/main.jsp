@@ -71,8 +71,7 @@
                     </div>
                     <div class="cgt_latest_image_area">
                         <a href ='/main/view/${list.showcase_num}' target="_blank">
-                            <c:set var="file" value="${fn:split(list.file_savname, ',')}" />
-                            <img src="${img}${file[0]}" class="img-responsive">
+                            <img src="${img}${list.file_savname.split(',')[0]}" class="img-responsive">
                         </a>
                     </div><!-- img -->
                     <div class="cgt_list_mask" style="width: 284px; height: 295px;"></div>
@@ -91,21 +90,12 @@
                         <div class="place_price">
                             <div class="place">${list.address2}</div>
                             <div style="width:30px; height:2px; background-color:#F470C9; margin:20px 0px 10px 0px;"></div>
-                            <div class="price">
-                                <c:choose>
-                                    <c:when test="${list.price eq 0}">
-                                        무료
-                                    </c:when>
-                                    <c:when test="${list.price ne 0}">
-                                        ${list.price}원
-                                    </c:when>
-                                </c:choose>
-                            </div>
-                        </div>
-                    </div><!-- contents-->
-                    <!-- social -->
-                    <div class="cgt_list_count clearfix" style="font-size: 12px; color: #666;">
-                        <div><img src="/resources/image/main/icon_apply.jpg" class="application_icon"> ${list.ordercount}</div>
+                            <div class="price"><c:choose><c:when test="${list.price eq 0}">무료</c:when><c:when test="${list.price ne 0}">${list.price}원</c:when></c:choose></div>
+                                </div>
+                            </div><!-- contents-->
+                            <!-- social -->
+                            <div class="cgt_list_count clearfix" style="font-size: 12px; color: #666;">
+                                    <div><img src="/resources/image/main/icon_apply.jpg" class="application_icon"> ${list.ordercount}</div>
                         <div style="margin-right:10px;"><img src="/resources/image/main/icon_eye.jpg" class="view_icon"> ${list.readcount}</div>
                     </div>
                 </div>
@@ -136,8 +126,7 @@
                     </div>
                     <div class="cgt_latest_image_area">
                         <a href ='/main/view/${list.showcase_num}' target="_blank">
-                            <c:set var="file" value="${fn:split(list.file_savname, ',')}" />
-                            <img src="${img}${file[0]}" class="img-responsive">
+                            <img src="${img}${list.file_savname.split(',')[0]}" class="img-responsive">
                         </a>
                     </div><!-- img -->
                     <div class="cgt_list_mask" style="width: 284px; height: 295px;"></div>
@@ -156,21 +145,12 @@
                         <div class="place_price">
                             <div class="place">${list.address2}</div>
                             <div style="width:30px; height:2px; background-color:#F470C9; margin:20px 0px 10px 0px;"></div>
-                            <div class="price">
-                                <c:choose>
-                                    <c:when test="${list.price eq 0}">
-                                        무료
-                                    </c:when>
-                                    <c:when test="${list.price ne 0}">
-                                        ${list.price}원
-                                    </c:when>
-                                </c:choose>
-                            </div>
-                        </div>
-                    </div><!-- contents-->
-                    <!-- social -->
-                    <div class="cgt_list_count clearfix" style="font-size: 12px; color: #666;">
-                        <div><img src="/resources/image/main/icon_apply.jpg" class="application_icon"> ${list.ordercount}</div>
+                            <div class="price"><c:choose><c:when test="${list.price eq 0}">무료</c:when><c:when test="${list.price ne 0}">${list.price}원</c:when></c:choose></div>
+                                </div>
+                            </div><!-- contents-->
+                            <!-- social -->
+                            <div class="cgt_list_count clearfix" style="font-size: 12px; color: #666;">
+                                    <div><img src="/resources/image/main/icon_apply.jpg" class="application_icon"> ${list.ordercount}</div>
                         <div style="margin-right:10px;"><img src="/resources/image/main/icon_eye.jpg" class="view_icon"> ${list.readcount}</div>
                     </div>
                 </div>
@@ -201,8 +181,7 @@
                     </div>
                     <div class="cgt_latest_image_area">
                         <a href ='/main/view/${list.showcase_num}' target="_blank">
-                            <c:set var="file" value="${fn:split(list.file_savname, ',')}" />
-                            <img src="${img}${file[0]}" class="img-responsive">
+                            <img src="${img}${list.file_savname.split(',')[0]}" class="img-responsive">
                         </a>
                     </div><!-- img -->
                     <div class="cgt_list_mask" style="width: 284px; height: 295px;"></div>
@@ -221,21 +200,12 @@
                         <div class="place_price">
                             <div class="place">${list.address2}</div>
                             <div style="width:30px; height:2px; background-color:#F470C9; margin:20px 0px 10px 0px;"></div>
-                            <div class="price">
-                                <c:choose>
-                                    <c:when test="${list.price eq 0}">
-                                        무료
-                                    </c:when>
-                                    <c:when test="${list.price ne 0}">
-                                        ${list.price}원
-                                    </c:when>
-                                </c:choose>
-                            </div>
-                        </div>
-                    </div><!-- contents-->
-                    <!-- social -->
-                    <div class="cgt_list_count clearfix" style="font-size: 12px; color: #666;">
-                        <div><img src="/resources/image/main/icon_apply.jpg" class="application_icon"> ${list.ordercount}</div>
+                            <div class="price"><c:choose><c:when test="${list.price eq 0}">무료</c:when><c:when test="${list.price ne 0}">${list.price}원</c:when></c:choose></div>
+                                </div>
+                            </div><!-- contents-->
+                            <!-- social -->
+                            <div class="cgt_list_count clearfix" style="font-size: 12px; color: #666;">
+                                    <div><img src="/resources/image/main/icon_apply.jpg" class="application_icon"> ${list.ordercount}</div>
                         <div style="margin-right:10px;"><img src="/resources/image/main/icon_eye.jpg" class="view_icon"> ${list.readcount}</div>
                     </div>
                 </div>

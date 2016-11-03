@@ -88,8 +88,7 @@
 							<div style="clear: both;"></div>
 						</div>
 						<a href='/main/view/${order.showcase_num }' target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
-							<c:set var="file" value="${fn:split(order.file_savname, ',')}" />
-							<img src="${img}${file[0]}" class="img-responsive">
+							<img src="${show_img}${order.file_savname.split(',')[0]}" class="img-responsive">
 						</a>
 						<!-- img -->
 
@@ -118,9 +117,16 @@
 								</div>
 								<div
 									style="width: 30px; height: 2px; background-color: #F470C9; margin: 20px 0px 10px 0px;"></div>
-								<div class="price">
-									<fmt:formatNumber value="${order.show_price }" type="number" />
-								</div>
+								<%-- <div class="price">
+									<c:choose>
+										<c:when test="${order.show_price eq 0 }">
+											무료
+										</c:when>
+										<c:otherwise>
+											<fmt:formatNumber value="${order.show_price }" type="number" />
+										</c:otherwise>
+									</c:choose>
+								</div> --%>
 								<div class="price">
 
 									<c:set var="order_status" value="${order.order_status }" />
@@ -142,13 +148,13 @@
 									<c:set var="order_status" value="${order.order_status }" />
 									<c:choose>
 										<c:when test="${order.order_status eq '티켓 신청' }">
-											<img src="../barcodeImg/${order.barcode}.png"
+											<img src="${img }${order.barcode}.png"
 												style="cursor: pointer;"
-												onclick="doImgPop('../barcodeImg/${order.barcode}.png')"
+												onclick="doImgPop('${img }${order.barcode}.png')"
 												width="220" />
 										</c:when>
 										<c:otherwise>
-											<img src="../barcodeImg/default.png" width="220" />
+											<img src="${img }default.png" width="220" />
 										</c:otherwise>
 									</c:choose>
 								</div>

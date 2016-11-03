@@ -45,31 +45,28 @@
 		}
 	}
 	function deleteError() {
-		alert("티켓 기간이 만료되어 취소가 불가능 합니다." + "\n" + "고객센터로 연락주세요" + "\n"
+		alert("티켓 기간이 만료되어 취소가 불가능 합니다." + "\n"
 				+ "\t1544-1234 (주)KOnG");
 	}
 	function deleteError2() {
-		alert("이미 티켓이 취소 되었습니다." + "\n" + "고객센터로 연락주세요" + "\n"
+		alert("이미 티켓이 취소 되었습니다." + "\n"
 				+ "\t1544-1234 (주)KOnG");
 	}
 </script>
-<style type="text/css">
+<!-- <style type="text/css">
 .container { /*컨테이너를 덮어서 고정 폭 사용*/
-	width: 600px;
-	max-width: none !important;
-}
-</style>
+ 	width: 600px;
+	max-width: 600px;
+} 
+</style>-->
 </head>
 <body>
 	<div class="container">
-		<div class="panel panel-default">
+		<div class="panel panel-default col-md-6">
 			<!-- 위쪽 제목 -->
-			<div class="panel-heading">티켓 신청 상세보기</div>
+
 			<div class="panel-body">
 				<!-- 본문 -->
-				<%-- <form name="detailForm" method="post"
-					action="/order/orderCancel.action" onsubmit="return deletecheck()"
-					class="form-control-static"> --%>
 				<form:form commandName="orderModel" name="detailForm" method="post"
 					action="${contextpath }/order/cancel/${orderModel.order_num }"
 					onsubmit="return deletecheck()" class="form-control-static">
@@ -144,9 +141,10 @@
 							<td width="100"><label for="tel">티켓(바코드)</label></td>
 							<td align="center" colspan="2">
 							<c:if test="${orderModel.order_status eq '티켓 신청' }">
-									<img src="${img}"
-									style="cursor: pointer;"
-									onclick="doImgPop('${img}')" width="400"/>
+									<img src="${img }"
+										style="cursor: pointer;"
+										onclick="doImgPop('${img }')"
+										width="400" />
 								</c:if> <br> <small>* 티켓을 취소 하시면 바코드는 즉시 폐기 됩니다.</small></td>
 						</tr>
 						<tr>

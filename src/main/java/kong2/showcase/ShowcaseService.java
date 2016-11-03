@@ -42,6 +42,38 @@ public class ShowcaseService implements ShowcaseDAO {
     }
 
     @Override
+    public ArrayList<ShowcaseModel> search_subject(ShowcaseSearchModel showcaseSearchModel) {
+        ArrayList<ShowcaseModel> result = new ArrayList<ShowcaseModel>();
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        result = ShowcaseMapper.search_subject(showcaseSearchModel);
+        return result;
+    }
+
+    @Override
+    public ArrayList<ShowcaseModel> search_subject_category(ShowcaseSearchModel showcaseSearchModel) {
+        ArrayList<ShowcaseModel> result = new ArrayList<ShowcaseModel>();
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        result = ShowcaseMapper.search_subject_category(showcaseSearchModel);
+        return result;
+    }
+
+    @Override
+    public ArrayList<ShowcaseModel> search_tag(ShowcaseSearchModel showcaseSearchModel) {
+        ArrayList<ShowcaseModel> result = new ArrayList<ShowcaseModel>();
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        result = ShowcaseMapper.search_tag(showcaseSearchModel);
+        return result;
+    }
+
+    @Override
+    public ArrayList<ShowcaseModel> search_category_tag(ShowcaseSearchModel showcaseSearchModel) {
+        ArrayList<ShowcaseModel> result = new ArrayList<ShowcaseModel>();
+        ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+        result = ShowcaseMapper.search_category_tag(showcaseSearchModel);
+        return result;
+    }
+
+    @Override
     public int selectLastNo() {
         ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
         int result = ShowcaseMapper.selectLastNo();
