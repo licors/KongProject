@@ -100,11 +100,11 @@
 					<td align="center" style="width: 10%;"><fmt:formatDate
 							value="${list.order_date }" pattern="yyyy-MM-dd hh:mm" /></td>
 					<td align="center" style="width: 5%;">${list.order_status }</td>
-					<td align="center" style="width: 10%;">바코드이미지 <c:choose>
+					<td align="center" style="width: 10%;"> <c:choose>
 							<c:when test="${list.order_status eq '티켓 신청' }">
-								<img src="../barcodeImg/${list.barcode}.png"
+								<img src="${imgPath}${list.barcode}.png"
 									style="cursor: pointer;"
-									onclick="doImgPop('../barcodeImg/${barcode}.png')" />
+									onclick="doImgPop('${imgPath}${list.barcode}.png')" width="150"/>
 							</c:when>
 							<c:otherwise>
 								-

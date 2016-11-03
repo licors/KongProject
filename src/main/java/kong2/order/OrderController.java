@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
@@ -33,6 +34,7 @@ import kong2.basket.controller.BasketModel;
 import kong2.basket.controller.BasketService;
 import kong2.member.MemberModel;
 import kong2.member.MemberService;
+import kong2.showcase.ShowcaseController;
 import kong2.showcase.ShowcaseModel;
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
@@ -40,6 +42,7 @@ import net.sourceforge.barbecue.BarcodeImageHandler;
 import kong2.showcase.ShowcaseService;
 import kong2.common.AdminOrderPagingAction;
 import kong2.common.PagingAction;
+import kong2.common.path;
 
 @Controller
 @RequestMapping("/order")
@@ -87,6 +90,12 @@ public class OrderController {
 	private String datepicker2; // end date
 	private String searchKeyword;
 	private int searchNum;
+
+	// 바코드 이미지 경로
+	private String imgPath = "/resources/image/barcodeImg/";
+	private String uploadPath = path.path().p() + "../../../../resources/image/barcodeImg/"; // 이클립스
+	private String show_imgPath = ShowcaseController.imgPath;																					// 기준
+																							// 업로드
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -142,6 +151,7 @@ public class OrderController {
 		List<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
 				"경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
 
+		model.addAttribute("show_img", show_imgPath);
 		model.addAttribute("areaOptions", areaOptions);
 		model.addAttribute("orderModel", orderModel);
 		model.addAttribute("showcaseModel", showcaseModel);
@@ -212,7 +222,7 @@ public class OrderController {
 
 		try {
 			Barcode barcode = BarcodeFactory.createCode128B(codeStr);
-			File file = new File("위치" + codeStr + ".png"); // 수정
+			File file = new File(uploadPath + codeStr + ".png"); // 수정
 			BarcodeImageHandler.savePNG(barcode, file);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -266,6 +276,7 @@ public class OrderController {
 		ArrayList<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산",
 				"세종", "경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
 
+		model.addAttribute("show_img", show_imgPath);
 		model.addAttribute("areaOptions", areaOptions);
 		model.addAttribute("basketList", basketList);
 		model.addAttribute("memberModel", memberModel);
@@ -329,7 +340,7 @@ public class OrderController {
 
 			try {
 				Barcode barcode = BarcodeFactory.createCode128B(codeStr);
-				File file = new File("위치" + codeStr + ".png"); // 수정
+				File file = new File(uploadPath + codeStr + ".png"); // 수정
 				BarcodeImageHandler.savePNG(barcode, file);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -380,6 +391,11 @@ public class OrderController {
 
 		orderList = orderList.subList(page.getStartCount(), lastCount);
 
+		// 바코드 이미지 가져오기
+		String img = imgPath;
+
+		model.addAttribute("show_img", show_imgPath);
+		model.addAttribute("img", img);
 		model.addAttribute("orderList", orderList);
 
 		return "orderList";
@@ -418,6 +434,11 @@ public class OrderController {
 			}
 		}
 
+		// 바코드 이미지 가져오기
+		String img = imgPath + orderModel.getBarcode() + ".png";
+
+		model.addAttribute("show_img", show_imgPath);
+		model.addAttribute("img", img);
 		model.addAttribute("orderModel", orderModel);
 
 		// 취소버튼 필요한 정보 : order_num, member_num
@@ -452,7 +473,7 @@ public class OrderController {
 
 		// 바코드 이미지 파일 지우기
 		String str = orderModel.getBarcode();
-		File file = new File("위치" + str + ".png");
+		File file = new File(uploadPath + str + ".png");
 
 		if (file.delete()) {
 			logger.info("바코드 이미지 파일 지우기 성공" + str, locale);
@@ -495,6 +516,9 @@ public class OrderController {
 
 		OrderSearchModel searchModel = new OrderSearchModel();
 
+		// 바코드 이미지 가져오기
+		model.addAttribute("imgPath", imgPath);
+		model.addAttribute("show_img", show_imgPath);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("searchModel", searchModel);
 

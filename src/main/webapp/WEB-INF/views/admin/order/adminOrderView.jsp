@@ -75,8 +75,7 @@
 						<tr>
 							<td><a href='/main/view/${orderModel.showcase_num }'
 								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
-									<c:set var="file" value="${fn:split(order.file_savname, ',')}" />
-									<img src="${img}${file[0]}" class="img-responsive">
+									<img src="${show_img}${orderModel.file_savname.split(',')[0]}" class="img-responsive">
 							</a></td>
 							<td>
 								<h3>
@@ -142,10 +141,10 @@
 							<td width="100"><label for="tel">티켓(바코드)</label></td>
 							<td align="center" colspan="2">
 							<c:if test="${orderModel.order_status eq '티켓 신청' }">
-									<img src="../barcodeImg/${orderModel.barcode }.png"
+									<img src="${img }"
 										style="cursor: pointer;"
-										onclick="doImgPop('../barcodeImg/${orderModel.barcode }.png')"
-										width="100%" />
+										onclick="doImgPop('${img }')"
+										width="400" />
 								</c:if> <br> <small>* 티켓을 취소 하시면 바코드는 즉시 폐기 됩니다.</small></td>
 						</tr>
 						<tr>
