@@ -47,7 +47,7 @@ public class MemberController {
 			session.setAttribute("session_member_num", result.getMember_num());
 			
 			if(result.getAdmin() > 0) {
-				return "/admin/main";
+				return "redirect:/admin/main";
 			}
 			String uri = (String) session.getAttribute("uri");
 			if(uri != null) {
