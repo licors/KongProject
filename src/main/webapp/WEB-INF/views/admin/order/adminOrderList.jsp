@@ -74,85 +74,83 @@
 <body>
 	<table class="table table-hover">
 		<thead>
-			<tr style="text-align: center; vertical-align: middle;">
-				<th style="width: 1%;">No.</th>
-				<th style="width: 20%;">E-mail(id)</th>
-				<th style="width: 10%;">name</th>
-				<th style="width: 20%;">phone</th>
-				<th style="width: 25%;">subject</th>
-				<th style="width: 10%;">order date</th>
-				<th style="width: 5%;">status</th>
-				<th style="width: 9%;">barcode</th>
+			<tr>
+				<th style="width: 1%; text-align: center; vertical-align: middle;">No.</th>
+				<th style="width: 29%; text-align: center; vertical-align: middle;">subject</th>
+				<th style="width: 20%; text-align: center; vertical-align: middle;">E-mail(id)</th>
+				<th style="width: 6%; text-align: center; vertical-align: middle;">name</th>
+				<th style="width: 15%; text-align: center; vertical-align: middle;">phone</th>		
+				<th style="width: 10%; text-align: center; vertical-align: middle;">order
+					date</th>
+				<th style="width: 5%; text-align: center; vertical-align: middle;">status</th>
+				<th style="width: 10%; text-align: center; vertical-align: middle;">barcode</th>
+				<th style="width: 9%; text-align: center; vertical-align: middle;">tool</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="list" items="${orderList }" varStatus="stat">
 				<tr style="text-align: center; vertical-align: middle;">
-					<td align="left" style="width: 1%;">${list.order_num }</td>
+					<td align="center" style="width: 1%;">${list.order_num }</td>
+					<td align="center" style="width: 29%;"><a
+						href="/order/view/${list.order_num}">${list.show_subject}</a></td>
 					<td align="center" style="width: 20%;">${list.id_email }</td>
-					<td align="center" style="width: 10%;">${list.name }</td>
-					<td align="center" style="width: 20%;">${list.phone }</td>
-					<td align="center" style="width: 25%;"><a href="/order/view/${list.order_num}">${list.show_subject}</a></td>
+					<td align="center" style="width: 6%;">${list.name }</td>
+					<td align="center" style="width: 15%;">${list.phone }</td>
+					
 					<td align="center" style="width: 10%;"><fmt:formatDate
-							value="${order.order_date }" pattern="yyyy-MM-dd hh:mm" /></td>
+							value="${list.order_date }" pattern="yyyy-MM-dd hh:mm" /></td>
 					<td align="center" style="width: 5%;">${list.order_status }</td>
-					<td align="center" style="width: 9%;">바코드이미지 <c:choose>
+					<td align="center" style="width: 10%;">바코드이미지 <c:choose>
 							<c:when test="${list.order_status eq '티켓 신청' }">
 								<img src="../barcodeImg/${list.barcode}.png"
 									style="cursor: pointer;"
-									onclick="doImgPop('../barcodeImg/${barcode}.png')"  />
+									onclick="doImgPop('../barcodeImg/${barcode}.png')" />
 							</c:when>
 							<c:otherwise>
 								-
 							</c:otherwise>
 						</c:choose>
 					</td>
+					<td align="center" style="width: 9%;"><a
+						href="/order/cancel/${list.order_num }"> <input type="image"
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Trash_font_awesome.svg/32px-Trash_font_awesome.svg.png"
+							style="width: 16px" onclick="return delchk()"></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
+
+	</table>
+	<table>
 		<thead>
 			<form:form commandName="searchModel"
-				action="${contextpath }/order/search">
-				<tr align="center">
-					<td colspan="8">
-						<div class="form-inline">
-							<div class="form-group">
-								<div class="col-md-3" style="padding-right: 0px;">
-									<form:select path="searchNum">
-										<form:option value="0">ID(E-mail)</form:option>
-										<form:option value="1">전시회명</form:option>
-										<form:option value="2">신청상태</form:option>
-									</form:select>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-3" style="padding-left: 0px;">
-									<input class="searchk form-control" type="text"
-										name="searchKeyword" size="15" maxlength="20" />
-								</div>
-							</div>
+				action="${contextpath }/order/search" class="form-horizontal">
+				<div class="form-horizontal">
+					<div class="form-inline">
+						<div class="form-group form-group-sm">
+							<label for="searchNum"> <form:select path="searchNum"
+									class="form-controll">
+									<form:option value="0">ID(E-mail)</form:option>
+									<form:option value="1">전시회명</form:option>
+									<form:option value="2">신청상태</form:option>
+								</form:select>
+							</label>
+							&nbsp;&nbsp;<form:input path="searchKeyword" id="searchNum"
+								class="form-controll input-sm" type="text" />
 						</div>
-						<div class="form-inline">
-							<div class="form-group">
-								<p>조회기간:</p>
-							</div>
-							<div class="form-group">
-								<div class="col-md-3">
-									<form:input path="datepicker1" id="datepicker1"
-										name="datepicker1" type="text" class="form-control" />
-								</div>
-							</div>
-							<div class="form-group">~</div>
-							<div class="form-group">
-								<div class="col-md-3">
-									<form:input path="datepicker2" id="datepicker2"
-										name="datepicker2" type="text" class="form-control" />
-								</div>
-							</div>
-						</div> <input class="btn btn-default btn-xs" name="search" type="submit"
-						value="검색" />
-					</td>
-				</tr>
+					</div>
+					<div class="form-inline">
+						<div class="form-group form-group-sm">
+							<label for="datepicker">조회기간:&nbsp;&nbsp;</label>
+							<form:input path="datepicker1" id="datepicker1"
+								name="datepicker1" type="text" class="form-controll input-sm" />
+							~
+							<form:input path="datepicker2" id="datepicker2"
+								name="datepicker2" type="text" class="form-controll input-sm" />
+							&nbsp;&nbsp; <input class="btn btn-default btn-xs" name="search"
+								type="submit" value="검색" />
+						</div>
+					</div>
+				</div>
 			</form:form>
 		</thead>
 	</table>

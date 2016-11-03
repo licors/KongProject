@@ -50,10 +50,6 @@
 								class="btn btn-sm btn-default">
 						</c:when>
 						<c:otherwise>
-							<%-- <input type="button" name="orderB" value="전체 신청"
-								onClick="location.href='/order/checkB?total_price=${total_price}'"
-								class="btn btn-sm btn-success">
-							<input type="hidden" name="total_price" value="${total_price}" /> --%>
 							<form:form commandName="orderModel" action="/order/form_B" value="전체신청" method="post">
 								<form:hidden path="total_price" value="${total_price }"/>
 							</form:form>

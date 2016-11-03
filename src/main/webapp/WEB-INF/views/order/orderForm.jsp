@@ -109,7 +109,7 @@
 								</c:forEach>
 
 								<tr>
-									<td align="right" colspan="3"><b><h2>총 신청 금액</h2></b>${orderModel.total_price }</td>
+									<td align="right" colspan="3"><h3>총 신청 금액:${orderModel.total_price }</h3></td>
 								</tr>
 
 								<tr>

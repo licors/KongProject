@@ -113,7 +113,7 @@ public class OrderController {
 		} else {
 			model.addAttribute("orderModel", orderParam);
 			return "orderCheckSuccess"; /// order/form으로 이동 (가진 정보 그대로
-												/// 가지고)
+										/// 가지고)
 		}
 		// AOP사용해보기, 포워딩
 	}
@@ -257,25 +257,21 @@ public class OrderController {
 		id_email = (String) session.getAttribute("session_member_id");
 		member_num = (Integer) session.getAttribute("session_member_num");
 
-		if (id_email != "") {
-			basketList = basketService.BasketList(member_num);
-			memberModel = memberService.getMember(id_email);
+		basketList = basketService.BasketList(member_num);
+		memberModel = memberService.getMember(id_email);
 
-			// orderModel.setTotal_price(total_price); total_price를 hidden으로 넘겨줌
-			logger.info("total_price 넘겨주는지 확인" + orderModel.getTotal_price(), locale);
+		// orderModel.setTotal_price(total_price); total_price를 hidden으로 넘겨줌
+		logger.info("total_price 넘겨주는지 확인" + orderModel.getTotal_price(), locale);
 
-			ArrayList<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전",
-					"울산", "세종", "경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
+		ArrayList<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산",
+				"세종", "경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
 
-			model.addAttribute("areaOptions", areaOptions);
-			model.addAttribute("basketList", basketList);
-			model.addAttribute("memberModel", memberModel);
-			model.addAttribute("orderModel", orderModel);
+		model.addAttribute("areaOptions", areaOptions);
+		model.addAttribute("basketList", basketList);
+		model.addAttribute("memberModel", memberModel);
+		model.addAttribute("orderModel", orderModel);
 
-			return "orderForm";
-		} else {
-			return "orderError"; // 로그인x
-		}
+		return "orderForm";
 	}
 
 	// basket(다수) 신청처리
@@ -391,18 +387,28 @@ public class OrderController {
 	}
 
 	// 신청 상세보기
-	@RequestMapping(value = "/view/{order_num}", method = RequestMethod.GET)
+	@RequestMapping(value = "/view/{order_num}")
 	public String orderView(@PathVariable int order_num, Model model, Locale locale, HttpServletRequest request,
 			HttpSession session) {
-		logger.info("welcome order list.", locale);
+		logger.info("welcome order view.", locale);
 
 		session = request.getSession();
 		member_num = (Integer) session.getAttribute("session_member_num");
 
 		OrderModel orderModel = new OrderModel();
 		orderParam.setOrder_num(order_num);
-		orderParam.setMember_num(member_num);
-		orderModel = orderService.orderView(orderParam);
+		String link;
+
+		// 관리자일때 member_num 을 조건으로 걸지않음
+		if (member_num == 998) {
+			orderModel = orderService.order_selectOne(orderParam);
+			orderModel.setMember_num(member_num); // member_num만 받아온 데이터에 바꿔준다.
+			link = "adminOrderView"; // 관리자는 타일즈 다르게
+		} else {
+			orderParam.setMember_num(member_num);
+			orderModel = orderService.orderView(orderParam);
+			link = "orderView";
+		}
 
 		if (orderModel.getFile_savname() != null) {
 			String images = orderModel.getFile_savname();
@@ -415,7 +421,7 @@ public class OrderController {
 		model.addAttribute("orderModel", orderModel);
 
 		// 취소버튼 필요한 정보 : order_num, member_num
-		return "orderView";
+		return link;
 	}
 
 	// 주문 취소
@@ -423,16 +429,22 @@ public class OrderController {
 	public String orderCancel(@PathVariable int order_num, Locale locale, HttpServletRequest request,
 			HttpSession session, Model model) {
 		logger.info("welcome order cancel.", locale);
-		
+
 		session = request.getSession();
 		member_num = (Integer) session.getAttribute("session_member_num");
 
 		orderParam.setOrder_num(order_num);
 		orderParam.setMember_num(member_num);
 		OrderModel orderModel = new OrderModel();
-		orderModel = orderService.orderView(orderParam);
-		
-		System.out.println("model:" + orderModel.toString());
+		String link;
+
+		if (member_num == 998) {
+			link = "redirect:/order/admin/list";
+			orderModel = orderService.order_selectOne(orderParam);
+		} else {
+			link = "redirect:/order/list";
+			orderModel = orderService.orderView(orderParam);
+		}
 
 		// 신청수 감소
 		showcaseModel.setShowcase_num(orderModel.getShowcase_num());
@@ -458,29 +470,29 @@ public class OrderController {
 
 		logger.info("티켓 취소완료", locale);
 
-		return "redirect:/order/list";
+		return link;
 	}
 
 	// 관리자용 회원 오더리스트(페이징, 검색)
 	@RequestMapping(value = "/admin/list")
 	public String adminOrderList(Locale locale, Model model) throws Exception {
 		logger.info("welcome admin order list.", locale);
-		
+
 		orderList = orderService.order_selectAll();
 
-/*		// paging
-		totalCount = orderList.size();
+		/*
+		 * // paging totalCount = orderList.size();
+		 * 
+		 * page = new PagingAction(currentPage, totalCount, blockCount,
+		 * blockPage, "orderList"); pagingHtml =
+		 * page.getPagingHtml().toString(); int lastCount = totalCount;
+		 * 
+		 * if (page.getEndCount() < totalCount) { lastCount = page.getEndCount()
+		 * + 1; }
+		 * 
+		 * orderList = orderList.subList(page.getStartCount(), lastCount);
+		 */
 
-		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "orderList");
-		pagingHtml = page.getPagingHtml().toString();
-		int lastCount = totalCount;
-
-		if (page.getEndCount() < totalCount) {
-			lastCount = page.getEndCount() + 1;
-		}
-
-		orderList = orderList.subList(page.getStartCount(), lastCount);*/
-		
 		OrderSearchModel searchModel = new OrderSearchModel();
 
 		model.addAttribute("orderList", orderList);
@@ -491,15 +503,15 @@ public class OrderController {
 
 	// 리스트 검색
 	@RequestMapping(value = "/search")
-	public String search(@ModelAttribute("searchModel") OrderSearchModel searchModel, Model model, HttpSession session, HttpServletRequest request)
-			throws Exception {
+	public String search(@ModelAttribute("searchModel") OrderSearchModel searchModel, Model model, HttpSession session,
+			HttpServletRequest request) throws Exception {
 		session = request.getSession();
 
 		// member_num = (Integer) session.getAttribute("session_member_num");
 		datepicker1 = searchModel.getDatepicker1();
 		datepicker2 = searchModel.getDatepicker2();
 		searchKeyword = searchModel.getSearchKeyword();
-		
+		searchNum = searchModel.getSearchNum();
 
 		if (datepicker1.isEmpty() || datepicker2.isEmpty() || datepicker1.equals("") || datepicker2.equals("")) {
 			orderParam.setDatepicker1("16-09-01");
@@ -521,26 +533,27 @@ public class OrderController {
 			orderParam.setOrder_status("%" + searchKeyword + "%");
 			orderList = orderService.search_status(orderParam);
 		}
-		
+
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("searchModel", searchModel);
 
-		//totalCount = orderList.size(); // 전체 글 갯수를 구한다.
+		// totalCount = orderList.size(); // 전체 글 갯수를 구한다.
 
-		/*// pagingAction 객체생성
-		AdminOrderPagingAction adpage = new AdminOrderPagingAction(currentPage, totalCount, blockCount, blockPage,
-				searchNum, searchKeyword);
-		pagingHtml = adpage.getPagingHtml().toString(); // 페이지HTML 생성.
-
-		// 현재 페이지에서 보여줄 마지막 글의 번호 설정.
-		int lastCount = totalCount;
-
-		// 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 lastCount를 +1 번호로 설정.
-		if (adpage.getEndCount() < totalCount)
-			lastCount = adpage.getEndCount() + 1;
-
-		// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
-		orderList = orderList.subList(adpage.getStartCount(), lastCount);*/
+		/*
+		 * // pagingAction 객체생성 AdminOrderPagingAction adpage = new
+		 * AdminOrderPagingAction(currentPage, totalCount, blockCount,
+		 * blockPage, searchNum, searchKeyword); pagingHtml =
+		 * adpage.getPagingHtml().toString(); // 페이지HTML 생성.
+		 * 
+		 * // 현재 페이지에서 보여줄 마지막 글의 번호 설정. int lastCount = totalCount;
+		 * 
+		 * // 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 lastCount를 +1 번호로 설정. if
+		 * (adpage.getEndCount() < totalCount) lastCount = adpage.getEndCount()
+		 * + 1;
+		 * 
+		 * // 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다. orderList =
+		 * orderList.subList(adpage.getStartCount(), lastCount);
+		 */
 
 		return "adminOrderList";
 	}
