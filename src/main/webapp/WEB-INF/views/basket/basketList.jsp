@@ -52,6 +52,7 @@
 						<c:otherwise>
 							<form:form commandName="orderModel" action="${contextpath }/order/form_B" value="전체신청" method="post">
 								<form:hidden path="total_price" value="${total_price }"/>
+								<input type="submit" value="전체 신청" class="btn btn-sm btn-default"/>
 							</form:form>
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/main'"
