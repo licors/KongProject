@@ -257,7 +257,7 @@ public class OrderController {
 
 	// ---------------------------------------------------------------------------------
 	// basket(다수) 신청 폼
-	@RequestMapping(value = "/form_B", method = RequestMethod.GET)
+	@RequestMapping(value = "/form_B", method = RequestMethod.POST)
 	public String orderForm_B(@ModelAttribute OrderModel orderModel, Model model, Locale locale,
 			HttpServletRequest request, HttpSession session) {
 		logger.info("welcome basket order", locale);
