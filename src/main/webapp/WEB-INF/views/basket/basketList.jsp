@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -50,7 +50,7 @@
 								class="btn btn-sm btn-default">
 						</c:when>
 						<c:otherwise>
-							<form:form commandName="orderModel" action="/order/form_B" value="전체신청" method="post">
+							<form:form commandName="orderModel" action="${contextpath }/order/form_B" value="전체신청" method="post">
 								<form:hidden path="total_price" value="${total_price }"/>
 							</form:form>
 							<input type="button" name="list" value="메인으로"

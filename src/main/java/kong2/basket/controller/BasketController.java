@@ -22,6 +22,7 @@ import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.PagingAction;
 import kong2.faq.controller.FaqModel;
 import kong2.faq.controller.FaqService;
+import kong2.order.OrderModel;
 
 @Controller
 @RequestMapping("/basket")
@@ -44,15 +45,15 @@ public class BasketController {
 	public String basketList(Model model,HttpServletRequest request) throws Exception {
 
 		List<BasketModel> list=null;
-		
+		OrderModel orderModel = new OrderModel();
 
 		/*세션로 넘겨 받아야함*/
 		
 		HttpSession session = request.getSession();
-		/*int member_num =(int) session.getAttribute("session_member_num");*/
+		int member_num =(Integer) session.getAttribute("session_member_num");
 		
 		//테스트용으로 관리자 계정을 넣음 멤버 번호 999
-		list = basketService.BasketList(999);
+		list = basketService.BasketList(member_num);
 		// 페이징
 		totalCount = list.size();
 		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "basketList");
@@ -79,6 +80,7 @@ public class BasketController {
 		model.addAttribute("total_price",total_price);
 		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("list", list);
+		model.addAttribute("orderModel", orderModel);
 
 		// 보여줄 tiles
 		return "basketList";

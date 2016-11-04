@@ -12,7 +12,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="SHOWCASE_num" column="SHOWCASE_num" />
 		<result property="basket_date" column="basket_date" />
 		<result property="subject" column="subject" />
-		<result property="file_orgname" column="file_orgname" />
 		<result property="file_savname" column="file_savname" />
 		<result property="start_date" column="start_date" />
 		<result property="end_date" column="end_date" />

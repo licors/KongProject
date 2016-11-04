@@ -194,8 +194,7 @@
 					style="margin: 1px auto; clear: both; max-width: 1200px; text-align: center;">
 					<div style="font-size: 20px; font-weight: bold;">
 						<div style="box-sizing: border-box; font-size: 16px;">
-							<td colspan="7"><s:property value="pagingHtml"
-									escape="false" /></td>
+							<td colspan="7">${pagingHtml }</td>
 						</div>
 					</div>
 					<div style="clear: both;"></div>
