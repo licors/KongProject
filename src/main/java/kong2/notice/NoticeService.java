@@ -30,10 +30,10 @@ public class NoticeService implements NoticeDao {
 	}
 
 	@Override
-	public NoticeModel selectOne(int no) {
+	public NoticeModel selectOne(NoticeModel noticeModel) {
 		NoticeMapper noticeMapper = sqlSession.getMapper(NoticeMapper.class);
-		NoticeModel noticeModel = noticeMapper.selectOne(no);
-		return noticeModel;
+		NoticeModel result = noticeMapper.selectOne(noticeModel);
+		return result;
 	}
 
 	@Override

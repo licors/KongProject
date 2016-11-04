@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- insert 쿼리문 정의 -->
     <insert id="insert" parameterType="noticeModel">
         INSERT INTO NOTICE (notice_num, subject, content, reg_date, readcount)
-        VALUES(notice_num_seq.NEXTVAL, #{subject}, #{content}, #{reg_date}, #{readcount})
+        VALUES(notice_num_seq.NEXTVAL, #{subject}, #{content}, sysdate, #{readcount})
     </insert>
 
     <!-- update 쿼리문 정의 -->
@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     <!-- 조회수증가 -->
     <update id="readcount" parameterType="noticeModel">
-        UPDATE NOTICE SET readcount = #{readcount + 1}
+        UPDATE NOTICE SET readcount = readcount + 1
         <include refid="where-no"/>
     </update>
 

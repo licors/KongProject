@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kong2.common.PagingAction;
 import kong2.notice.NoticeModel;
 import kong2.notice.NoticeService;
+
 import kong2.validator.NoticeValidator;
 
 @Controller
@@ -33,16 +35,22 @@ public class NoticeController {
 
 	
 
-	@RequestMapping("/list")
-	public String noticeList(Model model) throws Exception {
+	@RequestMapping("/list_admin")
+	public String noticeList_admin(Model model, HttpServletRequest request) throws Exception {
 
-		List<NoticeModel> list=null;
+		if(request.getParameter("currentPage") == null || request.getParameter("currentPage").trim().isEmpty() || request.getParameter("currentPage").equals("0")) {
+            currentPage = 1;
+        } else {
+            currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        }
+		
+		List<NoticeModel> list;
 		
 
 		list = noticeService.selectall();
 		// 페이징
 		totalCount = list.size();
-		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "notice_list");
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "list_admin");
 		pagingHtml = page.getPagingHtml().toString();
 		int lastCount = totalCount;
 
@@ -54,9 +62,44 @@ public class NoticeController {
 
 		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
 
 		// 보여줄 tiles
-		return "notice_list";
+		return "notice_list_admin";
+
+	}
+	
+	@RequestMapping("/list_user")
+	public String noticeList_user(Model model, HttpServletRequest request) throws Exception {
+
+		if(request.getParameter("currentPage") == null || request.getParameter("currentPage").trim().isEmpty() || request.getParameter("currentPage").equals("0")) {
+            currentPage = 1;
+        } else {
+            currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        }
+		
+		List<NoticeModel> list;
+		
+
+		list = noticeService.selectall();
+		// 페이징
+		totalCount = list.size();
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "list_user");
+		pagingHtml = page.getPagingHtml().toString();
+		int lastCount = totalCount;
+
+		if (page.getEndCount() < totalCount) {
+			lastCount = page.getEndCount() + 1;
+		}
+
+		list = list.subList(page.getStartCount(), lastCount);
+
+		model.addAttribute("pagingHtml", pagingHtml);
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
+
+		// 보여줄 tiles
+		return "notice_list_user";
 
 	}
 	
@@ -81,17 +124,30 @@ public class NoticeController {
 		noticeService.insert(noticeModel);
 		
 		//리스트로이동
-		return noticeList(model);
+		return "redirect:/notice/list";
 	}
+	
+	 @RequestMapping("/view")
+	    public String noticeview(Model model, @RequestParam("notice_num") int notice_num) {
+	        NoticeModel view = new NoticeModel();
+	        view.setNotice_num(notice_num);
+	        NoticeModel aticle = noticeService.selectOne(view);
+	        noticeService.readcount(view);
+	        model.addAttribute("view", aticle);
+	        return "notice_view";
+	    }
 	
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String noticeModifyForm(Model model,HttpServletRequest request)throws Exception{
+	public String noticeModifyForm(Model model,HttpServletRequest request, int notice_num)throws Exception{
 		//글 번호 넣어줌 
-		NoticeModel noticeModel =noticeService.selectOne(Integer.parseInt(request.getParameter("notice_num")));
+		NoticeModel modify =new NoticeModel();
+		modify.setNotice_num(notice_num);
+		NoticeModel article = noticeService.selectOne(modify);
+		
 						
 		//맵에 저장
-		model.addAttribute("noticeModel", noticeModel);
+		model.addAttribute("noticeModel", article);
 		
 		return "notice_m_form";
 	}
@@ -117,7 +173,7 @@ public class NoticeController {
 		noticeModel_m.setNotice_num(Integer.parseInt(request.getParameter("notice_num")));
 		noticeService.update(noticeModel_m);
 		//리스트로
-		return noticeList(model);
+		return "redirect:/notice/list";
 	}
 	
 	
@@ -125,7 +181,7 @@ public class NoticeController {
 	public String noticeDelete(Model model,HttpServletRequest request)throws Exception{
 		noticeService.delete(Integer.parseInt(request.getParameter("notice_num")));
 		
-		return noticeList(model);
+		return "redirect:/notice/list";
 	}
 	
 	

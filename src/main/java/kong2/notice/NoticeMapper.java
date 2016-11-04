@@ -12,7 +12,7 @@ public interface NoticeMapper {
 	
 	
 	//글 보기
-	NoticeModel selectOne(int no);
+	NoticeModel selectOne(NoticeModel noticeModel);
 	
 	//글삭제
 	void delete(int no);
