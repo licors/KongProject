@@ -2,10 +2,8 @@ package kong2.showcase;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -113,13 +111,13 @@ public class ShowcaseController {
 
     @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.GET)
-    public String writeform(Model model, HttpServletRequest request) {
+    public String adminwriteform(Model model, HttpServletRequest request) {
         return "adminmainwrite";
     }
 
     @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.POST)
-    public String insert(Model model, /*MultipartHttpServletRequest request,*/ ShowcaseModel showcaseModel, BindingResult result) throws IOException {
+    public String adminwrite(Model model, /*MultipartHttpServletRequest request,*/ ShowcaseModel showcaseModel, BindingResult result) throws IOException {
         logger.info(showcaseModel.toString());
         Iterator<MultipartFile> file = showcaseModel.getUpload_file().iterator();
         String file_savname = "";
@@ -164,11 +162,87 @@ public class ShowcaseController {
         new ShowcaseValidator().validate(showcaseModel, result);
 
         if (result.hasErrors()) {
-            return writeform(model, null);
+            return adminwriteform(model, null);
         }
 
         showcaseService.insert(showcaseModel);
         logger.info("insert complete");
+        return "redirect:/admin/main/list";
+    }
+
+    @memberBeforeFunctionStart
+    @RequestMapping("/admin/main/delete/{showcase_num}")
+    public String admindelete(Model model, @PathVariable int showcase_num) {
+        ShowcaseModel view = new ShowcaseModel();
+        view.setShowcase_num(showcase_num);
+        view.setShow_status(-1);
+        showcaseService.delete(view);
+        logger.info("delete complete:" + showcase_num);
+        return "redirect:/admin/main/list";
+    }
+
+    @memberBeforeFunctionStart
+    @RequestMapping(value = "/admin/main/modify/{showcase_num}", method = RequestMethod.GET)
+    public String adminmodifyform(Model model, @PathVariable int showcase_num) {
+        ShowcaseModel view = new ShowcaseModel();
+        view.setShowcase_num(showcase_num);
+        ShowcaseModel aticle = showcaseService.selectone(view);
+        model.addAttribute("view", aticle);
+        return "adminmodify";
+    }
+
+    @memberBeforeFunctionStart
+    @RequestMapping(value = "/admin/main/modify/{showcase_num}", method = RequestMethod.POST)
+    public String adminmodify(Model model, @PathVariable int showcase_num, ShowcaseModel showcaseModel, BindingResult result) throws IOException {
+        logger.info(showcaseModel.toString());
+        Iterator<MultipartFile> file = showcaseModel.getUpload_file().iterator();
+        String file_savname = "";
+        int i = 0;
+        while (file.hasNext()) {
+            i++;
+            /**
+             * 파일의 이름이 "" 공백이 아닌지 체크 공백일경우 패스하면서 파일이름에, 찍음
+             */
+            MultipartFile next = file.next();
+            String originalFileName = next.getOriginalFilename();
+            if (originalFileName == null || originalFileName.equals("")) {
+                file_savname += ",";
+                continue;
+            }
+            chk_IDE(); //ide를 구분해서 uploadPath 를 자동으로 바꿈
+            File dir = new File(uploadPath);
+            if (!dir.isDirectory()) {
+                dir.mkdirs();
+            }
+            /**
+             * 업로드 된 파일을 처리하는 부분
+             */
+            String savimagename = "";
+            String filename = next.getOriginalFilename();
+            String exc = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+            try {
+                savimagename = new Random().nextInt(99999999) + "_" + filename.substring(filename.lastIndexOf(".") - 7, filename.lastIndexOf(".")) + "." + exc;
+            } catch (StringIndexOutOfBoundsException ex) {
+                savimagename = new Random().nextInt(99999999) + "_" + new Random().nextInt(9999999) + "." + exc;
+            }
+            File destFile = new File(uploadPath + "/" + savimagename);
+            next.transferTo(destFile);
+
+            file_savname += savimagename + ",";
+            if (i == 4) {
+                int index = file_savname.lastIndexOf(',');
+                file_savname = file_savname.substring(0, index);
+                showcaseModel.setFile_savname(file_savname);
+            }
+        }
+        new ShowcaseValidator().validate(showcaseModel, result);
+
+        if (result.hasErrors()) {
+            return adminwriteform(model, null);
+        }
+        showcaseModel.setShowcase_num(showcase_num);
+        showcaseService.update(showcaseModel);
+        logger.info("modify complete");
         return "redirect:/admin/main/list";
     }
 

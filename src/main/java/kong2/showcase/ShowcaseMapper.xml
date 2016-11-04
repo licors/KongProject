@@ -113,8 +113,8 @@
     </insert>
 	
     <update id="update" parameterType="kong2.showcase.ShowcaseModel">
-        UPDATE showcase SET(subject=#{subject}, address1=#{address1}, address2=#{address2}, start_date=#{start_date}, end_date=#{end_date}, price=#{price}, tel=#{tel}, tag=#{tag}, content=#{content}, map=#{map}, showcase_category=#{showcase_category})
-        WHERE(showcase_num = #{showcase_num})
+        UPDATE showcase SET subject=#{subject}, address1=#{address1}, address2=#{address2}, start_date=#{start_date}, end_date=#{end_date}, price=#{price}, tel=#{tel}, tag=#{tag}, content=#{content}, map=#{map}, showcase_category=#{showcase_category}
+        <include refid="where-no"/>
     </update>
     <update id="delete" parameterType="kong2.showcase.ShowcaseModel">
         UPDATE showcase SET

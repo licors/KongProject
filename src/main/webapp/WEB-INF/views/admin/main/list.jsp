@@ -2,11 +2,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.Date" %>
-<script type="text/javascript">
-    function delchk() {
-        return confirm("삭제하시겠습니까?");
-    }
-</script>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -39,8 +34,8 @@
                 <td style="text-align: center;vertical-align: middle;">${list.readcount}</td>
                 <td style="text-align: center;vertical-align: middle;">${list.ordercount}</td>
                 <td style="text-align: center;vertical-align: middle;">
-                    <a href=""><input type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Cog_font_awesome.svg/32px-Cog_font_awesome.svg.png" style="width: 16px"></a>&nbsp;&nbsp;
-                    <a href=""><input type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Trash_font_awesome.svg/32px-Trash_font_awesome.svg.png" style="width: 16px" onclick="return delchk()"></a>
+                    <a href="/admin/main/modify/${list.showcase_num}"><input type="image" alt="수정하기" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Cog_font_awesome.svg/32px-Cog_font_awesome.svg.png" style="width: 16px"></a>&nbsp;&nbsp;
+                    <a href="#" onclick="return fnConfirmMoveUrl('정말로 삭제하시겠습니까?', '/admin/main/delete/${list.showcase_num}');"><input type="image" alt="삭제하기" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Trash_font_awesome.svg/32px-Trash_font_awesome.svg.png" style="width: 16px"></a>
                 </td>
             </tr>
         </c:forEach>

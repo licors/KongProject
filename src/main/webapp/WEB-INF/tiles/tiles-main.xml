@@ -60,6 +60,11 @@
         <put-attribute name="tab" value="전시글 쓰기" />
         <put-attribute name="body" value="/WEB-INF/views/admin/main/write.jsp" />
     </definition>
+    
+    <definition name="adminmodify" extends="default_admin">
+        <put-attribute name="tab" value="전시글 수정" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/main/modify.jsp" />
+    </definition>
 
 </tiles-definitions>
 

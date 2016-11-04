@@ -30,6 +30,7 @@
                 <script type="text/javascript" src="/resources/js/cangoto_160818.js"></script>
                 <script type="text/javascript" src="/resources/js/cangoto_cgtAD.js"></script>-->
 
+        <script src="/resources/js/confirm.js" type="text/javascript"></script>
         <style type="text/css">.fancybox-margin{margin-right:17px;}</style>
         <title><tiles:getAsString name="title" /></title>
         <link rel="shortcut icon" href="/resources/cangoto_ico_16x16.ico" type="image/x-icon" />

@@ -88,11 +88,15 @@
                     <div class="cgt_list_mask" style="width: 284px; height: 295px;"></div>
                     <div class="cgt_list_button">
                         <a class="btn-detail cgt-single-load" href="/main/view/${list.showcase_num}"><img alt="상세보기" src="/resources/image/main/view_small_btn.png"></a>
-                        <a class="btn-application cgt-single-load" href="/order/check/${list.showcase_num}"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
-                    </div>
-                    <!-- over layer -->
-                    <div class="cgt_list_explanation">
-                        <div class="subject">${list.subject}</div>
+                        <c:choose><c:when test="${empty member}"><!-- 로그인 안함 -->
+                                <a class="btn-application cgt-single-load" href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?', '/member/login');"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
+                            </c:when><c:when test="${!empty member}"><!-- 로그인 함 -->
+                                <a class="btn-application cgt-single-load" href="/order/check/${list.showcase_num}"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
+                            </c:when></c:choose>
+                        </div>
+                        <!-- over layer -->
+                        <div class="cgt_list_explanation">
+                            <div class="subject">${list.subject}</div>
                         <div class="schedule">
                             <fmt:formatDate value="${list.start_date}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${list.end_date}" pattern="yyyy-MM-dd"/>
                             <fmt:parseNumber value="${ list.start_date.time / (1000*60*60*24) }" integerOnly="true" var="start"/>
