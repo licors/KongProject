@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.logging.impl.Log4JLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,60 +26,73 @@ import kong2.validator.MemberValidator;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-
+	Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	@Resource(name = "memberService")
 	private MemberService memberService;
+	
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 
 	private List<ZipcodeModel> zipcodeList = new ArrayList<ZipcodeModel>();
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping("/loginForm")
 	public String loginForm(Model model) {
-		model.addAttribute("member", new MemberModel());	
+//		model.addAttribute("member", new MemberModel());
+		// Sha 암호값을 보기 위한 테스트용.
+//        String guest_password = passwordEncoder.encodePassword("guest", null);
+//        String admin_password = passwordEncoder.encodePassword("admin", null);
+//
+//        logger.info(guest_password + "//" + admin_password);
 		return "ti_loginForm";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String memberLogin(HttpServletRequest request,@ModelAttribute("member") MemberModel member, Model model) {
+//	@RequestMapping(value = "/login")
+//	public void memberLogin(HttpSession session) {
+//		logger.info("Welcome login! {}", session.getId());
+//		MemberModel result = memberService.memberLogin(member);
+//		HttpSession session = request.getSession();
+//		if (result != null) {
+//
+//			session.setAttribute("session_member_id", result.getId_email());
+//			session.setAttribute("session_member_name", result.getName());
+//			session.setAttribute("session_member_num", result.getMember_num());
+//			
+//			if(result.getAdmin() > 0) {
+//				return "redirect:/admin/main";
+//			}
+//			String uri = (String) session.getAttribute("uri");
+//			if(uri != null) {
+//				session.setAttribute("uri", null);
+//				System.out.println("login aop uri : " + uri);
+//				return "redirect:"+uri;
+//			}
+//			
+//			
+//			return "member/loginSuccess";
+//		}
+//		return "member/loginError";
+//	}
 
-		MemberModel result = memberService.memberLogin(member);
-		HttpSession session = request.getSession();
-		if (result != null) {
-
-			session.setAttribute("session_member_id", result.getId_email());
-			session.setAttribute("session_member_name", result.getName());
-			session.setAttribute("session_member_num", result.getMember_num());
-			
-			if(result.getAdmin() > 0) {
-				return "redirect:/admin/main";
-			}
-			String uri = (String) session.getAttribute("uri");
-			if(uri != null) {
-				session.setAttribute("uri", null);
-				System.out.println("login aop uri : " + uri);
-				return "redirect:"+uri;
-			}
-			
-			
-			return "member/loginSuccess";
-		}
-		return "member/loginError";
-	}
-
-	@RequestMapping("/logout")
-	public String memberLogout(HttpServletRequest request, MemberModel mem) {
-
-		HttpSession session = request.getSession(false);
-
-		if (session != null) {
-			session.invalidate();
-		}
-
-		return "redirect:/main";
+//	@RequestMapping("/logout")
+//	public String memberLogout(HttpServletRequest request, MemberModel mem) {
+//
+//		HttpSession session = request.getSession(false);
+//
+//		if (session != null) {
+//			session.invalidate();
+//		}
+//
+//		return "redirect:/main";
+//	}
+	@RequestMapping(value="/denied", method=RequestMethod.GET)
+	public String denied() {
+		return "/member/denied";
 	}
 	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
 	public String memberPwFindForm(Model model) {
-		model.addAttribute("member", new MemberModel());
+//		model.addAttribute("member", new MemberModel());
 		return "ti_passwordFindForm";
 	}
 
@@ -122,6 +138,7 @@ public class MemberController {
   		}
 
 	}
+	
 	@RequestMapping("/memberModifyForm")
 	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 		if (session.getAttribute("session_member_id") != null) {
@@ -187,4 +204,57 @@ public class MemberController {
 		binder.setValidator(new MemberValidator());
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public void login(HttpSession session) {
+		logger.info("Welcome login! {}", session.getId());
+		
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void logout(HttpSession session) {
+		MemberModel userDetails = (MemberModel)session.getAttribute("userLoginInfo");
+		
+		logger.info("Welcome logout! {}, {}", session.getId(), userDetails.getUsername());
+		
+		
+		session.invalidate();
+	}
+	
+	@RequestMapping("/login_success")
+	public String login_success(HttpSession session) {
+		MemberModel userDetails = (MemberModel)SecurityContextHolder.getContext().getAuthentication().getDetails();
+		 
+		logger.info("Welcome login_success! {}, {}", session.getId(), userDetails.getUsername() + "/" + userDetails.getPassword());
+		session.setAttribute("session_member_id", userDetails.getId_email());
+		session.setAttribute("session_member_name", userDetails.getName());
+		session.setAttribute("session_member_num", userDetails.getMember_num());
+		
+		if(userDetails.getAdmin() > 0) {
+			return "redirect:/admin/main";
+		}
+		return "redirect:/main";
+	}
+	
+//	@RequestMapping(value = "/page1", method = RequestMethod.GET)
+//	public void page1(HttpSession session) {	
+//		
+//		MemberModel userDetails = (MemberModel)session.getAttribute("userLoginInfo");
+//		logger.info("Welcome logout! {}, {}", session.getId(), userDetails.getUsername());
+//		
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	@RequestMapping("/loginFail")
+	public String loginFail(HttpSession session) {
+		return "member/loginFail";
+	}
+	
+	@RequestMapping(value = "/login_duplicate", method = RequestMethod.GET)
+	public void login_duplicate() {		
+		logger.info("Welcome login_duplicate!");
+	}
 }

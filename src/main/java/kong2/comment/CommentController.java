@@ -60,7 +60,7 @@ public class CommentController {
 //	}
 	
 	@LoginCheckBeforeFunctionStart
-	@RequestMapping(value="/{showcase_num}/write", method=RequestMethod.POST)
+	@RequestMapping(value="/{showcase_num}/commentWrite", method=RequestMethod.POST)
 	public String commentWrite(Model model, @PathVariable int showcase_num, CommentModel commentModel, BindingResult result)throws Exception{
 
 		commentService.insert(commentModel);
@@ -68,7 +68,7 @@ public class CommentController {
 	}
 	
 	@LoginCheckBeforeFunctionStart
-	@RequestMapping(value="/{showcase_num}/modify", method=RequestMethod.GET)
+	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.GET)
 	public String commentModifyForm(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
 		
 		CommentModel commentModel =commentService.selectOne(Integer.parseInt(request.getParameter("comment_num")));
@@ -79,7 +79,7 @@ public class CommentController {
 	
 	
 	
-	@RequestMapping(value="/{showcase_num}/modify", method=RequestMethod.POST)
+	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.POST)
 	public String commentModify(Model model, @PathVariable int showcase_num, HttpServletRequest request,CommentModel commentModel,BindingResult result)throws Exception{
 	
 		commentService.update(commentModel);
@@ -87,7 +87,7 @@ public class CommentController {
 	}
 	
 	@LoginCheckBeforeFunctionStart
-	@RequestMapping(value="/{showcase_num}/delete")
+	@RequestMapping(value="/{showcase_num}/commentDelete")
 	public String commentDelete(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
 		commentService.delete(Integer.parseInt(request.getParameter("comment_num")));	
 		return "redirect:/"+showcase_num + "/commentList/1";
