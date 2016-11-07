@@ -86,7 +86,16 @@
 										${orderModel.show_addr }<br> <fmt:formatDate
 											value="${orderModel.start_date }" pattern="yyyy년  MM월 dd일" />
 										- <fmt:formatDate value="${orderModel.end_date }"
-											pattern="yyyy년  MM월 dd일" /> <br>${orderModel.show_price }
+											pattern="yyyy년  MM월 dd일" /> <br>
+											<c:choose>
+												<c:when test="${orderModel.show_price eq 0 }">
+													무료
+												</c:when>
+												<c:otherwise>
+													${orderModel.show_price } 원
+												</c:otherwise>
+											</c:choose>
+											
 									</small>
 								</h3>
 							</td>
@@ -167,7 +176,7 @@
 									<c:otherwise>
 										<!-- 일반 회원일때 본인 신청 목록으로 -->
 										<input type="button" name="list" value="목록으로"
-											onClick="location.href='/order/list'"
+											onClick="location.href='/order/list/1'"
 											class="btn btn-default btn-sm">
 									</c:otherwise>
 								</c:choose></td>

@@ -17,7 +17,7 @@ public class PagingAction {
 
 	// 페이징 생성자
 	public PagingAction(int currentPage, int totalCount, int blockCount,
-			int blockPage, String mappingName) {
+			int blockPage, String mappingName) { 
 
 		this.blockCount = blockCount;
 		this.blockPage = blockPage;
@@ -50,9 +50,9 @@ public class PagingAction {
 		}
 
 		// 이전 block 페이지
-		pagingHtml = new StringBuffer();
+		pagingHtml = new StringBuffer(); //유진1107: 컨트롤러에서 pagingAction 호출할때 맨 마지막 파라미터인 mappingName을 "/order/list"이런 형식으로 보내줘야 오류X
 		if (currentPage > blockPage) {
-			pagingHtml.append("<a href=" + mappingName + "?currentPage=" + (startPage - 1) + ">");
+			pagingHtml.append("<a href=" + mappingName + "/" + (startPage - 1) + ">");
 			pagingHtml.append("&lt;");
 			pagingHtml.append("</a>");
 		}
@@ -67,7 +67,7 @@ public class PagingAction {
 				pagingHtml.append(i);
 				pagingHtml.append("</strong>");
 			} else {
-				pagingHtml.append("<a href=" + mappingName + "?currentPage=");
+				pagingHtml.append("<a href=" + mappingName + "/");
 				pagingHtml.append(i);
 				pagingHtml.append(">");
 				pagingHtml.append(i);
@@ -77,7 +77,7 @@ public class PagingAction {
 
 		// 다음 block 페이지
 		if (totalPage - startPage >= blockPage) {
-			pagingHtml.append("<a href=" + mappingName + "?currentPage=" + (endPage + 1) + ">");
+			pagingHtml.append("<a href=" + mappingName + "/" + (endPage + 1) + ">");
 			pagingHtml.append("&gt;");
 			pagingHtml.append("</a>");
 		}
@@ -114,9 +114,11 @@ public class PagingAction {
 		pagingHtml = new StringBuffer();
 		if(currentPage > blockPage){
 			if(isSearch != "")
-				pagingHtml.append("<a href=" + torrentName + "?currentPage=" + (startPage - 1) + "&searchNum="+searchNum+ "&isSearch="+isSearch+">");
+				pagingHtml.append("<a href=" + torrentName + "/" + (startPage - 1) + "/"+searchNum+ "/"+isSearch+">");
+/*			pagingHtml.append("<a href=" + torrentName + "?currentPage=" + (startPage - 1) + "&searchNum="+searchNum+ "&isSearch="+isSearch+">");*/
 			else                    
-				pagingHtml.append("<a href=" + torrentName + "?currentPage=" + (startPage - 1) + ">");
+				pagingHtml.append("<a href=" + torrentName + "/" + (startPage - 1) + ">");
+			/*pagingHtml.append("<a href=" + torrentName + "?currentPage=" + (startPage - 1) + ">");*/
 			pagingHtml.append("&lt;");
 			pagingHtml.append("</a>");
 			}
@@ -142,7 +144,8 @@ public class PagingAction {
 		}
 		// 다음 block 페이지
 		if(totalPage - startPage >= blockPage){
-			pagingHtml.append("<a href=" + torrentName + "?currentPage=" + (endPage + 1));
+			pagingHtml.append("<a href=" + torrentName + "/" + (endPage + 1));
+			/*pagingHtml.append("<a href=" + torrentName + "?currentPage=" + (endPage + 1));*/
 			if(isSearch != "")
 				pagingHtml.append("&isSearch=" + isSearch+"&searchNum="+searchNum);
 			pagingHtml.append(">");
