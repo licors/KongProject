@@ -149,7 +149,7 @@
 										</form:select></td>
 								</tr>
 								<tr>
-									<td width="100"><label for="tel">전화번호<font
+									<td width="100"><label for="phone">전화번호<font
 											color="#FF0000">&nbsp;&nbsp;*</font></label></td>
 									<td><form:input path="phone" class="form-control"
 											type="text" name="phone" size="15" maxlength="15"

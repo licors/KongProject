@@ -94,8 +94,8 @@ public class OrderController {
 	// 바코드 이미지 경로
 	private String imgPath = "/resources/image/barcodeImg/";
 	private String uploadPath = path.path().p() + "../../../../resources/image/barcodeImg/"; // 이클립스
-	private String show_imgPath = ShowcaseController.imgPath;																					// 기준
-																							// 업로드
+	private String show_imgPath = ShowcaseController.imgPath; // 기준
+	// 업로드
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -365,8 +365,8 @@ public class OrderController {
 
 	// 회원용 신청 리스트
 	@RequestMapping(value = "/list/{currentPage}")
-	public String orderList(@PathVariable int currentPage, Locale locale, HttpServletRequest request, HttpSession session, Model model)
-			throws Exception {
+	public String orderList(@PathVariable int currentPage, Locale locale, HttpServletRequest request,
+			HttpSession session, Model model) throws Exception {
 		logger.info("welcome order list.", locale);
 
 		session = request.getSession();
@@ -393,7 +393,7 @@ public class OrderController {
 
 		// 바코드 이미지 가져오기
 		String img = imgPath;
-		
+
 		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("show_img", show_imgPath);
 		model.addAttribute("img", img);
@@ -524,6 +524,67 @@ public class OrderController {
 		model.addAttribute("searchModel", searchModel);
 
 		return "adminOrderList";
+	}
+
+	@RequestMapping(value = "/admin/form")
+	public String adminOrderForm(Locale locale, Model model) throws Exception {
+		logger.info("welcome admin order form.", locale);
+
+		List<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
+				"경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
+
+		model.addAttribute("areaOptions", areaOptions);
+		model.addAttribute("orderModel", new OrderModel());
+
+		return "adminOrderForm";
+	}
+
+	@RequestMapping(value = "/admin/insert")
+	public String adminOrderInsert(@ModelAttribute OrderModel orderModel, Locale locale, Model model) throws Exception {
+		logger.info("welcome admin order form.", locale);
+
+		if (memberService.getMember(orderModel.getId_email()) == null) {
+			logger.info("등록할 아이디가 없습니다. id를 확인해 주세요", locale);
+			// return 이전화면
+		} else {
+			orderModel.setMember_num(memberService.getMember(orderModel.getId_email()).getMember_num());
+		}
+		
+		showcaseModel.setShowcase_num(orderModel.getShowcase_num());		
+		if (showcaseService.selectone(showcaseModel) == null) {
+			logger.info("등록할 전시회가 없습니다. 전시회 번호를 확인해 주세요", locale);
+			//return 이전화면
+		}
+
+		// 바코드 넘버 생성
+		String str1 = Integer.toString(orderModel.getMember_num());
+		String str2 = Integer.toString(orderModel.getShowcase_num());
+		Long str3 = Calendar.getInstance().getTimeInMillis();
+
+		String codeStr = str1 + str2 + str3;
+
+		try {
+			Barcode barcode = BarcodeFactory.createCode128B(codeStr);
+			File file = new File(uploadPath + codeStr + ".png"); // 수정
+			BarcodeImageHandler.savePNG(barcode, file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		int total_price = showcaseService.selectone(showcaseModel).getPrice();
+		
+		orderModel.setBarcode(codeStr);
+		orderModel.setOrder_date(today.getTime());
+		orderModel.setOrder_status("티켓 신청");
+		orderModel.setTotal_price(total_price);
+		orderModel.setPayment_date(today.getTime());
+		orderModel.setPayment_payer("KONG2 관리자 : "+orderModel.getPayment_payer());
+		
+		orderService.insert_order(orderModel);
+
+		// id_email, barcode, order_date, order_status, total_price,
+		// payment_type, payment_date, payment_payer
+		return "redirect:/order/admin/list";
 	}
 
 	// 리스트 검색

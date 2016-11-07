@@ -71,8 +71,8 @@
 
 					<table width="500" align="center" class="table-condensed">
 						<tr>
-							<td><a href='/main/view/${orderModel.showcase_num }'
-								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
+							<td><a href='/admin/main/view/${orderModel.showcase_num }'
+								> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
 									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
 									class="img-responsive">
 							</a></td>
