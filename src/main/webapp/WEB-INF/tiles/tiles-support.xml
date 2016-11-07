@@ -6,19 +6,14 @@
 <tiles-definitions>
 
     <!-- 리스트 -->
-    <definition name="support_list" extends="main">
-       	<put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/support/supportlist.jsp" />
+    <definition name="supportlist" extends="default">
+        <put-attribute name="title" value="Support" />
+        <put-attribute name="body" value="/WEB-INF/views/support/list.jsp" />
     </definition>
-    <!-- 상세보기 -->
-    <definition name="support_view" extends="main">
-        <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/support/supportview.jsp" />
-    </definition>
-    <!-- 폼 -->
-    <definition name="support_form" extends="main">
-        <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/admin/support/supportwrite.jsp" />
+    
+    <definition name="supportwrite" extends="default">
+        <put-attribute name="title" value="Support" />
+        <put-attribute name="body" value="/WEB-INF/views/support/write.jsp" />
     </definition>
 
 </tiles-definitions>

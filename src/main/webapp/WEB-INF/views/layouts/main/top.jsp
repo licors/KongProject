@@ -13,28 +13,28 @@
                     <div style="float:right;height:28px">
                         <ul>
                             <%-- <c:choose> --%>
-                                <sec:authorize access="hasRole('ROLE_USER')">
+                            <sec:authorize access="hasRole('ROLE_USER')">
                                 <%-- <c:when test="${!empty member}"> <!-- 로그인 함 --> --%>
-                                	<sec:authentication var="member" property="principal" />
-	                                <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/logout">로그아웃</a></li>
-	                                <li class="dropdown topshortlink" style="list-style:none; display:inline-block;">
-	                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">마이페이지 <span class="caret"></span></a>
-	                                    <ul class="dropdown-menu">
-	                                        <li><a href="/order/list">마이티켓</a></li>
-	                                        <li><a href="/basket/list">관심티켓</a></li>
-	                                        <li><a href="/support/list">1:1 문의</a></li>
-	                                        <li><a href="/member/memberModifyForm">내정보</a></li>
-	                                    </ul>
-	                                </li>
-	                            </sec:authorize>
-	                            <sec:authorize access="isAnonymous()">
+                                <sec:authentication var="member" property="principal" />
+                                <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/logout">로그아웃</a></li>
+                                <li class="dropdown topshortlink" style="list-style:none; display:inline-block;">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">마이페이지 <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/order/list">마이티켓</a></li>
+                                        <li><a href="/basket/list">관심티켓</a></li>
+                                        <li><a href="/support/list/${member.member_num}">1:1 문의</a></li>
+                                        <li><a href="/member/memberModifyForm">내정보</a></li>
+                                    </ul>
+                                </li>
+                            </sec:authorize>
+                            <sec:authorize access="isAnonymous()">
                                 <%-- <c:when test="${empty member}"> <!-- 로그인 안함 --> --%>
-                                    <li class="topshortlink" style="list-style:none; display:inline-block;"><img style="height:28px;"><a class="login-button" href="/member/loginForm">로그인</a></li>
-                                    <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/memberJoin">회원가입</a></li>
+                                <li class="topshortlink" style="list-style:none; display:inline-block;"><img style="height:28px;"><a class="login-button" href="/member/loginForm">로그인</a></li>
+                                <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/memberJoin">회원가입</a></li>
                                     <%-- </c:when> --%>
                                 </sec:authorize>
                                 <%-- </c:when> --%>
-                            <%-- </c:choose> --%>
+                                <%-- </c:choose> --%>
                             <li class="dropdown topshortlink" style="list-style:none; display:inline-block;">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">고객센터 <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
@@ -110,7 +110,7 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script type="text/javascript">
             jQuery().ready(function () {
-                
+
                 jQuery('#btnSearch').on('click', function () {
                     if (jQuery('#txtMainSearch').val().match('#')) {
                         document.location.href = jQuery('#btnSearch').attr('href') + '/Tag/' + jQuery('#txtMainSearch').val().replace(/^#/gi, '');

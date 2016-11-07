@@ -95,4 +95,9 @@ public class SupportModel {
         this.re_level = re_level;
     }
 
+    @Override
+    public String toString() {
+        return "SupportModel{" + "support_num=" + support_num + ", member_num=" + member_num + ", type=" + type + ", email=" + email + ", content=" + content + ", reg_date=" + reg_date + ", ref=" + ref + ", re_step=" + re_step + ", re_level=" + re_level + '}';
+    }
+
 }
