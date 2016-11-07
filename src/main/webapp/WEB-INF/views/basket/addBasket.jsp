@@ -9,7 +9,7 @@
 
 function Add(){
 	alert("관심티켓에 티켓을 담았습니다.");
-	window.location.href='/showcase/list?currentPage=${currentPage}';
+	history.go(-1);
 }
 </script>
 </head>

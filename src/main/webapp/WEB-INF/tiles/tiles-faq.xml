@@ -15,14 +15,14 @@
         <put-attribute name="body" value="/WEB-INF/views/faq/faqList_user.jsp" />
     </definition>
     <!-- 폼 -->
-    <definition name="faq_form" extends="default">
-       	
+    <definition name="faq_form" extends="default_admin">
+       	<put-attribute name="tab" value="FAQ쓰기" />
         <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqWrite.jsp" />
     </definition>
     
     
-    <definition name="faq_m_form" extends="default">
-       	
+    <definition name="faq_m_form" extends="default_admin">
+       	<put-attribute name="tab" value="FAQ수정" />
         <put-attribute name="body" value="/WEB-INF/views/admin/faq/faqModify.jsp" />
     </definition>
 

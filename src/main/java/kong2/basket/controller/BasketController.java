@@ -2,6 +2,7 @@ package kong2.basket.controller;
 
 
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -95,24 +97,31 @@ public class BasketController {
 	
 	
 	@LoginCheckBeforeFunctionStart
-	@RequestMapping("/add")
-	public String basketAdd(Model model,HttpServletRequest request)throws Exception{
+	@RequestMapping(value="/add/{showcase_num}",method = RequestMethod.GET)
+	public String basketAdd(Model model,HttpServletRequest request,@PathVariable int showcase_num)throws Exception{
 		HttpSession session = request.getSession();
 		int member_num =(Integer) session.getAttribute("session_member_num");
-		int showboard_num = (Integer) session.getAttribute("showcase_num");
+		Calendar today = Calendar.getInstance();
 		
 		BasketModel basketModel= new BasketModel();
+		BasketModel basketModel_I= new BasketModel();
 		basketModel.setMember_num(member_num);
-		basketModel.setShowcase_num(showboard_num);
+		basketModel.setShowcase_num(showcase_num);
 		
 		basketModel=basketService.basket_check(basketModel);
 		
 		
 		
 		if(basketModel!=null){
+			System.out.println("1");
 			return "/basket/basketCheck";
+			
 		}else{
-			basketService.basketInsert(basketModel);
+			System.out.println("2");
+			basketModel_I.setMember_num(member_num);
+			basketModel_I.setShowcase_num(showcase_num);
+			basketModel_I.setBasket_date(today.getTime());
+			basketService.basketInsert(basketModel_I);
 			return "/basket/addBasket";
 		}					
 		

@@ -54,6 +54,9 @@
 								<form:hidden path="total_price" value="${total_price }"/>
 								<input type="submit" value="전체 신청" class="btn btn-sm btn-default"/>
 							</form:form>
+							<input type="button" name="list" value="전체삭제"
+								onClick="location.href='/delete/deleteAllBasket'"
+								class="btn btn-sm btn-default">
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/main'"
 								class="btn btn-sm btn-default">
