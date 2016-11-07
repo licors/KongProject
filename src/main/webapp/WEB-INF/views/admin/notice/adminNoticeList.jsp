@@ -22,7 +22,7 @@
             <tr class="jsearch-row">
                 <td style="text-align: center;vertical-align: middle;">${list.notice_num}</td>
                 <td class="jsearch-field" style="text-align: left;vertical-align: middle;">&nbsp;<a href="/admin/notice/view/${list.notice_num}">${list.subject}</a></td>
-                <td style="text-align: center;vertical-align: middle;">${list.reg_date}</td>
+                <td style="text-align: center;vertical-align: middle;"><fmt:formatDate value="${list.reg_date}" pattern="yyyy.MM.dd"></fmt:formatDate></td>
                 <td style="text-align: center;vertical-align: middle;">${list.readcount}</td>
                 <td style="text-align: center;vertical-align: middle;">
                     <a href=""><input type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Cog_font_awesome.svg/32px-Cog_font_awesome.svg.png" style="width: 16px"></a>&nbsp;&nbsp;
