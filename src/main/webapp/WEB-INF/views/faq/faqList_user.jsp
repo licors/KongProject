@@ -36,7 +36,7 @@
                         
                             <th colspan="1" width="50" align="center" scope="row"><a href="#"><strong>Q.</strong></a></th>
                             <td colspan="2" width="430" align="left"><a href="#">${list.subject }</a></td>
-                        <tr>
+                        </tr>
                         
                         <tr style="display:none" class="tr_invisible">
                             <th scope="row" colspan="1" width="50" align="center"><strong>A.</strong></th>
