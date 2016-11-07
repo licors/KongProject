@@ -23,7 +23,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="/order/list">마이티켓</a></li>
                                             <li><a href="/basket/list">관심티켓</a></li>
-                                            <li><a href="/support/list">1:1 문의</a></li>
+                                            <li><a href="/support/list/${member.member_num}">1:1 문의</a></li>
                                             <li><a href="/member/memberModifyForm">내정보</a></li>
                                         </ul>
                                     </li>
