@@ -3,9 +3,8 @@
 
 <script>
 function Error(){
-	alert("로그인 실패");
-	//window.location.href='/showcase/sclist.action';
-	history.go(-1);
+	alert("로그인 실패하였습니다.");
+	window.location.href='/member/loginForm';
 }
 </script>
 

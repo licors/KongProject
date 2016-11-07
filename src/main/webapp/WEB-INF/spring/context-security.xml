@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/security
+     http://www.springframework.org/schema/security/spring-security.xsd
+     ">
+
+<!-- <beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd"> -->
+           
+    <http auto-config='true' use-expressions="true" >
+    	<csrf disabled="true"/>
+		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/login_duplicate" access="permitAll" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/*/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/order/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/basket/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/**" access="permitAll"/>
+		
+		<form-login login-page="/member/loginForm" 
+					username-parameter="id_email" 
+					password-parameter="password"		
+					login-processing-url="/loginProcess"
+					default-target-url="/main" 
+					authentication-failure-url="/main"	
+					always-use-default-target='false'
+					/>
+		
+		<session-management>
+			<concurrency-control max-sessions="1" expired-url="/login_duplicate"/>
+		</session-management>
+		<!-- <logout logout-url="/logout" logout-success-url="/welcome" /> -->
+		<logout invalidate-session="true"
+				logout-success-url="/main"
+				logout-url="/member/logout"/>
+	</http>
+ 
+ 	<beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+ 	
+	<authentication-manager>
+	    <authentication-provider ref="customAuthenticationProvider"/>
+	</authentication-manager>	
+    
+    <beans:bean id="customAuthenticationProvider" class="kong2.security.CustomAuthenticationProvider"/>  
+    <beans:bean id="customLoginSuccessHandler" class="kong2.security.CustomLoginSuccessHandler"></beans:bean>
+    
+</beans:beans>
+<!-- 
+	<http auto-config="true" use-expressions="true" entry-point-ref="/denied">
+	
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/*/admin/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/order/**" access="ROLE_USER" />
+		<intercept-url pattern="/**" access="permitAll"/>
+
+		<form-login login-page="/member/loginForm"
+			username-parameter="id_email" password-parameter="password"
+			login-processing-url="/loginProcess" authentication-failure-url="/member/loginError"
+			default-target-url="/main" always-use-default-target="false" />
+
+		<logout invalidate-session="true" logout-success-url="/main"
+			logout-url="/member/logout" />
+		<session-management>
+			<concurrency-control max-sessions="1"
+				expired-url="/member/login_duplicate" />
+		</session-management>
+	</http>
+
+	<beans:bean
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="customAuthenticationProvider" />
+	</authentication-manager>
+
+	<beans:bean id="customAuthenticationProvider" class="kong2.member.CustomAuthenticationProvider" />
+
+	<authentication-manager> <authentication-provider> <password-encoder 
+		ref="passwordEncoder"/> <user-service> <user name="guest" password="35675e68f4b5af7b995d9205ad0fc43842f16450" 
+		authorities="ROLE_USER" /> <user name="admin" password="d033e22ae348aeb5660fc2140aec35850c4da997" 
+		authorities="ROLE_ADMIN"/> </user-service> </authentication-provider> </authentication-manager> 
+		<beans:bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" 
+		id="passwordEncoder" />
+</beans:beans> -->
