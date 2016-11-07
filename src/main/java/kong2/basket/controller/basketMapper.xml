@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="basketModel" id="basketRes">
 		<result property="basket_num" column="basket_num" />
 		<result property="member_num" column="member_num" />
-		<result property="SHOWCASE_num" column="SHOWCASE_num" />
+		<result property="showcase_num" column="showcase_num" />
 		<result property="basket_date" column="basket_date" />
 		<result property="subject" column="subject" />
 		<result property="file_savname" column="file_savname" />
@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="address2" column="address2" />
 		<result property="readcount" column="readcount" />
 		<result property="ordercount" column="ordercount" />
-		<result property="SHOWCASE_category" column="SHOWCASE_category" />
+		<result property="showcase_category" column="showcase_category" />
 		<result property="price" column="price"/>
 	</resultMap>
 
@@ -49,8 +49,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 장바구니 추가 -->
 	<insert id="basketInsert" parameterType="basketModel">
 		INSERT INTO
-		BASKET(basket_num, member_num, SHOWCASE_num, basket_date)
-		VALUES(basket_num_seq.NEXTVAL, #{member_num}, #{showcase}, #{basket_date})
+		BASKET(basket_num, member_num, showcase_num, basket_date)
+		VALUES(basket_num_seq.NEXTVAL, #{member_num}, #{showcase_num}, #{basket_date})
 	</insert>
 
 	<!-- 장바구니 삭제 -->
