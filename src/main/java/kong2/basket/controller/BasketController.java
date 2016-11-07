@@ -53,7 +53,7 @@ public class BasketController {
 		//int member_num =(Integer) session.getAttribute("session_member_num");
 		
 		//테스트용으로 관리자 계정을 넣음 멤버 번호 999
-		list = basketService.BasketList(999);
+		list = basketService.BasketList(999);   
 		// 페이징
 		totalCount = list.size();
 		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "basketList");
