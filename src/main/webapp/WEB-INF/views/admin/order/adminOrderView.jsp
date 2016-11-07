@@ -45,12 +45,10 @@
 		}
 	}
 	function deleteError() {
-		alert("티켓 기간이 만료되어 취소가 불가능 합니다." + "\n"
-				+ "\t1544-1234 (주)KOnG");
+		alert("티켓 기간이 만료되어 취소가 불가능 합니다." + "\n" + "\t1544-1234 (주)KOnG");
 	}
 	function deleteError2() {
-		alert("이미 티켓이 취소 되었습니다." + "\n"
-				+ "\t1544-1234 (주)KOnG");
+		alert("이미 티켓이 취소 되었습니다." + "\n" + "\t1544-1234 (주)KOnG");
 	}
 </script>
 <!-- <style type="text/css">
@@ -75,7 +73,8 @@
 						<tr>
 							<td><a href='/main/view/${orderModel.showcase_num }'
 								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
-									<img src="${show_img}${orderModel.file_savname.split(',')[0]}" class="img-responsive">
+									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
+									class="img-responsive">
 							</a></td>
 							<td>
 								<h3>
@@ -83,7 +82,14 @@
 										${orderModel.show_addr }<br> <fmt:formatDate
 											value="${orderModel.start_date }" pattern="yyyy년  MM월 dd일" />
 										- <fmt:formatDate value="${orderModel.end_date }"
-											pattern="yyyy년  MM월 dd일" /> <br>${orderModel.show_price }
+											pattern="yyyy년  MM월 dd일" /> <br> <c:choose>
+											<c:when test="${orderModel.show_price eq 0 }">
+													무료
+												</c:when>
+											<c:otherwise>
+													${orderModel.show_price } 원
+												</c:otherwise>
+										</c:choose>
 									</small>
 								</h3>
 							</td>
@@ -139,12 +145,10 @@
 						</tr>
 						<tr>
 							<td width="100"><label for="tel">티켓(바코드)</label></td>
-							<td align="center" colspan="2">
-							<c:if test="${orderModel.order_status eq '티켓 신청' }">
-									<img src="${img }"
-										style="cursor: pointer;"
-										onclick="doImgPop('${img }')"
-										width="400" />
+							<td align="center" colspan="2"><c:if
+									test="${orderModel.order_status eq '티켓 신청' }">
+									<img src="${img }" style="cursor: pointer;"
+										onclick="doImgPop('${img }')" width="400" />
 								</c:if> <br> <small>* 티켓을 취소 하시면 바코드는 즉시 폐기 됩니다.</small></td>
 						</tr>
 						<tr>
@@ -165,7 +169,7 @@
 									<c:otherwise>
 										<!-- 일반 회원일때 본인 신청 목록으로 -->
 										<input type="button" name="list" value="목록으로"
-											onClick="location.href='/order/list'"
+											onClick="location.href='/order/list/1'"
 											class="btn btn-default btn-sm">
 									</c:otherwise>
 								</c:choose></td>
