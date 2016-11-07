@@ -32,7 +32,7 @@
 				</tr>
 				<br>
 				<input type="button" value="신청목록"
-					onclick="javascript:location.href='/order/list'"
+					onclick="javascript:location.href='/order/list/1'"
 					class="btn btn-success btn-sm"> &nbsp;&nbsp;&nbsp;
 				<input type="button" value="메인으로"
 					onclick="javascript:location.href='/main'"

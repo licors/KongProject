@@ -70,7 +70,7 @@
 						<div style="box-sizing: border-box; font-size: 16px;">
 
 							<span style="font-size: 18px; font-weight: normal;"> <img
-								src="../template/image/order_basket/myticketLogo.png">
+								src="/resources/image/order_basket/myticketLogo.png">
 							</span>
 						</div>
 					</div>

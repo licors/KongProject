@@ -82,7 +82,7 @@ public class OrderService implements OrderDAO {
 	public ArrayList<OrderModel> search_subject(OrderModel orderModel) {
 		ArrayList<OrderModel> result = new ArrayList<OrderModel>();
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-		result = orderMapper.order_selectAll();
+		result = orderMapper.search_subject(orderModel);
 
 		return result;
 	}
