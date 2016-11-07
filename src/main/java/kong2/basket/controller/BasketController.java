@@ -44,17 +44,23 @@ public class BasketController {
 	@RequestMapping("/list")
 	public String basketList(Model model,HttpServletRequest request) throws Exception {
 
-		List<BasketModel> list=null;
+	List<BasketModel> list=null;
 		OrderModel orderModel = new OrderModel();
 
-		/*세션로 넘겨 받아야함*/
+		
 		
 		HttpSession session = request.getSession();
-		//int member_num =(Integer) session.getAttribute("session_member_num");
+		int member_num =(int) session.getAttribute("session_member_num");
 		
-		//테스트용으로 관리자 계정을 넣음 멤버 번호 999
-		list = basketService.BasketList(999);
-		// 페이징
+		
+		
+		list = basketService.BasketList(member_num);
+		
+		
+		
+		
+		
+		
 		totalCount = list.size();
 		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "basketList");
 		pagingHtml = page.getPagingHtml().toString();
@@ -64,7 +70,7 @@ public class BasketController {
 			lastCount = page.getEndCount() + 1;
 		}
 		
-
+		
 		//페이지에 맞게끔 
 		list = list.subList(page.getStartCount(), lastCount);
 		
@@ -81,7 +87,7 @@ public class BasketController {
 		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("list", list);
 		model.addAttribute("orderModel", orderModel);
-
+		
 		// 보여줄 tiles
 		return "basketList";
 
@@ -118,15 +124,13 @@ public class BasketController {
 	public String deleteBasket(Model model,HttpServletRequest request)throws Exception{
 		
 		HttpSession session = request.getSession();
-	/*	int member_num =(int) session.getAttribute("session_member_num");*/
+	
 		
 		
 		
 		
 		BasketModel basketModel=new BasketModel();
-	/*	List<BasketModel> list=null;
-		//테스트용으로 관리자 계정을 넣음 멤버 번호 999
-		list = basketService.BasketList(999);*/
+	
 		basketModel.setBasket_num(Integer.parseInt(request.getParameter("basket_num")));
 		basketService.basketDelete(basketModel);
 		return "/basket/deleteBasket";
@@ -140,12 +144,12 @@ public class BasketController {
 	public String deleteAllBasket(Model model,HttpServletRequest request)throws Exception{
 		
 		HttpSession session = request.getSession();
-	/*	int member_num =(int) session.getAttribute("session_member_num");*/
-		
-		//테스트용으로 관리자 계정을 넣음 멤버 번호 999
+	int member_num =(int) session.getAttribute("session_member_num");
 		
 		
-		basketService.basketDelete_all(999);
+		
+		
+		basketService.basketDelete_all(member_num);
 		return "/basket/deleteBasket";
 		
 		
@@ -153,8 +157,5 @@ public class BasketController {
 
 	
 	
-/*	basketAdd()
-	
-	deleteBasket()
-	deleteAllBasket()*/
+
 }

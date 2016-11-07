@@ -46,11 +46,11 @@
 					<c:choose>
 						<c:when test="${list.size() eq 0 }">
 							<input type="button" name="list" value="메인으로"
-								onClick="location.href='/showcase/main'"
+								onClick="location.href='/main'"
 								class="btn btn-sm btn-default">
 						</c:when>
 						<c:otherwise>
-							<form:form commandName="orderModel" action="${contextpath }/order/form_B" value="전체신청" method="post">
+							<form:form commandName="orderModel" action="/order/form_B" value="전체신청" method="post">
 								<form:hidden path="total_price" value="${total_price }"/>
 								<input type="submit" value="전체 신청" class="btn btn-sm btn-default"/>
 							</form:form>
@@ -67,29 +67,15 @@
 			<div class="clearfix"></div>
 
 			<c:forEach var="list" items="${list}">
-				<c:url var="viewURL" value="/order/view">
-					<c:param name="showboard_num" value="${list.showboard_num }">
-						
-					</c:param>
+				<c:url var="viewURL" value="/order/view/${list.showcase_num }">
 				</c:url>
-<%--  				<div class="cgt-latest cgt-list-ctype-1">
-					<div class="cgt_latest_image_area">
-						<a
-							href="/showcase/scread.action?showboard_category=<s:property value="showboard_category" />&showboard_num=<s:property value="showboard_num" />">
-							<img
-							src="../showcaseImg/<s:property value="file_savname.split(',')[0]"/>"
-							class="img-responsive"/>
-						</a>
-					</div>
-					<!-- img -->
-					
-					<div class="cgt_list_mask" style="width: 284px; height: 295px;"></div> --%>
+
 					            <div class="cgt-latest cgt-list-ctype-1">
                 <div style="position:absolute; width:100%; z-index:100;">
                     <div style="float:right; width:40px; height:40px; border-radius:20px;  color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;"></div>
                     <div style="clear:both;"></div>
                 </div>
-                <a href ='/showcase/view?showboard_category=${list.showboard_category }&showboard_num=${list.showboard_num }'target="_blank">
+                <a href ='/main/view/${list.showcase_num }'target="_blank">
                     <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
                     <img src="../showcaseImg/<s:property value="file_savname.split(',')[0]"/>" class="img-responsive"
                         onerror="javascript:this.src='/template/image/main/noimg.png'"></></a>
@@ -100,14 +86,14 @@
 						<!-- title -->
 						<div class="subject">
 							<a
-								href="/showcase/view?showboard_category=${list.showboard_category }&showboard_num=${list.showboard_num }">
+								href="/main/view/${list.showcase_num }">
 								${list.subject }
 							</a>
 						</div>
 
 						<!-- date -->
 						<div class="schedule">
-							${list.date }
+							${list.basket_date }
 						</div>
 
 
@@ -136,8 +122,10 @@
 						style="font-size: 12px; color: #666;">
 						<div style="float: left;">
 							<input type="button" name="order" value="신청"
-								onClick="location.href='/order/form?showboard_num=${list.showboard_num }'"
-								class="btn btn-xs btn-success"> <input type="button"
+								onClick="location.href='/order/form/${list.showcase_num }'"
+								class="btn btn-xs btn-success">
+								
+								<input type="button"
 								name="deleteB" value="삭제"
 								onClick="location.href='/basket/deleteBasket?basket_num=${list.basket_num}'"
 								class="btn btn-xs btn-default">

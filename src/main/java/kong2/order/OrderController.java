@@ -79,7 +79,7 @@ public class OrderController {
 	// 페이징
 	private int currentPage = 1;
 	private int totalCount;
-	private int blockCount = 10;
+	private int blockCount = 8;
 	private int blockPage = 3;
 	private String pagingHtml;
 	private PagingAction page;
@@ -364,8 +364,8 @@ public class OrderController {
 	}
 
 	// 회원용 신청 리스트
-	@RequestMapping(value = "/list")
-	public String orderList(Locale locale, HttpServletRequest request, HttpSession session, Model model)
+	@RequestMapping(value = "/list/{currentPage}")
+	public String orderList(@PathVariable int currentPage, Locale locale, HttpServletRequest request, HttpSession session, Model model)
 			throws Exception {
 		logger.info("welcome order list.", locale);
 
@@ -381,7 +381,7 @@ public class OrderController {
 		// paging
 		totalCount = orderList.size();
 
-		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "orderList");
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "/order/list");
 		pagingHtml = page.getPagingHtml().toString();
 		int lastCount = totalCount;
 
@@ -393,7 +393,8 @@ public class OrderController {
 
 		// 바코드 이미지 가져오기
 		String img = imgPath;
-
+		
+		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("show_img", show_imgPath);
 		model.addAttribute("img", img);
 		model.addAttribute("orderList", orderList);
@@ -463,7 +464,7 @@ public class OrderController {
 			link = "redirect:/order/admin/list";
 			orderModel = orderService.order_selectOne(orderParam);
 		} else {
-			link = "redirect:/order/list";
+			link = "redirect:/order/list/1";
 			orderModel = orderService.orderView(orderParam);
 		}
 

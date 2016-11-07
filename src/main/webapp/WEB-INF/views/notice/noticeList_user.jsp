@@ -16,10 +16,10 @@
                             <p style="font-size:28px; color:#000000; font-weight:bold; margin:0px 0px 0px 0px; padding:0px;">공지사항</p>
                         </div>
                         <div class="form-group" style="float: right">
-                             <c:if test="${session_member_id == 'admin'}"> 
+                             <%-- <c:if test="${session_member_id == 'admin'}"> 
                                 <input name="support" type="button" value="공지글 작성"
                                        onClick="javascript:location.href = '/notice/write'" class="btn btn-default">
-                             </c:if> 
+                             </c:if>  --%>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         </tr>
                     </thead>
                     <c:forEach var="list" items="${list }">
-                        <c:url var="viewURL" value="view">
+                        <c:url var="viewURL" value="view1">
                             <c:param name="notice_num" value="${list.notice_num }">
                             </c:param>
                             <c:param name="currentPage" value="${currentPage }">

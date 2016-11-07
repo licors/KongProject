@@ -100,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 관리자 리스트에서 '전시명'과 '신청기간'으로 조건 검색  -->
 	<select id="search_subject" resultMap="orderRes" parameterType="orderModel">
 		<include refid="select-all-order"/>
-		and od.SUBJECT like #{show_subject}
+		and sb.SUBJECT like #{show_subject}
 		and od.ORDER_DATE <![CDATA[>=]]> TO_DATE(#{datepicker1},'YY-MM-DD')
 		and od.ORDER_DATE <![CDATA[<=]]> TO_DATE(#{datepicker2},'YY-MM-DD') + 0.99999 
 		order by od.ORDER_NUM DESC, od.ORDER_DATE DESC

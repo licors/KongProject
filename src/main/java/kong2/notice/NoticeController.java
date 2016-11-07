@@ -103,6 +103,40 @@ public class NoticeController {
 
 	}
 	
+	@RequestMapping("/admin/list")
+	public String adminNoticeList(Model model) throws Exception {
+
+/*		if(request.getParameter("currentPage") == null || request.getParameter("currentPage").trim().isEmpty() || request.getParameter("currentPage").equals("0")) {
+            currentPage = 1;
+        } else {
+            currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        }
+		*/
+		List<NoticeModel> list;
+		
+
+		list = noticeService.selectall();
+/*		// 페이징
+		totalCount = list.size();
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "list_admin");
+		pagingHtml = page.getPagingHtml().toString();
+		int lastCount = totalCount;
+
+		if (page.getEndCount() < totalCount) {
+			lastCount = page.getEndCount() + 1;
+		}
+
+		list = list.subList(page.getStartCount(), lastCount);*/
+
+		model.addAttribute("pagingHtml", pagingHtml);
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
+
+		// 보여줄 tiles
+		return "adminnoticelist";
+
+	}
+	
 	
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
@@ -124,17 +158,27 @@ public class NoticeController {
 		noticeService.insert(noticeModel);
 		
 		//리스트로이동
-		return "redirect:/notice/list";
+		return "redirect:/notice/list_admin";
 	}
 	
 	 @RequestMapping("/view")
-	    public String noticeview(Model model, @RequestParam("notice_num") int notice_num) {
+	    public String noticeview_admin(Model model, @RequestParam("notice_num") int notice_num) {
 	        NoticeModel view = new NoticeModel();
 	        view.setNotice_num(notice_num);
 	        NoticeModel aticle = noticeService.selectOne(view);
 	        noticeService.readcount(view);
 	        model.addAttribute("view", aticle);
-	        return "notice_view";
+	        return "notice_view_admin";
+	    }
+	 
+	 @RequestMapping("/view1")
+	    public String noticeview_user(Model model, @RequestParam("notice_num") int notice_num) {
+	        NoticeModel view = new NoticeModel();
+	        view.setNotice_num(notice_num);
+	        NoticeModel aticle = noticeService.selectOne(view);
+	        noticeService.readcount(view);
+	        model.addAttribute("view", aticle);
+	        return "notice_view_user";
 	    }
 	
 	
@@ -173,7 +217,7 @@ public class NoticeController {
 		noticeModel_m.setNotice_num(Integer.parseInt(request.getParameter("notice_num")));
 		noticeService.update(noticeModel_m);
 		//리스트로
-		return "redirect:/notice/list";
+		return "redirect:/notice/list_admin";
 	}
 	
 	
@@ -181,7 +225,7 @@ public class NoticeController {
 	public String noticeDelete(Model model,HttpServletRequest request)throws Exception{
 		noticeService.delete(Integer.parseInt(request.getParameter("notice_num")));
 		
-		return "redirect:/notice/list";
+		return "redirect:/notice/list_admin";
 	}
 	
 	

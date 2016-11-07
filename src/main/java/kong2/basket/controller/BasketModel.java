@@ -18,7 +18,7 @@ public class BasketModel {
 	private int show_status;
 	private String subject;	
 	private String file_savname;
-	private String basket_date;	//date 라는이름 매퍼에 없음 , date -> basket_date로 수정
+	private Date basket_date;	//date 라는이름 매퍼에 없음 , date -> basket_date로 수정
 	private String address2;
 	private int readcount;
 	private int ordercount;
@@ -109,12 +109,13 @@ public class BasketModel {
 	public void setShowcase_category(String showcase_category) {
 		this.showcase_category = showcase_category;
 	}
-	public String getBasket_date() {
+	public Date getBasket_date() {
 		return basket_date;
 	}
-	public void setBasket_date(String basket_date) {
+	public void setBasket_date(Date basket_date) {
 		this.basket_date = basket_date;
 	}
+
 	
 	
 	
