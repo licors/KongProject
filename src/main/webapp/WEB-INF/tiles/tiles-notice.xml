@@ -9,20 +9,34 @@
         <put-attribute name="left" value="" />
         <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeList_admin.jsp" />
     </definition>
+    
     <definition name="notice_list_user" extends="default">
         <put-attribute name="left" value="" />
         <put-attribute name="body" value="/WEB-INF/views/notice/noticeList_user.jsp" />
     </definition>
-    <!-- 상세보기 -->
-    <definition name="notice_view" extends="default">
-        <put-attribute name="left" value="" />
-        <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeView.jsp" />
+    
+    <definition name="adminnoticelist" extends="default_admin">
+        <put-attribute name="tab" value="공지글 리스트" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/notice/adminNoticeList.jsp" />
     </definition>
+    
+    <!-- 상세보기 -->
+    <definition name="notice_view_admin" extends="default">
+        <put-attribute name="left" value="" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeView_admin.jsp" />
+    </definition>
+    
+    <definition name="notice_view_user" extends="default">
+        <put-attribute name="left" value="" />
+        <put-attribute name="body" value="/WEB-INF/views/notice/noticeView_user.jsp" />
+    </definition>
+    
     <!-- 폼 -->
     <definition name="notice_form" extends="default">
         <put-attribute name="left" value="" />
         <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeWrite.jsp" />
     </definition>
+    
     <!-- 수정하기 폼 -->
     <definition name="notice_m_form" extends="default">
        	<put-attribute name="left" value="" />
