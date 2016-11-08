@@ -125,7 +125,7 @@
 						style="font-size: 12px; color: #666;">
 						<div style="float: left;">
 							<input type="button" name="order" value="신청"
-								onClick="location.href='/order/form/${list.showcase_num }'"
+								onClick="location.href='/order/check/${list.showcase_num }'"
 								class="btn btn-xs btn-success">
 								
 								<input type="button"

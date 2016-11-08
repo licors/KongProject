@@ -180,24 +180,19 @@ public class OrderController {
 		bank_account.add("신한 110-1234-4566");
 		bank_account.add("국민 122-2345-5566");
 		bank_account.add("농협 124-1234-5556");
+		
+/*		//경로 설정
+		String link;
+		if(orderModel.getPayment_type() == "무통장입금") {
+			link = "orderPro";
+		} else if (orderModel.getPayment_type() == "신용카드") {
+			link = "orderPro"
+		}*/
 
 		model.addAttribute("bank_account", bank_account);
 		model.addAttribute("orderModel", orderModel);
 
-		// request.setAttribute("orderParam", orderModel);
-
 		return "orderPro";
-		// 1차 폼에서 입력 처리 가능
-		// id_email, name, zipcode, company, phone(member에서 불러올수 있는 정보)
-		// total price 계산
-		// sex, area (입력받을 정보)
-
-		// 2차 폼에서 처리해야 될 기능
-		// bank_account, payment_type, payment_payer
-
-		// 3차 신청 처리(폼X)
-		// order_num, barcode, order_date, order_status, total_price,
-		// payment_date, ordercount(내가 설정)
 	}
 
 	// (1개 전시) 신청 완료 처리
@@ -227,6 +222,11 @@ public class OrderController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		if(orderModel.getPayment_type().equals("신용카드")) {
+			orderModel.setBank_account("-");
+			orderModel.setPayment_payer("-");
+		}
 
 		orderModel.setMember_num(member_num);
 		orderModel.setBarcode(codeStr);
@@ -251,8 +251,14 @@ public class OrderController {
 		if (basketService.basket_check(basketModel) != null) {
 			basketService.basketDelete(basketModel);
 		}
+		
+		String link;
+		if(orderModel.getPayment_type().equals("신용카드"))
+			link = "orderProCheck";
+		else
+			link = "orderSuccess";
 
-		return "orderSuccess";
+		return link;
 	}
 
 	// ---------------------------------------------------------------------------------
@@ -317,14 +323,20 @@ public class OrderController {
 
 	// basket(다수) DB insert
 	@RequestMapping(value = "/insert_B", method = RequestMethod.POST)
-	public String orderInsert_B(Locale locale, HttpServletRequest reqeust, @ModelAttribute OrderModel orderModel) {
+	public String orderInsert_B(Locale locale, HttpSession session, HttpServletRequest request, @ModelAttribute OrderModel orderModel) {
 
 		logger.info("welcome basket order insert...", locale);
+		
+		session = request.getSession();
+
+		member_num = (Integer) session.getAttribute("session_member_num");
 
 		BasketModel basketModel = new BasketModel();
-		basketModel.setMember_num(orderModel.getMember_num());
+		basketModel.setMember_num(member_num);
+		
+		orderModel.setMember_num(member_num);
 
-		basketList = basketService.BasketList(orderModel.getMember_num());
+		basketList = basketService.BasketList(member_num);
 
 		for (int i = 0; i < basketList.size(); i++) {
 			basketModel = basketList.get(i);

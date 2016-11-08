@@ -67,9 +67,9 @@
 						path="payment_type" id="inlineRadio1" name="payment_type"
 						value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline"><form:radiobutton
 						path="payment_type" id="inlineRadio2" name="payment_type"
-						value="신용카드" label="신용카드" /> </label> <label class="radio-inline"><form:radiobutton
+						value="신용카드" label="신용카드" disabled="true"/> </label> <label class="radio-inline"><form:radiobutton
 						path="payment_type" id="inlineRadio3" name="payment_type"
-						value="휴대폰" label="휴대폰" /> </label></td>
+						value="휴대폰" label="휴대폰" disabled="true"/> </label></td>
 
 		</tr>
 		<tr>
@@ -92,4 +92,4 @@
 				onClick="javascript:location.href = '/order/admin/list'"></td>
 		</tr>
 	</table>
-</form:form>
+	</form:form>
