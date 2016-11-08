@@ -15,6 +15,11 @@
         <put-attribute name="title" value="Support" />
         <put-attribute name="body" value="/WEB-INF/views/support/write.jsp" />
     </definition>
+    
+    <definition name="supportview" extends="default">
+        <put-attribute name="title" value="Support" />
+        <put-attribute name="body" value="/WEB-INF/views/support/view.jsp" />
+    </definition>
 
 </tiles-definitions>
 
