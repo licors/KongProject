@@ -72,7 +72,7 @@
                 <td colspan="2" align="center">
                     <input class="btn btn-success btn-sm" type="submit" name="confirm" value="정보수정" onclick="modify()"> 
                     <input class="btn btn-success btn-sm" type="button" value="회원탈퇴" onClick="javascript:location.href='${contextPath}/member/memberDeleteForm'">
-                    <input class="btn btn-default btn-sm" type="button" value="취소" onClick="javascript:location.href='${contextPath}/main">
+                    <input class="btn btn-default btn-sm" type="button" value="취소" onClick="javascript:location.href='${contextPath}/main'">
                 </td>
             </tr>
         </table>

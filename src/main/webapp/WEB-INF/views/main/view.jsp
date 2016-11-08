@@ -3,6 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %> 
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCRSeEVl3pSPGUVWwW4DSwZNDu0Q3AuSpc"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script><!-- 메인 드랍다운용 -->
@@ -101,7 +102,7 @@
                         <div class="pull-left cgt_detail_tab">오시는길</div>
                     </a>
                     <a data-target="#together" data-toggle="tab">
-                        <div class="pull-left cgt_detail_tab">같이가요</div>
+                        <div class="pull-left cgt_detail_tab">댓글</div>
                     </a>
                 </div>
                 <script type="text/javascript">
@@ -137,221 +138,227 @@
                         </c:if>
                         <!-- 소개 -->
                         <div class="cgt_line_black_3 cgt_mtb_40"></div>
-                    </div>
-                </div>
-                <!-- 환불 & 주의사항 -->
-                <div class="tab-pane fade" id="caution">
-                    <div style="width:100%;box-sizing:border-box;padding:10px 40px 40px 40px;">
-                        <!--<span style="color:#0000FF"><strong>* 캔고루 가격 → </strong></span><span style="color:#FF0000"><strong>무료</strong></span><br><br><strong>* 시간</strong><br>오전 11시 ~ 오후 8시-->
-                        <img src="/resources/image/main/tit_faq.png">
-                        <div class="container" style="padding-left:0px; padding-right:0px;">
-                            <!-- 아코디언 영역 -->
-                            <div class="panel-group" id="accordion">
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ8">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">입장은 어떻게 하나요?</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ8" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> 티켓을 다운받으면 바코드 티켓을 발급해 드립니다.<br>입장 시, 티켓 받으신 분의 성함/핸드폰 번호를 확인하고 입장 가능합니다.<br></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ7">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">티켓 양도가 가능한가요?</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ7" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> 티켓 양도 가능 하며, 현장에서 대리자가 티켓 다운하신 분의 성함, 핸드폰 번호로 확인 받으실 수 있습니다.</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ6">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">추가 인원과 함께 가고 싶어요</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ6" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> <p>통상적으로 1인 1매가 원칙이며, 초대권이 지급되는 행사는 초대권 등록 후, 추가 인원 사용가능 하십니다.<br>초대권을 등록하지 않은 경우에는 사용 불가하며,&nbsp;초대권이 없는 행사도 있으니 참고하시기 바랍니다.</p>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ5">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">전시회 재입장이 가능한가요?</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ5" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> <p>일반적인 경우, 전시회는 1매의 티켓을 구입하여 하루만 입장이 가능하며, 일부 전시의 경우에 네임택(입장목걸이)을&nbsp;퇴장시 제출하지 않으면 다음날 소지하고 입장이 되는 경우가 있기도 합니다. 하지만 네임택에 날짜를 기입하는 전시회의 경우는 이러한 방식도 적용되지 않습니다.<br><br>자세한 안내는 행사페이지 관련문의에 기입된 번호로 문의바랍니다.</p>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ4">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">다운받은 티켓은 어디서 확인하나요?</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ4" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> <p>우측 상단 마이페이지&nbsp;&gt; 마이티켓에서 확인할 수 있습니다.</p>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ3">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">관심티켓 설정은 어떻게 하나요?</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ3" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> <p>관심티켓은 일종의 즐겨찾기와 같습니다.<br>관심 있는 행사의 상세보기에서 관심티켓 버튼을 눌러주세요.<br>우측 상단 마이페이지&nbsp;&gt; 관심티켓에서 확인할 수 있습니다.</p>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ2">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">유료티켓을 구매하고 싶어요.</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ2" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> <p>현재 캔고루 웹에서는 유료티켓 구매가 되지 않습니다.</p>
-
-                                                <p>캔고루 앱에서만 유료 티켓 구매가 가능하오니, 불편하시더라도 앱 내 결제를 부탁 드립니다.</p>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
-                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ1">
-                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
-                                            <h4 class="panel-title">
-                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
-                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
-                                                <span class="col-xs-11">환불은 어떻게 하나요?</span>
-                                            </h4>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                    <div id="FAQ1" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
-                                        <!-- 이부분 ID 와 일치되게 -->
-                                        <div class="panel-body">
-                                            <h4 class="col-xs-1 asked-A">A.</h4>
-                                            <h4 class="col-xs-11 faqfontqanswer"> 방법 세 가지 중 한가지로 연락 주시면 취소처리됩니다.<br><br>1.환불 원하는 티켓을 FAQ 1:1문의에 행사명과 함께 기입 (다음 영업일에 답변 및 처리)<br>2.카카오톡 ‘캔고루’(다음 영업일에 답변 및 처리) 로 환불 원하는 티켓명과 성함, 핸드폰번호 보내기<br>3.캔고루 고객센터 ’02-868-4184’(평일 오전9시~오후6시)<br><br>-단, 행사의 환불기간이 종료된 경우 불가능<br>-취소처리 후 완료 문자 발송<br></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--// 아코디언 영역 -->
-                            <div class="clearfix" style="padding-bottom:50px;"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 환불 & 주의사항 -->
-                <!-- 오시는길 -->
-                <div class="tab-pane fade" id="map">
-                    <div style="width:100%;box-sizing:border-box;padding:10px 40px 40px 40px;">
-                        <div style="margin:20px 0px;z-index:99999;">
-                            <div id="map-canvas" style="width:100%; height:300px;"></div>
-                            <div id="map-canvas-none" style="display:none;color:black;font-size:20px;">등록된 지도 정보가 없습니다.</div>
-                        </div>
-                        <div class="evtdetailadd">
-                            <div class="boxes">
-                                <div class="box box1">
-                                    <div style="font-weight:bold;">주소</div>
-                                    <span id="map-input">${view.address1}&nbsp;${view.address2}</span>
-                                </div>
-                                <div class="box box2">
-                                    <div style="font-weight:bold;">문의전화</div>
-                                    <div>${view.tel}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- 오시는길 -->
-                <!-- 같이가요 -->
-                <div class="tab-pane fade" id="together">
-                    <div style="width:100%;box-sizing:border-box;padding:10px 40px 40px 40px;">
-                        <c:choose>
-                            <c:when test="${empty member}"><!-- 로그인 안함 -->
+	                    </div>
+	                </div>
+	                <!-- 환불 & 주의사항 -->
+	                <div class="tab-pane fade" id="caution">
+	                    <div style="width:100%;box-sizing:border-box;padding:10px 40px 40px 40px;">
+	                        <!--<span style="color:#0000FF"><strong>* 캔고루 가격 → </strong></span><span style="color:#FF0000"><strong>무료</strong></span><br><br><strong>* 시간</strong><br>오전 11시 ~ 오후 8시-->
+	                        <img src="/resources/image/main/tit_faq.png">
+	                        <div class="container" style="padding-left:0px; padding-right:0px;">
+	                            <!-- 아코디언 영역 -->
+	                            <div class="panel-group" id="accordion">
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ8">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">입장은 어떻게 하나요?</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ8" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> 티켓을 다운받으면 바코드 티켓을 발급해 드립니다.<br>입장 시, 티켓 받으신 분의 성함/핸드폰 번호를 확인하고 입장 가능합니다.<br></h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ7">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">티켓 양도가 가능한가요?</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ7" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> 티켓 양도 가능 하며, 현장에서 대리자가 티켓 다운하신 분의 성함, 핸드폰 번호로 확인 받으실 수 있습니다.</h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ6">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">추가 인원과 함께 가고 싶어요</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ6" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> <p>통상적으로 1인 1매가 원칙이며, 초대권이 지급되는 행사는 초대권 등록 후, 추가 인원 사용가능 하십니다.<br>초대권을 등록하지 않은 경우에는 사용 불가하며,&nbsp;초대권이 없는 행사도 있으니 참고하시기 바랍니다.</p>
+	                                            </h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ5">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">전시회 재입장이 가능한가요?</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ5" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> <p>일반적인 경우, 전시회는 1매의 티켓을 구입하여 하루만 입장이 가능하며, 일부 전시의 경우에 네임택(입장목걸이)을&nbsp;퇴장시 제출하지 않으면 다음날 소지하고 입장이 되는 경우가 있기도 합니다. 하지만 네임택에 날짜를 기입하는 전시회의 경우는 이러한 방식도 적용되지 않습니다.<br><br>자세한 안내는 행사페이지 관련문의에 기입된 번호로 문의바랍니다.</p>
+	                                            </h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ4">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">다운받은 티켓은 어디서 확인하나요?</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ4" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> <p>우측 상단 마이페이지&nbsp;&gt; 마이티켓에서 확인할 수 있습니다.</p>
+	                                            </h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ3">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">관심티켓 설정은 어떻게 하나요?</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ3" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> <p>관심티켓은 일종의 즐겨찾기와 같습니다.<br>관심 있는 행사의 상세보기에서 관심티켓 버튼을 눌러주세요.<br>우측 상단 마이페이지&nbsp;&gt; 관심티켓에서 확인할 수 있습니다.</p>
+	                                            </h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ2">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">유료티켓을 구매하고 싶어요.</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ2" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> <p>현재 캔고루 웹에서는 유료티켓 구매가 되지 않습니다.</p>
+	
+	                                                <p>캔고루 앱에서만 유료 티켓 구매가 가능하오니, 불편하시더라도 앱 내 결제를 부탁 드립니다.</p>
+	                                            </h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin:0px">
+	                                    <a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ1">
+	                                        <div class="panel-heading" style="background-color:#FFF; border-bottom:0px solid #FFF;">
+	                                            <h4 class="panel-title">
+	                                                <!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
+	                                                <span class="col-xs-1">Q.</span> <!-- 위 Count 값을 넣어 주심 될듯 합니다~ -->
+	                                                <span class="col-xs-11">환불은 어떻게 하나요?</span>
+	                                            </h4>
+	                                            <div class="clearfix"></div>
+	                                        </div>
+	                                    </a>
+	                                    <div id="FAQ1" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD; ">
+	                                        <!-- 이부분 ID 와 일치되게 -->
+	                                        <div class="panel-body">
+	                                            <h4 class="col-xs-1 asked-A">A.</h4>
+	                                            <h4 class="col-xs-11 faqfontqanswer"> 방법 세 가지 중 한가지로 연락 주시면 취소처리됩니다.<br><br>1.환불 원하는 티켓을 FAQ 1:1문의에 행사명과 함께 기입 (다음 영업일에 답변 및 처리)<br>2.카카오톡 ‘캔고루’(다음 영업일에 답변 및 처리) 로 환불 원하는 티켓명과 성함, 핸드폰번호 보내기<br>3.캔고루 고객센터 ’02-868-4184’(평일 오전9시~오후6시)<br><br>-단, 행사의 환불기간이 종료된 경우 불가능<br>-취소처리 후 완료 문자 발송<br></h4>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <!--// 아코디언 영역 -->
+	                            <div class="clearfix" style="padding-bottom:50px;"></div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <!-- 환불 & 주의사항 -->
+	                <!-- 오시는길 -->
+	                <div class="tab-pane fade" id="map">
+	                    <div style="width:100%;box-sizing:border-box;padding:10px 40px 40px 40px;">
+	                        <div style="margin:20px 0px;z-index:99999;">
+	                            <div id="map-canvas" style="width:100%; height:300px;"></div>
+	                            <div id="map-canvas-none" style="display:none;color:black;font-size:20px;">등록된 지도 정보가 없습니다.</div>
+	                        </div>
+	                        <div class="evtdetailadd">
+	                            <div class="boxes">
+	                                <div class="box box1">
+	                                    <div style="font-weight:bold;">주소</div>
+	                                    <span id="map-input">${view.address1}&nbsp;${view.address2}</span>
+	                                </div>
+	                                <div class="box box2">
+	                                    <div style="font-weight:bold;">문의전화</div>
+	                                    <div>${view.tel}</div>
+	                                </div>
+	                            </div>
+	                        </div>
+	
+	                    </div>
+	                </div>
+	                <!-- 오시는길 -->
+                
+	                <!-- 같이가요 -->
+	                <div class="tab-pane fade" id="together">
+	                    <div style="width:100%;box-sizing:border-box;padding:10px 40px 40px 40px;">
+	                    	<sec:authorize access="isAnonymous()">
+	                            <div>
+	                                <div class="center"><u><a href="/member/login" style="text-decoration:underline;color:blue;font-weight:bold;">로그인</a></u> 하셔야 이용하실 수 있습니다.</div>
+	                            </div>
+	                        </sec:authorize>
+	                            
+                            
+                            <sec:authorize access="hasRole('ROLE_USER')">
                                 <div>
-                                    <div class="center"><u><a href="/Account" style="text-decoration:underline;color:blue;font-weight:bold;">로그인</a></u> 하셔야 이용하실 수 있습니다.</div>
-                                </div>
-                            </c:when><c:when test="${!empty member}"><!-- 로그인 함 -->
-                                <div>
-                                    <div style="margin-bottom:5px;"><textarea id="txtCONTENT" rows="5" class="form-control search_box_input" placeholder="게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다."></textarea></div>
+                                    <div style="margin-bottom:5px;">
+                                    	<textarea id="txtCONTENT" rows="5" class="form-control search_box_input" placeholder="게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다."></textarea>
+                                    </div>
                                     <div style="text-align:right;">
                                         <button class="btn btn-light-blue" onclick="fnRegReply(null, null, jQuery('#txtCONTENT').val());">댓글등록</button>
                                     </div>
                                 </div>
-                            </c:when></c:choose>
+                            </sec:authorize>
+                            
                             <div style="margin-top:20px; margin-bottom:20px; padding-top:20px; border-top:3px solid #000;"></div>
                             <!-- 덧글 여부 if문 추가 -->
                             <div id="divReply"><div>등록된 글이 없습니다.</div></div>

@@ -4,11 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import kong2.comment.CommentModel;
+import kong2.comment.CommentService;
 import kong2.common.memberBeforeFunctionStart;
 import kong2.common.path;
 import kong2.validator.ShowcaseValidator;
@@ -24,13 +30,17 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ShowcaseController {
 
-    @Autowired
+    @Resource(name="showcaseService")
     private ShowcaseService showcaseService;
+    
+    @Resource(name="commentService")
+    private CommentService commentService;
 
     private String uploadPath = path.path().p() + "../../../../resources/upload"; //이클립스 기준 업로드
     public static String imgPath = "/resources/upload/";
@@ -89,15 +99,23 @@ public class ShowcaseController {
 
     @memberBeforeFunctionStart
     @RequestMapping("/main/view/{showcase_num}")
-    public String view(Model model, @PathVariable int showcase_num) {
+    public String view(Model model, @PathVariable int showcase_num, @RequestParam(required=false, value="commentCheck", defaultValue="false") String commentCheck) {
         ShowcaseModel view = new ShowcaseModel();
         view.setShowcase_num(showcase_num);
         ShowcaseModel aticle = showcaseService.selectone(view);
         model.addAttribute("view", aticle);
         model.addAttribute("img", imgPath);
+        
+        /*댓글*/
+        logger.info("commentCheck" + commentCheck);
+        List<CommentModel> list = new ArrayList<CommentModel>();
+        list = commentService.selectAll(showcase_num);
+        model.addAttribute("list", list);
+        model.addAttribute("commentCheck", commentCheck);
         return "mainview";
     }
-
+    
+    
     @memberBeforeFunctionStart
     @RequestMapping("/admin/main/view/{showcase_num}")
     public String adminview(Model model, @PathVariable int showcase_num) {

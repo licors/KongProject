@@ -33,7 +33,7 @@ public class CommentController {
 	public String commentList(Model model, @PathVariable int showcase_num, @PathVariable int current_num) {
 		
 		List<CommentModel> list = null;
-		list = commentService.selectall(showcase_num);
+		list = commentService.selectAll(showcase_num);
 		page = new PagingAction(current_num, totalCount, blockCount, blockPage, "{"+showcase_num+"}/commentList");
 		pagingHtml = page.getPagingHtml().toString();
 		int lastCount = totalCount;
