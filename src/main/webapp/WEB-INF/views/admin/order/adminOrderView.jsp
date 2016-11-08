@@ -71,8 +71,8 @@
 
 					<table width="500" align="center" class="table-condensed">
 						<tr>
-							<td><a href='/admin/main/view/${orderModel.showcase_num }'
-								> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
+							<td><a href='/admin/main/view/${orderModel.showcase_num }'>
+									<!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
 									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
 									class="img-responsive">
 							</a></td>
@@ -139,6 +139,27 @@
 							<td><form:input path="phone" class="form-control"
 									type="text" name="phone" maxlength="15"
 									value="${orderModel.phone}" readonly="true" /></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td width="100"><label for="payment_type">일반결제</label></td>
+							<td><form:input path="payment_type" class="form-control"
+									type="text" name="payment_type" maxlength="20"
+									value="${orderModel.payment_type}" readonly="true" /></td>
+						</tr>
+						<tr>
+							<td width="100"><label for="bank_account">입금은행</label></td>
+							<td><form:input path="bank_account" class="form-control"
+									type="text" name="bank_account" maxlength="20"
+									value="${orderModel.bank_account}" readonly="true" /></td>
+						</tr>
+						<tr>
+							<td width="100"><label for="payment_payer">입금자 명</label></td>
+							<td><form:input path="payment_payer" class="form-control"
+									type="text" name="payment_payer" maxlength="20"
+									value="${orderModel.payment_payer}" readonly="true" /></td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>

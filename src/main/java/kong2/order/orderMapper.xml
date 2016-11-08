@@ -128,11 +128,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO
 		"ORDER" (ORDER_NUM, MEMBER_NUM, SHOWCASE_NUM, NAME, SEX, COMPANY,
 		AREA, ID_EMAIL, BARCODE, ORDER_DATE, PHONE, ORDER_STATUS, 
-		BANK_ACCOUNT, TOTAL_PRICE, PAYMENT_TYPE)
+		BANK_ACCOUNT, TOTAL_PRICE, PAYMENT_TYPE, PAYMENT_PAYER, PAYMENT_DATE)
 		VALUES
 		(ORDER_NUM_SEQ.NEXTVAL, #{member_num}, #{showcase_num}, #{name}, #{sex},
 		#{company}, #{area}, #{id_email}, #{barcode}, #{order_date}, #{phone}, #{order_status},
-		#{bank_account}, #{total_price}, #{payment_type})
+		#{bank_account}, #{total_price}, #{payment_type}, #{payment_payer}, #{payment_date})
 	</insert>	
 	
 <!-- update -->

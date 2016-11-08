@@ -21,7 +21,7 @@
                                 <li class="dropdown topshortlink" style="list-style:none; display:inline-block;">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">마이페이지 <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/order/list">마이티켓</a></li>
+                                        <li><a href="/order/list/1">마이티켓</a></li>
                                         <li><a href="/basket/list">관심티켓</a></li>
                                         <li><a href="/support/list/${userDetail.member_num}">1:1 문의</a></li>
                                         <li><a href="/member/memberModifyForm">내정보</a></li>
