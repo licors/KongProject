@@ -7,7 +7,6 @@
 <div style="width:100%; background-color:#FFF;">
     <div id="ContentPanel"></div>
     <section class="cgt-content-wrapper main-content clear-fix">
-
         <div style="padding-top:50px;">
             <div style="max-width:1200px; text-align:left; margin:0px auto 40px auto;">
                 <p style="font-size:28px; color:#000000; font-weight:bold; margin:0px 0px 10px 0px; padding:0px;">1:1 문의</p>
@@ -51,13 +50,13 @@
                             <div class="col-md-2">문의내용</div>
                             <div class="col-md-10"><textarea class="form-control input-lg" cols="20" id="QUESTION" name="content" placeholder="문의사항을 남겨주시면 친절하게 답변해 드립니다." rows="5" style="width:100%"></textarea></div>
                         </div>
-
                     </div>
                 </div>
                 <div style="max-width:1200px; text-align:center; margin:20px auto 40px auto;">
                     <button type="submit" name="RegMySupport" id="RegMySupport" class="btn btn-light-blue" style="display:inline-block; width:80px;" onclick="return fnValidation();">보내기</button>
                 </div>
-            </form></div>
+            </form>
+        </div>
         <script>
             function fnValidation() {
 
