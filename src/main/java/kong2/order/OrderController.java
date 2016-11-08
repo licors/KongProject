@@ -93,7 +93,7 @@ public class OrderController {
 
 	// 바코드 이미지 경로
 	private String imgPath = "/resources/image/barcodeImg/";
-	private String uploadPath = path.path().p() + "../../../../resources/image/barcodeImg/"; // 이클립스
+	private String uploadPath = "C:\\khproject\\src\\main\\webapp\\resources\\image\\barcodeImg\\"; //이클립스
 	private String show_imgPath = ShowcaseController.imgPath; // 기준
 	// 업로드
 
@@ -533,6 +533,12 @@ public class OrderController {
 		List<String> areaOptions = new ArrayList<String>(Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
 				"경기", "강원", "충남", "충북", "전북", "전남", "경남", "경북", "제주"));
 
+		ArrayList<String> bank_account = new ArrayList<String>();
+		bank_account.add("신한 110-1234-4566");
+		bank_account.add("국민 122-2345-5566");
+		bank_account.add("농협 124-1234-5556");
+
+		model.addAttribute("bank_account", bank_account);
 		model.addAttribute("areaOptions", areaOptions);
 		model.addAttribute("orderModel", new OrderModel());
 
