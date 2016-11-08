@@ -48,14 +48,6 @@
 		document.orderForm.action = "/order/pro_B";
 		document.orderForm.submit();
 	}
-	function insertChk() {
-		var orderForm = eval("document.orderForm");
-		
-		if(orderForm.payment_type.value == "신용카드") {
-			document.orderForm.action = "/order/insert";
-			document.orderForm.submit();
-		}
-	}
 </script>
 <style type="text/css">
 .container { /*컨테이너를 덮어서 고정 폭 사용*/
@@ -79,16 +71,14 @@
 						<%-- <form name="orderForm" method="post" onsubmit="return checkIt2();"
 						class="form-control-static"> --%>
 						<form:form commandName="orderModel"
-							action="${contextpath }/order/pro_B" name="orderForm" onclick="insertChk()" method="post"
+							action="${contextpath }/order/pro_B" method="post"
 							enctype="multipart/form-data" class="form-control-static">
 							<form:hidden path="total_price"
 								value="${orderModel.total_price }" />
 							<table align="center" class="table-condensed">
 								<c:forEach items="${basketList}" var="basket" varStatus="status">
 									<tr>
-										<td><img
-											src="${show_img}${basket.file_savname.split(',')[0]}"
-											class="img-responsive"></td>
+										<td><img src="${show_img}${basket.file_savname.split(',')[0]}" class="img-responsive"></td>
 										<td>
 											<!-- <h3>
 											<s:property value="subject" />
@@ -96,14 +86,14 @@
 												<s:property value="date" />
 											</small>
 										</h3> -->
-											<h4>
+											<h3>
 												${basket.subject } <br> <small>
 													${basket.address2 }<br> <fmt:formatDate
 														value="${basket.start_date }" pattern="yyyy년  MM월 dd일" />
 													- <fmt:formatDate value="${basket.end_date }"
 														pattern="yyyy년  MM월 dd일" /><br> ${basket.price }
 												</small>
-											</h4>
+											</h3>
 										</td>
 									</tr>
 									<tr>
@@ -115,12 +105,7 @@
 
 								<tr>
 									<td align="right" colspan="3"><h3>총 신청
-											금액: ${orderModel.total_price } 원</h3></td>
-								</tr>
-								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+											금액:${orderModel.total_price }</h3></td>
 								</tr>
 
 								<tr>
@@ -172,30 +157,6 @@
 								</tr>
 
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
-								</tr>
-
-								<tr>
-									<td width="100"><label for="payment_type">결제방법</ladbel></td>
-									<td><label class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio1" name="payment_type"
-												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio2" name="payment_type"
-												value="신용카드" label="신용카드"/> </label> <label
-										class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio3" name="payment_type"
-												value="휴대폰" label="휴대폰" disabled="true" /> </label></td>
-								</tr>
-								
-								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
-								</tr>
-
-								<tr>
 									<td colspan="2"><textarea name="agreecheck" cols="60"
 											rows="10" class="form-control">행사 및 서비스를 예약 및 구매하고자 할 경우, 원활한 서비스 제공을 위해 필요한 최소한의 개인정보만을 관련 기업에게 아래와 같이 공유하고 있습니다.
 
@@ -230,7 +191,7 @@
 					<c:otherwise>
 						<!-- 상세보기, 메인에서 구매하기 -->
 						<form:form commandName="orderModel"
-							action="${contextpath }/order/pro" name="orderForm" method="post"
+							action="${contextpath }/order/pro" method="post"
 							enctype="multipart/form-data" class="form-control-static">
 							<!-- 수정! memresultClass=MemberVO, goods_resultClass= -->
 							<!-- <s:hidden name="member_num"
@@ -252,9 +213,9 @@
 
 							<table width="500" align="center" class="table-condensed">
 								<tr>
-									<td><img
-										src="${show_img}${showcaseModel.file_savname.split(',')[0]}"
-										class="img-responsive"></td>
+									<td>
+										 <img src="${show_img}${showcaseModel.file_savname.split(',')[0]}" class="img-responsive">
+									</td>
 									<td>
 										<h3>
 											${showcaseModel.subject } <br> <small>
@@ -270,18 +231,13 @@
 								</tr>
 
 								<tr>
-									<td align="right" colspan="3"><b><h2>총 신청 금액</h2></b>${showcaseModel.price }
-										원</td>
-								</tr>
-								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+									<td align="right" colspan="3"><font color="#FF0000">*</font>는
+										필수 입력 사항입니다.</td>
 								</tr>
 
 								<tr>
-									<td align="right" colspan="3"><font color="#FF0000">*</font>는
-										필수 입력 사항입니다.</td>
+									<td align="right" colspan="3"><b><h2>총 신청 금액</h2></b>${showcaseModel.price }
+										원</td>
 								</tr>
 
 								<tr>
@@ -328,29 +284,6 @@
 								</tr>
 
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
-								</tr>
-
-								<tr>
-									<td width="100"><label for="payment_type">결제방법</ladbel></td>
-									<td><label class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio1" name="payment_type"
-												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio2" name="payment_type"
-												value="신용카드" label="신용카드" /> </label> <label
-										class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio3" name="payment_type"
-												value="휴대폰" label="휴대폰" disabled="true" /> </label></td>
-								</tr>
-								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
-								</tr>
-
-								<tr>
 									<td colspan="2"><textarea name="agreecheck" rows="10"
 											class="form-control">행사 및 서비스를 예약 및 구매하고자 할 경우, 원활한 서비스 제공을 위해 필요한 최소한의 개인정보만을 관련 기업에게 아래와 같이 공유하고 있습니다.
 
@@ -374,7 +307,7 @@
 								</tr>
 								<tr height="50">
 									<td colspan="2" align="center"><input type="submit"
-										name="submit" value="신청" class="btn btn-success btn-sm" onclick="return insertChk()">
+										name="submit" value="신청" class="btn btn-success btn-sm">
 										&nbsp;&nbsp; <input type="button" name="back" value="취소"
 										onClick="javascript:history.go(-1)"
 										class="btn btn-default btn-sm" /></td>
