@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -139,7 +140,6 @@ public class MemberController {
 
 	}
 	
-	@Secured("ROLE_USER")
 	@RequestMapping("/memberModifyForm")
 	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 //		MemberModel userDetails = (MemberModel)SecurityContextHolder.getContext().getAuthentication().getDetails();
@@ -205,8 +205,36 @@ public class MemberController {
 	@RequestMapping("/admin/list")
 	public String memberList(Model model) {
 		ArrayList<MemberModel> list = memberService.memberList();
-		model.addAttribute("memberList", list);
+		model.addAttribute("list", list);
 		return "ti_admin_memberList";
+	}
+	
+	@RequestMapping("/admin/modifyForm/{id_email}")
+	public String memberAdminModify(@PathVariable String id_email, Model model) {
+
+		MemberModel result = memberService.getMember(id_email);
+		model.addAttribute("member", result);
+		return "ti_admin_memberModify";
+	}
+	
+	@RequestMapping("/admin/memberModify")
+	public String memberAdminModify(@Valid @ModelAttribute("member") MemberModel member, BindingResult bindingResult) {
+		// Validation Binding
+		/* new MemberValidator().validate(member, result); */
+		if(bindingResult.hasErrors()) {
+			return "ti_admin_memberModify";
+		}
+		System.out.println("memberModify : " + member);
+		memberService.memberModify(member);
+		return "redirect:/member/admin/list";
+	}
+	
+	@RequestMapping(value="admin/delete/{id_email}")
+	public String memberAdminDelete(@PathVariable String id_email, Model model) {
+
+		logger.info("delete member");
+		memberService.memberDelete(id_email);
+		return "redirect:/member/admin/list";
 	}
 	
 	@InitBinder

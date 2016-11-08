@@ -1,26 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script>
-	function modify() {
-	    if (confirm("정보를 수정하시겠습니까?")) {
-	    } else {
-	        alert("취소되었습니다");
-	        return false;
-	    }
-	}
-</script>
 </head>
 <body>
 
 <h2 align="center">마이페이지</h2>
-	<form:form commandName="member" action="${contextPath}/member/memberModify" method="post" name="modifyform">
+	<form:form commandName="member" action="${contextPath}/member/admin/memberModify" method="post" name="modifyform">
 	    <table>
 			<tr>
 				<form:input type="hidden" path="member_num"/>
@@ -53,7 +43,7 @@
 				<td>
 					<form:input type="text" name="phone" class="txt w200" path="phone" onclick="this.value=''" /> 
 					<font color="red">
-						<form:errors path="phone" />
+						<form:errors path="company" />
 					</font>
 				</td>
 			</tr>
@@ -71,8 +61,7 @@
             <tr height="35">
                 <td colspan="2" align="center">
                     <input class="btn btn-success btn-sm" type="submit" name="confirm" value="정보수정" onclick="modify()"> 
-                    <input class="btn btn-success btn-sm" type="button" value="회원탈퇴" onClick="javascript:location.href='${contextPath}/member/memberDeleteForm'">
-                    <input class="btn btn-default btn-sm" type="button" value="취소" onClick="javascript:location.href='${contextPath}/main">
+                    <input class="btn btn-default btn-sm" type="button" value="취소" onClick="javascript:location.href='${contextPath}/member/admin/list'">
                 </td>
             </tr>
         </table>

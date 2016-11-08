@@ -37,19 +37,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update MEMBER set 
 					PASSWORD = #{password},
 					NAME = #{name}, 
-					ZIPCODE = #{zipcode},
-					ADDRESS = #{address},
-					ADDRESS2 = #{address2},
 					COMPANY = #{company},		
 					PHONE = #{phone}
 		where ID_EMAIL = #{id_email} 
  	</update> 
  	
  	<!-- 회원탈퇴  -->
- 	<delete id="memberDelete" parameterType="String">
- 		delete from MEMBER
+ 	<update id="memberDelete" parameterType="String">
+ 		update MEMBER set
+ 					ADMIN = -1
 		where ID_EMAIL = #{id_email}
-	</delete>
+	</update>
 	
 	<select id="getMember" parameterType="String" resultType="MemberModel">
 		<include refid="select-all-member" />
@@ -76,6 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="memberList" resultType="MemberModel">
 		<include refid="select-all-member" />
+		where admin >= 0
 		order by MEMBER_NUM desc
 	</select>
 </mapper>
