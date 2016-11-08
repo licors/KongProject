@@ -36,7 +36,7 @@ public class MemberController {
 
 	private List<ZipcodeModel> zipcodeList = new ArrayList<ZipcodeModel>();
 
-	@RequestMapping("/loginForm")
+	@RequestMapping("/login")
 	public String loginForm(Model model) {
 //		model.addAttribute("member", new MemberModel());
 		// Sha 암호값을 보기 위한 테스트용.
@@ -139,8 +139,18 @@ public class MemberController {
 
 	}
 	
+	@Secured("ROLE_USER")
 	@RequestMapping("/memberModifyForm")
 	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
+//		MemberModel userDetails = (MemberModel)SecurityContextHolder.getContext().getAuthentication().getDetails();
+//		logger.info("modifyForm "+ userDetails);
+//		if(userDetails != null) {
+//			MemberModel member = memberService.getMember(userDetails.getId_email());
+//			model.addAttribute("member", member);
+//			return "ti_memberModify";
+//		}
+//		return "ti_loginForm";
+		
 		if (session.getAttribute("session_member_id") != null) {
 			String id = (String) session.getAttribute("session_member_id");
 			member = memberService.getMember(id);
@@ -204,36 +214,36 @@ public class MemberController {
 		binder.setValidator(new MemberValidator());
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void login(HttpSession session) {
-		logger.info("Welcome login! {}", session.getId());
-		
-	}
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	public void login(HttpSession session) {
+//		logger.info("Welcome login! {}", session.getId());
+//		
+//	}
+//	
+//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//	public void logout(HttpSession session) {
+//		MemberModel userDetails = (MemberModel)session.getAttribute("userLoginInfo");
+//		
+//		logger.info("Welcome logout! {}, {}", session.getId(), userDetails.getUsername());
+//		
+//		
+//		session.invalidate();
+//	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public void logout(HttpSession session) {
-		MemberModel userDetails = (MemberModel)session.getAttribute("userLoginInfo");
-		
-		logger.info("Welcome logout! {}, {}", session.getId(), userDetails.getUsername());
-		
-		
-		session.invalidate();
-	}
-	
-	@RequestMapping("/login_success")
-	public String login_success(HttpSession session) {
-		MemberModel userDetails = (MemberModel)SecurityContextHolder.getContext().getAuthentication().getDetails();
-		 
-		logger.info("Welcome login_success! {}, {}", session.getId(), userDetails.getUsername() + "/" + userDetails.getPassword());
-		session.setAttribute("session_member_id", userDetails.getId_email());
-		session.setAttribute("session_member_name", userDetails.getName());
-		session.setAttribute("session_member_num", userDetails.getMember_num());
-		
-		if(userDetails.getAdmin() > 0) {
-			return "redirect:/admin/main";
-		}
-		return "redirect:/main";
-	}
+//	@RequestMapping("/login_success")
+//	public String login_success(HttpSession session) {
+//		MemberModel userDetails = (MemberModel)SecurityContextHolder.getContext().getAuthentication().getDetails();
+//		 
+//		logger.info("Welcome login_success! {}, {}", session.getId(), userDetails.getUsername() + "/" + userDetails.getPassword());
+//		session.setAttribute("session_member_id", userDetails.getId_email());
+//		session.setAttribute("session_member_name", userDetails.getName());
+//		session.setAttribute("session_member_num", userDetails.getMember_num());
+//		
+//		if(userDetails.getAdmin() > 0) {
+//			return "redirect:/admin/main";
+//		}
+//		return "redirect:/main";
+//	}
 	
 //	@RequestMapping(value = "/page1", method = RequestMethod.GET)
 //	public void page1(HttpSession session) {	

@@ -51,7 +51,6 @@ public class CommentController {
 		return "ti_commentList";
 	}
 	
-//	@LoginCheckBeforeFunctionStart
 //	@RequestMapping(value="/{showcase_num}/write", method=RequestMethod.GET)
 //	public String commentWriteForm(Model model, @PathVariable int showcase_num)throws Exception{
 //
@@ -59,7 +58,6 @@ public class CommentController {
 //		return "commentWriteform";
 //	}
 	
-	@LoginCheckBeforeFunctionStart
 	@RequestMapping(value="/{showcase_num}/commentWrite", method=RequestMethod.POST)
 	public String commentWrite(Model model, @PathVariable int showcase_num, CommentModel commentModel, BindingResult result)throws Exception{
 
@@ -67,7 +65,6 @@ public class CommentController {
 		return "redirect:/"+showcase_num + "/commentList/1";
 	}
 	
-	@LoginCheckBeforeFunctionStart
 	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.GET)
 	public String commentModifyForm(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
 		

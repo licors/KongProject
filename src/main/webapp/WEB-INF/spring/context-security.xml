@@ -22,15 +22,16 @@
 		<intercept-url pattern="/login_duplicate" access="permitAll" />
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/*/admin/**" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/order/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/order/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/basket/**" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/**" access="permitAll"/>
+		<!-- <intercept-url pattern="/**" access="permitAll"/> -->
 		
-		<form-login login-page="/member/loginForm" 
+		<form-login login-page="/member/login" 
 					username-parameter="id_email" 
 					password-parameter="password"		
 					login-processing-url="/loginProcess"
 					default-target-url="/main" 
+					authentication-success-handler-ref="customLoginSuccessHandler"
 					authentication-failure-url="/main"	
 					always-use-default-target='false'
 					/>
