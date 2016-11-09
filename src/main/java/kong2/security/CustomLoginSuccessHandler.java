@@ -165,7 +165,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		}
 		if(!"".equals(targetUrlParameter)) {
 			String tagetUrl = request.getParameter(targetUrlParameter);
-			logger.info("targetUrl" + tagetUrl);
+			logger.info("targetUrl : " + tagetUrl);
 			if(StringUtils.hasText(tagetUrl)) {
 				result = 2;
 			} else {
@@ -184,13 +184,13 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		}
 		
 		if(savedRequest != null) {
-			result = 2;
+			result = 3;
 			return result;
 		}
 		
 		String refererUrl = request.getHeader("REFERER");
 		if(useReferer && StringUtils.hasText(refererUrl)) {
-			result = 3;
+			result = 4;
 		} else {
 			result = 0;
 		}

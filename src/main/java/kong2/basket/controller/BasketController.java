@@ -25,6 +25,7 @@ import kong2.common.PagingAction;
 import kong2.faq.controller.FaqModel;
 import kong2.faq.controller.FaqService;
 import kong2.order.OrderModel;
+import kong2.showcase.ShowcaseController;
 
 @Controller
 @RequestMapping("/basket")
@@ -37,14 +38,14 @@ public class BasketController {
 	private String pagingHtml;
 	private PagingAction page;
 	private int num = 0;
-	
+	private String show_imgPath = ShowcaseController.imgPath; // 기준
 	
 	@Resource(name = "basketService")
 	private BasketService basketService;
 	
 	@LoginCheckBeforeFunctionStart
-	@RequestMapping("/list")
-	public String basketList(Model model,HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/list/{currentPage}")
+	public String basketList(@PathVariable int currentPage,Model model,HttpServletRequest request) throws Exception {
 
 	List<BasketModel> list=null;
 		OrderModel orderModel = new OrderModel();
@@ -64,7 +65,7 @@ public class BasketController {
 		
 		
 		totalCount = list.size();
-		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "basketList");
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "/basket/list");
 		pagingHtml = page.getPagingHtml().toString();
 		int lastCount = totalCount;
 
@@ -89,7 +90,7 @@ public class BasketController {
 		model.addAttribute("pagingHtml", pagingHtml);
 		model.addAttribute("list", list);
 		model.addAttribute("orderModel", orderModel);
-		
+		model.addAttribute("show_img", show_imgPath);
 		// 보여줄 tiles
 		return "basketList";
 
@@ -148,7 +149,7 @@ public class BasketController {
 	}
 	
 	
-	@LoginCheckBeforeFunctionStart
+	
 	@RequestMapping("/deleteAllBasket")
 	public String deleteAllBasket(Model model,HttpServletRequest request)throws Exception{
 		
@@ -159,6 +160,7 @@ public class BasketController {
 		
 		
 		basketService.basketDelete_all(member_num);
+		
 		return "/basket/deleteBasket";
 		
 		

@@ -8,7 +8,7 @@
 <script>
 	function Delete(){
 		alert("해당 티켓이 삭제되었습니다.");
-		window.location.href='/basket/list?currentPage=${currentPage}';
+		window.location.href='/basket/list';
 		//window.location.href='/basket/basketList.action'
 	}
 </script>
