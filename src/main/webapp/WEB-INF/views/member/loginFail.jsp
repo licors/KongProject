@@ -4,7 +4,7 @@
 <script>
 function Error(){
 	alert("로그인 실패하였습니다.");
-	window.location.href='/member/loginForm';
+	window.location.href='/member/login';
 }
 </script>
 

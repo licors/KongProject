@@ -93,7 +93,7 @@
                                 </a>
                                 <!-- Sub menu -->
                                 <ul>
-                                    <li><a href="member/admin/list">리스트</a></li>
+                                    <li><a href="/member/admin/list">리스트</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -104,6 +104,7 @@
                                 <!-- Sub menu -->
                                 <ul>
                                     <li><a href="/order/admin/list">리스트</a></li>
+                                    <li><a href="/order/admin/form">쓰기</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">

@@ -24,10 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- select 쿼리문 정의 -->	
 	<select id="selectAll" resultType="CommentModel" parameterType="int">
-		SELECT cm.COMMENT_NUM, cm.SHOWBOARD_NUM, cm.MEMBER_NUM, cm.CONTENT, cm.REG_DATE, mb."NAME"
+		SELECT cm.COMMENT_NUM, cm.SHOWCASE_NUM, cm.MEMBER_NUM, cm.CONTENT, cm.REG_DATE, mb."NAME"
 		FROM SHOWCASECOMMENT cm join MEMBER mb
 		on cm.MEMBER_NUM = mb.MEMBER_NUM
-		where cm.SHOWBOARD_NUM = #{showboard_num}
+		where cm.SHOWCASE_NUM = #{showcase_num}
 		ORDER BY cm.COMMENT_NUM DESC
 	</select> 
 
@@ -42,13 +42,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- insert 쿼리문 정의 -->
 	<insert id="insert" parameterType="CommentModel">
-		INSERT INTO SHOWCASECOMMENT(COMMENT_NUM, SHOWBOARD_NUM, MEMBER_NUM, CONTENT, REG_DATE)
-		VALUES (COMMENT_NUM_SEQ.NEXTVAL, #{showboard_num}, #{member_num}, #{content}, #{reg_date})
+		INSERT INTO SHOWCASECOMMENT(COMMENT_NUM, SHOWCASE_NUM, MEMBER_NUM, CONTENT, REG_DATE)
+		VALUES (COMMENT_NUM_SEQ.NEXTVAL, #{showcase_num}, #{member_num}, #{content}, #{reg_date})
 	</insert>
 	
 <!-- 	<insert id="insertBoardReply" parameterType="CommentModel">
-		INSERT INTO SHOWCASECOMMENT(COMMENT_NUM, SHOWBOARD_NUM, MEMBER_NUM, CONTENT, REG_DATE)
-		VALUES (COMMENT_NUM_SEQ.NEXTVAL, #showboard_num#, #member_num#, #content#, #reg_date#)
+		INSERT INTO SHOWCASECOMMENT(COMMENT_NUM, SHOWCASE_NUM, MEMBER_NUM, CONTENT, REG_DATE)
+		VALUES (COMMENT_NUM_SEQ.NEXTVAL, #SHOWCASE_num#, #member_num#, #content#, #reg_date#)
 	</insert> -->
 
 	<!-- update 쿼리문 정의 -->

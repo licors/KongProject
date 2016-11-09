@@ -150,6 +150,27 @@
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
+							<td width="100"><label for="payment_type">일반결제</label></td>
+							<td><form:input path="payment_type" class="form-control"
+									type="text" name="payment_type" maxlength="20"
+									value="${orderModel.payment_type}" readonly="true" /></td>
+						</tr>
+						<tr>
+							<td width="100"><label for="bank_account">입금은행</label></td>
+							<td><form:input path="bank_account" class="form-control"
+									type="text" name="bank_account" maxlength="20"
+									value="${orderModel.bank_account}" readonly="true" /></td>
+						</tr>
+						<tr>
+							<td width="100"><label for="payment_payer">입금자 명</label></td>
+							<td><form:input path="payment_payer" class="form-control"
+									type="text" name="payment_payer" maxlength="20"
+									value="${orderModel.payment_payer}" readonly="true" /></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
 							<td width="100"><label for="tel">티켓(바코드)</label></td>
 							<td align="center" colspan="2">
 							<c:if test="${orderModel.order_status eq '티켓 신청' }">

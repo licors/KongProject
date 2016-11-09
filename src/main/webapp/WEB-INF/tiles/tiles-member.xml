@@ -46,6 +46,15 @@
     <definition name="ti_memberPasswordCheck" extends="memberMain">
     	<put-attribute name="body" value="/WEB-INF/views/member/memberPasswordCheck.jsp"></put-attribute>
     </definition> 
-
+	
+	<definition name="ti_admin_memberList" extends="default_admin">
+		<put-attribute name="tab" value="회원 리스트" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/member/memberList.jsp" />
+	</definition>
+	
+	<definition name="ti_admin_memberModify" extends="default_admin">
+		<put-attribute name="tab" value="회원 정보 수정" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/member/memberModify.jsp" />
+	</definition>
 </tiles-definitions>
 

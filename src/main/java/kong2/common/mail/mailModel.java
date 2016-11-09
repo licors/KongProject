@@ -8,6 +8,7 @@ public class mailModel {
     private String emailFrom;
     private String subject;
     private String message;
+    private int support_num;
     private File file;
 
     public String getEmailTo() {
@@ -50,9 +51,17 @@ public class mailModel {
         this.file = file;
     }
 
+    public int getSupport_num() {
+        return support_num;
+    }
+
+    public void setSupport_num(int support_num) {
+        this.support_num = support_num;
+    }
+
     @Override
     public String toString() {
-        return "mailModel{" + "emailTo=" + emailTo + ", emailFrom=" + emailFrom + ", subject=" + subject + ", message=" + message + ", file=" + file + '}';
+        return "mailModel{" + "emailTo=" + emailTo + ", emailFrom=" + emailFrom + ", subject=" + subject + ", message=" + message + ", support_num=" + support_num + ", file=" + file + '}';
     }
 
 }

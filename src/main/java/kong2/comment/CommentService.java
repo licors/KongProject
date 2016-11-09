@@ -15,11 +15,11 @@ public class CommentService implements CommentDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public List<CommentModel> selectall(int showcase_num) {
+	public List<CommentModel> selectAll(int showcase_num) {
 		// TODO Auto-generated method stub
 		List<CommentModel> list;
 		CommentMapper commentMapper = sqlSession.getMapper(CommentMapper.class);
-		list = commentMapper.selectall(showcase_num);
+		list = commentMapper.selectAll(showcase_num);
 		return list;
 	}
 

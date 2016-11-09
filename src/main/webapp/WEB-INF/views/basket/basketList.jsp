@@ -54,8 +54,8 @@
 								<form:hidden path="total_price" value="${total_price }"/>
 								<input type="submit" value="전체 신청" class="btn btn-sm btn-default"/>
 							</form:form>
-							<input type="button" name="list" value="전체삭제"
-								onClick="location.href='/delete/deleteAllBasket'"
+							<input type="button" name="deleteAllBasket" value="전체삭제"
+								onClick="location.href='/basket/deleteAllBasket'"
 								class="btn btn-sm btn-default">
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/main'"
@@ -80,8 +80,8 @@
                 </div>
                 <a href ='/main/view/${list.showcase_num }'target="_blank">
                     <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
-                    <img src="../showcaseImg/<s:property value="file_savname.split(',')[0]"/>" class="img-responsive"
-                        onerror="javascript:this.src='/template/image/main/noimg.png'"></></a>
+                    <img src="${show_img}${list.file_savname.split(',')[0]}" class="img-responsive">
+                        </a>
                 <!-- img -->
 
 					<!-- over layer -->
@@ -125,7 +125,7 @@
 						style="font-size: 12px; color: #666;">
 						<div style="float: left;">
 							<input type="button" name="order" value="신청"
-								onClick="location.href='/order/form/${list.showcase_num }'"
+								onClick="location.href='/order/check/${list.showcase_num }'"
 								class="btn btn-xs btn-success">
 								
 								<input type="button"

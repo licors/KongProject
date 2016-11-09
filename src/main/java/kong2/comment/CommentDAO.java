@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CommentDAO {
 	
-	List<CommentModel> selectall(int showcase_num);
+	List<CommentModel> selectAll(int showcase_num);
 	
 	//글 보기
 	CommentModel selectOne(int comment_num);

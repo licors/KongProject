@@ -53,7 +53,7 @@
 				<td>
 					<form:input type="text" name="phone" class="txt w200" path="phone" onclick="this.value=''" /> 
 					<font color="red">
-						<form:errors path="company" />
+						<form:errors path="phone" />
 					</font>
 				</td>
 			</tr>
@@ -67,38 +67,12 @@
 					</font>
 				</td>
 			</tr>
-
-            <tr>
-				<th scope="row" id="nameZipcode">우편번호</th>
-				<td>
-					<form:input type="text" name="zipcode" class="txt w200" path="zipcode" onclick="this.value=''" /> 
-					<font color="red">
-						<form:errors path="zipcode" />
-					</font>
-				</td>
-			</tr>
-			
-			<tr>
-				<th scope="row" id="nameCompany">주소</th>
-				<td>
-					<form:input type="text" name="address" class="txt w200" path="address" onclick="this.value=''" /> 
-					<font color="red">
-						<form:errors path="address" />
-					</font>
-				</td>
-				<td>
-					<form:input type="text" name="address2" class="txt w200" path="address2" onclick="this.value=''" /> 
-					<font color="red">
-						<form:errors path="address2" />
-					</font>
-				</td>
-			</tr>
             	
             <tr height="35">
                 <td colspan="2" align="center">
                     <input class="btn btn-success btn-sm" type="submit" name="confirm" value="정보수정" onclick="modify()"> 
                     <input class="btn btn-success btn-sm" type="button" value="회원탈퇴" onClick="javascript:location.href='${contextPath}/member/memberDeleteForm'">
-                    <input class="btn btn-default btn-sm" type="button" value="취소" onClick="javascript:location.href='${contextPath}/main">
+                    <input class="btn btn-default btn-sm" type="button" value="취소" onClick="javascript:location.href='${contextPath}/main'">
                 </td>
             </tr>
         </table>

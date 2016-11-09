@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%@taglib prefix="s" uri="http://www.springframework.org/tags" %> 
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div>
     <section>
@@ -12,37 +12,46 @@
                     <div style="float: left;padding-top:4px;"></div>
                     <div style="float:right;height:28px">
                         <ul>
-                            <%-- <c:choose> --%>
                             <sec:authorize access="hasRole('ROLE_USER')">
-                                <%-- <c:when test="${!empty member}"> <!-- 로그인 함 --> --%>
-                                <sec:authentication var="member" property="principal" />
+                                <sec:authentication var="userDetail" property="principal" />
+                                <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/memberModifyForm">${userDetail.name }</a></li>
                                 <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/logout">로그아웃</a></li>
                                 <li class="dropdown topshortlink" style="list-style:none; display:inline-block;">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">마이페이지 <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/order/list">마이티켓</a></li>
-                                        <li><a href="/basket/list">관심티켓</a></li>
-                                        <li><a href="/support/list/${member.member_num}">1:1 문의</a></li>
+                                        <li><a href="/order/list/1">마이티켓</a></li>
+                                        <li><a href="/basket/list/1">관심티켓</a></li>
+                                        <li><a href="/support/write/${userDetail.member_num}">1:1 문의</a></li>
                                         <li><a href="/member/memberModifyForm">내정보</a></li>
+                                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <li><a href="/admin/main">관리</a></li>
+                                            </sec:authorize>
+                                    </ul>
+                                </li>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <sec:authentication var="userDetail" property="principal" />
+                                <li class="topshortlink" style="list-style:none; display:inline-block;">${userDetail.name }</li>
+                                <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/logout">로그아웃</a></li>
+                                <li class="dropdown topshortlink" style="list-style:none; display:inline-block;">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">마이페이지 <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/admin/main">관리</a></li>
                                     </ul>
                                 </li>
                             </sec:authorize>
                             <sec:authorize access="isAnonymous()">
-                                <%-- <c:when test="${empty member}"> <!-- 로그인 안함 --> --%>
-                                <li class="topshortlink" style="list-style:none; display:inline-block;"><img style="height:28px;"><a class="login-button" href="/member/loginForm">로그인</a></li>
+                                <li class="topshortlink" style="list-style:none; display:inline-block;"><img style="height:28px;"><a class="login-button" href="/member/login">로그인</a></li>
                                 <li class="topshortlink" style="list-style:none; display:inline-block;"><a class="login-button" href="/member/memberJoin">회원가입</a></li>
-                                    <%-- </c:when> --%>
                                 </sec:authorize>
-                                <%-- </c:when> --%>
-                                <%-- </c:choose> --%>
                             <li class="dropdown topshortlink" style="list-style:none; display:inline-block;">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">고객센터 <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="/fag/list">FAQ</a>
+                                        <a href="/faq/list_user">FAQ</a>
                                     </li>
                                     <li>
-                                        <a href="/notice/list">공지사항</a>
+                                        <a href="/notice/list_user">공지사항</a>
                                     </li>
                                 </ul>
                             </li>

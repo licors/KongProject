@@ -40,19 +40,42 @@ public class mailService implements mailDAO {
         logger.debug("Sending report by email...");
         boolean retVal = false;
         try {
-            final String emailTo = model.getEmailTo();
-            final String emailFrom = model.getEmailFrom();
-            final String subject = model.getSubject();
-            final String message = model.getMessage();
-
             MimeMessagePreparator preparator = new MimeMessagePreparator() {
                 public void prepare(MimeMessage mimeMessage) throws Exception {
                     MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                    message.setTo(emailTo);
-                    message.setFrom(emailFrom); // 파라미터화할 수 있다...
-                    Map model = new HashMap();
-                    model.put("model", model);
-                    final String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "classpath:mail.html", "utf-8", model);
+                    message.setTo(model.getEmailTo());
+                    message.setFrom(model.getEmailFrom());
+                    message.setSubject(model.getSubject());
+                    Map model2 = new HashMap();
+                    model2.put("model", model);
+                    model2.put("support_num", model.getSupport_num());
+                    final String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "classpath:mail.html", "utf-8", model2);
+                    message.setText(text, true);
+                }
+            };
+            this.mailSender.send(preparator);
+
+            retVal = true;
+        } catch (Exception e) {
+            logger.error("Can't send email... " + e.getMessage(), e);
+        }
+        return retVal;
+    }
+
+    @Override
+    public boolean adminsend(mailModel model) {
+        logger.debug("Sending report by email...");
+        boolean retVal = false;
+        try {
+            MimeMessagePreparator preparator = new MimeMessagePreparator() {
+                public void prepare(MimeMessage mimeMessage) throws Exception {
+                    MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                    message.setTo(model.getEmailTo());
+                    message.setFrom(model.getEmailFrom());
+                    Map model2 = new HashMap();
+                    model2.put("model", model);
+                    model2.put("support_num", model.getSupport_num());
+                    final String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "classpath:adminmail.html", "utf-8", model2);
                     message.setText(text, true);
                 }
             };
