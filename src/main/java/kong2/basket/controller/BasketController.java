@@ -44,8 +44,8 @@ public class BasketController {
 	private BasketService basketService;
 	
 	@LoginCheckBeforeFunctionStart
-	@RequestMapping("/list")
-	public String basketList(Model model,HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/list/{currentPage}")
+	public String basketList(@PathVariable int currentPage,Model model,HttpServletRequest request) throws Exception {
 
 	List<BasketModel> list=null;
 		OrderModel orderModel = new OrderModel();
@@ -65,7 +65,7 @@ public class BasketController {
 		
 		
 		totalCount = list.size();
-		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "basketList");
+		page = new PagingAction(currentPage, totalCount, blockCount, blockPage, "/basket/list");
 		pagingHtml = page.getPagingHtml().toString();
 		int lastCount = totalCount;
 
