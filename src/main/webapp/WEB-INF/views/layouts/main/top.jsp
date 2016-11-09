@@ -48,7 +48,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">고객센터 <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="/fag/list">FAQ</a>
+                                        <a href="/faq/list_user">FAQ</a>
                                     </li>
                                     <li>
                                         <a href="/notice/list_user">공지사항</a>
