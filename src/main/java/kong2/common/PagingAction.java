@@ -63,15 +63,17 @@ public class PagingAction {
 				break;
 			}
 			if (i == currentPage) {
-				pagingHtml.append("<strong>");
+				pagingHtml.append("<strong><font color='red'>");
 				pagingHtml.append(i);
-				pagingHtml.append("</strong>");
+				pagingHtml.append("</font></strong>");
+				pagingHtml.append("&nbsp&nbsp");
 			} else {
 				pagingHtml.append("<a href=" + mappingName + "/");
 				pagingHtml.append(i);
 				pagingHtml.append(">");
 				pagingHtml.append(i);
 				pagingHtml.append("</a>");
+				pagingHtml.append("&nbsp&nbsp");
 			}
 		}
 
