@@ -78,7 +78,8 @@
 						<tr>
 							<td><a href='/main/view/${orderModel.showcase_num }'
 								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
-									<img src="${show_img}${orderModel.file_savname.split(',')[0]}" class="img-responsive">
+									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
+									class="img-responsive">
 							</a></td>
 							<td>
 								<h3>
@@ -86,16 +87,15 @@
 										${orderModel.show_addr }<br> <fmt:formatDate
 											value="${orderModel.start_date }" pattern="yyyy년  MM월 dd일" />
 										- <fmt:formatDate value="${orderModel.end_date }"
-											pattern="yyyy년  MM월 dd일" /> <br>
-											<c:choose>
-												<c:when test="${orderModel.show_price eq 0 }">
+											pattern="yyyy년  MM월 dd일" /> <br> <c:choose>
+											<c:when test="${orderModel.show_price eq 0 }">
 													무료
 												</c:when>
-												<c:otherwise>
+											<c:otherwise>
 													${orderModel.show_price } 원
 												</c:otherwise>
-											</c:choose>
-											
+										</c:choose>
+
 									</small>
 								</h3>
 							</td>
@@ -172,22 +172,22 @@
 						</tr>
 						<tr>
 							<td width="100"><label for="tel">티켓(바코드)</label></td>
-							<td align="center" colspan="2">
-							<c:if test="${orderModel.order_status eq '티켓 신청' }">
-									<img src="${img}"
-									style="cursor: pointer;"
-									onclick="doImgPop('${img}')" width="400"/>
+							<td align="center" colspan="2"><c:if
+									test="${orderModel.order_status eq '티켓 신청' }">
+									<img src="${img}" style="cursor: pointer;"
+										onclick="doImgPop('${img}')" width="400" />
 								</c:if> <br> <small>* 티켓을 취소 하시면 바코드는 즉시 폐기 됩니다.</small></td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<td align="center" colspan="5"><c:if
+							<td align="center" colspan="5">
+								<!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 --> <c:if
 									test="${orderModel.order_status eq '티켓 신청' }">
 									<input type="submit" name="cancelTicket" value="티켓취소"
 										class="btn btn-success btn-sm">
-								</c:if> <!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 --> <c:choose>
+								</c:if> <c:choose>
 									<c:when test="${orderModel.member_num eq 998 }">
 										<!-- 관리자일때 관리자 페이지로 이동 -->
 										<input type="button" name="list" value="목록으로"
@@ -200,7 +200,8 @@
 											onClick="location.href='/order/list/1'"
 											class="btn btn-default btn-sm">
 									</c:otherwise>
-								</c:choose></td>
+								</c:choose>
+							</td>
 						</tr>
 					</table>
 				</form:form>

@@ -20,7 +20,7 @@
 <body>
 <body>
 	<c:choose>
-		<c:when test="${fn:length(basketList) ne 0 }">
+		<c:when test="${orderModel.flag eq 1 }">
 			<c:set var="actionAddr" value="${contextpath }/order/insert_B" />
 		</c:when>
 		<c:otherwise>
@@ -78,6 +78,7 @@
 							<form:hidden path="phone" value="${orderModel.phone }" />
 							<form:hidden path="total_price"
 								value="${orderModel.total_price }" />
+							<form:hidden path="payment_type" value="${orderModel.payment_type }"/>
 						</form:form>
 					</div>
 				</div>

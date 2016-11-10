@@ -61,14 +61,13 @@ public class OrderController {
 	private BasketService basketService;
 
 	ShowcaseModel showcaseModel = new ShowcaseModel();
+	ShowcaseModel showcaseParam = new ShowcaseModel();
 	OrderModel orderParam = new OrderModel();
 	MemberModel memberModel = new MemberModel();
 
 	private List<OrderModel> orderList = new ArrayList<OrderModel>();
 	private List<BasketModel> basketList = new ArrayList<BasketModel>();
 	private List<String> show_savimage = new ArrayList<String>();
-
-	Calendar today = Calendar.getInstance();
 
 	// 각 기능 키 값
 	private int order_num;
@@ -94,12 +93,16 @@ public class OrderController {
 	// 바코드 이미지 경로
 	private String imgPath = "/resources/image/barcodeImg/";
 	private String uploadPath = "C:\\khproject\\src\\main\\webapp\\resources\\image\\barcodeImg\\"; // 이클립스
-	private String show_imgPath = ShowcaseController.imgPath; // 기준
-	// 업로드
+	private String show_imgPath = ShowcaseController.imgPath;
+
+	// 장바구니에서 주문했을 때 1로 바뀜
+	private int flag = 0;
+	
+	Calendar today = Calendar.getInstance();
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-	// 장바구니에 넣을때, 한개 주문할때 실행 됨
+	// 한개 주문할때 실행 됨 (중복 신청 방지)
 	@RequestMapping(value = "/check/{showcase_num}", method = RequestMethod.GET)
 	public String orderCheck(Model model, @PathVariable int showcase_num, Locale locale, HttpServletRequest request,
 			HttpSession session) throws Exception {
@@ -125,8 +128,7 @@ public class OrderController {
 		}
 	}
 
-	// (1개 전시) 신청 폼 (showcase, main, 장바구니 신청 시 showcase_num이나 showcaseModel
-	// 전달받기)
+	// (1개 전시) 신청 폼
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String orderForm(@ModelAttribute OrderModel orderModel, Model model, Locale locale,
 			HttpServletRequest request, HttpSession session) throws Exception {
@@ -165,12 +167,18 @@ public class OrderController {
 		// bank_account, payment_type, payment_payer
 	}
 
-	// (1개 전시) 1차 신청 처리
+	// (1개 전시) 무통장 입금 처리
 	@RequestMapping(value = "/pro/cash", method = RequestMethod.POST)
 	public String orderPro(Model model, @ModelAttribute OrderModel orderModel, HttpServletRequest request,
 			HttpSession session, Locale locale) {
-		logger.info("welcome order process - cash...", locale);
+		if (orderModel.getFlag() == 1) {
+			logger.info("welcome basket order process - cash...", locale);
+		} else {
+			logger.info("welcome order process - cash...", locale);
+		}
+
 		System.out.println("model:" + orderModel.toString());
+
 		// 계좌 options
 		ArrayList<String> bank_account = new ArrayList<String>();
 		bank_account.add("신한 110-1234-4566");
@@ -182,19 +190,32 @@ public class OrderController {
 
 		return "orderProCash";
 	}
-	
-	@RequestMapping(value="/pro/credit", method=RequestMethod.POST)
+
+	// (1개 전시) 카드결제 처리
+	@RequestMapping(value = "/pro/credit", method = RequestMethod.POST)
 	public String orderProCredit(Model model, @ModelAttribute OrderModel orderModel, Locale locale, HttpSession session,
 			HttpServletRequest request) {
-		logger.info("welcome order process - credit card...", locale);
+		if (orderModel.getFlag() == 1) {
+			logger.info("welcome basket order process - credit card...", locale);
+		} else {
+			logger.info("welcome order process - credit card...", locale);
+		}
+
 		session = request.getSession();
-		
+
 		session.setAttribute("orderModel", orderModel);
 		model.addAttribute("orderModel", orderModel);
-		
+
 		return "orderProCredit";
 	}
 
+	// 카드결제시 성공화면
+	@RequestMapping(value = "/success/credit/{flag}")
+	public String search(@PathVariable int flag, Model model) throws Exception {
+		model.addAttribute("flag", flag);
+		return "orderSuccessCredit";
+	}
+	
 	// (1개 전시) 신청 완료 처리
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String orderInsert(Model model, @ModelAttribute OrderModel orderModel, Locale locale, HttpSession session,
@@ -202,16 +223,16 @@ public class OrderController {
 		logger.info("welcome order insert.", locale);
 
 		session = request.getSession();
-		
+
 		orderParam = (OrderModel) session.getAttribute("orderModel");
-	
-		//신용카드 결제 시 
-		if(orderParam != null) {
+
+		// 신용카드 결제 시
+		if (orderParam != null) {
 			orderModel = orderParam;
 			session.setAttribute("orderModel", null);
 			orderModel.setBank_account("-");
 			orderModel.setPayment_payer("-");
-		} 
+		}
 
 		member_num = (Integer) session.getAttribute("session_member_num");
 		showcase_num = orderModel.getShowcase_num();
@@ -282,37 +303,7 @@ public class OrderController {
 		return "orderForm";
 	}
 
-	// basket(다수) 신청처리
-	@RequestMapping(value = "/pro_B", method = RequestMethod.POST)
-	public String orderPro_B(Model model, Locale locale, HttpServletRequest request, HttpSession session,
-			@ModelAttribute OrderModel orderModel) {
-		logger.info("welcome basket order progress...", locale);
-
-		session = request.getSession();
-
-		id_email = (String) session.getAttribute("session_member_id");
-		member_num = (Integer) session.getAttribute("session_member_num");
-
-		basketList = basketService.BasketList(member_num);
-
-		orderModel.setMember_num(member_num);
-		orderModel.setId_email(id_email);
-
-		// 계좌 options
-		ArrayList<String> bank_account = new ArrayList<String>();
-		bank_account.add("신한 110-1234-4566");
-		bank_account.add("국민 122-2345-5566");
-		bank_account.add("농협 124-1234-5556");
-
-		model.addAttribute("bank_account", bank_account);
-		model.addAttribute("memberModel", memberModel);
-		model.addAttribute("basketList", basketList);
-		model.addAttribute("orderModel", orderModel);
-
-		return "orderPro";
-	}
-
-	// basket(다수) DB insert
+	// basket(다수) 신청 완료 처리
 	@RequestMapping(value = "/insert_B", method = RequestMethod.POST)
 	public String orderInsert_B(Locale locale, HttpSession session, HttpServletRequest request,
 			@ModelAttribute OrderModel orderModel) {
@@ -320,6 +311,15 @@ public class OrderController {
 		logger.info("welcome basket order insert...", locale);
 
 		session = request.getSession();
+
+		// 신용카드 결제 시
+		orderParam = (OrderModel) session.getAttribute("orderModel");
+		if (orderParam != null) {
+			orderModel = orderParam;
+			session.setAttribute("orderModel", null);
+			orderModel.setBank_account("-");
+			orderModel.setPayment_payer("-");
+		}
 
 		member_num = (Integer) session.getAttribute("session_member_num");
 
@@ -332,8 +332,8 @@ public class OrderController {
 
 		for (int i = 0; i < basketList.size(); i++) {
 			basketModel = basketList.get(i);
-			showcaseModel.setShowcase_num(basketModel.getShowcase_num());
-			showcaseModel = showcaseService.selectone(showcaseModel);
+			showcaseParam.setShowcase_num(basketModel.getShowcase_num());
+			showcaseModel = showcaseService.selectone(showcaseParam);
 
 			// 바코드 넘버 생성
 			String str1 = Integer.toString(orderModel.getMember_num());
@@ -357,7 +357,7 @@ public class OrderController {
 			orderService.ordercountPlus(showcaseModel);
 
 			orderModel.setPayment_date(today.getTime()); // 수정하기
-
+			System.out.println("model:" + orderModel.toString());
 			orderService.insert_order(orderModel);
 
 			// basket리스트 삭제
@@ -530,6 +530,7 @@ public class OrderController {
 		return "adminOrderList";
 	}
 
+	//관리자용 신청 폼
 	@RequestMapping(value = "/admin/form")
 	public String adminOrderForm(Locale locale, Model model) throws Exception {
 		logger.info("welcome admin order form.", locale);
@@ -549,6 +550,7 @@ public class OrderController {
 		return "adminOrderForm";
 	}
 
+	//관리자용 신청 db
 	@RequestMapping(value = "/admin/insert")
 	public String adminOrderInsert(@ModelAttribute OrderModel orderModel, Locale locale, Model model) throws Exception {
 		logger.info("welcome admin order form.", locale);
@@ -652,12 +654,6 @@ public class OrderController {
 		 */
 
 		return "adminOrderList";
-	}
-
-	// 카드결제시 성공화면
-	@RequestMapping(value = "/success/credit")
-	public String search(Model model) throws Exception {
-		return "orderSuccessCredit";
 	}
 
 	@InitBinder

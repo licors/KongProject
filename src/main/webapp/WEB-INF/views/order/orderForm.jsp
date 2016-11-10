@@ -54,10 +54,10 @@
 			var orderForm = eval("document.orderForm");
 
 			if (orderForm.payment_type.value == "신용카드") {
-				document.orderForm.action = "/order/insert_B";
+				document.orderForm.action = "/order/pro/credit";
 				document.orderForm.submit();
 			} else {
-				document.orderForm.action = "/order/pro_B";
+				document.orderForm.action = "/order/pro/cash";
 				document.orderForm.submit();
 			}
 		} 
@@ -86,6 +86,7 @@
 							class="form-control-static">
 							<form:hidden path="total_price"
 								value="${orderModel.total_price }" />
+							<form:hidden path="flag" value="1"/>
 							<table align="center" class="table-condensed">
 								<c:forEach items="${basketList}" var="basket" varStatus="status">
 									<tr>
@@ -93,18 +94,12 @@
 											src="${show_img}${basket.file_savname.split(',')[0]}"
 											class="img-responsive"></td>
 										<td>
-											<!-- <h3>
-											<s:property value="subject" />
-											<br> <small> <s:property value="address2" /><br>
-												<s:property value="date" />
-											</small>
-										</h3> -->
 											<h4>
 												${basket.subject } <br> <small>
 													${basket.address2 }<br> <fmt:formatDate
 														value="${basket.start_date }" pattern="yyyy년  MM월 dd일" />
 													- <fmt:formatDate value="${basket.end_date }"
-														pattern="yyyy년  MM월 dd일" /><br> ${basket.price }
+														pattern="yyyy년  MM월 dd일" /><br> <b>${basket.price } 원</b>
 												</small>
 											</h4>
 										</td>
