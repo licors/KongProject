@@ -124,7 +124,7 @@
                                 </a>
                                 <!-- Sub menu -->
                                 <ul>
-                                    <li><a href="notice/admin/list">리스트</a></li>
+                                    <li><a href="/notice/list_admin/1">리스트</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">

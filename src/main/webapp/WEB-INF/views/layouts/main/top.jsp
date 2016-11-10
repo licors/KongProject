@@ -51,7 +51,7 @@
                                         <a href="/faq/list_user">FAQ</a>
                                     </li>
                                     <li>
-                                        <a href="/notice/list_user">공지사항</a>
+                                        <a href="/notice/list_user/1">공지사항</a>
                                     </li>
                                 </ul>
                             </li>

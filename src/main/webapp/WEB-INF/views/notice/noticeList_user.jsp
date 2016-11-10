@@ -44,7 +44,7 @@
                         </c:url>
                         <tr>
                             <td><p class="text-center">${list.notice_num }</p></td>
-                            <td><p class="">&nbsp;<a href="${viewURL}">${list.subject }</a></p></td>
+                            <td><p class="">&nbsp;<a href="/notice/view1/${list.notice_num }">${list.subject }</a></p></td>
                            <%--  <td><p class="text-center">${list.reg_date }</p></td> --%>
                            <td><fmt:formatDate value="${list.reg_date}" pattern="yyyy.MM.dd"></fmt:formatDate></td>
                             <td><p class="text-center">${list.readcount }</p></td>
