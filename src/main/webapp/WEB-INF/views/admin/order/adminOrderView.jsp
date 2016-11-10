@@ -52,11 +52,13 @@
 	}
 </script>
 <!-- <style type="text/css">
-.container { /*컨테이너를 덮어서 고정 폭 사용*/
- 	width: 600px;
-	max-width: 600px;
-} 
-</style>-->
+element.style {
+	padding: 10px;
+	background-color: #E1060A;
+	color: #FFFFFF;
+	text-align: center;
+}
+</style> -->
 </head>
 <body>
 	<div class="container">
@@ -180,7 +182,7 @@
 								<!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 --> <c:if
 									test="${orderModel.order_status eq '티켓 신청' }">
 									<input type="submit" name="cancelTicket" value="티켓취소"
-										class="btn btn-success btn-sm">
+										class="btn btn-success btn-sm">&nbsp;&nbsp;
 								</c:if> <c:choose>
 									<c:when test="${orderModel.member_num eq 998 }">
 										<!-- 관리자일때 관리자 페이지로 이동 -->

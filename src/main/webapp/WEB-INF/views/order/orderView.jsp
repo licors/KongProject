@@ -58,6 +58,12 @@
 	width: 600px;
 	max-width: none !important;
 }
+element.style {
+	padding: 10px;
+	background-color: #E1060A;
+	color: #FFFFFF;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -176,7 +182,7 @@
 									test="${orderModel.order_status eq '티켓 신청' }">
 									<img src="${img}" style="cursor: pointer;"
 										onclick="doImgPop('${img}')" width="400" />
-								</c:if> <br> <small>* 티켓을 취소 하시면 바코드는 즉시 폐기 됩니다.</small></td>
+								</c:if> <br> <small>* 신청을 취소 하시면 바코드는 즉시 폐기 됩니다.</small></td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
@@ -186,22 +192,26 @@
 								<!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 --> <c:if
 									test="${orderModel.order_status eq '티켓 신청' }">
 									<input type="submit" name="cancelTicket" value="티켓취소"
-										class="btn btn-success btn-sm">
+										class="btn btn-purple btn-block btn-lg cgt-single-load"
+										style="padding: 10px; background-color: #E1060A; color: #FFFFFF; text-align: center;">
 								</c:if> <c:choose>
 									<c:when test="${orderModel.member_num eq 998 }">
 										<!-- 관리자일때 관리자 페이지로 이동 -->
 										<input type="button" name="list" value="목록으로"
 											onClick="location.href='/order/admin/list'"
-											class="btn btn-default btn-sm">
+											class="btn btn-default btn-block btn-lg cgt-single-load">
 									</c:when>
 									<c:otherwise>
 										<!-- 일반 회원일때 본인 신청 목록으로 -->
 										<input type="button" name="list" value="목록으로"
 											onClick="location.href='/order/list/1'"
-											class="btn btn-default btn-sm">
+											class="btn btn-default btn-block btn-lg cgt-single-load">
 									</c:otherwise>
 								</c:choose>
 							</td>
+						</tr>
+						<tr>
+							&nbsp;&nbsp;
 						</tr>
 					</table>
 				</form:form>

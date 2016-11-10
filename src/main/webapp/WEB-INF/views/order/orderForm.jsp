@@ -60,7 +60,7 @@
 				document.orderForm.action = "/order/pro/cash";
 				document.orderForm.submit();
 			}
-		} 
+		}
 
 	}
 </script>
@@ -68,6 +68,13 @@
 .container { /*컨테이너를 덮어서 고정 폭 사용*/
 	width: 600px;
 	max-width: none !important;
+}
+
+element.style {
+	padding: 10px;
+	background-color: #E1060A;
+	color: #FFFFFF;
+	text-align: center;
 }
 </style>
 </head>
@@ -86,7 +93,7 @@
 							class="form-control-static">
 							<form:hidden path="total_price"
 								value="${orderModel.total_price }" />
-							<form:hidden path="flag" value="1"/>
+							<form:hidden path="flag" value="1" />
 							<table align="center" class="table-condensed">
 								<c:forEach items="${basketList}" var="basket" varStatus="status">
 									<tr>
@@ -99,7 +106,8 @@
 													${basket.address2 }<br> <fmt:formatDate
 														value="${basket.start_date }" pattern="yyyy년  MM월 dd일" />
 													- <fmt:formatDate value="${basket.end_date }"
-														pattern="yyyy년  MM월 dd일" /><br> <b>${basket.price } 원</b>
+														pattern="yyyy년  MM월 dd일" /><br> <b>${basket.price }
+														원</b>
 												</small>
 											</h4>
 										</td>
@@ -208,12 +216,19 @@
 												아니오 </label></b>
 									</td>
 								</tr>
+								<tr>
+									<td colspan="6">&nbsp;</td>
+								</tr>
 								<tr height="50">
 									<td colspan="2" align="center"><input type="submit"
-										name="submit" value="신청" class="btn btn-success btn-sm">
-										&nbsp;&nbsp; <input type="button" name="back" value="취소"
+										name="submit" value="신청"
+										class="btn btn-purple btn-block btn-lg cgt-single-load"
+										style="padding: 10px; background-color: #E1060A; color: #FFFFFF; text-align: center;">
+										<input type="button" name="back" value="취소"
 										onClick="javascript:history.go(-1)"
-										class="btn btn-default btn-sm" /></td>
+										class="btn btn-default btn-block btn-lg cgt-single-load" /></td>
+								</tr>
+								<tr>&nbsp;&nbsp;
 								</tr>
 							</table>
 						</form:form>
@@ -257,6 +272,11 @@
 
 											</small>
 										</h3>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<hr size="3">
 									</td>
 								</tr>
 
@@ -356,12 +376,19 @@
 												아니오 </label></b>
 									</td>
 								</tr>
+								<tr>
+									<td colspan="6">&nbsp;</td>
+								</tr>
 								<tr height="50">
 									<td colspan="2" align="center"><input type="submit"
-										name="submit" value="신청" class="btn btn-success btn-sm">
-										&nbsp;&nbsp; <input type="button" name="back" value="취소"
+										name="submit" value="신청"
+										class="btn btn-purple btn-block btn-lg cgt-single-load"
+										style="padding: 10px; background-color: #E1060A; color: #FFFFFF; text-align: center;">
+										<input type="button" name="back" value="취소"
 										onClick="javascript:history.go(-1)"
-										class="btn btn-default btn-sm" /></td>
+										class="btn btn-default btn-block btn-lg cgt-single-load" /></td>
+								</tr>
+								<tr>&nbsp;&nbsp;
 								</tr>
 							</table>
 						</form:form>

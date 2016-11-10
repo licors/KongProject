@@ -164,13 +164,16 @@
 							&nbsp;&nbsp;~&nbsp;&nbsp;
 							<form:input path="datepicker2" id="datepicker2" type="text"
 								class="form-controll input-sm" />
-						
+
 						</div>
 					</div>
 					<div class="form-inline col-md-6 col-md-offset-11">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input class="btn btn-default btn-xs" name="search" type="submit"
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+							class="btn btn-default btn-xs" name="search" type="submit"
 							value="검색" />
+					</div>
+					<div class="form-inline col-md-6">
+					&nbsp;&nbsp;
 					</div>
 				</div>
 			</form:form>
