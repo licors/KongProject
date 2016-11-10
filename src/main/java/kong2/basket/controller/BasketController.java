@@ -25,6 +25,7 @@ import kong2.common.PagingAction;
 import kong2.faq.controller.FaqModel;
 import kong2.faq.controller.FaqService;
 import kong2.order.OrderModel;
+import kong2.order.OrderService;
 import kong2.showcase.ShowcaseController;
 
 @Controller
@@ -42,6 +43,9 @@ public class BasketController {
 	
 	@Resource(name = "basketService")
 	private BasketService basketService;
+	
+	@Resource(name = "orderService")
+	private OrderService orderService;
 	
 	@LoginCheckBeforeFunctionStart
 	@RequestMapping(value = "/list/{currentPage}")
@@ -91,6 +95,7 @@ public class BasketController {
 		model.addAttribute("list", list);
 		model.addAttribute("orderModel", orderModel);
 		model.addAttribute("show_img", show_imgPath);
+		model.addAttribute("currentPage", currentPage);
 		// 보여줄 tiles
 		return "basketList";
 
@@ -104,15 +109,30 @@ public class BasketController {
 		int member_num =(Integer) session.getAttribute("session_member_num");
 		Calendar today = Calendar.getInstance();
 		
+		OrderModel orderModel=new OrderModel();
 		BasketModel basketModel= new BasketModel();
 		BasketModel basketModel_I= new BasketModel();
+/*		orderParam.setMember_num(member_num);
+		orderParam.setShowcase_num(showcase_num);
+		orderParam.setOrder_status("티켓 신청");
+
+		OrderModel orderModel = new OrderModel();
+		orderModel = orderService.order_check(orderParam);*/
+		
+		orderModel.setMember_num(member_num);
+		orderModel.setShowcase_num(showcase_num);
+		orderModel.setOrder_status("티켓 신청");
+		
+		orderModel =orderService.order_check(orderModel);
+		
+		
+		if (orderModel != null) {
+			return "orderCheckFail";
+		}
+		else{
 		basketModel.setMember_num(member_num);
-		basketModel.setShowcase_num(showcase_num);
-		
+		basketModel.setShowcase_num(showcase_num);		
 		basketModel=basketService.basket_check(basketModel);
-		
-		
-		
 		if(basketModel!=null){
 			System.out.println("1");
 			return "/basket/basketCheck";
@@ -125,7 +145,7 @@ public class BasketController {
 			basketService.basketInsert(basketModel_I);
 			return "/basket/addBasket";
 		}					
-		
+		}
 	}
 	
 	
@@ -143,6 +163,7 @@ public class BasketController {
 	
 		basketModel.setBasket_num(Integer.parseInt(request.getParameter("basket_num")));
 		basketService.basketDelete(basketModel);
+		model.addAttribute("currentPage", currentPage);
 		return "/basket/deleteBasket";
 		
 		
@@ -150,8 +171,8 @@ public class BasketController {
 	
 	
 	
-	@RequestMapping("/deleteAllBasket")
-	public String deleteAllBasket(Model model,HttpServletRequest request)throws Exception{
+	@RequestMapping("/deleteAllBasket/{currentPage}")
+	public String deleteAllBasket(@PathVariable int currentPage,Model model,HttpServletRequest request)throws Exception{
 		
 		HttpSession session = request.getSession();
 	int member_num =(int) session.getAttribute("session_member_num");
@@ -160,7 +181,7 @@ public class BasketController {
 		
 		
 		basketService.basketDelete_all(member_num);
-		
+		model.addAttribute("currentPage", currentPage);
 		return "/basket/deleteBasket";
 		
 		

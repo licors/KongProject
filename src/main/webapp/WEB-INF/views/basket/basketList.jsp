@@ -55,7 +55,7 @@
 								<input type="submit" value="전체 신청" class="btn btn-sm btn-default"/>
 							</form:form>
 							<input type="button" name="deleteAllBasket" value="전체삭제"
-								onClick="location.href='/basket/deleteAllBasket'"
+								onClick="location.href='/basket/deleteAllBasket/${currentPage}'"
 								class="btn btn-sm btn-default">
 							<input type="button" name="list" value="메인으로"
 								onClick="location.href='/main'"
@@ -130,7 +130,7 @@
 								
 								<input type="button"
 								name="deleteB" value="삭제"
-								onClick="location.href='/basket/deleteBasket?basket_num=${list.basket_num}'"
+								onClick="location.href='/basket/deleteBasket?basket_num=${list.basket_num}&currentPage=${currentPage }'"
 								class="btn btn-xs btn-default">
 						</div>
 						<div>
