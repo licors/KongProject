@@ -420,11 +420,11 @@ public class OrderController {
 		orderParam.setOrder_num(order_num);
 		String link;
 
-		// 관리자일때 member_num 을 조건으로 걸지않음
+		// 관리자일때
 		if (member_num == 998) {
 			orderModel = orderService.order_selectOne(orderParam);
-			orderModel.setMember_num(member_num); // member_num만 받아온 데이터에 바꿔준다.
-			link = "adminOrderView"; // 관리자는 타일즈 다르게
+			orderModel.setMember_num(member_num); // member_num만 바꿔준다.
+			link = "adminOrderView"; 
 		} else {
 			orderParam.setMember_num(member_num);
 			orderModel = orderService.orderView(orderParam);
