@@ -21,15 +21,23 @@
 			alert("신청인 이름을 입력하세요");
 			document.orderForm.name.focus();
 			return false;
-		}
-		if (!orderForm.tel.value) {
+		} else if (!orderForm.phone.value) {
 			alert("신청인 핸드폰번호를 입력하세요");
-			document.orderForm.tel.focus();
+			document.orderForm.phone.focus();
 			return false;
+		} else {
+
+			var orderForm = eval("document.orderForm");
+
+			if (orderForm.payment_type.value == "신용카드") {
+				document.orderForm.action = "/order/pro/credit";
+				document.orderForm.submit();
+			} else {
+				document.orderForm.action = "/order/pro/cash";
+				document.orderForm.submit();
+			}
 		}
 
-		document.orderForm.action = "/order/pro";
-		document.orderForm.submit();
 	}
 	function checkIt2() {
 		var orderForm = eval("document.orderForm");
@@ -38,23 +46,22 @@
 			alert("신청인 이름을 입력하세요");
 			document.orderForm.name.focus();
 			return false;
-		}
-		if (!orderForm.tel.value) {
+		} else if (!orderForm.phone.value) {
 			alert("신청인 핸드폰번호를 입력하세요");
-			document.orderForm.tel.focus();
+			document.orderForm.phone.focus();
 			return false;
-		}
+		} else {
+			var orderForm = eval("document.orderForm");
 
-		document.orderForm.action = "/order/pro_B";
-		document.orderForm.submit();
-	}
-	function insertChk() {
-		var orderForm = eval("document.orderForm");
-		
-		if(orderForm.payment_type.value == "신용카드") {
-			document.orderForm.action = "/order/insert";
-			document.orderForm.submit();
-		}
+			if (orderForm.payment_type.value == "신용카드") {
+				document.orderForm.action = "/order/pro/credit";
+				document.orderForm.submit();
+			} else {
+				document.orderForm.action = "/order/pro/cash";
+				document.orderForm.submit();
+			}
+		} 
+
 	}
 </script>
 <style type="text/css">
@@ -72,17 +79,14 @@
 			<div class="panel-body">
 				<!-- 본문 -->
 				<!-- 장바구니에서 넘어왔을때 -->
-				<%-- <c:set var="bListSize" value="${fn:length(basketList) }" />  --%>
 				<c:choose>
-					<%-- <c:when test="${bListSize != 0 }"> --%>
 					<c:when test="${fn:length(basketList) ne 0 }">
-						<%-- <form name="orderForm" method="post" onsubmit="return checkIt2();"
-						class="form-control-static"> --%>
-						<form:form commandName="orderModel"
-							action="${contextpath }/order/pro_B" name="orderForm" onclick="insertChk()" method="post"
-							enctype="multipart/form-data" class="form-control-static">
+						<form:form commandName="orderModel" name="orderForm"
+							onSubmit="checkIt2()" method="post" enctype="multipart/form-data"
+							class="form-control-static">
 							<form:hidden path="total_price"
 								value="${orderModel.total_price }" />
+							<form:hidden path="flag" value="1"/>
 							<table align="center" class="table-condensed">
 								<c:forEach items="${basketList}" var="basket" varStatus="status">
 									<tr>
@@ -90,18 +94,12 @@
 											src="${show_img}${basket.file_savname.split(',')[0]}"
 											class="img-responsive"></td>
 										<td>
-											<!-- <h3>
-											<s:property value="subject" />
-											<br> <small> <s:property value="address2" /><br>
-												<s:property value="date" />
-											</small>
-										</h3> -->
 											<h4>
 												${basket.subject } <br> <small>
 													${basket.address2 }<br> <fmt:formatDate
 														value="${basket.start_date }" pattern="yyyy년  MM월 dd일" />
 													- <fmt:formatDate value="${basket.end_date }"
-														pattern="yyyy년  MM월 dd일" /><br> ${basket.price }
+														pattern="yyyy년  MM월 dd일" /><br> <b>${basket.price } 원</b>
 												</small>
 											</h4>
 										</td>
@@ -114,13 +112,11 @@
 								</c:forEach>
 
 								<tr>
-									<td align="right" colspan="3"><h3>총 신청
-											금액: ${orderModel.total_price } 원</h3></td>
+									<td align="right" colspan="3"><h3>총 신청 금액:
+											${orderModel.total_price } 원</h3></td>
 								</tr>
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+									<td colspan="6">&nbsp;</td>
 								</tr>
 
 								<tr>
@@ -172,9 +168,7 @@
 								</tr>
 
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+									<td colspan="6">&nbsp;</td>
 								</tr>
 
 								<tr>
@@ -183,16 +177,13 @@
 												path="payment_type" id="inlineRadio1" name="payment_type"
 												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio2" name="payment_type"
-												value="신용카드" label="신용카드"/> </label> <label
-										class="radio-inline"><form:radiobutton
+												value="신용카드" label="신용카드" /> </label> <label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio3" name="payment_type"
 												value="휴대폰" label="휴대폰" disabled="true" /> </label></td>
 								</tr>
-								
+
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+									<td colspan="6">&nbsp;</td>
 								</tr>
 
 								<tr>
@@ -229,9 +220,9 @@
 					</c:when>
 					<c:otherwise>
 						<!-- 상세보기, 메인에서 구매하기 -->
-						<form:form commandName="orderModel"
-							action="${contextpath }/order/pro" name="orderForm" method="post"
-							enctype="multipart/form-data" class="form-control-static">
+						<form:form commandName="orderModel" onSubmit="checkIt()"
+							name="orderForm" method="post" enctype="multipart/form-data"
+							class="form-control-static">
 							<!-- 수정! memresultClass=MemberVO, goods_resultClass= -->
 							<!-- <s:hidden name="member_num"
 							value="%{memresultClass.getMember_num()}" />
@@ -274,9 +265,7 @@
 										원</td>
 								</tr>
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+									<td colspan="6">&nbsp;</td>
 								</tr>
 
 								<tr>
@@ -328,9 +317,7 @@
 								</tr>
 
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+									<td colspan="6">&nbsp;</td>
 								</tr>
 
 								<tr>
@@ -339,15 +326,12 @@
 												path="payment_type" id="inlineRadio1" name="payment_type"
 												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio2" name="payment_type"
-												value="신용카드" label="신용카드" /> </label> <label
-										class="radio-inline"><form:radiobutton
+												value="신용카드" label="신용카드" /> </label> <label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio3" name="payment_type"
 												value="휴대폰" label="휴대폰" disabled="true" /> </label></td>
 								</tr>
 								<tr>
-									<td colspan="6">
-										&nbsp;
-									</td>
+									<td colspan="6">&nbsp;</td>
 								</tr>
 
 								<tr>
@@ -374,7 +358,7 @@
 								</tr>
 								<tr height="50">
 									<td colspan="2" align="center"><input type="submit"
-										name="submit" value="신청" class="btn btn-success btn-sm" onclick="return insertChk()">
+										name="submit" value="신청" class="btn btn-success btn-sm">
 										&nbsp;&nbsp; <input type="button" name="back" value="취소"
 										onClick="javascript:history.go(-1)"
 										class="btn btn-default btn-sm" /></td>

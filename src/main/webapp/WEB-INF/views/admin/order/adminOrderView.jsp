@@ -176,11 +176,12 @@
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<td align="center" colspan="5"><c:if
+							<td align="center" colspan="5">
+								<!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 --> <c:if
 									test="${orderModel.order_status eq '티켓 신청' }">
 									<input type="submit" name="cancelTicket" value="티켓취소"
 										class="btn btn-success btn-sm">
-								</c:if> <!-- 상태가 '티켓 신청'이 아니면 버튼이 보이지 않음 --> <c:choose>
+								</c:if> <c:choose>
 									<c:when test="${orderModel.member_num eq 998 }">
 										<!-- 관리자일때 관리자 페이지로 이동 -->
 										<input type="button" name="list" value="목록으로"
@@ -193,7 +194,8 @@
 											onClick="location.href='/order/list/1'"
 											class="btn btn-default btn-sm">
 									</c:otherwise>
-								</c:choose></td>
+								</c:choose>
+							</td>
 						</tr>
 					</table>
 				</form:form>

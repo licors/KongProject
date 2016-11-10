@@ -1,16 +1,12 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"
-	trimDirectiveWhitespaces="true"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<script
-	src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCRSeEVl3pSPGUVWwW4DSwZNDu0Q3AuSpc"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCRSeEVl3pSPGUVWwW4DSwZNDu0Q3AuSpc"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 <!-- 메인 드랍다운용 -->
 <!--<div id="pjax-container">
 
@@ -29,18 +25,14 @@
 		<div class="cgt_detail_wrap">
 			<div style="clear: both; padding-left: 40px;">
 				<!--<div class="pull-right" style="width: 68px; height: 68px; padding-top:20px; cursor:pointer; " id="btnClose"><img src="/Content/img/detail_close.jpg" style="display: block; margin: 0 auto; box-sizing: border-box"></div>-->
-				<div class="pull-left"
-					style="padding-top: 19px; box-sizing: border-box">
+				<div class="pull-left" style="padding-top: 19px; box-sizing: border-box">
 					<div style="font-size: 2.5em; padding-top: 5px; color: black;">${view.subject}&nbsp;</div>
 				</div>
 			</div>
 			<div style="clear: both;"></div>
 			<div>
-				<div class="col-xs-5"
-					style="padding-left: 40px !important; padding-top: 15px !important;">
-					<a href="${img}${view.file_savname.split(',')[0]}" class="fancybox"><img
-						src="${img}${view.file_savname.split(',')[0]}"
-						style="width: 312px; height: 381px; border: 1px solid #DEDEDE"></a>
+				<div class="col-xs-5" style="padding-left: 40px !important; padding-top: 15px !important;">
+					<a href="${img}${view.file_savname.split(',')[0]}" class="fancybox"><img src="${img}${view.file_savname.split(',')[0]}" style="width: 312px; height: 381px; border: 1px solid #DEDEDE"></a>
 				</div>
 				<div class="col-xs-7">
 					<div class="cgt_detail_contents">
@@ -56,12 +48,8 @@
 									<fmt:formatDate value="${view.start_date}" pattern="yyyy-MM-dd" />
 									~
 									<fmt:formatDate value="${view.end_date}" pattern="yyyy-MM-dd" />
-									<fmt:parseNumber
-										value="${view.start_date.time / (1000*60*60*24)}"
-										integerOnly="true" var="start" />
-									<fmt:parseNumber
-										value="${view.end_date.time / (1000*60*60*24)}"
-										integerOnly="true" var="end" />
+									<fmt:parseNumber value="${view.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start" />
+									<fmt:parseNumber value="${view.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end" />
 									/ ${(end - start) + 1}일간&nbsp;
 								</div>
 								<div class="pull-right" style="color: red;">개최중</div>
@@ -87,8 +75,9 @@
 								<c:if test="${!empty view.tag}">
 									<c:set var="tags" value="${fn:split(view.tag, ',')}" />
 									<c:forEach var="silceTags" items="${tags}" varStatus="stat">
-										<a href="/main/search/Tag/${silceTags}" target="_blank"><div
-												class="cgt_detail_tag">${silceTags}</div></a>&nbsp;
+										<a href="/main/search/Tag/${silceTags}" target="_blank">
+											<div class="cgt_detail_tag">${silceTags}</div>
+										</a>&nbsp;
                                         </c:forEach>
 								</c:if>
 							</div>
@@ -106,25 +95,23 @@
 					<c:when test="${empty member}">
 						<!-- 로그인 안함 -->
 						<div class="pull-right">
-							<a href="#"
-								onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );"><div
-									class="cgt_btn_detail_application">신청하기</div></a>
+							<a href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );">
+								<div class="cgt_btn_detail_application">신청하기</div>
+							</a>
 						</div>
 						<div class="pull-right">
-							<a href="#"
-								onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );"><div
-									class="cgt_btn_detail_favorite">관심티켓</div></a>
+							<a href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );">
+								<div class="cgt_btn_detail_favorite">관심티켓</div>
+							</a>
 						</div>
 					</c:when>
 					<c:when test="${!empty member}">
 						<!-- 로그인 함 -->
 						<div class="pull-right">
-							<a href="/order/check/${view.showcase_num}"><div
-									class="cgt_btn_detail_application">신청하기</div></a>
+							<a href="/order/check/${view.showcase_num}"><div class="cgt_btn_detail_application">신청하기</div></a>
 						</div>
 						<div class="pull-right">
-							<a href="/basket/add/${view.showcase_num}"><div
-									class="cgt_btn_detail_favorite">관심티켓</div></a>
+							<a href="/basket/add/${view.showcase_num}"><div class="cgt_btn_detail_favorite">관심티켓</div></a>
 						</div>
 					</c:when>
 				</c:choose>
@@ -138,7 +125,7 @@
 					<div class="pull-left cgt_detail_tab">구매 및 환불안내</div>
 				</a> <a data-target="#map" data-toggle="tab" id="mapsel">
 					<div class="pull-left cgt_detail_tab">오시는길</div>
-				</a> <a data-target="#together" data-toggle="tab">
+				</a> <a data-target="#together" data-toggle="tab" id="comment_tab">
 					<div class="pull-left cgt_detail_tab">댓글</div>
 				</a>
 			</div>
@@ -150,23 +137,26 @@
 			</script>
 			<div class="clearfix"></div>
 			<div class="tab-content">
+			<c:if test="${commentCheck eq 'false' }">
 				<div class="tab-pane fade in active" id="info">
-					<div
-						style="width: 100%; box-sizing: border-box; padding: 10px 40px 0px 40px;">
+			</c:if>
+			<c:if test="${!commentCheck eq 'false' }">
+				<div class="tab-pane fade" id="info">
+			</c:if>
+
+					<div style="width: 100%; box-sizing: border-box; padding: 10px 40px 0px 40px;">
 						<!-- 소개 -->
 						<div itemprop="articleBody">${view.content}</div>
 						<c:if test="${view.file_savname.split(',')[1] ne null}">
 							<div style="padding-top: 20px">
 								<a href="javascript:" id="divBtnMore">
-									<div
-										style="border: 1px solid #DEDEDE; line-height: 44px; width: 100%; border-radius: 3px; text-align: center; margin-top: 20px; cursor: pointer">
+									<div style="border: 1px solid #DEDEDE; line-height: 44px; width: 100%; border-radius: 3px; text-align: center; margin-top: 20px; cursor: pointer">
 										<div id="spItemMore">+ 더보기</div>
 									</div>
 								</a>
 								<div style="padding-top: 20px">
 									<div style="display: none;" id="divItems">
-										<c:set var="img_paths"
-											value="${fn:split(view.file_savname, ',')}" />
+										<c:set var="img_paths" value="${fn:split(view.file_savname, ',')}" />
 										<c:forEach var="file" items="${img_paths}" varStatus="stat">
 											<c:if test="${stat.index ne 0}">
 												<div style="text-align: center;">
@@ -184,20 +174,15 @@
 				</div>
 				<!-- 환불 & 주의사항 -->
 				<div class="tab-pane fade" id="caution">
-					<div
-						style="width: 100%; box-sizing: border-box; padding: 10px 40px 40px 40px;">
+					<div style="width: 100%; box-sizing: border-box; padding: 10px 40px 40px 40px;">
 						<!--<span style="color:#0000FF"><strong>* 캔고루 가격 → </strong></span><span style="color:#FF0000"><strong>무료</strong></span><br><br><strong>* 시간</strong><br>오전 11시 ~ 오후 8시-->
 						<img src="/resources/image/main/tit_faq.png">
-						<div class="container"
-							style="padding-left: 0px; padding-right: 0px;">
+						<div class="container" style="padding-left: 0px; padding-right: 0px;">
 							<!-- 아코디언 영역 -->
 							<div class="panel-group" id="accordion">
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ8">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ8">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -207,24 +192,19 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ8" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ8" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
 											<h4 class="col-xs-11 faqfontqanswer">
-												티켓을 다운받으면 바코드 티켓을 발급해 드립니다.<br>입장 시, 티켓 받으신 분의 성함/핸드폰
-												번호를 확인하고 입장 가능합니다.<br>
+												티켓을 다운받으면 바코드 티켓을 발급해 드립니다.<br>입장 시, 티켓 받으신 분의 성함/핸드폰 번호를 확인하고 입장 가능합니다.<br>
 											</h4>
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ7">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ7">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -234,22 +214,17 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ7" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ7" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
-											<h4 class="col-xs-11 faqfontqanswer">티켓 양도 가능 하며, 현장에서
-												대리자가 티켓 다운하신 분의 성함, 핸드폰 번호로 확인 받으실 수 있습니다.</h4>
+											<h4 class="col-xs-11 faqfontqanswer">티켓 양도 가능 하며, 현장에서 대리자가 티켓 다운하신 분의 성함, 핸드폰 번호로 확인 받으실 수 있습니다.</h4>
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ6">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ6">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -259,26 +234,21 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ6" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ6" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
 											<h4 class="col-xs-11 faqfontqanswer">
 												<p>
-													통상적으로 1인 1매가 원칙이며, 초대권이 지급되는 행사는 초대권 등록 후, 추가 인원 사용가능 하십니다.<br>초대권을
-													등록하지 않은 경우에는 사용 불가하며,&nbsp;초대권이 없는 행사도 있으니 참고하시기 바랍니다.
+													통상적으로 1인 1매가 원칙이며, 초대권이 지급되는 행사는 초대권 등록 후, 추가 인원 사용가능 하십니다.<br>초대권을 등록하지 않은 경우에는 사용 불가하며,&nbsp;초대권이 없는 행사도 있으니 참고하시기 바랍니다.
 												</p>
 											</h4>
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ5">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ5">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -288,28 +258,21 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ5" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ5" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
 											<h4 class="col-xs-11 faqfontqanswer">
 												<p>
-													일반적인 경우, 전시회는 1매의 티켓을 구입하여 하루만 입장이 가능하며, 일부 전시의 경우에
-													네임택(입장목걸이)을&nbsp;퇴장시 제출하지 않으면 다음날 소지하고 입장이 되는 경우가 있기도 합니다.
-													하지만 네임택에 날짜를 기입하는 전시회의 경우는 이러한 방식도 적용되지 않습니다.<br>
-													<br>자세한 안내는 행사페이지 관련문의에 기입된 번호로 문의바랍니다.
+													일반적인 경우, 전시회는 1매의 티켓을 구입하여 하루만 입장이 가능하며, 일부 전시의 경우에 네임택(입장목걸이)을&nbsp;퇴장시 제출하지 않으면 다음날 소지하고 입장이 되는 경우가 있기도 합니다. 하지만 네임택에 날짜를 기입하는 전시회의 경우는 이러한 방식도 적용되지 않습니다.<br> <br>자세한 안내는 행사페이지 관련문의에 기입된 번호로 문의바랍니다.
 												</p>
 											</h4>
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ4">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ4">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -319,8 +282,7 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ4" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ4" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
@@ -330,12 +292,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ3">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ3">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -345,26 +304,21 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ3" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ3" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
 											<h4 class="col-xs-11 faqfontqanswer">
 												<p>
-													관심티켓은 일종의 즐겨찾기와 같습니다.<br>관심 있는 행사의 상세보기에서 관심티켓 버튼을
-													눌러주세요.<br>우측 상단 마이페이지&nbsp;&gt; 관심티켓에서 확인할 수 있습니다.
+													관심티켓은 일종의 즐겨찾기와 같습니다.<br>관심 있는 행사의 상세보기에서 관심티켓 버튼을 눌러주세요.<br>우측 상단 마이페이지&nbsp;&gt; 관심티켓에서 확인할 수 있습니다.
 												</p>
 											</h4>
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ2">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ2">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -374,8 +328,7 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ2" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ2" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
@@ -387,12 +340,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default faqwrapper"
-									style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
-									<a class="accordion-toggle faqfontqtitle"
-										data-toggle="collapse" data-parent="#accordion" href="#FAQ1">
-										<div class="panel-heading"
-											style="background-color: #FFF; border-bottom: 0px solid #FFF;">
+								<div class="panel panel-default faqwrapper" style="border-top: 0px solid #DDD; border-left: 0px solid #FFF; border-right: 0px solid #FFF; box-shadow: none; margin: 0px">
+									<a class="accordion-toggle faqfontqtitle" data-toggle="collapse" data-parent="#accordion" href="#FAQ1">
+										<div class="panel-heading" style="background-color: #FFF; border-bottom: 0px solid #FFF;">
 											<h4 class="panel-title">
 												<!-- href="#FAQ1" 부분 (1 = Count) 이 부분이 -->
 												<span class="col-xs-1">Q.</span>
@@ -402,17 +352,12 @@
 											<div class="clearfix"></div>
 										</div>
 									</a>
-									<div id="FAQ1" class="panel-collapse collapse"
-										style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
+									<div id="FAQ1" class="panel-collapse collapse" style="background-color: #F9F9F9; border-top: 1px solid #DDDDDD;">
 										<!-- 이부분 ID 와 일치되게 -->
 										<div class="panel-body">
 											<h4 class="col-xs-1 asked-A">A.</h4>
 											<h4 class="col-xs-11 faqfontqanswer">
-												방법 세 가지 중 한가지로 연락 주시면 취소처리됩니다.<br>
-												<br>1.환불 원하는 티켓을 FAQ 1:1문의에 행사명과 함께 기입 (다음 영업일에 답변 및
-												처리)<br>2.카카오톡 ‘캔고루’(다음 영업일에 답변 및 처리) 로 환불 원하는 티켓명과 성함,
-												핸드폰번호 보내기<br>3.캔고루 고객센터 ’02-868-4184’(평일 오전9시~오후6시)<br>
-												<br>-단, 행사의 환불기간이 종료된 경우 불가능<br>-취소처리 후 완료 문자 발송<br>
+												방법 세 가지 중 한가지로 연락 주시면 취소처리됩니다.<br> <br>1.환불 원하는 티켓을 FAQ 1:1문의에 행사명과 함께 기입 (다음 영업일에 답변 및 처리)<br>2.카카오톡 ‘캔고루’(다음 영업일에 답변 및 처리) 로 환불 원하는 티켓명과 성함, 핸드폰번호 보내기<br>3.캔고루 고객센터 ’02-868-4184’(평일 오전9시~오후6시)<br> <br>-단, 행사의 환불기간이 종료된 경우 불가능<br>-취소처리 후 완료 문자 발송<br>
 											</h4>
 										</div>
 									</div>
@@ -426,13 +371,10 @@
 				<!-- 환불 & 주의사항 -->
 				<!-- 오시는길 -->
 				<div class="tab-pane fade" id="map">
-					<div
-						style="width: 100%; box-sizing: border-box; padding: 10px 40px 40px 40px;">
+					<div style="width: 100%; box-sizing: border-box; padding: 10px 40px 40px 40px;">
 						<div style="margin: 20px 0px; z-index: 99999;">
 							<div id="map-canvas" style="width: 100%; height: 300px;"></div>
-							<div id="map-canvas-none"
-								style="display: none; color: black; font-size: 20px;">등록된
-								지도 정보가 없습니다.</div>
+							<div id="map-canvas-none" style="display: none; color: black; font-size: 20px;">등록된 지도 정보가 없습니다.</div>
 						</div>
 						<div class="evtdetailadd">
 							<div class="boxes">
@@ -452,36 +394,38 @@
 				<!-- 오시는길 -->
 
 				<!-- 같이가요 -->
-				<div class="tab-pane fade" id="together">
-					<div
-						style="width: 100%; box-sizing: border-box; padding: 10px 40px 40px 40px;">
+				<c:if test="${commentCheck eq 'false' }">
+					<div class="tab-pane fade" id="together">
+				</c:if>
+				<c:if test="${!commentCheck eq 'false' }">
+					<div class="tab-pane fade in active" id="together">
+				</c:if>
+
+					<div style="width: 100%; box-sizing: border-box; padding: 10px 40px 40px 40px;">
 						<sec:authorize access="isAnonymous()">
 							<div>
 								<div class="center">
-									<u><a href="/member/login"
-										style="text-decoration: underline; color: blue; font-weight: bold;">로그인</a></u>
-									하셔야 이용하실 수 있습니다.
+									<a href="/member/login" style="text-decoration: underline; color: blue; font-weight: bold;">로그인</a> 하셔야 이용하실 수 있습니다.
 								</div>
 							</div>
 						</sec:authorize>
 
 
 						<sec:authorize access="hasRole('ROLE_USER')">
-							<div>
-								<div style="margin-bottom: 5px;">
-									<textarea id="txtCONTENT" rows="5"
-										class="form-control search_box_input"
-										placeholder="게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다."></textarea>
+							<form action="/main/view/${view.showcase_num}/commentWrite" method="post">
+								<input type="hidden" id="showcase_num" value="${view.showcase_num}" />
+								<div>
+									<div style="margin-bottom: 5px;">
+										<textarea id="content" name="content" rows="5" class="form-control search_box_input" placeholder="게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다."></textarea>
+									</div>
+									<div style="text-align: right;">
+										<input type="submit" value="댓글등록" class="btn btn-light-blue">
+									</div>
 								</div>
-								<div style="text-align: right;">
-									<button class="btn btn-light-blue"
-										onclick="fnRegReply(null, null, jQuery('#txtCONTENT').val());">댓글등록</button>
-								</div>
-							</div>
+							</form>
 						</sec:authorize>
 
-						<div
-							style="margin-top: 20px; margin-bottom: 20px; padding-top: 20px; border-top: 3px solid #000;"></div>
+						<div style="margin-top: 20px; margin-bottom: 20px; padding-top: 20px; border-top: 3px solid #000;"></div>
 						<c:choose>
 							<c:when test="${empty list }">
 								<div id="divReply">
@@ -489,82 +433,57 @@
 								</div>
 							</c:when>
 							<c:when test="${!empty list }">
-								<c:forEach var="comment" items="list">
-
-
-
-
-
+								<c:forEach var="comment" items="${list}">
 
 									<div class="evtdetailitems">
 										<div>
 											<div style="float: left; font-size: 12px;">
-												<span style="display: inline-block;">전*민</span> <span
-													style="display: inline-block; margin-right: 10px;">
-													| 2016-10-24</span>
+												<span style="display: inline-block;">${comment.name }</span> <span style="display: inline-block; margin-right: 10px;">| ${comment.reg_date }</span>
 											</div>
 											<!-- 작성자, 작성일, 좋아요btn, 댓글btn -->
 											<div style="float: right; font-size: 12px;">
-												<div
-													style="display: inline-block; cursor: pointer; margin-right: 10px;">
-													<a onclick="fnLikeReply(54343);">♥ 좋아요</a>
+												<div style="display: inline-block; cursor: pointer; margin-right: 10px;">
+													<!-- <a onclick="fnLikeReply(54343);">♥ 좋아요</a> -->
 												</div>
 												<div style="display: inline-block; cursor: pointer">
-													<a onclick="jQuery('#reReply_54343').toggle();">■ 댓글달기</a>
+													<sec:authorize access="hasRole('ROLE_USER')">
+														<sec:authentication var="userDetail" property="principal" />
+														<c:if test="${userDetail.member_num eq comment.member_num }">
+															<div style="display: inline-block; cursor: pointer">
+																<a href="/main/view/${comment.showcase_num}/commentModify/${comment.comment_num}/${comment.content}">수정</a> |
+															</div>
+															<div style="display: inline-block; cursor: pointer">
+																<a href="/main/view/${comment.showcase_num}/commentDelete/${comment.comment_num}">삭제</a> &nbsp;&nbsp;
+															</div>
+														</c:if>
+													</sec:authorize>
 												</div>
 											</div>
 											<div class="clearfix"></div>
 										</div>
 										<div>
-											<div id="divViewCONTENT_54343">
-												<div
-													style="float: left; max-width: 730px; font-weight: bold; line-height: 1.5; font-size: 12px;"
-													id="divCONTENT_54343">완전 기대됩니다!!!</div>
+											<div id="divViewCONTENT_${comment.comment_num }">
+												<div style="float: left; max-width: 730px; font-weight: bold; line-height: 1.5; font-size: 12px;" id="divCONTENT_${comment.comment_num }">${comment.content }</div>
 												<div style="float: right; font-size: 12px;">
-													<span style="display: inline-block;">좋아요 <span
-														id="spanLikeCnt_54343">0</span>개
-													</span>
+													<%-- <span style="display: inline-block;">좋아요 <span id="spanLikeCnt_54343">0</span>개
+													</span> --%>
 												</div>
 											</div>
-											<div id="divEditCONTENT_54343" style="display: none;">
-												<textarea id="txtcontent_" style="max-width: 100%;"
-													rows=" 5" class="form-control search_box_input">완전 기대됩니다!!!</textarea>
-												<div
-													style="font-size: 12px; margin-top: 4px; text-align: right">
-													<button class="btn btn-light-grey"
-														onclick="fnRegReReply(54343 , 'M' , 'R'  , jQuery( '#txtcontent_' ).val());">입력</button>
+											<%-- <div id="divEditCONTENT_${comment.comment_num }" style="display: none;">
+												<textarea id="txtcontent_" style="max-width: 100%;" rows=" 5" class="form-control search_box_input">${comment.content }</textarea>
+												<div style="font-size: 12px; margin-top: 4px; text-align: right">
+													<button class="btn btn-light-grey" onclick="fnRegReReply(${comment.comment_num } , 'M' , 'R'  , jQuery( '#txtcontent_' ).val());">입력</button>
 													&nbsp;&nbsp;
-													<button class="btn btn-light-grey"
-														onclick="fnModView(54343 , 'V' );">취소</button>
+													<button class="btn btn-light-grey" onclick="fnModView(${comment.comment_num } , 'V' );">취소</button>
 												</div>
-											</div>
+											</div> --%>
 											<div class="clearfix"></div>
-										</div>
-										<div class="evtdetailreplyinput" id="reReply_54343"
-											style="display: none;">
-											<div class="boxes">
-												<div class="box box1">
-													<input type="text" class="form-control search_box_input"
-														placeholder="댓글입력" id="txtreReply_54343">
-												</div>
-												<!-- input box -->
-												<div class="box box2">
-													<button class="btn btn-light-grey"
-														onclick="fnRegReply( 54343 , 'R' , jQuery( '#txtreReply_54343' ).val()   );">입력</button>
-												</div>
-												<!-- btn -->
-											</div>
 										</div>
 										<div style="border-top: 1px dotted #a1a1a1; margin: 10px 0"></div>
 									</div>
 
-
-
-
-
-
-
 								</c:forEach>
+								${pagingHtml }
 							</c:when>
 						</c:choose>
 						<!-- 덧글 여부 if문 추가 -->
@@ -648,7 +567,11 @@
 	jQuery().ready(function() {
 		map();
 		fnInitControl();
-
+		//btn클릭 이벤트 처리
+		/* $('#together').click(); */
+		//페이지 로드시 버튼 클릭
+		//버튼 클릭이 아니라 코드에 의해서 click이벤트를 실행하고 싶다면?
+		$('#together').trigger('click'); //실행하자마자 click이벤트를 트리거 함
 	});
 	function map() {
 		jQuery('#mapsel').click(function() {
@@ -667,6 +590,7 @@
 			}
 		});
 	}
+
 </script>
 
 <!--    </div>

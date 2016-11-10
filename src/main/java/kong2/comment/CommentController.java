@@ -1,10 +1,13 @@
 package kong2.comment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.PagingAction;
+import kong2.member.MemberModel;
 
 @Controller
 @RequestMapping("/main/view")
@@ -29,8 +33,9 @@ public class CommentController {
 	@Resource(name = "commentService")
 	private CommentService commentService;
 	
-	@RequestMapping("/{showcase_num}/commentList/{current_num}")
-	public String commentList(Model model, @PathVariable int showcase_num, @PathVariable int current_num) {
+//	@RequestMapping("/{showcase_num}/commentList/{current_num}")
+//	public void commentList(Model model, @PathVariable int showcase_num, @PathVariable int current_num) {
+	public void commentList(Model model, int showcase_num, int current_num) {
 		
 		List<CommentModel> list = null;
 		list = commentService.selectAll(showcase_num);
@@ -48,7 +53,7 @@ public class CommentController {
 		model.addAttribute("list", list);
 		model.addAttribute("showcase_num", showcase_num);
 		
-		return "ti_commentList";
+//		return "redirect:/main/view/" + showcase_num +"?commentCheck=true";
 	}
 	
 //	@RequestMapping(value="/{showcase_num}/write", method=RequestMethod.GET)
@@ -60,33 +65,39 @@ public class CommentController {
 	
 	@RequestMapping(value="/{showcase_num}/commentWrite", method=RequestMethod.POST)
 	public String commentWrite(Model model, @PathVariable int showcase_num, CommentModel commentModel, BindingResult result)throws Exception{
-
-		commentService.insert(commentModel);
-		return "redirect:/"+showcase_num + "/commentList/1";
-	}
-	
-	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.GET)
-	public String commentModifyForm(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
 		
-		CommentModel commentModel =commentService.selectOne(Integer.parseInt(request.getParameter("comment_num")));
-		model.addAttribute("commentModel", commentModel);
-		model.addAttribute("showcase_num", showcase_num);
-		return "ti_commentModifyForm";
+		MemberModel member = (MemberModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    commentModel.setMember_num(member.getMember_num());
+	    commentModel.setReg_date(new Date(System.currentTimeMillis()));
+		commentService.insert(commentModel);
+		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";
 	}
 	
+//	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.GET)
+//	public String commentModifyForm(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
+//		
+//		CommentModel commentModel =commentService.selectOne(Integer.parseInt(request.getParameter("comment_num")));
+//		model.addAttribute("commentModel", commentModel);
+//		model.addAttribute("showcase_num", showcase_num);
+//		return "ti_commentModifyForm";
+//	}
 	
 	
-	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.POST)
-	public String commentModify(Model model, @PathVariable int showcase_num, HttpServletRequest request,CommentModel commentModel,BindingResult result)throws Exception{
 	
+	@RequestMapping(value="/{showcase_num}/commentModify/{comment_num}/{content}")
+	public String commentModify(Model model, @PathVariable int showcase_num, @PathVariable int comment_num, @PathVariable String content, 
+			HttpServletRequest request,CommentModel commentModel,BindingResult result)throws Exception{
+		commentModel.setComment_num(comment_num);
+		commentModel.setContent(content);
+		
 		commentService.update(commentModel);
-		return "redirect:/"+showcase_num + "/commentList/1";
+		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";
 	}
 	
-	@LoginCheckBeforeFunctionStart
-	@RequestMapping(value="/{showcase_num}/commentDelete")
-	public String commentDelete(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
-		commentService.delete(Integer.parseInt(request.getParameter("comment_num")));	
-		return "redirect:/"+showcase_num + "/commentList/1";
+	
+	@RequestMapping(value="/{showcase_num}/commentDelete/{comment_num}")
+	public String commentDelete(Model model, @PathVariable int showcase_num, @PathVariable int comment_num, HttpServletRequest request)throws Exception{
+		commentService.delete(comment_num);	
+		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";
 	}
 }

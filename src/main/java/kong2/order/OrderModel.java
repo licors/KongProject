@@ -41,6 +41,9 @@ public class OrderModel {
 	private String datepicker1;
 	private String datepicker2;
 	
+	//장바구니에서 주문한건지 확인
+	private int flag;
+	
 	public int getOrder_num() {
 		return order_num;
 	}
@@ -220,6 +223,12 @@ public class OrderModel {
 				+ show_status + ", file_savname=" + file_savname + ", start_date=" + start_date + ", end_date="
 				+ end_date + ", show_addr=" + show_addr + ", readcount=" + readcount + ", ordercount=" + ordercount
 				+ ", datepicker1=" + datepicker1 + ", datepicker2=" + datepicker2 + "]";
+	}
+	public int getFlag() {
+		return flag;
+	}
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}	
 	
 	
