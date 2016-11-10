@@ -567,11 +567,6 @@
 	jQuery().ready(function() {
 		map();
 		fnInitControl();
-		//btn클릭 이벤트 처리
-		/* $('#together').click(); */
-		//페이지 로드시 버튼 클릭
-		//버튼 클릭이 아니라 코드에 의해서 click이벤트를 실행하고 싶다면?
-		$('#together').trigger('click'); //실행하자마자 click이벤트를 트리거 함
 	});
 	function map() {
 		jQuery('#mapsel').click(function() {
@@ -590,7 +585,6 @@
 			}
 		});
 	}
-
 </script>
 
 <!--    </div>

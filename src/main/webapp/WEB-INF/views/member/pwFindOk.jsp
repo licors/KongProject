@@ -6,6 +6,7 @@
 function findpasswordSuccess(password){
 	alert("비밀번호는 " + password + " 입니다.");
 	//self.close();
+	window.location.href='/member/login';
 }
 </script>
 

@@ -8,7 +8,7 @@
 </head>
 <body>
 <div align="center">
-	<a href="/main"><img src="/template/image/header/logo.png" /></a> 
+	<a href="/main"><img src="/resources/image/header/logo.png" /></a> 
 </div>
 </body>
 </html>

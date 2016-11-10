@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html>
  <head>
-  <tiles:insertAttribute name="header" />
+  
  </head>
  <body>
   <tiles:insertAttribute name="top" /><br>

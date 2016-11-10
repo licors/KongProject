@@ -54,8 +54,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.GET)
-	public String memberPwFindForm(Model model) {
-		return "ti_passwordFindForm";
+	public String memberPwFindForm(@ModelAttribute("member") MemberModel member, Model model) {
+		model.addAttribute("member", member);	
+		return "/member/passwordfindForm";
 	}
 
 	@RequestMapping(value = "/memberPwFind", method = RequestMethod.POST)
