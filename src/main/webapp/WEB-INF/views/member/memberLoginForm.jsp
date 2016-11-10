@@ -33,60 +33,46 @@
                 </style>
                 <div class="login-wrapper">
                     <h1 class="title" style="padding-top:20px;">
-                        <a href="/"><img src="/resources/image/main/logo.jpg" alt="CANGOTO"></a>
+                        <a href="/"><img src="/resources/image/member/logo.jpg" alt="CANGOTO"></a>
                     </h1>
                     <h2 style="font-weight:bold;margin:30px 0">
-                        문화를 즐기는 방법, 캔고루에 오신 것을 환영합니다.
+                        	문화를 즐기는 방법, KONG 에 오신 것을 환영합니다.
                     </h2>
                     <section id="loginForm">
                         <form action="/loginProcess" class="form-horizontal" method="post">
                             <div class="cgt-login">
                                 <div class="login-form pull-left">
                                     <input id="Username" name="id_email" placeholder="이메일주소" style="width:100%;font-size:18px;" type="text" value="">
-                                    <input id="Password" name="password" placeholder="비밀번호" type="password">
+                                    <input id="Password" name="password" placeholder="비밀번호" type="password" style="width:100%;font-size:18px;" value="">
                                     <div style="margin-top:10px;">
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true" style="font-size:18px;"></span>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true" style="font-size:18px;"></span>
                                     </div>
                                 </div>
                                 <div class="login-btn pull-right">
-                                    <button type="submit"><img src="/resources/image/main/cgt_login_btn_submit.png" alt="로그인 버튼"></button>
+                                    <button type="submit"><img src="/resources/image/member/cgt_login_btn_submit.png" alt="로그인 버튼"></button>
                                 </div>
                             </div>
                             <div class="autologin-find">
-<!--                                <div class="checkbox pull-left" style="vertical-align:top;">
-                                    <input data-val="true" data-val-required="아이디 및 비밀번호 저장 필드가 필요합니다." id="RememberMe" name="RememberMe" style="height: 17px; width: 17px; display: block;" type="checkbox" value="true">
-                                    <input name="RememberMe" type="hidden" value="false"><label for="RememberMe" style="font-size:17px; display: block;">아이디 및 비밀번호 저장</label>
-                                </div>-->
                                 <div class="pull-right" style="display: block; vertical-align: top;">
                                     <a href="${contextPath}/member/memberPwFind" class="btn_cgt_LostPassWDStart cgt-single-load btn" style="width:100%;font-size:17px">비밀번호찾기</a>
                                 </div>
                             </div>
                             <div class="btn-join">
-                                <a href="${contextPath}/member/memberJoin"><img src="/resources/image/main/cgt_login_btn_join.png" alt=""></a>
+                                <a href="${contextPath}/member/memberJoin"><img src="/resources/image/member/cgt_login_btn_join.png" alt=""></a>
                             </div>
                             <div style="margin-top:30px; margin-bottom:30px; text-align:center">
                                 <div style="display:inline-block; margin-right:10px;"><a href="#">회사소개/제휴문의</a></div>
                                 <div style="display:inline-block; margin-right:10px;"><a href="#">광고(제휴)문의</a></div>
                                 <div style="display:inline-block; margin-right:10px;"><a href="#">이용약관</a></div>
                                 <div style="display:inline-block;"><a href="#">개인정보취급방침</a></div>
-<!--                                <div>
-                                    <div style="display:inline-block; margin-right:10px; color:#AAAAAA;">언어 &gt; </div>
-                                    <div style="display:inline-block;"><a href="/Home/SetCulture?culture=kr" style="color:#AAAAAA;">한국어</a> · </div>
-                                    <div style="display:inline-block;"><a href="/Home/SetCulture?culture=en" style="color:#AAAAAA;">English</a> · </div>
-                                    <div style="display:inline-block;"><a href="/Home/SetCulture?culture=ja" style="color:#AAAAAA;">日本語</a> · </div>
-                                    <div style="display:inline-block;"><a href="/Home/SetCulture?culture=zh-CN" style="color:#AAAAAA;">漢語</a></div>
-                                </div>-->
                                 <div class="cgt_mb_10"></div>
-                                <p style="margin:0px; padding:0px;">서울 강남구 테헤란로63길 14 (삼성2동 142-2) 인화빌딩 4층</p>
-                                <p style="margin:0px; padding:0px;">Copyright © 2016 CANGOTO Inc. All rights® reserved.</p>
+                                <p style="margin:0px; padding:0px;">서울 강남구 역삼동 콩콩콩콩(콩콩동 142-2) 콩콩빌딩 3층 | 통신판매업신고번호 : 2014-서울금천-0181</p>
+                                <p style="margin:0px; padding:0px;">Copyright © 2016 KONG Inc. All rights® reserved.</p>
                             </div>
                         </form>        
-                        <div class="loginAdvContainer">
-                        </div>
                     </section>
                 </div>
-                <div id="pjax-container"></div>
             </section>
         </section>
     </body>
