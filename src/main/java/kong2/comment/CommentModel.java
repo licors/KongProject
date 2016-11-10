@@ -1,5 +1,6 @@
 package kong2.comment;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CommentModel {
@@ -31,6 +32,10 @@ public class CommentModel {
 	public Date getReg_date() {
 		return reg_date;
 	}
+//	public String getReg_date() {
+//		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		return fmt.format(reg_date);
+//	}
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
