@@ -25,17 +25,17 @@
     </definition>
     
     <definition name="main" extends="default_main">
-        <put-attribute name="title" value="캔고루 - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
+        <put-attribute name="title" value="KONG - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
         <put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
     </definition>
     
     <definition name="mainlist" extends="default">
-        <put-attribute name="title" value="캔고루 - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
+        <put-attribute name="title" value="KONG - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
         <put-attribute name="body" value="/WEB-INF/views/main/list.jsp" />
     </definition>
     
     <definition name="mainview" extends="default">
-        <put-attribute name="title" value="캔고루 - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
+        <put-attribute name="title" value="KONG - 문화를 즐기는 방법 | 전시 | 미술 | 강연 | 공연" />
         <put-attribute name="body" value="/WEB-INF/views/main/view.jsp" />
     </definition>
     

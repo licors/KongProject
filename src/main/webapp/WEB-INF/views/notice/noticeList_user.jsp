@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <p class="lead">캔고루의 새로운 정보와 소식을 알려드립니다.</p>
+                    <p class="lead">KONG의 새로운 정보와 소식을 알려드립니다.</p>
                 </div>
                 <table align="center" class="table table-hover">
                     <thead>
