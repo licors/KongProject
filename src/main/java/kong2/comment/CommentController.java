@@ -73,28 +73,31 @@ public class CommentController {
 		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";
 	}
 	
-	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.GET)
-	public String commentModifyForm(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
+//	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.GET)
+//	public String commentModifyForm(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
+//		
+//		CommentModel commentModel =commentService.selectOne(Integer.parseInt(request.getParameter("comment_num")));
+//		model.addAttribute("commentModel", commentModel);
+//		model.addAttribute("showcase_num", showcase_num);
+//		return "ti_commentModifyForm";
+//	}
+	
+	
+	
+	@RequestMapping(value="/{showcase_num}/commentModify/{comment_num}/{content}")
+	public String commentModify(Model model, @PathVariable int showcase_num, @PathVariable int comment_num, @PathVariable String content, 
+			HttpServletRequest request,CommentModel commentModel,BindingResult result)throws Exception{
+		commentModel.setComment_num(comment_num);
+		commentModel.setContent(content);
 		
-		CommentModel commentModel =commentService.selectOne(Integer.parseInt(request.getParameter("comment_num")));
-		model.addAttribute("commentModel", commentModel);
-		model.addAttribute("showcase_num", showcase_num);
-		return "ti_commentModifyForm";
-	}
-	
-	
-	
-	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.POST)
-	public String commentModify(Model model, @PathVariable int showcase_num, HttpServletRequest request,CommentModel commentModel,BindingResult result)throws Exception{
-	
 		commentService.update(commentModel);
-		return "redirect:/"+showcase_num + "/commentList/1";
+		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";
 	}
 	
-	@LoginCheckBeforeFunctionStart
-	@RequestMapping(value="/{showcase_num}/commentDelete")
-	public String commentDelete(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
-		commentService.delete(Integer.parseInt(request.getParameter("comment_num")));	
-		return "redirect:/"+showcase_num + "/commentList/1";
+	
+	@RequestMapping(value="/{showcase_num}/commentDelete/{comment_num}")
+	public String commentDelete(Model model, @PathVariable int showcase_num, @PathVariable int comment_num, HttpServletRequest request)throws Exception{
+		commentService.delete(comment_num);	
+		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";
 	}
 }

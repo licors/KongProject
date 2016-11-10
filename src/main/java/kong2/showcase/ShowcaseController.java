@@ -110,7 +110,7 @@ public class ShowcaseController {
 //    @memberBeforeFunctionStart
     @RequestMapping("/main/view/{showcase_num}")
     public String view(Model model, @PathVariable int showcase_num, @RequestParam(required=false, value="commentCheck", defaultValue="false") String commentCheck,
-    		 @RequestParam(required=false, value="current_num", defaultValue="1") String current_num, HttpServletRequest request) {
+    		 @RequestParam(required=false, value="currentPage", defaultValue="1") String currentPage, HttpServletRequest request) {
 //    		@PathVariable(required=false, value="current_num") String current_num, HttpServletRequest request) {
         ShowcaseModel view = new ShowcaseModel();
         view.setShowcase_num(showcase_num);
@@ -124,9 +124,7 @@ public class ShowcaseController {
         List<CommentModel> list = null;
 		list = commentService.selectAll(showcase_num);
 		int totalCount = list.size();
-		PagingActionRequestParam.PagingAction(Integer.parseInt(current_num), totalCount, 10, 3, "/main/view/"+showcase_num+"?commentCheck=true");
-//		PagingAction page = new PagingAction(Integer.parseInt(current_num), totalCount, 10, 3, "/main/view/{"+showcase_num+"}/commentList?commentCheck="+commentCheck);
-//		String pagingHtml = page.getPagingHtml().toString();
+		PagingActionRequestParam.PagingAction(Integer.parseInt(currentPage), totalCount, 10, 3, "/main/view/"+showcase_num+"?commentCheck=true");
 		String pagingHtml = PagingActionRequestParam.getPagingHtml().toString();
 		int lastCount = totalCount;
 		

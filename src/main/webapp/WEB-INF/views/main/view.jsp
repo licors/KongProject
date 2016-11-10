@@ -137,7 +137,13 @@
 			</script>
 			<div class="clearfix"></div>
 			<div class="tab-content">
+			<c:if test="${commentCheck eq 'false' }">
 				<div class="tab-pane fade in active" id="info">
+			</c:if>
+			<c:if test="${!commentCheck eq 'false' }">
+				<div class="tab-pane fade" id="info">
+			</c:if>
+
 					<div style="width: 100%; box-sizing: border-box; padding: 10px 40px 0px 40px;">
 						<!-- 소개 -->
 						<div itemprop="articleBody">${view.content}</div>
@@ -388,7 +394,13 @@
 				<!-- 오시는길 -->
 
 				<!-- 같이가요 -->
-				<div class="tab-pane fade" id="together">
+				<c:if test="${commentCheck eq 'false' }">
+					<div class="tab-pane fade" id="together">
+				</c:if>
+				<c:if test="${!commentCheck eq 'false' }">
+					<div class="tab-pane fade in active" id="together">
+				</c:if>
+
 					<div style="width: 100%; box-sizing: border-box; padding: 10px 40px 40px 40px;">
 						<sec:authorize access="isAnonymous()">
 							<div>
@@ -401,15 +413,15 @@
 
 						<sec:authorize access="hasRole('ROLE_USER')">
 							<form action="/main/view/${view.showcase_num}/commentWrite" method="post">
-							<input type="hidden" id="showcase_num" value="${view.showcase_num}"/>
-							<div>
-								<div style="margin-bottom: 5px;">
-									<textarea id="content" name="content" rows="5" class="form-control search_box_input" placeholder="게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다."></textarea>
+								<input type="hidden" id="showcase_num" value="${view.showcase_num}" />
+								<div>
+									<div style="margin-bottom: 5px;">
+										<textarea id="content" name="content" rows="5" class="form-control search_box_input" placeholder="게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다."></textarea>
+									</div>
+									<div style="text-align: right;">
+										<input type="submit" value="댓글등록" class="btn btn-light-blue">
+									</div>
 								</div>
-								<div style="text-align: right;">
-									<input type="submit" value="댓글등록" class="btn btn-light-blue">
-								</div>
-							</div>
 							</form>
 						</sec:authorize>
 
@@ -434,6 +446,17 @@
 													<!-- <a onclick="fnLikeReply(54343);">♥ 좋아요</a> -->
 												</div>
 												<div style="display: inline-block; cursor: pointer">
+													<sec:authorize access="hasRole('ROLE_USER')">
+														<sec:authentication var="userDetail" property="principal" />
+														<c:if test="${userDetail.member_num eq comment.member_num }">
+															<div style="display: inline-block; cursor: pointer">
+																<a href="/main/view/${comment.showcase_num}/commentModify/${comment.comment_num}/${comment.content}">수정</a> |
+															</div>
+															<div style="display: inline-block; cursor: pointer">
+																<a href="/main/view/${comment.showcase_num}/commentDelete/${comment.comment_num}">삭제</a> &nbsp;&nbsp;
+															</div>
+														</c:if>
+													</sec:authorize>
 												</div>
 											</div>
 											<div class="clearfix"></div>
@@ -544,6 +567,11 @@
 	jQuery().ready(function() {
 		map();
 		fnInitControl();
+		//btn클릭 이벤트 처리
+		/* $('#together').click(); */
+		//페이지 로드시 버튼 클릭
+		//버튼 클릭이 아니라 코드에 의해서 click이벤트를 실행하고 싶다면?
+		$('#together').trigger('click'); //실행하자마자 click이벤트를 트리거 함
 	});
 	function map() {
 		jQuery('#mapsel').click(function() {
@@ -562,6 +590,7 @@
 			}
 		});
 	}
+
 </script>
 
 <!--    </div>
