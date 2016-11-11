@@ -33,8 +33,9 @@
 				<div style="float: left; font-size: 20px; font-weight: bold;">
 					<div style="box-sizing: border-box; font-size: 16px;">
 						<span style="font-size: 18px; font-weight: normal;">
-						<img src="../template/image/order_basket/interestLogo.png">
+						<img src="/resources/image/order_basket/interestLogo.png">
 						</span>
+
 					</div>
 				</div>
 				<div style="clear: both;"></div>

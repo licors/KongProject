@@ -116,4 +116,10 @@ public class ShowcaseService implements ShowcaseDAO {
         ShowcaseMapper.ordercountdown(showcaseModel);
     }
 
+	public ArrayList<ShowcaseModel>  best_10() {
+		ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
+		ShowcaseMapper.best_10();
+		return null;
+	}
+
 }

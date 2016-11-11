@@ -133,7 +133,16 @@
         UPDATE showcase SET ordercount = ordercount - 1
         <include refid="where-no"/>
     </update>
-	
+    
+    
+    
+	<select id="best_10" resultMap="showRes" >
+        <include refid="select-all"/>
+        <![CDATA[
+        where show_status >= 0
+        ORDER BY ordercount DESC
+        ]]>
+    </select>
     <!--    <delete id="deleteMember" parameterType="java.lang.String">
         DELETE showcase
         <include refid="where-no"/>
