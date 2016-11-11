@@ -1,7 +1,6 @@
 package kong2.member;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +9,6 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,8 +31,6 @@ public class MemberController {
 	
 //	@Autowired
 //	private PasswordEncoder passwordEncoder;
-
-	private List<ZipcodeModel> zipcodeList = new ArrayList<ZipcodeModel>();
 
 	@RequestMapping("/login")
 	public String loginForm(Model model) {

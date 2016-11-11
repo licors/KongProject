@@ -33,7 +33,7 @@
                 </style>
                 <div class="login-wrapper">
                     <h1 class="title" style="padding-top:20px;">
-                        <a href="/"><img src="/resources/image/member/logo.jpg" alt="CANGOTO"></a>
+                        <a href="/"><img src="/resources/image/member/logo.jpg" alt="KONG"></a>
                     </h1>
                     <h2 style="font-weight:bold;margin:30px 0">
                         	문화를 즐기는 방법, KONG 에 오신 것을 환영합니다.

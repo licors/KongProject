@@ -9,9 +9,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="id_email" column="id_email" />
 		<result property="password" column="password" />
 		<result property="name" column="name" />
-		<result property="zipcode" column="zipcode"/>
-		<result property="address" column="address"/>
-		<result property="address2" column="address2"/>
 		<result property="phone" column="phone"/>
 		<result property="company" column="company"/>
 		<result property="admin" column="admin"/>
@@ -19,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
  	<!-- 공통으로 사용할 select 의 -->
 	<sql id="select-all-member">
-		select MEMBER_NUM, ID_EMAIL, PASSWORD, NAME, ZIPCODE, ADDRESS, ADDRESS2, COMPANY, ADMIN, PHONE from MEMBER 
+		select MEMBER_NUM, ID_EMAIL, PASSWORD, NAME, COMPANY, ADMIN, PHONE from MEMBER 
 	</sql>
 	
 	<!-- 회원정보 입력 쿼리문 -->

@@ -128,4 +128,6 @@ public interface ShowcaseMapper {
      * @param showcaseModel #{showcase_num}
      */
     void ordercountdown(ShowcaseModel showcaseModel);
+
+	ArrayList<ShowcaseModel> best_10();
 }
