@@ -89,7 +89,7 @@ public class task {
      *
      * @param date1 시작일
      * @param date2 종료일
-     * @return show_status //글 상태여부 -1 삭제, 0 예정중(기본), 1 계최중
+     * @return show_status //글 상태여부 -1 삭제, 0 예정중(기본), 1 개최중
      */
     public static int timecal(String date1, String date2) {
         SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
@@ -124,7 +124,7 @@ public class task {
 //        System.out.println("전:" + aDate.getTimeInMillis());
 //        System.out.println("sys:" + cDate.getTimeInMillis());
 //        System.out.println("후:" + bDate.getTimeInMillis());
-        if (aDate.getTimeInMillis() <= cDate.getTimeInMillis() && cDate.getTimeInMillis() < bDate.getTimeInMillis()) { //계최중
+        if (aDate.getTimeInMillis() <= cDate.getTimeInMillis() && cDate.getTimeInMillis() < bDate.getTimeInMillis()) { //개최중
             return 1;
         } else if (cDate.getTimeInMillis() < aDate.getTimeInMillis()) { //예정중
             return 0;

@@ -45,10 +45,10 @@
 		}
 	}
 	function deleteError() {
-		alert("티켓 기간이 만료되어 취소가 불가능 합니다." + "\n" + "\t1544-1234 (주)KOnG");
+		alert("티켓 기간이 만료되어 취소가 불가능 합니다." + "\n" + "\t1544-1234 (주)KONG");
 	}
 	function deleteError2() {
-		alert("이미 티켓이 취소 되었습니다." + "\n" + "\t1544-1234 (주)KOnG");
+		alert("이미 티켓이 취소 되었습니다." + "\n" + "\t1544-1234 (주)KONG");
 	}
 </script>
 <!-- <style type="text/css">
@@ -74,7 +74,6 @@ element.style {
 					<table width="500" align="center" class="table-condensed">
 						<tr>
 							<td><a href='/admin/main/view/${orderModel.showcase_num }'>
-									<!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
 									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
 									class="img-responsive">
 							</a></td>
@@ -118,7 +117,6 @@ element.style {
 									readonly="true" /></td>
 						</tr>
 						<tr>
-
 							<td width="100"><label for="sex">성별</label></td>
 							<td><form:input path="sex" class="form-control" type="text"
 									name="sex" maxlength="20" value="${orderModel.sex}"

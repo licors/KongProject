@@ -81,6 +81,29 @@
                                         </c:forEach>
 								</c:if>
 							</div>
+							
+							<div class="clearfix"></div>
+							<div class="cgt_line_gray_1 cgt_mtb_10"></div>
+							<div class="col-md-2 bold padding-left-clear">공유하기</div>
+							<div class="col-md-10">
+							<div id="cgt_detail_sns_share">
+							<span class="facebook">
+ 							<%-- <a href="http://www.facebook.com/sharer/sharer.php?u=http://localhost:8080/main/view/${view.showcase_num }"
+							 > --%>
+							<img src="/resources/image/showcase_view/facebook_icon.jpg" alt="페이스북 공유" style="cursor: pointer;border:0"
+							onClick="window.open('http://www.facebook.com/sharer/sharer.php?u=http://localhost:8080/main/view/${view.showcase_num }','_blank','width=700; height=300')"/>
+							<!-- </a> -->
+							</span>
+							<span class="twitter">
+							<img src="/resources/image/showcase_view/tweet_icon.jpg" alt="트위터 공유" style="cursor: pointer;border:0"
+							onClick="window.open('https://twitter.com/intent/tweet?text=TEXT&url=http://localhost:8080/main/view/${view.showcase_num }','_blank','width=700; height=400')"/>
+							</span>
+							
+							<!-- http://dev.epiloum.net/916 참고 -->
+							</div>
+							</div>
+							
+							
 							<div class="clearfix"></div>
 							<div class="cgt_line_gray_1 cgt_mtb_10"></div>
 						</div>
