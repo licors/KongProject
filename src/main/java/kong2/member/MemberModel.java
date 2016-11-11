@@ -1,11 +1,9 @@
 package kong2.member;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import kong2.security.Role;
@@ -16,9 +14,9 @@ public class MemberModel implements UserDetails {
 	private String id_email;
 	private String password;
 	private String name;
-	private String zipcode;
-	private String address;
-	private String address2;
+//	private String zipcode;
+//	private String address;
+//	private String address2;
 	private String company;
 	private String phone;
 	private int admin;
@@ -65,29 +63,29 @@ public class MemberModel implements UserDetails {
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getZipcode() {
-		return zipcode;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
+//	public String getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(String address) {
+//		this.address = address;
+//	}
+//
+//	public String getAddress2() {
+//		return address2;
+//	}
+//
+//	public void setAddress2(String address2) {
+//		this.address2 = address2;
+//	}
+//
+//	public String getZipcode() {
+//		return zipcode;
+//	}
+//
+//	public void setZipcode(String zipcode) {
+//		this.zipcode = zipcode;
+//	}
 
 	public String getCompany() {
 		return company;
@@ -154,12 +152,6 @@ public class MemberModel implements UserDetails {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberModel [member_num=" + member_num + ", id_email=" + id_email + ", password=" + password + ", name="
-				+ name + ", zipcode=" + zipcode + ", address=" + address + ", address2=" + address2 + ", company="
-				+ company + ", phone=" + phone + ", admin=" + admin + ", authorities=" + authorities + "]";
-	}
 
 
 }

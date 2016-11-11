@@ -23,8 +23,7 @@ import kong2.member.MemberModel;
 @Controller
 @RequestMapping("/main/view")
 public class CommentController {
-	
-//	private int currentPage = 1;
+
 	private int totalCount;
 	private int blockCount = 10;
 	private int blockPage = 3;
@@ -57,13 +56,6 @@ public class CommentController {
 //		return "redirect:/main/view/" + showcase_num +"?commentCheck=true";
 	}
 	
-//	@RequestMapping(value="/{showcase_num}/write", method=RequestMethod.GET)
-//	public String commentWriteForm(Model model, @PathVariable int showcase_num)throws Exception{
-//
-//		model.addAttribute("showcase_num", showcase_num);
-//		return "commentWriteform";
-//	}
-	
 	@RequestMapping(value="/{showcase_num}/commentWrite", method=RequestMethod.POST)
 	public String commentWrite(Model model, @PathVariable int showcase_num, CommentModel commentModel, BindingResult result)throws Exception{
 		
@@ -74,22 +66,11 @@ public class CommentController {
 		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";
 	}
 	
-//	@RequestMapping(value="/{showcase_num}/commentModify", method=RequestMethod.GET)
-//	public String commentModifyForm(Model model, @PathVariable int showcase_num, HttpServletRequest request)throws Exception{
-//		
-//		CommentModel commentModel =commentService.selectOne(Integer.parseInt(request.getParameter("comment_num")));
-//		model.addAttribute("commentModel", commentModel);
-//		model.addAttribute("showcase_num", showcase_num);
-//		return "ti_commentModifyForm";
-//	}
 	
-	
-	
-	@RequestMapping(value="/{showcase_num}/commentModify/{comment_num}/{content}")
-	public String commentModify(Model model, @PathVariable int showcase_num, @PathVariable int comment_num, @PathVariable String content, 
+	@RequestMapping(value="/{showcase_num}/commentModify/{comment_num}")
+	public String commentModify(Model model, @PathVariable int showcase_num, @PathVariable int comment_num,
 			HttpServletRequest request,CommentModel commentModel,BindingResult result)throws Exception{
 		commentModel.setComment_num(comment_num);
-		commentModel.setContent(content);
 		
 		commentService.update(commentModel);
 		return "redirect:/main/view/"+showcase_num+"?commentCheck=true";

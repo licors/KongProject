@@ -78,7 +78,7 @@
 							<table align="center" class="table-condensed">
 								<c:forEach items="${basketList}" var="basket" varStatus="status">
 									<tr>
-										<td><img src="${show_img}${basket.file_savname.split(',')[0]}" class="img-responsive"></td>
+										<td><img src="${show_img}${basket.file_savname.split(',')[0]}" class="img-responsive" style="width: 270px; height: 295px;"></td>
 										<td>
 											<!-- <h3>
 											<s:property value="subject" />
@@ -214,7 +214,7 @@
 							<table width="500" align="center" class="table-condensed">
 								<tr>
 									<td>
-										 <img src="${show_img}${showcaseModel.file_savname.split(',')[0]}" class="img-responsive">
+										 <img src="${show_img}${showcaseModel.file_savname.split(',')[0]}" class="img-responsive" style="width: 270px; height: 295px;">
 									</td>
 									<td>
 										<h3>

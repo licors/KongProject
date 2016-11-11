@@ -105,7 +105,7 @@ element.style {
 									<tr>
 										<td><img
 											src="${show_img}${basket.file_savname.split(',')[0]}"
-											class="img-responsive"></td>
+											class="img-responsive" style="width: 270px; height: 295px;"></td>
 										<td>
 											<h4>
 												${basket.subject } <br> <small>
@@ -277,7 +277,7 @@ element.style {
 								<tr>
 									<td><img
 										src="${show_img}${showcaseModel.file_savname.split(',')[0]}"
-										class="img-responsive"></td>
+										class="img-responsive" style="width: 270px; height: 295px;"></td>
 									<td>
 										<h3>
 											${showcaseModel.subject } <br> <small>

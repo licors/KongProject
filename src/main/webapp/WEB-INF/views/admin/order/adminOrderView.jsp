@@ -75,7 +75,7 @@ element.style {
 						<tr>
 							<td><a href='/admin/main/view/${orderModel.showcase_num }'>
 									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
-									class="img-responsive">
+									class="img-responsive" style="width: 270px; height: 295px;">
 							</a></td>
 							<td>
 								<h3>
