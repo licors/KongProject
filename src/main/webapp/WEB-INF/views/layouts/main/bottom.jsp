@@ -19,7 +19,7 @@
                                 <p style="margin:0px; padding:0px;">(주)KONG | 안효명 김도훈 배유진 김영길 유원희 | tel : 02-111-1111 | email : <a
                                         href="mailto:mkt@cango.to" style="cursor: pointer;">mkt@cango.to</a> | 119-86-78989 [ <a href="#" target="_blank">정보확인</a> ]</p>
                                 <p style="margin:0px; padding:0px;">서울 강남구 역삼로32길 14 (역삼2동 142-2) KH빌딩 3층 | 통신판매업신고번호 : 2014-서울금천-0181</p>
-                                <p style="margin:0px; padding:0px;">Copyright © 2016 CANGOTO Inc. All rights® reserved.</p>
+                                <p style="margin:0px; padding:0px;">Copyright © 2016 KONG Inc. All rights® reserved.</p>
                             </div>
                         </div>
                     </div>

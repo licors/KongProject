@@ -66,7 +66,7 @@
                 <div class="boxes">
                     <div class="box box2" style="text-align:center;padding-top:5px">
                         <div style="display: inline-block; margin: 0px auto;">
-                            <a href="/main"><img src="/resources/image/header/logo.png" alt="CANGOTO" height="40" style="float:left;margin-right:50px"></a>
+                            <a href="/main"><img src="/resources/image/header/logo.png" alt="KONG" height="40" style="float:left;margin-right:50px"></a>
                             <div style="float:left;">
                                 <input type="text" class="form-control mainSerchBox" placeholder="검색어, #해시태그" id="txtMainSearch">
                             </div>

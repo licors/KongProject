@@ -46,11 +46,11 @@
 	}
 	function deleteError() {
 		alert("티켓 기간이 만료되어 취소가 불가능 합니다." + "\n" + "고객센터로 연락주세요" + "\n"
-				+ "\t1544-1234 (주)KOnG");
+				+ "\t1544-1234 (주)KONG");
 	}
 	function deleteError2() {
 		alert("이미 티켓이 취소 되었습니다." + "\n" + "고객센터로 연락주세요" + "\n"
-				+ "\t1544-1234 (주)KOnG");
+				+ "\t1544-1234 (주)KONG");
 	}
 </script>
 <style type="text/css">
@@ -83,7 +83,7 @@ element.style {
 					<table width="500" align="center" class="table-condensed">
 						<tr>
 							<td><a href='/main/view/${orderModel.showcase_num }'
-								target="_blank"> <!-- <img src="https://www.cangoto.kr/Resource/Poster/po(58).jpg" class="img-responsive"> -->
+								target="_blank">
 									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
 									class="img-responsive">
 							</a></td>
