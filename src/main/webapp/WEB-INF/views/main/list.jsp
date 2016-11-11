@@ -82,7 +82,7 @@
                     </div>
                     <div class="cgt_latest_image_area">
                         <a href ='/main/view/${list.showcase_num}' target="_blank">
-                            <img src="${img}${list.file_savname.split(',')[0]}" class="img-responsive">
+                            <img src="${img}${list.file_savname.split(',')[0]}" class="img-responsive" style="width: 270px; height: 295px;">
                         </a>
                     </div><!-- img -->
                     <div class="cgt_list_mask" style="width: 284px; height: 295px;"></div>

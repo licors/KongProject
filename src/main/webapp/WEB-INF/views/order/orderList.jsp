@@ -89,7 +89,7 @@
 						</div>
 						<div class="cgt_latest_image_area">
 						<a href='/main/view/${order.showcase_num }' target="_blank"> 
-							<img src="${show_img}${order.file_savname.split(',')[0]}" class="img-responsive">
+							<img src="${show_img}${order.file_savname.split(',')[0]}" class="img-responsive" style="width: 270px; height: 295px;">
 						</a>
 						</div>
 						<!-- img -->
