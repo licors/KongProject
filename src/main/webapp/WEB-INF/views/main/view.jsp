@@ -450,7 +450,8 @@
 														<sec:authentication var="userDetail" property="principal" />
 														<c:if test="${userDetail.member_num eq comment.member_num }">
 															<div style="display: inline-block; cursor: pointer">
-																<a href="/main/view/${comment.showcase_num}/commentModify/${comment.comment_num}/${comment.content}">수정</a> |
+																<%-- <a id="commentModify" href="/main/view/${comment.showcase_num}/commentModify/${comment.comment_num}/${comment.content}">수정</a> | --%>
+																<a id="commentModify" href="#" onclick="fnCommentModify('${comment.comment_num}')">수정</a> |
 															</div>
 															<div style="display: inline-block; cursor: pointer">
 																<a href="/main/view/${comment.showcase_num}/commentDelete/${comment.comment_num}">삭제</a> &nbsp;&nbsp;
@@ -463,11 +464,13 @@
 										</div>
 										<div>
 											<div id="divViewCONTENT_${comment.comment_num }">
-												<div style="float: left; max-width: 730px; font-weight: bold; line-height: 1.5; font-size: 12px;" id="divCONTENT_${comment.comment_num }">${comment.content }</div>
+												<div style="float: left; max-width: 730px; font-weight: bold; line-height: 1.5; font-size: 12px;" id="divCONTENT_${comment.comment_num}">${comment.content }</div>
 												<div style="float: right; font-size: 12px;">
 													<%-- <span style="display: inline-block;">좋아요 <span id="spanLikeCnt_54343">0</span>개
 													</span> --%>
 												</div>
+											</div>
+											<div id="divEditCONTENT_${comment.comment_num }">
 											</div>
 											<%-- <div id="divEditCONTENT_${comment.comment_num }" style="display: none;">
 												<textarea id="txtcontent_" style="max-width: 100%;" rows=" 5" class="form-control search_box_input">${comment.content }</textarea>
@@ -585,7 +588,19 @@
 			}
 		});
 	}
+	function fnCommentModify(comment_num) {
+		jQuery("#divEditCONTENT_" + comment_num).html(
+				"<form action='/main/view/${view.showcase_num}/commentModify/"+ comment_num +"' method='post'><input type='hidden' id='showcase_num' value='${view.showcase_num}' /><div><div style='margin-bottom: 5px;'><textarea id='modify_content' name='content' rows='2' class='form-control search_box_input' placeholder='게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다.'></textarea></div><div style='text-align: right;'><input type='submit' value='수정' class='btn btn-light-blue'>&nbsp;<input type='button' value='취소' onclick='cancelCmModify("+ comment_num +")' class='btn btn-default'/></div></div></form>"
+				);
+	}
+	
+	function cancelCmModify(comment_num) {
+		jQuery("#divEditCONTENT_" + comment_num).html("");
+	}
 </script>
+<style type="text/css">
+	#modify_content{min-height: 100px;}
+</style>
 
 <!--    </div>
 </div>-->
