@@ -25,6 +25,9 @@
 			alert("신청인 핸드폰번호를 입력하세요");
 			document.orderForm.phone.focus();
 			return false;
+		} else if (!orderForm.payment_type.value) {
+			alert("결제 방법을 선택해주세요");
+			return false;
 		} else {
 
 			var orderForm = eval("document.orderForm");
@@ -49,6 +52,9 @@
 		} else if (!orderForm.phone.value) {
 			alert("신청인 핸드폰번호를 입력하세요");
 			document.orderForm.phone.focus();
+			return false;
+		} else if (!orderForm.payment_type.value) {
+			alert("결제 방법을 선택해주세요");
 			return false;
 		} else {
 			var orderForm = eval("document.orderForm");
@@ -180,12 +186,23 @@ element.style {
 								</tr>
 
 								<tr>
-									<td width="100"><label for="payment_type">결제방법</ladbel></td>
+									<td width="100"><label for="payment_type">결제방법<font
+											color="#FF0000">&nbsp;&nbsp;*</font></label></td>
 									<td><label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio1" name="payment_type"
-												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio2" name="payment_type"
-												value="신용카드" label="신용카드" /> </label> <label class="radio-inline"><form:radiobutton
+												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline">
+											<c:choose>
+												<c:when test="${orderModel.total_price eq 0}">
+													<form:radiobutton path="payment_type" id="inlineRadio2"
+														name="payment_type" value="신용카드" label="신용카드"
+														disabled="true" />
+												</c:when>
+												<c:otherwise>
+													<form:radiobutton path="payment_type" id="inlineRadio2"
+														name="payment_type" value="신용카드" label="신용카드" />
+												</c:otherwise>
+											</c:choose>
+									</label> <label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio3" name="payment_type"
 												value="휴대폰" label="휴대폰" disabled="true" /> </label></td>
 								</tr>
@@ -341,12 +358,23 @@ element.style {
 								</tr>
 
 								<tr>
-									<td width="100"><label for="payment_type">결제방법</ladbel></td>
+									<td width="100"><label for="payment_type">결제방법<font
+											color="#FF0000">&nbsp;&nbsp;*</font></label></td>
 									<td><label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio1" name="payment_type"
-												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline"><form:radiobutton
-												path="payment_type" id="inlineRadio2" name="payment_type"
-												value="신용카드" label="신용카드" /> </label> <label class="radio-inline"><form:radiobutton
+												value="무통장입금" label="무통장입금" /> </label> <label class="radio-inline">
+											<c:choose>
+												<c:when test="${showcaseModel.price  eq 0}">
+													<form:radiobutton path="payment_type" id="inlineRadio2"
+														name="payment_type" value="신용카드" label="신용카드"
+														disabled="true" />
+												</c:when>
+												<c:otherwise>
+													<form:radiobutton path="payment_type" id="inlineRadio2"
+														name="payment_type" value="신용카드" label="신용카드" />
+												</c:otherwise>
+											</c:choose>
+									</label> <label class="radio-inline"><form:radiobutton
 												path="payment_type" id="inlineRadio3" name="payment_type"
 												value="휴대폰" label="휴대폰" disabled="true" /> </label></td>
 								</tr>

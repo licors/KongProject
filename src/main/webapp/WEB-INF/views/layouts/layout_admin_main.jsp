@@ -115,6 +115,7 @@
                                 <!-- Sub menu -->
                                 <ul>
                                     <li><a href="/faq/list_admin">리스트</a></li>
+                                    <li><a href="/faq/write">쓰기</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -125,6 +126,7 @@
                                 <!-- Sub menu -->
                                 <ul>
                                     <li><a href="/notice/list_admin/1">리스트</a></li>
+                                    <li><a href="/notice/write">쓰기</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
