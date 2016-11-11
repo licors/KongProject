@@ -11,7 +11,18 @@
         }
     }
 </script>-->
+<style>
+	body {
+		background-color: #fff;
+	}
+</style>
+
 <div style="width:100%; background-color:#FFF;">
+	<div style="margin-bottom: 40px; margin-top: 0px;">
+		<h1 class="title" align="center">
+			<a href="/"><img src="/resources/image/member/logo.jpg" alt="KONG"></a>
+		</h1>
+	</div>
     <div id="ContentPanel"></div>
     <section class="cgt-content-wrapper main-content clear-fix">
         <div style="padding-top:50px;">
@@ -73,7 +84,7 @@
                                         </font>
                                     </div>
                                 </div>
-                                <hr>
+                                
                                 <div style="max-width:1200px; text-align:center; margin:20px auto 40px auto;">
                                     <button type="submit" class="btn btn-light-blue" style="display:inline-block; width:120px;">정보수정</button>
                                     <!--<input class="btn btn-light-blue" type="button" style="display:inline-block; width:100px;" value="회원탈퇴" onClick="javascript:location.href = '${contextPath}/member/memberDeleteForm'">-->
