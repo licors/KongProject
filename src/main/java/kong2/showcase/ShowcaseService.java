@@ -1,6 +1,8 @@
 package kong2.showcase;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -116,10 +118,11 @@ public class ShowcaseService implements ShowcaseDAO {
         ShowcaseMapper.ordercountdown(showcaseModel);
     }
 
-	public ArrayList<ShowcaseModel>  best_10() {
+	public List<ShowcaseModel>  best_10() {
+		List<ShowcaseModel> result;
 		ShowcaseMapper ShowcaseMapper = sqlSession.getMapper(ShowcaseMapper.class);
-		ShowcaseMapper.best_10();
-		return null;
+		result=ShowcaseMapper.best_10();
+		return result;
 	}
 
 }

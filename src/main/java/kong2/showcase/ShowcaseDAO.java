@@ -1,6 +1,7 @@
 package kong2.showcase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ShowcaseDAO {
 
@@ -119,4 +120,6 @@ public interface ShowcaseDAO {
      * @param showcaseModel #{showcase_num}
      */
     void ordercountdown(ShowcaseModel showcaseModel);
+    
+    List<ShowcaseModel>  best_10();
 }

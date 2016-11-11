@@ -140,6 +140,7 @@
         <include refid="select-all"/>
         <![CDATA[
         where show_status >= 0
+        AND rownum <= 10
         ORDER BY ordercount DESC
         ]]>
     </select>

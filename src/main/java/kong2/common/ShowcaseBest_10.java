@@ -1,6 +1,7 @@
 package kong2.common;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,9 @@ public class ShowcaseBest_10 {
     private static final Logger logger = LoggerFactory.getLogger(ShowcaseBest_10.class);
     
     @RequestMapping(value = "/best", headers = "Accept=application/json")
-    public ArrayList<ShowcaseModel> getOnj() {
+    public List<ShowcaseModel> getOnj() {
         
-        ArrayList<ShowcaseModel> date = showcaseService.best_10();
+        List<ShowcaseModel> date = showcaseService.best_10();
         
         return date;
     }

@@ -6,6 +6,7 @@
 package kong2.showcase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -129,5 +130,5 @@ public interface ShowcaseMapper {
      */
     void ordercountdown(ShowcaseModel showcaseModel);
 
-	ArrayList<ShowcaseModel> best_10();
+	List<ShowcaseModel> best_10();
 }
