@@ -15,6 +15,7 @@
         <level value="INFO" />
     </logger>
     
+    <!-- sql Loggers -->
     <logger name="jdbc.resultsettable" additivity="false">
         <level value="INFO" />
         <appender-ref ref="console" />
