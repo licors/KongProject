@@ -20,6 +20,23 @@
         <put-attribute name="title" value="Support" />
         <put-attribute name="body" value="/WEB-INF/views/support/view.jsp" />
     </definition>
+    
+    <!-- 어드민 -->
+    
+    <definition name="adminsupportlist" extends="default_admin">
+        <put-attribute name="tab" value="문의글 리스트" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/support/list.jsp" />
+    </definition>
+    
+    <definition name="adminsupportwrite" extends="default_admin">
+        <put-attribute name="tab" value="문의글 답변" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/support/write.jsp" />
+    </definition>
+    
+    <definition name="adminsupportview" extends="default_admin">
+        <put-attribute name="tab" value="문의글 상세보기" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/support/view.jsp" />
+    </definition>
 
 </tiles-definitions>
 

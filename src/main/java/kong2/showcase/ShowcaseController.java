@@ -1,35 +1,24 @@
 package kong2.showcase;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import kong2.comment.CommentController;
 import kong2.comment.CommentModel;
 import kong2.comment.CommentService;
-import kong2.common.PagingAction;
 import kong2.common.PagingActionRequestParam;
-import kong2.common.memberBeforeFunctionStart;
 import kong2.common.path;
 import kong2.validator.ShowcaseValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,17 +28,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ShowcaseController {
 
-    @Resource(name="showcaseService")
+    @Resource(name = "showcaseService")
     private ShowcaseService showcaseService;
-    
-    @Resource(name="commentService")
+
+    @Resource(name = "commentService")
     private CommentService commentService;
 
     private String uploadPath = path.path().p() + "../../../../resources/upload"; //이클립스 기준 업로드
@@ -62,7 +49,6 @@ public class ShowcaseController {
         return "adminmain";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping("/main")
     public String main(Model model) {
         logger.info("Welcome main.");
@@ -86,7 +72,6 @@ public class ShowcaseController {
         return "main";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping("/main/{showcase_category}")
     public String list(Model model, @PathVariable String showcase_category) throws Exception {
         ShowcaseModel category = new ShowcaseModel();
@@ -99,7 +84,6 @@ public class ShowcaseController {
         return "mainlist";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping("/admin/main/list")
     public String adminlist(Model model) throws Exception {
         List<ShowcaseModel> list = showcaseService.selectall();
@@ -107,42 +91,39 @@ public class ShowcaseController {
         return "adminmainlist";
     }
 
-//    @memberBeforeFunctionStart
     @RequestMapping("/main/view/{showcase_num}")
-    public String view(Model model, @PathVariable int showcase_num, @RequestParam(required=false, value="commentCheck", defaultValue="false") String commentCheck,
-    		 @RequestParam(required=false, value="currentPage", defaultValue="1") String currentPage, HttpServletRequest request) {
+    public String view(Model model, @PathVariable int showcase_num, @RequestParam(required = false, value = "commentCheck", defaultValue = "false") String commentCheck,
+            @RequestParam(required = false, value = "currentPage", defaultValue = "1") String currentPage, HttpServletRequest request) {
 //    		@PathVariable(required=false, value="current_num") String current_num, HttpServletRequest request) {
         ShowcaseModel view = new ShowcaseModel();
         view.setShowcase_num(showcase_num);
         ShowcaseModel aticle = showcaseService.selectone(view);
         model.addAttribute("view", aticle);
         model.addAttribute("img", imgPath);
-        
+
         /*댓글*/
         model.addAttribute("commentCheck", commentCheck);
 
         List<CommentModel> list = null;
-		list = commentService.selectAll(showcase_num);
-		int totalCount = list.size();
-		PagingActionRequestParam.PagingAction(Integer.parseInt(currentPage), totalCount, 10, 3, "/main/view/"+showcase_num+"?commentCheck=true");
-		String pagingHtml = PagingActionRequestParam.getPagingHtml().toString();
-		int lastCount = totalCount;
-		
-		if (PagingActionRequestParam.getEndCount() < totalCount) {
-			lastCount = PagingActionRequestParam.getEndCount() + 1;
-		}
-		
-		list = list.subList(PagingActionRequestParam.getStartCount(), lastCount);
-		
-		model.addAttribute("pagingHtml", pagingHtml);
-		model.addAttribute("list", list);
-		model.addAttribute("showcase_num", showcase_num);
-		
+        list = commentService.selectAll(showcase_num);
+        int totalCount = list.size();
+        PagingActionRequestParam.PagingAction(Integer.parseInt(currentPage), totalCount, 10, 3, "/main/view/" + showcase_num + "?commentCheck=true");
+        String pagingHtml = PagingActionRequestParam.getPagingHtml().toString();
+        int lastCount = totalCount;
+
+        if (PagingActionRequestParam.getEndCount() < totalCount) {
+            lastCount = PagingActionRequestParam.getEndCount() + 1;
+        }
+
+        list = list.subList(PagingActionRequestParam.getStartCount(), lastCount);
+
+        model.addAttribute("pagingHtml", pagingHtml);
+        model.addAttribute("list", list);
+        model.addAttribute("showcase_num", showcase_num);
+
         return "mainview";
     }
-    
-    
-    @memberBeforeFunctionStart
+
     @RequestMapping("/admin/main/view/{showcase_num}")
     public String adminview(Model model, @PathVariable int showcase_num) {
         ShowcaseModel view = new ShowcaseModel();
@@ -153,13 +134,11 @@ public class ShowcaseController {
         return "adminmainview";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.GET)
     public String adminwriteform(Model model, HttpServletRequest request) {
         return "adminmainwrite";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.POST)
     public String adminwrite(Model model, /*MultipartHttpServletRequest request,*/ ShowcaseModel showcaseModel, BindingResult result) throws IOException {
         logger.info(showcaseModel.toString());
@@ -214,7 +193,6 @@ public class ShowcaseController {
         return "redirect:/admin/main/list";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping("/admin/main/delete/{showcase_num}")
     public String admindelete(Model model, @PathVariable int showcase_num) {
         ShowcaseModel view = new ShowcaseModel();
@@ -225,7 +203,6 @@ public class ShowcaseController {
         return "redirect:/admin/main/list";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/modify/{showcase_num}", method = RequestMethod.GET)
     public String adminmodifyform(Model model, @PathVariable int showcase_num) {
         ShowcaseModel view = new ShowcaseModel();
@@ -235,7 +212,6 @@ public class ShowcaseController {
         return "adminmodify";
     }
 
-    @memberBeforeFunctionStart
     @RequestMapping(value = "/admin/main/modify/{showcase_num}", method = RequestMethod.POST)
     public String adminmodify(Model model, @PathVariable int showcase_num, ShowcaseModel showcaseModel, BindingResult result) throws IOException {
         logger.info(showcaseModel.toString());

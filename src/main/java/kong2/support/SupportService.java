@@ -35,6 +35,13 @@ public class SupportService implements SupportDAO {
     }
 
     @Override
+    public SupportModel selectreply(SupportModel supportModel) {
+        SupportMapper SupportMapper = sqlSession.getMapper(SupportMapper.class);
+        SupportModel result = SupportMapper.selectreply(supportModel);
+        return result;
+    }
+
+    @Override
     public void insert(SupportModel supportModel) {
         SupportMapper SupportMapper = sqlSession.getMapper(SupportMapper.class);
         SupportMapper.insert(supportModel);

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service(value = "mailService")
 public class mailService implements mailDAO {
-
+//<html><body><h3>안녕하세요. ${model.emailTo}님,</h3><p>안녕하세요. 캔고루 고객 지원 팀을 찾아 주셔서 감사합니다. 문의 주신 내용이 접수 되었으며, 문의 번호는 #${support_num} 입니다.</p></body></html>
 //    @Autowired
     private JavaMailSender mailSender;
 //    @Autowired

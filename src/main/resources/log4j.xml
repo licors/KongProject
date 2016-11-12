@@ -12,49 +12,54 @@
 	
     <!-- Application Loggers -->
     <logger name="kong2">
-        <level value="info" />
+        <level value="INFO" />
     </logger>
     
     <logger name="jdbc.resultsettable" additivity="false">
-        <level value="info" />
+        <level value="INFO" />
         <appender-ref ref="console" />
     </logger>
 
     <logger name="jdbc.audit" additivity="false">
-        <level value="warn" />
+        <level value="WARN" />
         <appender-ref ref="console" />
+    </logger>
+    
+    <logger name="jdbc.sqlonly" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="console"/>
     </logger>
 
     <logger name="jdbc.resultset" additivity="false">
-        <level value="warn" />
+        <level value="WARN" />
         <appender-ref ref="console" />
     </logger>
     
     <logger name="jdbc.sqltiming" additivity="false">
-        <level value="warn" />
+        <level value="INFO" />
         <appender-ref ref="console" />
     </logger>
 	
     <!-- 3rdparty Loggers -->
     <logger name="org.springframework.core">
-        <level value="info" />
+        <level value="INFO" />
     </logger>
 	
     <logger name="org.springframework.beans">
-        <level value="info" />
+        <level value="INFO" />
     </logger>
 	
     <logger name="org.springframework.context">
-        <level value="info" />
+        <level value="INFO" />
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="info" />
+        <level value="INFO" />
     </logger>
 
     <!-- Root Logger -->
     <root>
-        <priority value="warn" />
+        <priority value="INFO" />
         <appender-ref ref="console" />
     </root>
 	

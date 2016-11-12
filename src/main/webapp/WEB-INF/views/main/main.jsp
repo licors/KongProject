@@ -5,6 +5,7 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@page import="java.util.Date"%>
 <!-- 메인 jQuery등록부분 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script><!-- 메인 드랍다운용 -->
 <script type="text/javascript">
@@ -42,6 +43,7 @@
         })
     });
 </script>
+<jsp:useBean id="now" class="java.util.Date" />
 <div style="width:100%; background-color:#FFF; padding:0px 20px 20px 20px;">
     <div id="ContentPanel"></div>
     <section class="content-wrapper main-content clear-fix">
@@ -67,7 +69,18 @@
             <c:forEach var="list" items="${aticle}" varStatus="stat">
                 <div class="cgt-latest cgt-list-ctype-1">
                     <div style="position:absolute; width:100%; z-index:100;">
-                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">개최중</div>
+                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">
+                            <fmt:parseNumber value="${list.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start" />
+                            <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
+                            <c:choose>
+                                <c:when test="${list.show_status eq 0}">
+                                    D-${(end - start) + 1}
+                                </c:when>
+                                <c:when test="${list.show_status eq 1}">
+                                    개최중
+                                </c:when>
+                            </c:choose>
+                        </div>
                         <div style="clear:both;"></div>
                     </div>
                     <div class="cgt_latest_image_area">
@@ -78,19 +91,19 @@
                     <div class="cgt_list_mask" style="width: 284px; height: 295px;"></div>
                     <div class="cgt_list_button">
                         <a class="btn-detail cgt-single-load" href="/main/view/${list.showcase_num}"><img alt="상세보기" src="/resources/image/main/view_small_btn.png"></a>
-                        <%-- <c:choose><c:when test="${empty member}"><!-- 로그인 안함 --> --%>
-	                        <sec:authorize access="isAnonymous()">
-	                            <a class="btn-application cgt-single-load" href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?', '/member/login');"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
-	                        <%--     </c:when><c:when test="${!empty member}"><!-- 로그인 함 --> --%>
-	                        </sec:authorize>
-	                        <sec:authorize access="hasRole('ROLE_USER')">
-	                            <a class="btn-application cgt-single-load" href="/order/check/${list.showcase_num}"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
-	                                <%-- </c:when></c:choose> --%>
-	                        </sec:authorize>
-                        </div>
-                        <!-- over layer -->
-                        <div class="cgt_list_explanation">
-                            <div class="subject">${list.subject}</div>
+                            <%-- <c:choose><c:when test="${empty member}"><!-- 로그인 안함 --> --%>
+                            <sec:authorize access="isAnonymous()">
+                            <a class="btn-application cgt-single-load" href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?', '/member/login');"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
+                                <%--     </c:when><c:when test="${!empty member}"><!-- 로그인 함 --> --%>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_USER')">
+                            <a class="btn-application cgt-single-load" href="/order/check/${list.showcase_num}"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
+                                <%-- </c:when></c:choose> --%>
+                            </sec:authorize>
+                    </div>
+                    <!-- over layer -->
+                    <div class="cgt_list_explanation">
+                        <div class="subject">${list.subject}</div>
                         <div class="schedule">
                             <fmt:formatDate value="${list.start_date}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${list.end_date}" pattern="yyyy-MM-dd"/>
                             <fmt:parseNumber value="${ list.start_date.time / (1000*60*60*24) }" integerOnly="true" var="start"/>
@@ -130,7 +143,18 @@
             <c:forEach var="list" items="${art}" varStatus="stat">
                 <div class="cgt-latest cgt-list-ctype-1">
                     <div style="position:absolute; width:100%; z-index:100;">
-                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">개최중</div>
+                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">
+                            <fmt:parseNumber value="${list.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start" />
+                            <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
+                            <c:choose>
+                                <c:when test="${list.show_status eq 0}">
+                                    D-${end - start}
+                                </c:when>
+                                <c:when test="${list.show_status eq 1}">
+                                    개최중
+                                </c:when>
+                            </c:choose>
+                        </div>                        
                         <div style="clear:both;"></div>
                     </div>
                     <div class="cgt_latest_image_area">
@@ -185,7 +209,18 @@
             <c:forEach var="list" items="${event}" varStatus="stat">
                 <div class="cgt-latest cgt-list-ctype-1">
                     <div style="position:absolute; width:100%; z-index:100;">
-                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">개최중</div>
+                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">
+                            <fmt:parseNumber value="${list.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start" />
+                            <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
+                            <c:choose>
+                                <c:when test="${list.show_status eq 0}">
+                                    D-${end - start}
+                                </c:when>
+                                <c:when test="${list.show_status eq 1}">
+                                    개최중
+                                </c:when>
+                            </c:choose>
+                        </div>
                         <div style="clear:both;"></div>
                     </div>
                     <div class="cgt_latest_image_area">

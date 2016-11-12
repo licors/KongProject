@@ -39,6 +39,13 @@
         WHERE member_num = #{member_num}
         ORDER BY ref DESC, re_step ASC
     </select>
+    <select id="selectreply" parameterType="kong2.support.SupportModel" resultMap="supportRes">
+        <include refid="select-all"/>
+        <![CDATA[
+        WHERE ref = #{ref} AND re_step = #{re_step}
+        ORDER BY ref DESC, re_step ASC
+        ]]>
+    </select>
 
     <insert id="insert" parameterType="kong2.support.SupportModel">
         INSERT INTO SUPPORT (support_num, member_num, type, email, content, reg_date, ref, re_step, re_level)

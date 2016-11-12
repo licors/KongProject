@@ -12,14 +12,14 @@
 
         <script src="/resources/js/confirm.js" type="text/javascript"></script>
 
-<!--        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                if (window.location.pathname.match("/admin/main/")) {
-                    $("#showcase").click();
-                }
-            });
-        </script>-->
+        <!--        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+                <script>
+                    $(window).ready(function () {
+                        if (window.location.pathname.match("/admin/main/")) {
+                            $("#showcase").click();
+                        }
+                    });
+                </script>-->
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -136,7 +136,7 @@
                                 </a>
                                 <!-- Sub menu -->
                                 <ul>
-                                    <li><a href="login.html">리스트</a></li>
+                                    <li><a href="/admin/support/list">리스트</a></li>
                                 </ul>
                             </li>
                         </ul>

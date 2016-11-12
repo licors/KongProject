@@ -28,6 +28,13 @@ public interface SupportDAO {
     ArrayList<SupportModel> selectmember(SupportModel supportModel);
 
     /**
+     * 답변글 출력
+     * @param supportModel #{ref}, #{re_step}
+     * @return
+     */
+    SupportModel selectreply(SupportModel supportModel);
+
+    /**
      * 문의글 작성
      *
      * @param supportModel #{member_num}, #{type}, #{email}, #{content},
