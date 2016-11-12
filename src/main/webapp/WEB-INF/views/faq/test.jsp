@@ -8,99 +8,86 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script type="text/javascript" src="jquery.js"></script>  
-<script type="text/javascript" src="jquery.vticker-min.js"></script> 
-
-<script type="text/javascript">  
-$(function(){  
-    $('#dv_rolling').vTicker({   
-        // 스크롤 속도(default: 700)  
-        speed: 500,  
-        // 스크롤 사이의 대기시간(default: 4000)  
-        pause: 3000,  
-        // 스크롤 애니메이션  
-        animation: 'fade',  
-        // 마우스 over 일때 멈출 설정  
-        mousePause: false,  
-       // 한번에 보일 리스트수(default: 2)  
-        showItems: 4,  
-        // 스크롤 컨테이너 높이(default: 0)  
-        height: 0,  
-        // 아이템이 움직이는 방향, up/down (default: up)  
-        direction: 'up'  
-    });  
-});  
-  
-
-
-
-
+<script>
 
 $(document).ready(function() {
+	$(function() {
+		timer=setInterval(function(){
+           jQuery.ajax({
 
-     jQuery.ajax({
+           type:"GET",
 
-          type:"GET",
+           url:"http://localhost:8080/best",
 
-       url:"http://localhost:8080/best",
-
-          dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
-
-           success : function(data) {
-                  // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-        	  
+           dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
+           cache : false,
+           
+               success : function(data) {       	   
                var best_10='';
-                 /*  best_10+='<div style="border:1px solid #e0e0e0;height:120px;width:238px;padding-top:5px;">';  */
-					best_10+="<div id='dv_rolling' >";
-					best_10+='<ul>';
-                jQuery.each(data, function(index,value){
-               	 best_10+="<li>"+(index+1) + "등" + value.subject+"</li>";
-               	
-                });
-                best_10+="</ul>";
-                best_10+="</div>";
-             /*    best_10+='</div>'; */
-         	$('#update_tm').html(best_10);
-             /* $('#update_tm').html(value.subject); */
-             /*   alert(data[0].subject); */
-           },
-  
-          
-	
-
-                 
-        
-
-         /*   complete : function(data) {
-
-                 // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
-
-                
-
-           }, */
-
            
-           
-           error : function(xhr, status, error) {
+               jQuery.each(data, function(index,value){
+               best_10 += (index+1) + ".&nbsp" + value.subject +"<br/>";
+               });
+               
+               $('#best').html(best_10);
+            
+               
+               },
 
-                 alert("에러발생");
+               error : function(xhr, status, error) {
 
-           }
 
-     });
 
+
+               }
+     
+           });
+},15000);
+});
 });
 
 </script>
+<script type="text/javascript">
+ var rollingTimeIntervalID;
+ var durationTime = 1000;
+ var rollingTime  = 3000;
+
+function scrollTextUp(){
+  $("#textup").animate({"top":"-=20"},{
+    duration: durationTime,
+    easing: "linear",
+    complete:function(){
+      $("#textup").children(":last").after("<div style='line-height:20px;'>"+$("#textup").children(":first").html()+"</div>");
+      if($("#textup").children(":first").height() <= (parseInt($("#textup").css("top"))*-1)){
+        $("#textup").children(":first").remove();
+        $("#textup").css({"top":0});
+      }
+    }
+  });
+}
+rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
+</script>
+
+
+
+
 
 </head>
-<body>
-<div style="border:1px solid #e0e0e0;height:120px;width:238px;padding-top:5px;" id="update_tm">
+  <body>
+  <h3>실시간 주문 순위</h3>
+       <div id="scrolltextup" style="background-color:#44b316;border:1px solid #e0e0e0; overflow:hidden; position:relative; width:200px; height:55px;">
+  <div id="textup" style="text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;">
+    <div style="line-height:20px;" id="best">
+    
+     <!--  +++text1.<br/>
+      +++text2.<br/>
+      +++text3.<br/>
+      +++text4 -->
+    </div>
+  </div>
 </div>
-<!-- <table>
-<tr>
-<td id="update_tm"></td>
-</tr>
-</table> -->
-</body>
 
+
+
+    </body>
 </html>
