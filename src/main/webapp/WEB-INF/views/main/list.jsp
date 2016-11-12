@@ -77,7 +77,18 @@
             <c:forEach var="list" items="${list}" varStatus="stat">
                 <div class="cgt-latest cgt-list-ctype-1">
                     <div style="position:absolute; width:100%; z-index:100;">
-                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">개최중</div>
+                        <div style="float:right; width:40px; height:40px; border-radius:20px; background-color:#EB009F; color:#FFF; text-align:center; font-weight:bold; line-height:40px; margin:10px 10px 0px 0px;">
+                            <fmt:parseNumber value="${list.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start" />
+                            <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
+                            <c:choose>
+                                <c:when test="${list.show_status eq 0}">
+                                    D-${(end - start) + 1}
+                                </c:when>
+                                <c:when test="${list.show_status eq 1}">
+                                    개최중
+                                </c:when>
+                            </c:choose>
+                        </div>
                         <div style="clear:both;"></div>
                     </div>
                     <div class="cgt_latest_image_area">
@@ -92,7 +103,7 @@
                                 <a class="btn-application cgt-single-load" href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?', '/member/login');"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
                             </c:when><c:when test="${!empty member}"><!-- 로그인 함 -->
                                 <a class="btn-application cgt-single-load" href="/order/check/${list.showcase_num}"><img alt="신청하기" src="/resources/image/main/application_small_btn.png"></a>
-                            </c:when></c:choose>
+                                </c:when></c:choose>
                         </div>
                         <!-- over layer -->
                         <div class="cgt_list_explanation">
