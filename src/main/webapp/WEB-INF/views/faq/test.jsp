@@ -11,8 +11,8 @@
 <script>
 
 $(document).ready(function() {
-	$(function() {
-		timer=setInterval(function(){
+	$(function start() {
+		
            jQuery.ajax({
 
            type:"GET",
@@ -42,9 +42,10 @@ $(document).ready(function() {
                }
      
            });
-},15000);
+
 });
 });
+jQuery.setInterval(start(),15000);
 
 </script>
 <script type="text/javascript">

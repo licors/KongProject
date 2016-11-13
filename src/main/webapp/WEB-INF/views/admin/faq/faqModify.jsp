@@ -36,7 +36,7 @@
 
                                             <textarea name="content" cols="57" rows="10" class="form-control" id="content">${faqModel.content }</textarea> 
                                             <font color="red"><form:errors path="content" /></font>
- 
+
                                     </td>
                                 </tr>
                                 <tr>
