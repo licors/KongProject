@@ -98,6 +98,7 @@ public class ShowcaseController {
         ShowcaseModel view = new ShowcaseModel();
         view.setShowcase_num(showcase_num);
         ShowcaseModel aticle = showcaseService.selectone(view);
+        showcaseService.readcountup(view); //조회수
         model.addAttribute("view", aticle);
         model.addAttribute("img", imgPath);
 
