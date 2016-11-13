@@ -12,14 +12,25 @@
 
         <script src="/resources/js/confirm.js" type="text/javascript"></script>
 
-        <!--        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-                <script>
-                    $(window).ready(function () {
-                        if (window.location.pathname.match("/admin/main/")) {
-                            $("#showcase").click();
-                        }
-                    });
-                </script>-->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>
+            $(window).ready(function () {
+//                alert(window.location.pathname);
+                if (window.location.pathname.match("/admin/main/list") || window.location.pathname.match("/admin/main/write")) {
+                    $('#showcase').addClass('open');
+                } else if (window.location.pathname.match("/member/admin/*")) {
+                    $('#member').addClass('open');
+                } else if (window.location.pathname.match("/order/admin/*")) {
+                    $('#order').addClass('open');
+                } else if (window.location.pathname.match("/faq/*")) {
+                    $('#faq').addClass('open');
+                } else if (window.location.pathname.match("/notice/*")) {
+                    $('#notice').addClass('open');
+                } else if (window.location.pathname.match("/admin/support/*")) {
+                    $('#support').addClass('open');
+                }
+            });
+        </script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -75,9 +86,9 @@
                             <!-- Main menu -->
                             <li class="current"><a href="/admin/main"><i class="glyphicon glyphicon-home"></i> 관리</a></li>
                             <li class="current"><a href="/main"><i class="glyphicon glyphicon-home"></i> 홈으로</a></li>
-                            <li class="submenu">
+                            <li class="submenu" id="showcase">
                                 <a href="#">
-                                    <i class="glyphicon glyphicon-pencil" id="showcase"></i> 전시글관리
+                                    <i class="glyphicon glyphicon-pencil"></i> 전시글관리
                                     <span class="caret pull-right"></span>
                                 </a>
                                 <!-- Sub menu -->
@@ -86,7 +97,7 @@
                                     <li><a href="/admin/main/write">쓰기</a></li>
                                 </ul>
                             </li>
-                            <li class="submenu">
+                            <li class="submenu" id="member">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-user"></i> 맴버관리
                                     <span class="caret pull-right"></span>
@@ -96,7 +107,7 @@
                                     <li><a href="/member/admin/list">리스트</a></li>
                                 </ul>
                             </li>
-                            <li class="submenu">
+                            <li class="submenu" id="order">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-barcode"></i> 예매관리
                                     <span class="caret pull-right"></span>
@@ -107,7 +118,7 @@
                                     <li><a href="/order/admin/form">쓰기</a></li>
                                 </ul>
                             </li>
-                            <li class="submenu">
+                            <li class="submenu" id="faq">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-check"></i> FAQ
                                     <span class="caret pull-right"></span>
@@ -118,7 +129,7 @@
                                     <li><a href="/faq/write">쓰기</a></li>
                                 </ul>
                             </li>
-                            <li class="submenu">
+                            <li class="submenu" id="notice">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-file"></i> 공지글관리
                                     <span class="caret pull-right"></span>
@@ -129,7 +140,7 @@
                                     <li><a href="/notice/write">쓰기</a></li>
                                 </ul>
                             </li>
-                            <li class="submenu">
+                            <li class="submenu" id="support">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-send"></i> 문의글관리
                                     <span class="caret pull-right"></span>
