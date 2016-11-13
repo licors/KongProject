@@ -42,6 +42,13 @@
 </script>
 <div style="width:100%; background-color:#FFF; padding:0px 20px 20px 20px;">
     <div id="ContentPanel"></div>
+    <c:if test="${keyword ne null}">
+        <div style="padding-top:70px;">
+            <div style="max-width: 1200px; text-align: left; margin: 0px auto 0px auto;">
+                <p style="font-size:18px; margin-bottom:0px;"><span style="color:#00b9ff; font-weight:bold;">"${keyword}"</span>의 검색결과입니다.</p>
+            </div>
+        </div>
+    </c:if>
     <section class="content-wrapper main-content clear-fix">
         <div class="cgt-latest-wrap clearfix">
             <div style="margin:1px auto;padding-top: 48px; clear: both; max-width: 1200px; ">
