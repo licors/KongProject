@@ -25,6 +25,7 @@ public class ShowcaseSearchController {
         model.addAttribute("list", list);
         model.addAttribute("showcaseSearchModel", showcaseSearchModel);
         model.addAttribute("img", imgPath);
+        model.addAttribute("keyword", keyword);
         logger.info(showcaseSearchModel.toString());
         return "mainlist";
     }
@@ -38,6 +39,7 @@ public class ShowcaseSearchController {
         model.addAttribute("list", list);
         model.addAttribute("showcaseSearchModel", showcaseSearchModel);
         model.addAttribute("img", imgPath);
+        model.addAttribute("keyword", keyword);
         logger.info(showcaseSearchModel.toString());
         return "mainlist";
     }
@@ -50,6 +52,7 @@ public class ShowcaseSearchController {
         model.addAttribute("list", list);
         model.addAttribute("showcaseSearchModel", showcaseSearchModel);
         model.addAttribute("img", imgPath);
+        model.addAttribute("keyword", keyword);
         logger.info(showcaseSearchModel.toString());
         return "mainlist";
     }
@@ -63,6 +66,7 @@ public class ShowcaseSearchController {
         model.addAttribute("list", list);
         model.addAttribute("showcaseSearchModel", showcaseSearchModel);
         model.addAttribute("img", imgPath);
+        model.addAttribute("keyword", keyword);
         logger.info(showcaseSearchModel.toString());
         return "mainlist";
     }
