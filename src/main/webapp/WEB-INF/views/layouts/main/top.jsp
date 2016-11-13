@@ -96,9 +96,10 @@
                                 <div style="clear:both;"></div>
                         </div>
                     </div>
-                    <div class="box box3" style="text-align:right;">
-                        <img src="/resources/image/header/top_banner.png">
-                    </div>
+                    <h3>실시간 주문 순위<a id="refresh" href="#" onClick="refresh()"><img src="/resources/image/header/refresh2.png" style="width: 20px; height: 20px;" ></a></h3>
+       <div id="scrolltextup" style="background-color:white;border:1px solid #e0e0e0; overflow:hidden; position:relative; width:200px; height:55px;" >
+       </div>
+                    
                 </div>
             </div>
         </div>
@@ -116,7 +117,54 @@
                 </div>
             </div>
         </div>
+        <script>
+
+
+/* 새로고침 */
+function refresh(){				
+    jQuery.ajax({
+    type:"GET",
+    url:"http://localhost:8080/best",
+    dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
+    cache : false,
+    
+        success : function(data) {       	   
+        var best_10='';
+        
+        best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
+        jQuery.each(data, function(index,value){
+        best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
+        });              /*  "onmouseover='mover()' onmouseout='mout()' */
+        $('#scrolltextup').html(best_10);                                                      
+        },
+
+        error : function(xhr, status, error) {
+        }    
+});				
+};	
+</script>
+<script type="text/javascript">
+ var rollingTimeIntervalID;
+ var durationTime = 1000;
+ var rollingTime  = 3000;
+
+function scrollTextUp(){
+  $("#textup").animate({"top":"-=20"},{
+    duration: durationTime,
+    easing: "linear",
+    complete:function(){
+      $("#textup").children(":last").after("<div style='line-height:20px;'>"+$("#textup").children(":first").html()+"</div>");
+      if($("#textup").children(":first").height() <= (parseInt($("#textup").css("top"))*-1)){
+        $("#textup").children(":first").remove();
+        $("#textup").css({"top":0});
+      }
+    }
+  });
+}
+rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
+</script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript">
             jQuery().ready(function () {
 
@@ -140,7 +188,78 @@
                 });
 
                 jQuery('#txtMainSearch').focus();
+                
+                
+              /*   원희 */
+            /*   첫 시작 */
+            	$(function start(){				
+                    jQuery.ajax({
+                    type:"GET",
+                    url:"http://localhost:8080/best",
+                    dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
+                    cache : false,
+                    
+                        success : function(data) {       	   
+                        var best_10='';
+                        
+                        best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
+                        jQuery.each(data, function(index,value){
+                        best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
+                        });              /*  "onmouseover='mover()' onmouseout='mout()' */
+                        $('#scrolltextup').html(best_10);                                                      
+                        },
+
+                        error : function(xhr, status, error) {
+                        }    
+         });				
+         });	
+         	/* 자동화  */
+         	$(function(){					
+         		setInterval(function refresh(){
+         			jQuery.ajax({
+                        type:"GET",
+                        url:"http://localhost:8080/best",
+                        dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
+                        cache : false,
+                        
+                            success : function(data) {       	   
+                            var best_10='';
+                            
+                            best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
+                            jQuery.each(data, function(index,value){
+                            best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
+                            });              /*  "onmouseover='mover()' onmouseout='mout()' */
+                            $('#scrolltextup').html(best_10);                                                      
+                            },
+
+                            error : function(xhr, status, error) {
+                            }    
+             });				
+         		},10000);		
+         });
+         	/* 새로고침 */	
             });
+            function refresh(){				
+         	    jQuery.ajax({
+         	    type:"GET",
+         	    url:"http://localhost:8080/best",
+         	    dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
+         	    cache : false,
+         	    
+         	        success : function(data) {       	   
+         	        var best_10='';
+         	        
+         	        best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
+         	        jQuery.each(data, function(index,value){
+         	        best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
+         	        });              /*  "onmouseover='mover()' onmouseout='mout()' */
+         	        $('#scrolltextup').html(best_10);                                                      
+         	        },
+
+         	        error : function(xhr, status, error) {
+         	        }    
+         	});				
+         	};	
         </script>
         <div style="clear:both;"></div>
     </section>
