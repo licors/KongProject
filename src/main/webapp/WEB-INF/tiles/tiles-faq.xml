@@ -11,7 +11,7 @@
     </definition>
     
     <definition name="faq_list_user" extends="default">
-        <put-attribute name="top" value="/WEB-INF/views/faq/test.jsp"/>
+       
         <put-attribute name="body" value="/WEB-INF/views/faq/faqList_user.jsp" />
     </definition>
     <!-- 폼 -->
