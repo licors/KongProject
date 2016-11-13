@@ -4,10 +4,10 @@
 <table align="center" class="table table-hover">
     <thead>
         <tr align="center">
-            <td class="col-md-1" style="font-size: 16px"><strong>번호</strong></td>
-            <td class="col-md-9" style="font-size: 16px"><strong>제목</strong></td>
-            <td class="col-md-1" style="font-size: 16px"><strong>작성일</strong></td>
-            <td class="col-md-1" style="font-size: 16px"><strong>조회수</strong></td>
+            <th class="col-md-1" style="font-size: 16px"><strong>번호</strong></td>
+            <th class="col-md-9" style="font-size: 16px"><strong>제목</strong></td>
+            <th class="col-md-1" style="font-size: 16px"><strong>작성일</strong></td>
+            <th class="col-md-1" style="font-size: 16px"><strong>조회수</strong></td>
         </tr>
     </thead>
     <c:forEach var="list" items="${list }">

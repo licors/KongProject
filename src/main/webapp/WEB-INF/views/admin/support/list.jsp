@@ -5,11 +5,11 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <td style="width:5%;text-align:center;vertical-align:middle;">No.</td>
-            <td style="width:15%;text-align:left;vertical-align:middle;">type</td>
-            <td style="width:50%;text-align:left;vertical-align:middle;">content</td>
-            <td style="width:20%;text-align:center;vertical-align:middle;">enquirer</td>
-            <td style="width:10%;text-align:center;vertical-align:middle;">date</td>
+            <th style="width:5%;text-align:center;vertical-align:middle;">No.</td>
+            <th style="width:15%;text-align:left;vertical-align:middle;">type</td>
+            <th style="width:50%;text-align:left;vertical-align:middle;">content</td>
+            <th style="width:20%;text-align:center;vertical-align:middle;">enquirer</td>
+            <th style="width:10%;text-align:center;vertical-align:middle;">date</td>
         </tr>
     </thead>
     <tbody>
