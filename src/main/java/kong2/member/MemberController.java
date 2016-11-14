@@ -98,7 +98,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/memberModifyForm")
-	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
+	public String memberModifyForm(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 	
 		if (session.getAttribute("session_member_id") != null) {
 			String id = (String) session.getAttribute("session_member_id");
@@ -120,11 +120,6 @@ public class MemberController {
 		System.out.println("memberModify : " + member);
 		memberService.memberModify(member);
 		return "redirect:/main";
-	}
-
-	@RequestMapping(value = "/zipcodeCheckForm")
-	public String zipcodeCheckForm(HttpServletRequest req) throws Exception {
-		return "check/zipcodeCheck";
 	}
 
 	@RequestMapping(value="/memberDeleteForm", method=RequestMethod.GET)
@@ -151,14 +146,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/admin/list")
-	public String memberList(Model model) {
+	public String memberAdminList(Model model) {
 		ArrayList<MemberModel> list = memberService.memberList();
 		model.addAttribute("list", list);
 		return "ti_admin_memberList";
 	}
 	
 	@RequestMapping("/admin/modifyForm/{id_email}")
-	public String memberAdminModify(@PathVariable String id_email, Model model) {
+	public String memberAdminModifyForm(@PathVariable String id_email, Model model) {
 
 		MemberModel result = memberService.getMember(id_email);
 		model.addAttribute("member", result);

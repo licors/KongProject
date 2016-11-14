@@ -110,8 +110,8 @@ public class MemberService implements MemberDao, UserDetailsService{
         roles.add(role);
         member.setAuthorities(roles);
         
-		logger.info("loadUserByUsername username : " + id_email);
-		logger.info("loadUserByUsername username : " + member.toString());
+//		logger.debug("loadUserByUsername username : " + id_email);
+//		logger.debug("loadUserByUsername username : " + member.toString());
         return member;
 	}
 	
