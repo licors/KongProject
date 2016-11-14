@@ -99,6 +99,7 @@
                     <h3>실시간 주문 순위<a id="refresh" href="#" onClick="refresh()"><img src="/resources/image/header/refresh2.png" style="width: 20px; height: 20px;" ></a></h3>
        <div id="scrolltextup" style="background-color:white;border:1px solid #e0e0e0; overflow:hidden; position:relative; width:200px; height:55px;" >
        </div>
+                  <div id="best_10_sub" style=display:none;></div>
                     
                 </div>
             </div>
@@ -201,12 +202,16 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
                     
                         success : function(data) {       	   
                         var best_10='';
+                        var best_10_sub='';
                         
                         best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
                         jQuery.each(data, function(index,value){
                         best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
+                        best_10_sub += value.showcase_num+"/";
                         });              /*  "onmouseover='mover()' onmouseout='mout()' */
-                        $('#scrolltextup').html(best_10);                                                      
+                        
+                        $('#scrolltextup').html(best_10);
+                        $('#best_10_sub').html(best_10_sub);
                         },
 
                         error : function(xhr, status, error) {
@@ -221,21 +226,31 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
                         url:"http://localhost:8080/best",
                         dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
                         cache : false,
-                        
+                                          
                             success : function(data) {       	   
                             var best_10='';
+                            var best_10_sub = $("#best_10_sub").text();
+                            best_10_sub = best_10_sub.split('/');
                             
                             best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
-                            jQuery.each(data, function(index,value){
-                            best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
+                            jQuery.each(data, function(index1,value1){
+                            	jQuery.each(best_10_sub, function(index2,value2){
+                            		if((value1.showcase_num)!=(value2.showcase_num)){
+                            			value1.subject += "&nbsp;new";
+                            		}
+                            	});
+                            best_10 += "<a href='/main/view/" + value1.showcase_num + "'>"+ (index+1) + ".&nbsp" + value1.subject +"</a><br/>";
+                            best_10_sub += value1.showcase_num+"/";
                             });              /*  "onmouseover='mover()' onmouseout='mout()' */
-                            $('#scrolltextup').html(best_10);                                                      
+                            
+                            $('#scrolltextup').html(best_10);
+                            $('#best_10_sub').html(best_10_sub);
                             },
 
                             error : function(xhr, status, error) {
                             }    
              });				
-         		},60000);		
+         		},10000);		
          });
          	/* 새로고침 */	
             });
@@ -259,7 +274,9 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
          	        error : function(xhr, status, error) {
          	        }    
          	});				
-         	};	
+         	};
+         	
+         	
         </script>
         <div style="clear:both;"></div>
     </section>
