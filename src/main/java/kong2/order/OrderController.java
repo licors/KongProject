@@ -98,6 +98,8 @@ public class OrderController {
 	// 장바구니에서 주문했을 때 1로 바뀜
 	private int flag = 0;
 	
+	private double change_price;
+	
 	Calendar today = Calendar.getInstance();
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
@@ -202,6 +204,11 @@ public class OrderController {
 		}
 
 		session = request.getSession();
+		
+		change_price = orderModel.getTotal_price() / 1100;	
+		change_price = Math.round(change_price * 100.0) / 100.0;
+		
+		orderModel.setChange_price(change_price);
 
 		session.setAttribute("orderModel", orderModel);
 		model.addAttribute("orderModel", orderModel);

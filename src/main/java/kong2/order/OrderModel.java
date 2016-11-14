@@ -22,6 +22,7 @@ public class OrderModel {
 	private String order_status;
 	private String bank_account;
 	private int total_price;
+	private double change_price;
 	private String payment_type;
 	private Date payment_date;
 	private String payment_payer;
@@ -229,6 +230,12 @@ public class OrderModel {
 	}
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+	public double getChange_price() {
+		return change_price;
+	}
+	public void setChange_price(double change_price) {
+		this.change_price = change_price;
 	}	
 	
 	

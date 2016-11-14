@@ -105,7 +105,7 @@ element.style {
 									<tr>
 										<td><img
 											src="${show_img}${basket.file_savname.split(',')[0]}"
-											class="img-responsive" style="width: 270px; height: 295px;"></td>
+											class="img-responsive" style="width: 100px;"></td>
 										<td>
 											<h4>
 												${basket.subject } <br> <small>
@@ -255,21 +255,10 @@ element.style {
 						<form:form commandName="orderModel" onSubmit="checkIt()"
 							name="orderForm" method="post" enctype="multipart/form-data"
 							class="form-control-static">
-							<!-- 수정! memresultClass=MemberVO, goods_resultClass= -->
-							<!-- <s:hidden name="member_num"
-							value="%{memresultClass.getMember_num()}" />
-						<s:hidden name="showboard_num"
-							value="%{show_resultClass.showboard_num}" />
-						클래스명 수정하기
-						<s:hidden name="subject" value="%{show_resultClass.subject}" />
-						<s:hidden name="address2" value="%{show_resultClass.address2}" /> -->
 							<form:hidden path="showcase_num"
 								value="${showcaseModel.showcase_num}" />
 							<form:hidden path="show_subject" value="${showcaseModel.subject}" />
 							<form:hidden path="show_addr" value="${showcaseModel.address2 }" />
-							<%-- <form:hidden path="start_date"
-								value="${showcaseModel.start_date }" />
-							<form:hidden path="end_date" value="${showcaseModel.end_date }" /> --%>
 							<form:hidden path="show_price" value="${showcaseModel.price }" />
 							<form:hidden path="total_price" value="${showcaseModel.price }" />
 
@@ -277,7 +266,7 @@ element.style {
 								<tr>
 									<td><img
 										src="${show_img}${showcaseModel.file_savname.split(',')[0]}"
-										class="img-responsive" style="width: 270px; height: 295px;"></td>
+										class="img-responsive" style="width: 100px;"></td>
 									<td>
 										<h3>
 											${showcaseModel.subject } <br> <small>
