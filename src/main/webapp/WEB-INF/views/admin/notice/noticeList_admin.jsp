@@ -4,10 +4,10 @@
 <table align="center" class="table table-hover">
     <thead>
         <tr align="center">
-            <th class="col-md-1" style="font-size: 16px"><strong>번호</strong></td>
-            <th class="col-md-9" style="font-size: 16px"><strong>제목</strong></td>
-            <th class="col-md-1" style="font-size: 16px"><strong>작성일</strong></td>
-            <th class="col-md-1" style="font-size: 16px"><strong>조회수</strong></td>
+            <th style="width: 5%;text-align:center;vertical-align:middle;">No.</th>
+            <th style="width: 65%;text-align:center;vertical-align:middle;">subject</th>
+            <th style="width: 8%;text-align:center;vertical-align:middle;">date</th>
+            <th style="width: 10%;text-align:center;vertical-align:middle;">read</th>
         </tr>
     </thead>
     <c:forEach var="list" items="${list }">
@@ -18,11 +18,11 @@
             </c:param>
         </c:url>
         <tr>
-            <td><p class="text-center">${list.notice_num }</p></td>
-            <td><p class="">&nbsp;<a href="/notice/view/${list.notice_num }">${list.subject }</a></p></td>
+            <td style="text-align: center; vertical-align: middle;">${list.notice_num }</td>
+            <td style="text-align: left; vertical-align: middle;">&nbsp;<a href="/notice/view/${list.notice_num }">${list.subject }</a></td>
                     <%--  <td><p class="text-center">${list.reg_date }</p></td> --%>
-            <td><fmt:formatDate value="${list.reg_date}" pattern="yyyy.MM.dd"></fmt:formatDate></td>
-            <td><p class="text-center">${list.readcount }</p></td>
+            <td style="text-align: center; vertical-align: middle;"><fmt:formatDate value="${list.reg_date}" pattern="yyyy.MM.dd"></fmt:formatDate></td>
+            <td style="text-align: center; vertical-align: middle;">${list.readcount }</td>
         </tr>
     </c:forEach>
     <c:if test="${list.size() <= 0}"> 
