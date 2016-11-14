@@ -235,7 +235,7 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
                             error : function(xhr, status, error) {
                             }    
              });				
-         		},10000);		
+         		},60000);		
          });
          	/* 새로고침 */	
             });
