@@ -114,30 +114,27 @@
 			<div class="clearfix"></div>
 			<div style="width: 100%; box-sizing: border-box; padding: 0 40px">
 				<div class="cgt_line_gray_1 cgt_mtb_20"></div>
-				<c:choose>
-					<c:when test="${empty member}">
-						<!-- 로그인 안함 -->
-						<div class="pull-right">
-							<a href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );">
-								<div class="cgt_btn_detail_application">신청하기</div>
-							</a>
-						</div>
-						<div class="pull-right">
-							<a href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );">
-								<div class="cgt_btn_detail_favorite">관심티켓</div>
-							</a>
-						</div>
-					</c:when>
-					<c:when test="${!empty member}">
-						<!-- 로그인 함 -->
-						<div class="pull-right">
-							<a href="/order/check/${view.showcase_num}"><div class="cgt_btn_detail_application">신청하기</div></a>
-						</div>
-						<div class="pull-right">
-							<a href="/basket/add/${view.showcase_num}"><div class="cgt_btn_detail_favorite">관심티켓</div></a>
-						</div>
-					</c:when>
-				</c:choose>
+				
+				<sec:authorize access="isAnonymous()">
+	                <div class="pull-right">
+						<a href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );">
+							<div class="cgt_btn_detail_application">신청하기</div>
+						</a>
+					</div>
+					<div class="pull-right">
+						<a href="#" onclick="return fnConfirmMoveUrl('로그인을 하셔야 이용하실수 있습니다.\n로그인 페이지로 이동하시겠습니까?' , '/member/login' );">
+							<div class="cgt_btn_detail_favorite">관심티켓</div>
+						</a>
+					</div>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_USER')">
+                	<div class="pull-right">
+						<a href="/order/check/${view.showcase_num}"><div class="cgt_btn_detail_application">신청하기</div></a>
+					</div>
+					<div class="pull-right">
+						<a href="/basket/add/${view.showcase_num}"><div class="cgt_btn_detail_favorite">관심티켓</div></a>
+					</div>
+				</sec:authorize>
 			</div>
 			<div class="clearfix"></div>
 			<div style="padding: 25px;"></div>
