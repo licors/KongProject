@@ -169,7 +169,7 @@ public class OrderController {
 
 	// (1개 전시) 무통장 입금 처리
 	@RequestMapping(value = "/pro/cash", method = RequestMethod.POST)
-	public String orderPro(Model model, @ModelAttribute OrderModel orderModel, HttpServletRequest request,
+	public String orderProCash(Model model, @ModelAttribute OrderModel orderModel, HttpServletRequest request,
 			HttpSession session, Locale locale) {
 		if (orderModel.getFlag() == 1) {
 			logger.info("welcome basket order process - cash...", locale);
@@ -211,7 +211,7 @@ public class OrderController {
 
 	// 카드결제시 성공화면
 	@RequestMapping(value = "/success/credit/{flag}")
-	public String search(@PathVariable int flag, Model model) throws Exception {
+	public String orderSuccessCredit(@PathVariable int flag, Model model) throws Exception {
 		model.addAttribute("flag", flag);
 		return "orderSuccessCredit";
 	}

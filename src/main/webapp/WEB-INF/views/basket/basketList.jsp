@@ -140,12 +140,12 @@
 								</div>
 								<div>
 									<div>
-										<img src="/template/image/main/icon_apply.jpg"
+										<img src="/resources/image/main/icon_apply.jpg"
 											class="application_icon"> ${list.ordercount }
 									</div>
 									<!-- applie -->
 									<div style="margin-right: 10px;">
-										<img src="/template/image/main/icon_eye.jpg" class="view_icon">
+										<img src="/resources/image/main/icon_eye.jpg" class="view_icon">
 										${list.readcount }
 
 									</div>

@@ -85,7 +85,7 @@ element.style {
 							<td><a href='/main/view/${orderModel.showcase_num }'
 								target="_blank">
 									<img src="${show_img}${orderModel.file_savname.split(',')[0]}"
-									class="img-responsive" style="width: 270px; height: 295px;">
+									class="img-responsive" style="width: 270px;">
 							</a></td>
 							<td>
 								<h3>
