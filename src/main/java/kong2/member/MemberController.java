@@ -92,7 +92,7 @@ public class MemberController {
 			return "redirect:/main";
   		} else {
   			//validator error(아이디 중복)
-  			return "redirect:/member/memberJoin";
+  			return "/member/memberJoinFail";
   		}
 
 	}
