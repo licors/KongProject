@@ -59,7 +59,7 @@
                                     <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="dend" />
                                     <c:choose>
                                         <c:when test="${view.show_status eq 0}">
-                                            D-${(dend - dstart) + 1}
+                                            D-${(dstart - dend) + 1}
                                         </c:when>
                                         <c:when test="${view.show_status eq 1}">
                                             개최중
@@ -179,7 +179,7 @@
 
                         <div style="width: 100%; box-sizing: border-box; padding: 10px 40px 0px 40px;">
                             <!-- 소개 -->
-                            <div itemprop="articleBody">${view.content}</div>
+                            <div itemprop="articleBody" style="white-space: pre-wrap;">${view.content}</div>
                             <c:if test="${view.file_savname.split(',')[1] ne null}">
                                 <div style="padding-top: 20px">
                                     <a href="javascript:" id="divBtnMore">
