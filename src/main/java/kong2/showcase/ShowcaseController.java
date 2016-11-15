@@ -137,11 +137,17 @@ public class ShowcaseController {
 
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.GET)
     public String adminwriteform(Model model, HttpServletRequest request) {
+//        model.addAttribute("showcaseModel", new ShowcaseModel());
         return "adminmainwrite";
     }
 
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.POST)
     public String adminwrite(Model model, /*MultipartHttpServletRequest request,*/ ShowcaseModel showcaseModel, BindingResult result) throws IOException {
+        new ShowcaseValidator().validate(showcaseModel, result);
+
+        if (result.hasErrors()) {
+            return "adminmainwrite";
+        }
         logger.info(showcaseModel.toString());
         Iterator<MultipartFile> file = showcaseModel.getUpload_file().iterator();
         String file_savname = "";
@@ -177,17 +183,8 @@ public class ShowcaseController {
             next.transferTo(destFile);
 
             file_savname += savimagename + ",";
-            if (i == 4) {
-                int index = file_savname.lastIndexOf(',');
-                file_savname = file_savname.substring(0, index);
-                showcaseModel.setFile_savname(file_savname);
-            }
         }
-        new ShowcaseValidator().validate(showcaseModel, result);
-
-        if (result.hasErrors()) {
-            return adminwriteform(model, null);
-        }
+        showcaseModel.setFile_savname(file_savname);
 
         showcaseService.insert(showcaseModel);
         logger.info("insert complete");
@@ -215,6 +212,11 @@ public class ShowcaseController {
 
     @RequestMapping(value = "/admin/main/modify/{showcase_num}", method = RequestMethod.POST)
     public String adminmodify(Model model, @PathVariable int showcase_num, ShowcaseModel showcaseModel, BindingResult result) throws IOException {
+        new ShowcaseValidator().validate(showcaseModel, result);
+
+        if (result.hasErrors()) {
+            return adminwriteform(model, null);
+        }
         logger.info(showcaseModel.toString());
         Iterator<MultipartFile> file = showcaseModel.getUpload_file().iterator();
         String file_savname = "";
@@ -250,18 +252,10 @@ public class ShowcaseController {
             next.transferTo(destFile);
 
             file_savname += savimagename + ",";
-            if (i == 4) {
-                int index = file_savname.lastIndexOf(',');
-                file_savname = file_savname.substring(0, index);
-                showcaseModel.setFile_savname(file_savname);
-            }
         }
-        new ShowcaseValidator().validate(showcaseModel, result);
-
-        if (result.hasErrors()) {
-            return adminwriteform(model, null);
-        }
+        showcaseModel.setFile_savname(file_savname);
         showcaseModel.setShowcase_num(showcase_num);
+
         showcaseService.update(showcaseModel);
         logger.info("modify complete");
         return "redirect:/admin/main/list";
