@@ -622,7 +622,7 @@
                 });
             }
             function fnCommentModify(comment_num) {
-                jQuery("#divEditCONTENT_" + comment_num).ht        ml(
+                jQuery("#divEditCONTENT_" + comment_num).html(
                         "<form action='/main/view/${view.showcase_num}/commentModify/" + comment_num + "' method='post'><input type='hidden' id='showcase_num' value='${view.showcase_num}' /><div><div style='margin-bottom: 5px;'><textarea id='modify_content' name='content' rows='2' class='form-control search_box_input' placeholder='게시물 성격에 맞지 않거나 비방 댓글은 통보없이 삭제 됩니다.'></textarea></div><div style='text-align: right;'><input type='submit' value='수정' class='btn btn-light-blue'>&nbsp;<input type='button' value='취소' onclick='cancelCmModify(" + comment_num + ")' class='btn btn-default'/></div></div></form>"
                         );
             }
