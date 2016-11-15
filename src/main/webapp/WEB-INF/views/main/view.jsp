@@ -73,7 +73,7 @@
                             <div class="col-md-10">
                                 <c:choose>
                                     <c:when test="${view.price eq 0}">무료</c:when>
-                                    <c:when test="${view.price ne 0}">${view.price}원</c:when>
+                                    <c:when test="${view.price ne 0}"><fmt:formatNumber value="${view.price}" pattern="#,###"/>원</c:when>
                                 </c:choose>
                                 &nbsp;
                             </div>
