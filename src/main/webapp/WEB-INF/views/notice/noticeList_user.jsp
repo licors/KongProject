@@ -8,24 +8,13 @@
         <title>공지사항</title>
     </head>
     <body>
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <p style="font-size:28px; color:#000000; font-weight:bold; margin:0px 0px 0px 0px; padding:0px;">공지사항</p>
-                        </div>
-                        <div class="form-group" style="float: right">
-                             <%-- <c:if test="${session_member_id == 'admin'}"> 
-                                <input name="support" type="button" value="공지글 작성"
-                                       onClick="javascript:location.href = '/notice/write'" class="btn btn-default">
-                             </c:if>  --%>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <p class="lead">KONG의 새로운 정보와 소식을 알려드립니다.</p>
-                </div>
+    <div style="width:100%; background-color:#FFF;">
+        <div style="max-width:1200px; margin:0px auto;">
+    <div style="padding-top:50px;"></div>
+    <p style="font-size:28px; color:#000000; font-weight:bold; margin:0px 0px 10px 0px; padding:0px;">공지사항</p>
+    <div class="faqborderbottom3px">
+        <span class="faqfontsubtitle">KONG의 새로운 정보와 소식을 알려드립니다.</span>
+    </div>
                 <table align="center" class="table table-hover">
                     <thead>
                         <tr align="center">
