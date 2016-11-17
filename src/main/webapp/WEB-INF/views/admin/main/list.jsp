@@ -2,6 +2,13 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.Date"%>
+<script src="/resources/js/confirm.js" type="text/javascript"></script>
+<div class="panel-body">
+    <div style="text-align: right; vertical-align: middle;">
+        <input type="button" value="전시글정리" class="btn btn-danger btn-sm"
+               onclick="return fnConfirmMoveUrl('정말로 전시글을 정리하시겠습니까?', '/admin/task');">
+    </div>
+</div>
 <table class="table table-hover">
     <thead>
         <tr>

@@ -13,10 +13,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import kong2.comment.CommentController;
-import kong2.comment.CommentModel;
 import kong2.comment.CommentService;
-import kong2.common.PagingActionRequestParam;
 import kong2.common.path;
+import kong2.common.task;
 import kong2.validator.ShowcaseValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,9 +40,12 @@ public class ShowcaseController {
 
     @Resource(name = "commentService")
     private CommentService commentService;
-    
+
     @Autowired
     private CommentController commentController;
+
+    @Resource(name = "taskService")
+    private task taskService;
 
     private String uploadPath = path.path().p() + "../../../../resources/upload"; //이클립스 기준 업로드
     public static String imgPath = "/resources/upload/";
@@ -53,6 +55,12 @@ public class ShowcaseController {
     @RequestMapping("/admin/main")
     public String adminmain() {
         return "adminmain";
+    }
+
+    @RequestMapping("/admin/task")
+    public String taskcall() {
+        taskService.autostatfixer();
+        return "adminmainlist";
     }
 
     @RequestMapping("/main")

@@ -10,7 +10,9 @@ import kong2.showcase.ShowcaseService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component(value = "taskService")
 public class task {
 
     @Resource(name = "showcaseService")
