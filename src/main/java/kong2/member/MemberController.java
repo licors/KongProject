@@ -175,7 +175,7 @@ public class MemberController {
 	@RequestMapping(value="admin/delete/{id_email:.+}")
 	public String memberAdminDelete(@PathVariable String id_email, Model model) {
 
-		logger.info("delete member");
+		logger.info("delete member " + id_email);
 		memberService.memberDelete(id_email);
 		return "redirect:/member/admin/list";
 	}
