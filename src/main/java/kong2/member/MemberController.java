@@ -152,7 +152,7 @@ public class MemberController {
 		return "ti_admin_memberList";
 	}
 	
-	@RequestMapping("/admin/modifyForm/{id_email}")
+	@RequestMapping("/admin/modifyForm/{id_email:.+}")
 	public String memberAdminModifyForm(@PathVariable String id_email, Model model) {
 
 		MemberModel result = memberService.getMember(id_email);
@@ -172,7 +172,7 @@ public class MemberController {
 		return "redirect:/member/admin/list";
 	}
 	
-	@RequestMapping(value="admin/delete/{id_email}")
+	@RequestMapping(value="admin/delete/{id_email:.+}")
 	public String memberAdminDelete(@PathVariable String id_email, Model model) {
 
 		logger.info("delete member");
