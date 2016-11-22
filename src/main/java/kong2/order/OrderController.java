@@ -211,7 +211,7 @@ public class OrderController {
 
 	// 카드결제시 성공화면
 	@RequestMapping(value = "/success/credit/{flag}")
-	public String search(@PathVariable int flag, Model model) throws Exception {
+	public String orderSuccessCredit(@PathVariable int flag, Model model) throws Exception {
 		model.addAttribute("flag", flag);
 		return "orderSuccessCredit";
 	}
