@@ -44,9 +44,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			// String hashedPassword = passwordEncoder.encodePassword(password,
 			// saltSource.getSalt(user));
 
-			logger.info("username : " + id_email + " / password : " + password);
+			/*logger.info("username : " + id_email + " / password : " + password);
 			logger.info("username : " + member.getUsername() + " / password : " + member.getPassword());
-
+			*/
+			if (member.getAdmin() == -1) {
+				throw new UsernameNotFoundException("회원정보가 없는 아이디입니다.");
+			}
 			if (!password.equals(member.getPassword())){
 				throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
 			}

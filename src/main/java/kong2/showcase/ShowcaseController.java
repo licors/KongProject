@@ -11,13 +11,15 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import kong2.comment.CommentModel;
+
+import kong2.comment.CommentController;
 import kong2.comment.CommentService;
-import kong2.common.PagingActionRequestParam;
 import kong2.common.path;
+import kong2.common.task;
 import kong2.validator.ShowcaseValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,12 @@ public class ShowcaseController {
     @Resource(name = "commentService")
     private CommentService commentService;
 
+    @Autowired
+    private CommentController commentController;
+
+    @Resource(name = "taskService")
+    private task taskService;
+
     private String uploadPath = path.path().p() + "../../../../resources/upload"; //이클립스 기준 업로드
     public static String imgPath = "/resources/upload/";
 
@@ -47,6 +55,12 @@ public class ShowcaseController {
     @RequestMapping("/admin/main")
     public String adminmain() {
         return "adminmain";
+    }
+
+    @RequestMapping("/admin/task")
+    public String taskcall() {
+        taskService.autostatfixer();
+        return "adminmainlist";
     }
 
     @RequestMapping("/main")
@@ -104,23 +118,7 @@ public class ShowcaseController {
 
         /*댓글*/
         model.addAttribute("commentCheck", commentCheck);
-
-        List<CommentModel> list = null;
-        list = commentService.selectAll(showcase_num);
-        int totalCount = list.size();
-        PagingActionRequestParam.PagingAction(Integer.parseInt(currentPage), totalCount, 10, 3, "/main/view/" + showcase_num + "?commentCheck=true");
-        String pagingHtml = PagingActionRequestParam.getPagingHtml().toString();
-        int lastCount = totalCount;
-
-        if (PagingActionRequestParam.getEndCount() < totalCount) {
-            lastCount = PagingActionRequestParam.getEndCount() + 1;
-        }
-
-        list = list.subList(PagingActionRequestParam.getStartCount(), lastCount);
-
-        model.addAttribute("pagingHtml", pagingHtml);
-        model.addAttribute("list", list);
-        model.addAttribute("showcase_num", showcase_num);
+        commentController.commentList(model, showcase_num, currentPage);
 
         return "mainview";
     }
@@ -137,11 +135,17 @@ public class ShowcaseController {
 
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.GET)
     public String adminwriteform(Model model, HttpServletRequest request) {
+//        model.addAttribute("showcaseModel", new ShowcaseModel());
         return "adminmainwrite";
     }
 
     @RequestMapping(value = "/admin/main/write", method = RequestMethod.POST)
     public String adminwrite(Model model, /*MultipartHttpServletRequest request,*/ ShowcaseModel showcaseModel, BindingResult result) throws IOException {
+        new ShowcaseValidator().validate(showcaseModel, result);
+
+        if (result.hasErrors()) {
+            return "adminmainwrite";
+        }
         logger.info(showcaseModel.toString());
         Iterator<MultipartFile> file = showcaseModel.getUpload_file().iterator();
         String file_savname = "";
@@ -177,17 +181,8 @@ public class ShowcaseController {
             next.transferTo(destFile);
 
             file_savname += savimagename + ",";
-            if (i == 4) {
-                int index = file_savname.lastIndexOf(',');
-                file_savname = file_savname.substring(0, index);
-                showcaseModel.setFile_savname(file_savname);
-            }
         }
-        new ShowcaseValidator().validate(showcaseModel, result);
-
-        if (result.hasErrors()) {
-            return adminwriteform(model, null);
-        }
+        showcaseModel.setFile_savname(file_savname);
 
         showcaseService.insert(showcaseModel);
         logger.info("insert complete");
@@ -215,6 +210,11 @@ public class ShowcaseController {
 
     @RequestMapping(value = "/admin/main/modify/{showcase_num}", method = RequestMethod.POST)
     public String adminmodify(Model model, @PathVariable int showcase_num, ShowcaseModel showcaseModel, BindingResult result) throws IOException {
+        new ShowcaseValidator().validate(showcaseModel, result);
+
+        if (result.hasErrors()) {
+            return adminwriteform(model, null);
+        }
         logger.info(showcaseModel.toString());
         Iterator<MultipartFile> file = showcaseModel.getUpload_file().iterator();
         String file_savname = "";
@@ -250,18 +250,10 @@ public class ShowcaseController {
             next.transferTo(destFile);
 
             file_savname += savimagename + ",";
-            if (i == 4) {
-                int index = file_savname.lastIndexOf(',');
-                file_savname = file_savname.substring(0, index);
-                showcaseModel.setFile_savname(file_savname);
-            }
         }
-        new ShowcaseValidator().validate(showcaseModel, result);
-
-        if (result.hasErrors()) {
-            return adminwriteform(model, null);
-        }
+        showcaseModel.setFile_savname(file_savname);
         showcaseModel.setShowcase_num(showcase_num);
+
         showcaseService.update(showcaseModel);
         logger.info("modify complete");
         return "redirect:/admin/main/list";

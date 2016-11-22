@@ -123,11 +123,11 @@ public class NoticeController {
 		noticeService.insert(noticeModel);
 		
 		//리스트로이동
-		return "redirect:/notice/list_admin/2";
+		return "redirect:/notice/list_admin/1";
 	}
 	
 	 @RequestMapping("/view/{notice_num}")
-	    public String noticeview_admin(Model model, @PathVariable int notice_num) {
+	    public String noticeView_admin(Model model, @PathVariable int notice_num) {
 	        NoticeModel view = new NoticeModel();
 	        view.setNotice_num(notice_num);
 	        NoticeModel aticle = noticeService.selectOne(view);
@@ -137,7 +137,7 @@ public class NoticeController {
 	    }
 	 
 	 @RequestMapping("/view1/{notice_num}")
-	    public String noticeview_user(Model model, @PathVariable int notice_num) {
+	    public String noticeView_user(Model model, @PathVariable int notice_num) {
 	        NoticeModel view = new NoticeModel();
 	        view.setNotice_num(notice_num);
 	        NoticeModel aticle = noticeService.selectOne(view);

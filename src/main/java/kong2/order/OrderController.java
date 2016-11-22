@@ -98,6 +98,8 @@ public class OrderController {
 	// 장바구니에서 주문했을 때 1로 바뀜
 	private int flag = 0;
 	
+	private double change_price;
+	
 	Calendar today = Calendar.getInstance();
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
@@ -169,7 +171,7 @@ public class OrderController {
 
 	// (1개 전시) 무통장 입금 처리
 	@RequestMapping(value = "/pro/cash", method = RequestMethod.POST)
-	public String orderPro(Model model, @ModelAttribute OrderModel orderModel, HttpServletRequest request,
+	public String orderProCash(Model model, @ModelAttribute OrderModel orderModel, HttpServletRequest request,
 			HttpSession session, Locale locale) {
 		if (orderModel.getFlag() == 1) {
 			logger.info("welcome basket order process - cash...", locale);
@@ -202,6 +204,11 @@ public class OrderController {
 		}
 
 		session = request.getSession();
+		
+		change_price = orderModel.getTotal_price() / 1100;	
+		change_price = Math.round(change_price * 100.0) / 100.0;
+		
+		orderModel.setChange_price(change_price);
 
 		session.setAttribute("orderModel", orderModel);
 		model.addAttribute("orderModel", orderModel);

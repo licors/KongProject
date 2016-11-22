@@ -92,13 +92,13 @@ public class MemberController {
 			return "redirect:/main";
   		} else {
   			//validator error(아이디 중복)
-  			return "redirect:/member/memberJoin";
+  			return "/member/memberJoinFail";
   		}
 
 	}
 	
 	@RequestMapping("/memberModifyForm")
-	public String memberModify(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
+	public String memberModifyForm(@ModelAttribute("member") MemberModel member, HttpSession session, Model model) {
 	
 		if (session.getAttribute("session_member_id") != null) {
 			String id = (String) session.getAttribute("session_member_id");
@@ -120,11 +120,6 @@ public class MemberController {
 		System.out.println("memberModify : " + member);
 		memberService.memberModify(member);
 		return "redirect:/main";
-	}
-
-	@RequestMapping(value = "/zipcodeCheckForm")
-	public String zipcodeCheckForm(HttpServletRequest req) throws Exception {
-		return "check/zipcodeCheck";
 	}
 
 	@RequestMapping(value="/memberDeleteForm", method=RequestMethod.GET)
@@ -151,14 +146,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/admin/list")
-	public String memberList(Model model) {
+	public String memberAdminList(Model model) {
 		ArrayList<MemberModel> list = memberService.memberList();
 		model.addAttribute("list", list);
 		return "ti_admin_memberList";
 	}
 	
-	@RequestMapping("/admin/modifyForm/{id_email}")
-	public String memberAdminModify(@PathVariable String id_email, Model model) {
+	@RequestMapping("/admin/modifyForm/{id_email:.+}")
+	public String memberAdminModifyForm(@PathVariable String id_email, Model model) {
 
 		MemberModel result = memberService.getMember(id_email);
 		model.addAttribute("member", result);
@@ -177,10 +172,10 @@ public class MemberController {
 		return "redirect:/member/admin/list";
 	}
 	
-	@RequestMapping(value="admin/delete/{id_email}")
+	@RequestMapping(value="admin/delete/{id_email:.+}")
 	public String memberAdminDelete(@PathVariable String id_email, Model model) {
 
-		logger.info("delete member");
+		logger.info("delete member " + id_email);
 		memberService.memberDelete(id_email);
 		return "redirect:/member/admin/list";
 	}

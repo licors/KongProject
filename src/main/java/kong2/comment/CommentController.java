@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kong2.common.LoginCheckBeforeFunctionStart;
 import kong2.common.PagingAction;
+import kong2.common.PagingActionRequestParam;
 import kong2.member.MemberModel;
 
 @Controller
@@ -35,25 +36,24 @@ public class CommentController {
 	
 //	@RequestMapping("/{showcase_num}/commentList/{current_num}")
 //	public void commentList(Model model, @PathVariable int showcase_num, @PathVariable int current_num) {
-	public void commentList(Model model, int showcase_num, int current_num) {
+	public void commentList(Model model, int showcase_num, String currentPage) {
 		
 		List<CommentModel> list = null;
-		list = commentService.selectAll(showcase_num);
-		page = new PagingAction(current_num, totalCount, blockCount, blockPage, "{"+showcase_num+"}/commentList");
-		pagingHtml = page.getPagingHtml().toString();
-		int lastCount = totalCount;
-		
-		if (page.getEndCount() < totalCount) {
-			lastCount = page.getEndCount() + 1;
-		}
-		
-		list = list.subList(page.getStartCount(), lastCount);
-		
-		model.addAttribute("pagingHtml", pagingHtml);
-		model.addAttribute("list", list);
-		model.addAttribute("showcase_num", showcase_num);
-		
-//		return "redirect:/main/view/" + showcase_num +"?commentCheck=true";
+        list = commentService.selectAll(showcase_num);
+        int totalCount = list.size();
+        PagingActionRequestParam.PagingAction(Integer.parseInt(currentPage), totalCount, 10, 3, "/main/view/" + showcase_num + "?commentCheck=true");
+        String pagingHtml = PagingActionRequestParam.getPagingHtml().toString();
+        int lastCount = totalCount;
+
+        if (PagingActionRequestParam.getEndCount() < totalCount) {
+            lastCount = PagingActionRequestParam.getEndCount() + 1;
+        }
+
+        list = list.subList(PagingActionRequestParam.getStartCount(), lastCount);
+
+        model.addAttribute("pagingHtml", pagingHtml);
+        model.addAttribute("list", list);
+        model.addAttribute("showcase_num", showcase_num);
 	}
 	
 	@RequestMapping(value="/{showcase_num}/commentWrite", method=RequestMethod.POST)

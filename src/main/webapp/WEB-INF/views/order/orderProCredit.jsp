@@ -17,7 +17,7 @@
 		<input type="hidden" name="business"
 			value="bebey7410-facilitator@hanmail.net" />
 		<!-- 상품 금액 -->
-		<input type="hidden" name="amount" value="${orderModel.total_price }" />
+		<input type="hidden" name="amount" value="${orderModel.change_price }" />
 		<!-- 상품 명 -->
 		<input type="hidden" name="item_name" value="KONG2" />
 		<!-- 결제 후 이동할 페이지 -->

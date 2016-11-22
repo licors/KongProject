@@ -74,7 +74,7 @@
                             <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
                             <c:choose>
                                 <c:when test="${list.show_status eq 0}">
-                                    D-${(end - start) + 1}
+                                    D-${(start - end) + 1}
                                 </c:when>
                                 <c:when test="${list.show_status eq 1}">
                                     개최중
@@ -112,7 +112,7 @@
                         <div class="place_price">
                             <div class="place">${list.address2}</div>
                             <div style="width:30px; height:2px; background-color:#F470C9; margin:20px 0px 10px 0px;"></div>
-                            <div class="price"><c:choose><c:when test="${list.price eq 0}">무료</c:when><c:when test="${list.price ne 0}">${list.price}원</c:when></c:choose></div>
+                            <div class="price"><c:choose><c:when test="${list.price eq 0}">무료</c:when><c:when test="${list.price ne 0}"><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</c:when></c:choose></div>
                                 </div>
                             </div><!-- contents-->
                             <!-- social -->

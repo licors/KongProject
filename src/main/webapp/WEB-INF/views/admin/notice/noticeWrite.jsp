@@ -8,10 +8,7 @@
         <title>공지사항</title>
     </head>
     <body>
-        <div class="container" style="width: 900px; max-width: none !important;">
-            <div class="panel panel-default">
-                <div class="panel-heading"><p style="font-size:28px; color:#000000; font-weight:bold; margin:0px 0px 0px 0px; padding:0px;">공지사항</p></div>
-                <div class="panel-body">
+       
                     <!-- <s:if test="rc == null"> -->
                         <form:form commandName="noticeModel" action="/notice/write" method="post">
                         <!-- </s:if> -->
@@ -51,8 +48,8 @@
                                 </tr>
                             </table>
                         </form:form>
-                </div>
-            </div>
-        </div>
+              
+          
+        
     </body>
 </html>

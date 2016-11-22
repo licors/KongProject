@@ -15,18 +15,15 @@
         <title>공지사항</title>
     </head>
     <body>
-        <div class="container" style="width: 900px; max-width: none !important;">
-            <div class="panel panel-default">
+        
                 <div class="panel-heading">
                     <div class="form-inline">
-                        <div class="form-group">
-                            <p style="font-size:28px; color:#000000; font-weight:bold; margin:0px 0px 0px 0px; padding:0px;">공지사항</p>
-                        </div>
+                        
                         <div class="form-group" style="float: right">
                              <!-- <s:if test="memresultClass.admin > 0"> -->
-                                <input name="support" type="button" value="수정"
+                                <input name="support" type="button" value="수정" class="btn btn-success btn-sm"
                                        onClick="javascript:location.href = '/notice/modify?notice_num=${view.notice_num}'" class="btn btn-default">
-                                <input name="support" type="button" value="삭제"
+                                <input name="support" type="button" value="삭제" class="btn btn-default btn-sm"
                                        onClick="javascript:location.href = '/notice/delete?notice_num=${view.notice_num }&currentPage=${list.currentPage }'" class="btn btn-default">
                             <!-- </s:if> --> 
                         </div>
@@ -53,7 +50,7 @@
                             <td><p class="text-center">${view.content }</p></td>
                         </tr>
                      </c:forEach> --%> 
-            </div>
-        </div>
+           
+       
     </body>
 </html>
