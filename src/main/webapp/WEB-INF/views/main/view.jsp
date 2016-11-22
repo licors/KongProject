@@ -90,7 +90,7 @@
                                     <c:forEach var="silceTags" items="${tags}" varStatus="stat">
                                         <a href="/main/search/Tag/${silceTags}" target="_blank">
                                             <div class="cgt_detail_tag">${silceTags}</div>
-                                        </a>&nbsp;
+                                        </a>
                                     </c:forEach>
                                 </c:if>
                             </div>
