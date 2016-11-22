@@ -12,8 +12,8 @@
     <body>
 
                         <div class="form-group" style="float: right">
-                            <input name="support" type="button" value="1:1 문의"
-                                   onClick="javascript:location.href = '/support/supportlist'" class="btn btn-default">
+                            <!-- <input name="support" type="button" value="1:1 문의"
+                                   onClick="javascript:location.href = '/support/supportlist'" class="btn btn-default"> -->
                  
                                 <input name="support" type="button" value="QnA 추가"
                                        onClick="javascript:location.href = '/faq/write'" class="btn btn-default">
