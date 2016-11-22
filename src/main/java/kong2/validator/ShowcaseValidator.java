@@ -17,7 +17,7 @@ public class ShowcaseValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "subject", "subject");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "showcase_category", "showcase_category");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address1", "address1");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address2", "address2");
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address2", "address2");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "start_date", "start_date");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "end_date", "end_date");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "price");
