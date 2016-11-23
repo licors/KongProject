@@ -96,8 +96,8 @@
                                 <div style="clear:both;"></div>
                         </div>
                     </div>
-                    <h3>실시간 주문 순위<a id="refresh" href="#" onClick="refresh()"><img src="/resources/image/header/refresh2.png" style="width: 20px; height: 20px;" ></a></h3>
-       <div id="scrolltextup" style="background-color:white;border:1px solid #e0e0e0; overflow:hidden; position:relative; width:200px; height:55px;" >
+                    <h5>실시간 신청 순위&nbsp;&nbsp;&nbsp;<a id="refresh" href="#" onClick="refresh()"><img src="/resources/image/header/refresh2.png" style="width: 10px; height: 10px;" ></a></h5>
+       <div id="scrolltextup" style="background-color:white;border:1px solid #e0e0e0; overflow:hidden; position:relative; width:250px; height:43px;" >
        </div>
                   <div id="best_10_sub" style=display:none;></div>
                     
@@ -183,7 +183,7 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
                         var best_10='';
                         /* var best_10_sub=''; */
                         
-                        best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
+                        best_10+="<div id='textup' style='text-align:left; position:absolute; top:0; left:0; width:500px;color:#fff;'><div style='line-height:20px;'>"            	   
                         jQuery.each(data, function(index,value){
                         best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
                         /* best_10_sub += value.showcase_num+"/"; */
@@ -211,7 +211,7 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
                            /*  var best_10_sub = $("#best_10_sub").text();
                             best_10_sub = best_10_sub.split('/'); */
                             
-                            best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
+                            best_10+="<div id='textup' style='text-align:left; position:absolute; top:0; left:0; width:500px;color:#fff;'><div style='line-height:20px;'>"            	   
                             jQuery.each(data, function(index,value){
                             	/* jQuery.each(best_10_sub, function(index2,value2){
                             		if((value1.showcase_num)!=(value2.showcase_num)){
@@ -243,7 +243,7 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
          	        success : function(data) {       	   
          	        var best_10='';
          	        
-         	        best_10+="<div id='textup' style='text-align:center; position:absolute; top:0; left:0; width:200px;color:#fff;'><div style='line-height:20px;'>"            	   
+         	        best_10+="<div id='textup' style='text-align:left; position:absolute; top:0; left:0; width:500px;color:#fff;'><div style='line-height:20px;'>"            	   
          	        jQuery.each(data, function(index,value){
          	        best_10 += "<a href='/main/view/" + value.showcase_num + "'>"+ (index+1) + ".&nbsp" + value.subject +"</a><br/>";
          	        });              /*  "onmouseover='mover()' onmouseout='mout()' */
