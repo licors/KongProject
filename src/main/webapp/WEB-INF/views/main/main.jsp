@@ -148,7 +148,7 @@
                             <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
                             <c:choose>
                                 <c:when test="${list.show_status eq 0}">
-                                    D-${end - start}
+                                    D-${(start - end) + 1}
                                 </c:when>
                                 <c:when test="${list.show_status eq 1}">
                                     개최중
@@ -214,7 +214,7 @@
                             <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
                             <c:choose>
                                 <c:when test="${list.show_status eq 0}">
-                                    D-${end - start}
+                                    D-${(start - end) + 1}
                                 </c:when>
                                 <c:when test="${list.show_status eq 1}">
                                     개최중
