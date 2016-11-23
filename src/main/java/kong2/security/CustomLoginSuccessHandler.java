@@ -36,7 +36,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		// TODO Auto-generated constructor stub
 		targetUrlParameter="";
 		defaultUrl="/";
-		adminUrl="/admin/main";
+		adminUrl="/notice/list_admin/1";
 		useReferer=false;
 	}
 	

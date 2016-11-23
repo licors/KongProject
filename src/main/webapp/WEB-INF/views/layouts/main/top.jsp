@@ -175,7 +175,7 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
             	$(function start(){				
                     jQuery.ajax({
                     type:"GET",
-                    url:"http://localhost:8080/best",
+                    url:"/best",
                     dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
                     cache : false,
                     
@@ -202,7 +202,7 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
          		setInterval(function refresh(){
          			jQuery.ajax({
                         type:"GET",
-                        url:"http://localhost:8080/best",
+                        url:"/best",
                         dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
                         cache : false,
                                           
@@ -236,7 +236,7 @@ rollingTimeIntervalID = setInterval(scrollTextUp, rollingTime);
             function refresh(){				
          	    jQuery.ajax({
          	    type:"GET",
-         	    url:"http://localhost:8080/best",
+         	    url:"/best",
          	    dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨 
          	    cache : false,
          	    
