@@ -92,7 +92,7 @@ public class OrderController {
 
 	// 바코드 이미지 경로
 	private String imgPath = "/resources/image/barcodeImg/";
-	private String uploadPath = "C:\\khproject\\src\\main\\webapp\\resources\\image\\barcodeImg\\"; // 이클립스
+	private String uploadPath = "C:\\webProject\\KongProject\\src\\main\\webapp\\resources\\image\\barcodeImg\\"; // 이클립스
 	private String show_imgPath = ShowcaseController.imgPath;
 
 	// 장바구니에서 주문했을 때 1로 바뀜

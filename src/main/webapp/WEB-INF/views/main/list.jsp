@@ -3,6 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %> 
+<%@page import="java.util.Date"%>
 <!-- 메인 jQuery등록부분 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script><!-- 메인 드랍다운용 -->
 <script type="text/javascript">
@@ -40,6 +41,7 @@
         })
     });
 </script>
+<jsp:useBean id="now" class="java.util.Date" />
 <div style="width:100%; background-color:#FFF; padding:0px 20px 20px 20px;">
     <div id="ContentPanel"></div>
     <c:if test="${keyword ne null}">
@@ -89,7 +91,7 @@
                             <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="end" />
                             <c:choose>
                                 <c:when test="${list.show_status eq 0}">
-                                    D-${(end - start) + 1}
+                                    D-${(start - end) + 1}
                                 </c:when>
                                 <c:when test="${list.show_status eq 1}">
                                     개최중
